@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>经销商</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+		.sw-payList:after{   
+		left: 0; 
+	}
+	.sw-header-liebiao{
+		display: inline-block;background: url(../../../image/person/repair/icon_liebiao.png) no-repeat;width: 21px;height: 21px;background-size:contain ;margin-bottom: 0;background-position: center;
+	}
+	.sw-header-ditu{
+		display: inline-block;background: url(../../../image/person/repair/icon_ditu@3x.png) no-repeat;width: 21px;height: 21px;background-size:contain ;margin-bottom: 0;background-position: center;
+	}
+	.sw-rafter:after{
+		content: '';
+		height: 24px;
+		background: #EFEFEF;  
+		margin-top: 9px;
+		width: 1px;
+		float: right;
+	}
+
+
+	.sw-after-no:after{
+		height: 0;
+	}
+	
+	.sw-title-box{
+		width: 100%;height: 42px;
+	}
+	.sw-title-1{
+		width: 33.3%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #FFFFFF;
+	}
+	.sw-header{
+		display: inline-block;margin-bottom: 0;color: #FFFFFF;
+	}
+	.sw-header.active{
+		border-bottom: 2px solid #FFFFFF;
+	}
+	
+	/*店铺*/
+	.sw-dp-img1{
+		width: 110px!important;max-width:110px!important;height: 110px!important;
+	}
+	.sw-dp-date{
+		font-size: 14px;
+	}
+	.sw-text1{
+		margin-left: 36px;margin-top: -20px;color: #666666;font-size: 12px;word-break: break-all;
+	}
+	.sw-renz-img{
+		width: 16px;vertical-align: middle;margin-left: 4px;
+	}
+	
+	.sw-biao-lei{
+		display:inline-block;
+		float: right;
+		font-size: 10px;
+		height: 18px;
+		line-height: 18px;
+		padding: 0 4px;
+		border-radius: 9px;
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	}
+	/*蓝色*/
+	.sw-biao-lei1{
+		border: 1px solid #3EB7FF;
+		color: #3EB7FF;
+	}
+	/*绿色*/
+	.sw-biao-lei2{
+		border: 1px solid #18C839;
+		color: #18C839;
+	}
+	/*粉色*/
+	.sw-biao-lei3{
+		border: 1px solid #FF6699;
+		color: #FF6699;
+	}
+	.sw-dp-cuBox3{
+		height: 110px;
+		white-space: normal; 
+		 color: #000000;
+	    overflow: hidden;
+	    display: -webkit-box;
+	    -webkit-line-clamp: 4;
+	    -webkit-box-orient: vertical;
+	    word-break: break-all;
+	    padding-top: 24px;
+	}
+
+	.sw-box-3{
+		    padding-right: 110px;
+		    display: inline-block;
+		    position: absolute;
+		    max-width: 100%;
+	}
+	.sw-box-4{
+		display: inline-block;max-width: 100%;position: relative;
+	}
+	.sw-box-5{
+		display: inline-block;max-width: 100%;color: #666666;
+	}		
+	.sw-renz{
+		background: url(../../../image/person/renzheng2.png) no-repeat;background-size: 16px;background-position: right 1px;padding-right:18px;
+	}
+	.sw-renv{
+		background: url(../../../image/person/renzheng.png) no-repeat;background-size: 16px;background-position: right 1px;padding-right:18px;
+	}
+	.sw-renv-renz{
+		background: url(../../../image/person/renzv-renz.png) no-repeat;background-size: 36px;background-position: right 1px;padding-right:38px;
+	}
+	
+	
+.mui-bar~.mui-content .mui-fullscreen {
+		top: 44px;
+		height: auto;
+	}
+	
+	.mui-pull-top-tips {
+		position: absolute;
+		top: -20px;
+		left: 50%;
+		margin-left: -25px;
+		width: 40px;
+		height: 40px;
+		border-radius: 100%;
+		z-index: 999;
+	}
+	
+	.mui-bar~.mui-pull-top-tips {
+		top: 24px;
+	}
+	
+	.mui-pull-top-wrapper {
+		width: 42px;
+		height: 42px;
+		display: block;
+		text-align: center;
+		background-color: #efeff4;
+		border: 1px solid #ddd;
+		border-radius: 25px;
+		background-clip: padding-box;
+		box-shadow: 0 4px 10px #bbb;
+		overflow: hidden;
+	}
+	
+	.mui-pull-top-tips.mui-transitioning {
+		-webkit-transition-duration: 200ms;
+		transition-duration: 200ms;
+	}
+	
+	.mui-pull-top-tips .mui-pull-loading {
+		/*-webkit-backface-visibility: hidden;
+	-webkit-transition-duration: 400ms;
+	transition-duration: 400ms;*/
+		margin: 0;
+	}
+	
+	.mui-pull-top-wrapper .mui-icon,
+	.mui-pull-top-wrapper .mui-spinner {
+		margin-top: 7px;
+	}
+	
+	.mui-pull-top-wrapper .mui-icon.mui-reverse {
+		/*-webkit-transform: rotate(180deg) translateZ(0);*/
+	}
+	
+	.mui-pull-bottom-tips {
+		text-align: center;
+		background-color: #efeff4;
+		font-size: 15px;
+		line-height: 40px;
+		color: #777;
+	}
+	
+	.mui-pull-top-canvas {
+		overflow: hidden;
+		background-color: #fafafa;
+		border-radius: 40px;
+		box-shadow: 0 4px 10px #bbb;
+		width: 40px;
+		height: 40px;
+		margin: 0 auto;
+	}
+	
+	.mui-pull-top-canvas canvas {
+		width: 40px;
+	}
+	
+	.mui-slider-indicator.mui-segmented-control {
+		background-color: #efeff4;
+	}
+</style>
+<body>
+	
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title" id="mui_title">所有轿车商家</h1>
+	</header>
+	
+	<div class="mui-content" style="background: #F5F5F5;">  
+		<div class="mui-scroll-wrapper" style="margin-top:44px;">    
+			<div class="mui-scroll sw-coterie-box" id="loadList">    
+				<div id="sjList">
+
+				</div>
+			</div>   
+		</div>	      
+	</div>
+	<input value="1" hidden="hidden" id="page"/>
+<!--列表模板-->
+<script id="sj-list-tpl" type="text/html">
+	{{# var len = d.length }} 
+	
+	{{# for(var i = 0;i < len; i++){ }}
+		
+		<ul class="mui-table-view" style="margin-top: 10px;" onclick="openJx('{{ d[i].EnterpriseID }}','{{ d[i].companyname }}')">
+		<li class="mui-table-view-cell mui-media sw-no-active">
+			<div style="width: 110px;height: 110px;display: inline-block;float: left;">
+				{{# if(d[i].face_pic!=''||d[i].face_pic!='null'){ }}
+				<img class="mui-media-object mui-pull-left sw-dp-img1" src="{{ imgUrl+d[i].face_pic }}">
+				{{# }else{ }}
+				<img class="mui-media-object mui-pull-left sw-dp-img1" src="../../../image/log.png">  
+				{{# } }} 
+			</div>	
+			<div style="height: 110px;position: relative;padding-left: 114px;">
+				<div class="sw-box-3">
+					{{# if(d[i].is_vip==1&&d[i].is_check==1){ }} 
+						<div class="sw-box-4 sw-renv-renz">   
+							<p class="sw-word-one sw-box-5 sw-ctheme">{{ d[i].companyname }}</p>	 		
+						</div>					
+					{{# }else{ }}
+						{{# if(d[i].is_vip==1){ }}  
+					 	<div class="sw-box-4 sw-renv">  
+							<p class="sw-word-one sw-box-5 sw-ctheme">{{ d[i].companyname }}</p>			
+						</div>
+						{{# }else if(d[i].is_check==1){ }}
+						<div class="sw-box-4 sw-renz">
+							<p class="sw-word-one sw-box-5 sw-ctheme">{{ d[i].companyname }}</p>			
+						</div>
+						{{# }else{ }}
+						<div class="sw-box-4">
+							<p class="sw-word-one sw-box-5">{{ d[i].companyname }}</p>			
+						</div>
+						{{# } }} 					
+					{{# } }}
+															
+				</div>
+				<div class="mui-media-body sw-dp-cuBox3">
+					<span style="font-size: 12px!important;">[主营]</span><p class="sw-text1">{{ d[i].major }}</p>  
+				</div>				
+			</div>							
+		</li>
+	</ul>
+	{{# } }}
+</script>
+</body>
+<script src="../../../js/mui.min.js"></script>
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/global.js"></script>
+<script src="../../../js/laytpl/laytpl.js"></script>
+<script src="../../../js/mui.pullToRefresh.js"></script>
+<script src="../../../js/mui.pullToRefresh.material.js"></script>
+<script type="text/javascript" charset="utf-8">
+	mui.init();
+	
+	mui.plusReady(function() {
+		
+		var self = plus.webview.currentWebview();
+		var	groupName = self.groupName;
+		var	keyword   = self.keyword;
+		var	type_2    = self.type_2;	
+		var typeStr   = (type_2==1)?'所有轿车商家':((type_2==2)?'所有货车商家':'所有用品商家')
+		
+      	var title = groupName?groupName:(keyword?keyword:typeStr);
+	     
+	     $("#mui_title").text(title);
+	   
+		
+		(function($) {
+			//阻尼系数
+			var deceleration = mui.os.ios?0.003:0.009;
+			$('.mui-scroll-wrapper').scroll({		
+				bounce: false,   
+				indicators: true, //是否显示滚动条
+				deceleration:deceleration 
+			});
+		})
+		
+		
+		mui("#loadList").pullToRefresh({ 
+			down: {
+				callback: function(){
+					location.href = location.href;
+				}
+			},
+			up: { 
+				auto: true,
+				offset: 50, //距离底部高度(到达该高度即触发)
+				contentnomore:contentnomoreStr,   
+				contentrefresh:contentrefreshStr,
+				callback: function() {  
+					
+						showSelf = this;				
+						var page = mui("#page")[0].value;//获取页数
+	     	      	
+					      	var data = {};  
+					      	var postData = {};
+					      		
+				      		//获取地址
+				      		var cityIni= plus.storage.getItem('cityIni');
+				      		//请求的数据
+				      		postData.page     = page;//请求的页码
+				      		postData.pageSize = 10;//每页显示数量
+				      		//其余参数
+				      		postData.car_cate_2 = self.group;//车系
+				      		postData.keyword    = self.keyword;//关键字
+				      		postData.type   = self.type;
+				      		postData.cityIni= cityIni;  
+				      		postData.type_2 = self.type_2;
+				      			
+				      		data.postData = postData;  
+				      		
+				      		//页面相关数据
+				      		data.mod      = 'api.sev.index';//模型
+				      		data.fun      = 'getFirms';//方法
+				      		data.tpl      = 'sj-list-tpl';//列表模板
+				      		data.listId   = 'sjList';//列表容器  
+				      		data.pageId   = 'page';//页码Id	 
+				      		
+							//请求并处理数据
+				  			loadInfoArr(data,false,showSelf);
+						
+						}
+					}
+		});  
+		
+	});
+
+	//页面跳转
+	function openJx(EnterpriseID,jxName){
+		loading('加载中...'); 
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+			
+			var postData = {'EnterpriseID':EnterpriseID,'jxName':jxName};
+			//打开窗口
+			mui.openWindow({
+					    url:'../../../view/index/shangjia/jingxiao.html',
+					    id:'index_shangjia_jingxiao',//默认使用当前页面的url作为id
+					    styles:{},//窗口参数
+					    extras:postData//自定义扩展参数
+				});
+		
+		}else{//未登录显示未登录界面
+		//关闭加载框
+		closeLoading();	
+		//顶部 
+		sw.toast('您还未登录，请登录后重试'); 
+		}
+	}
+</script>
+</html>

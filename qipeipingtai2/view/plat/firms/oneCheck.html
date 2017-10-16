@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>认证详情</title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+
+    <style>
+        .td_width_95{width: 95px; text-align: right;}
+        .div_90x110{width: 90px;display: inline-block; margin-right: 10px; margin-bottom: 10px;}
+        .span_90x110{width: 96px;height: 116px; text-align: center;line-height: 110px; display: inline-block; border: 1px solid lightgrey;margin-bottom: 5px;}
+        .span_90x20{width: 90px;height: 20px; text-align: center;line-height: 20px; display: inline-block;}
+    </style>
+</head>
+<body>
+<div class="col-xs-1"></div>
+<div class="col-xs-10">
+    <div class="ibox-content" style="border-width:0">
+        <div class="row">
+            <?php $OneCheck = isset($OneCheck) ? $OneCheck : '' ;?>
+            <?php if ($OneCheck) {?>
+            <table class="table table-hover">
+                <tr>
+                    <td class="td_width_95" style="text-align: left;"><span style="color: black;font-weight: 600;">公司信息</span></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td class="td_width_95">公司全称：</td>
+                    <td colspan="2"><?php echo $OneCheck['firmsName'] ;?></td>
+                </tr>
+                <tr>
+                    <td class="td_width_95">联系人：</td>
+                    <td colspan="2"><?php echo $OneCheck['firmsMan'] ;?></td>
+                </tr>
+                <tr>
+                    <td class="td_width_95">所在城市：</td>
+                    <td colspan="2"><?php echo $OneCheck['province'] .'/'. $OneCheck['city'] .'/'. $OneCheck['district'] ;?></td>
+                </tr>
+                <tr>
+                    <td class="td_width_95">手机号码：</td>
+                    <td colspan="2"><?php echo $OneCheck['firmsTel'] ;?></td>
+                </tr>
+                <tr>
+                    <td class="td_width_95">详细地址：</td>
+                    <td colspan="2"><?php echo $OneCheck['address'] ;?></td>
+                </tr>
+                <tr>
+                    <td class="td_width_95" style="text-align: left;"><span style="color: black;font-weight: 600;">资质照片</span></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div class="col-xs-12 col-sm-12 input-group">
+                            <div class="div_90x110">
+                                <span class="span_90x110">
+                                    <?php if ($OneCheck['licence_pic']) {?>
+                                    <img style="width: 90px;height: 110px ;border: 0;" alt="营业执照" src="<?php echo $OneCheck['licence_pic'] ;?>">
+                                    <?php }else{ ?>
+                                    未上传
+                                    <?php } ?>
+                                </span>
+                                <span class="span_90x20">营业执照</span>
+                            </div>
+                            <div class="div_90x110">
+                                <span class="span_90x110">
+                                    <?php if ($OneCheck['taxes_pic']) {?>
+                                    <img style="width: 90px;height: 110px ;border: 0;" alt="纳税认证" src="<?php echo $OneCheck['taxes_pic'] ;?>">
+                                    <?php }else{ ?>
+                                    未上传
+                                    <?php } ?>
+                                </span>
+                                <span class="span_90x20">纳税认证</span>
+                            </div>
+
+                            <div class="div_90x110">
+                                <span class="span_90x110">
+                                    <?php if ($OneCheck['field_pic']) {?>
+                                    <img style="width: 90px;height: 110px ;border: 0;" alt="实地认证" src="<?php echo $OneCheck['field_pic'] ;?>">
+                                    <?php }else{ ?>
+                                    未上传
+                                    <?php } ?>
+                                </span>
+                                <span class="span_90x20">实地认证</span>
+                            </div>
+
+                            <div class="div_90x110">
+                                <span class="span_90x110">
+                                    <?php if ($OneCheck['brand_pic']) {?>
+                                    <img style="width: 90px;height: 110px ;border: 0;" alt="商标认证" src="<?php echo $OneCheck['brand_pic'] ;?>">
+                                    <?php }else{ ?>
+                                    未上传
+                                    <?php } ?>
+                                </span>
+                                <span class="span_90x20">商标认证</span>
+                            </div>
+
+                            <div class="div_90x110">
+                                <span class="span_90x110">
+                                    <?php if ($OneCheck['agents_pic']) {?>
+                                    <img style="width: 90px;height: 110px ;border: 0;" alt="产品代理认证" src="<?php echo $OneCheck['agents_pic'] ;?>">
+                                    <?php }else{ ?>
+                                    未上传
+                                    <?php } ?>
+                                </span>
+                                <span class="span_90x20">产品代理认证</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php if($OneCheck['status'] == 3){?>
+                <tr>
+                    <td class="td_width_95" style="text-align: left;"><span style="color: black;font-weight: 600;">拒绝原因</span></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td colspan="3"><?php echo $OneCheck['reason'] ;?></td>
+                </tr>
+
+                <?php }?>
+                <?php }else{?>
+                <tr>
+                    <td colspan="3" style="text-align: center;">
+                        获取认证详情失败
+                    </td>
+                </tr>
+            </table>
+            <?php }?>
+        </div>
+    </div>
+</div>
+</body>
+</html>

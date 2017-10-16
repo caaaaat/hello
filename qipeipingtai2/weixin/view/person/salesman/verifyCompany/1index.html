@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>验证厂商</title>
+    <link href="../../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8"/>
+    <link href="../../../../css/mui.picker.all.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="utf-8">   
+    </script>
+</head>
+<style>
+	.sw-payList:after{
+		left: 0;
+	}
+	.sw-title{
+		font-size: 14px;color: #666;
+	}
+	.sw-money-box{
+		float: right;font-weight: 700;font-size: 16px;	
+	}
+	.sw-date{
+		font-size: 12px;display:inline-block;color: #999;width: 40%;text-align: left;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	.sw-text{
+		float: right;font-size: 12px;color: #666;width: 50%;text-align: right;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	.sw-payList p{
+		height: 21px;line-height: 24px;
+	}
+	.sw-no-active:active{
+		background: #FFFFFF;
+	}
+	.sw-input-search{
+		text-align: left;
+		height: 36px!important;
+		background: url(../../../image/index/icon_wz_sousuo@3x.png)no-repeat;
+		background-position: 24px;
+		background-size: 16px;
+		padding-left: 42px!important;
+		font-size: 14px;
+		border-color:#FFFFFF!important;
+		border-radius: 24px!important;
+	}
+	.sw-header-liebiao{
+		display: inline-block;background: url(../../../../image/person/repair/icon_liebiao.png) no-repeat;width: 21px;height: 21px;background-size:contain ;margin-bottom: 0;background-position: center;
+	}
+	.sw-header-ditu{
+		display: inline-block;background: url(../../../../image/person/repair/icon_ditu@3x.png) no-repeat;width: 21px;height: 21px;background-size:contain ;margin-bottom: 0;background-position: center;
+	}
+	
+	
+	.sw-title-box{
+		width: 100%;height: 42px;border-bottom: 1px solid #DDDDDD;background: #FFFFFF;
+	}
+	.sw-title-2{
+		width: 50%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+	}
+	.sw-rafter:after{
+		content: '';
+		height: 24px;
+		background: #EFEFEF;
+		margin-top: 9px;
+		width: 1px;
+		float: right;
+	}
+	.sw-biao-lei1{
+		display:inline-block;border: 1px solid #3EB7FF;font-size: 10px;color: #3EB7FF;height: 18px;line-height: 19px!important;width:58px;border-radius: 9px;text-align: center;
+	}
+	.sw-biao-lei2{
+		display:inline-block;border: 1px solid #41dd62;font-size: 10px;color: #41dd62;height: 18px;line-height: 19px!important;width:58px;border-radius: 9px;text-align: center;
+	}
+	.sw-biao-lei3{
+		display:inline-block;border: 1px solid #ff7a9f;font-size: 10px;color: #ff7a9f;height: 18px;line-height: 19px!important;width:58px;border-radius: 9px;text-align: center;
+	}
+	.sw-renz{
+		padding: 1px 8px;background: url(../../../../image/person/renzheng2.png) no-repeat;background-size: contain;background-position: center;margin-left: 4px;
+	}
+	.sw-dingwei{
+		padding:1px 8px;background: url(../../../../image/person/repair/icon_dingwei.png) no-repeat;background-size: 10px;background-position: center;margin-left: 4px;
+	}
+	.sw-text-r{
+		float: right;font-size: 12px;color: #666;
+	}
+	.sw-fanye{
+			padding:1px 8px;background: url(../../../../image/person/repair/icon_fanye_1.png) no-repeat;background-size: 10px;background-position: center;margin-left: 4px;
+	
+	}
+	.sw-after-no:after{
+		height: 0;
+	}
+</style>
+<body style="background: #EFEFEF;">
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">
+	    	<p style="margin-bottom: 0;">
+	   		   <input type="text" placeholder="输入汽修厂名称查询" class="sw-input-search">	
+	   		</p>
+	    </h1>
+	    <a class="mui-icon mui-pull-right">
+	    	<p class="sw-header-ditu"></p>
+	    </a>
+	</header>
+	
+	<div class="mui-content" style="background: #EFEFEF;">
+	   
+	 	<div class="sw-title-box">
+	   		<div class="sw-title-2 sw-rafter" style="width: 25%;" id="showCityPicker"><span>全部</span><span class="sw-fanye"></span></div>
+	   		<div class="sw-title-2" style="width: 25%;" id="qixiu"><span>全部汽修厂</span><span class="sw-fanye"></span></div>
+	   		<div class="sw-title-2 sw-rafter" style="width: 25%;" id="showJiShu"><span>级数</span><span class="sw-fanye"></span></div>
+	   		<div class="sw-title-2 sw-rafter" style="width: 25%;" id="showShaiXuan"><span>筛选</span><span class="sw-fanye"></span></div>
+	   	</div>
+	   
+	   	<div style="height: 100%;width: 100%;position: absolute" id="allmap"><p style="text-align: center;margin-top: 20px;">地图加载中...</p></div>
+	   
+	   	<ul class="mui-table-view" style="margin-top: 0;display: none;">
+			 <li class="mui-table-view-cell sw-payList sw-no-active">
+			 	<p><span style="font-size: 14px;color: #666;">汽修厂企业名称<span class="sw-renz"></span></span></p>
+			 	<div style="clear: both;"></div>
+			 	<div style="margin-top: 8px;">
+			 		<p class="sw-biao-lei1">快修保养</p>
+			 		<span class="sw-text-r"><span class="sw-dingwei"></span>1.3km</span>
+			 	</div>
+			 </li>	
+			 <li class="mui-table-view-cell sw-payList sw-no-active">
+			 	<p><span style="font-size: 14px;color: #666;">汽修厂企业名称<span class="sw-renz"></span></span></p>
+			 	<div style="clear: both;"></div>
+			 	<div style="margin-top: 8px;">
+			 		<p class="sw-biao-lei2">修理店</p>
+			 		<span class="sw-text-r"><span class="sw-dingwei"></span> 1.3km</span>
+			 	</div>
+			 </li>
+			  <li class="mui-table-view-cell sw-payList sw-no-active">
+			 	<p><span style="font-size: 14px;color: #666;">汽修厂企业名称<span class="sw-renz"></span></span></p>
+			 	<div style="clear: both;"></div>
+			 	<div style="margin-top: 8px;">
+			 		<p class="sw-biao-lei3">美容店</p>
+			 		<span class="sw-text-r"><span class="sw-dingwei"></span> 1.3km</span>
+			 	</div>
+			 </li>
+	 	</ul>
+	    
+	    <div id="popover" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;">
+	    	
+	    	<ul class="mui-table-view" style="margin-top: 0;text-align: center;font-size: 14px;color: #666666;">
+				 <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no" >
+				 	 全部汽修厂
+				 </li>	
+				 <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">
+				 	快修保养
+				 </li>
+				  <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">
+				 	修理店
+				 </li>
+				   <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">
+				 	美容店
+				 </li>
+	 		</ul>
+	    	
+	    </div>
+	    <!--级数-->
+	    <div id="popoverJiShu" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;">
+	    	<ul class="mui-table-view" style="margin-top: 0;text-align: center;font-size: 14px;color: #666666;">
+				 <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no" >全部</li>	
+				 <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">1级</li>
+				 <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">2级</li>
+				 <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">3级</li>
+	 		</ul>
+	    </div>
+	    <!--筛选-->
+	    <div id="popoverShaiXuan" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;">
+	    	<ul class="mui-table-view" style="margin-top: 0;text-align: center;font-size: 14px;color: #666666;">
+				 <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no" >全部</li>	
+				 <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">未认证厂商</li>
+				 <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">已关联厂商</li>
+				 <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">未关联厂商</li>
+	 		</ul>
+	    </div>
+	</div>
+	
+</body>
+ <script src="../../../../js/mui.min.js"></script>
+ <script src="../../../../js/global.js"></script>
+<script src="../../../../js/mui.picker.js"></script>
+<script src="../../../../js/mui.poppicker.js"></script>
+<script src="../../../../js/city.data-3.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZBcSIHdvwjfx105K8jvQCj5W"></script> 
+ <script>
+(function($, doc) {
+	
+		//设置地图高度
+		var allHeight = window.screen.height;	
+		var mapHight  = (allHeight -110)+'px'; 
+		document.getElementById('allmap').style.height = mapHight; 
+	 //创建子页面，首个选项卡页面显示，其它均隐藏；
+	 // 扩展API加载完毕后调用onPlusReady回调函数 
+	document.addEventListener( "plusready", onPlusReady, false );
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	function onPlusReady() {
+		plus.geolocation.getCurrentPosition( function ( p ) {
+			alert( "Geolocation\nLatitude:" + p.coords.latitude + "\nLongitude:" + p.coords.longitude + "\ncoordsType:" + p.coordsType );			
+//			console.log(JSON.stringify(p))
+			var point = new BMap.Point(p.coords.longitude, p.coords.latitude);		
+			//地图坐标 
+			setMap(point);  
+			var coordsType = p.coordsType;
+			if(coordsType==='gcj02'){
+//				console.log(coordsType)
+				var convertor = new BMap.Convertor();
+		        var pointArr = [];
+		        pointArr.push(point);
+		        convertor.translate(pointArr, 1, 5, function(data){
+		        	 if(data.status==0){
+		        	 	point = data.points[0];
+		        	 	//重设地图坐标
+		        	 	setMap(point);
+		        	 } 
+		        })
+			}
+			  
+		}, function ( e ) {
+			console.log("Gelocation Error: code - "+e.code+"; message - "+e.message);
+	        switch(e.code) {
+	          case e.PERMISSION_DENIED:
+	              alert("User denied the request for Geolocation.");
+	              break;
+	          case e.POSITION_UNAVAILABLE:
+	              alert("Location information is unavailable.");
+	              break;
+	          case e.TIMEOUT:
+	              alert("The request to get user location timed out.");
+	              break;
+	          case e.UNKNOWN_ERROR:
+	              alert("An unknown error occurred.");
+	              break;
+	          }
+		} );
+			
+	}
+	
+	//生成坐标
+	function setMap(point){      	 
+	 	// 百度地图API功能
+		var map = new BMap.Map("allmap"); 
+//		map.disablePinchToZoom(); 
+		//	var point = new BMap.Point(116.404, 39.915);
+		map.centerAndZoom(point, 15);
+		var myIcon = new BMap.Icon("../../../../image/person/repair/icon_dingwei_x.png", new BMap.Size(60,120));
+		var marker = new BMap.Marker(point,{icon:myIcon});  // 创建标注
+		map.addOverlay(marker);   
+	}
+	
+	
+	mui("#qixiu")[0].addEventListener('tap',function(){
+		mui('#popover').popover('show');
+	})
+	//级数
+	mui("#showJiShu")[0].addEventListener('tap',function(){
+		mui('#popoverJiShu').popover('show');
+	})
+	//筛选
+	mui("#showShaiXuan")[0].addEventListener('tap',function(){
+		mui('#popoverShaiXuan').popover('show');
+	})
+	var cityCode = '510000';
+	//初始化城市选择
+	var cityPicker = new $.PopPicker({
+		layer: 2,
+		title:'选择城市',
+	});
+			
+	var cityData1 =  {
+						value: '0',
+					 	text: '全部',
+						children: [{
+				                value: "0",
+				                text: "全部"
+				        }]
+					};
+					
+	var cityData2 =  {
+					value: '0',
+				 	text: '全部',
+					};
+					
+	mui.each(cityData3,function(index,item){
+	  if(item.value==cityCode){
+	  	var cityData  = item.children;
+	  	var arr = [];
+	  	mui.each(cityData,function(index1,item1){	  		
+	  		item1.children.unshift(cityData2);  		
+	  	});	  	
+	  	cityData.unshift(cityData1);
+//	  	console.log(JSON.stringify(cityData))
+	  	cityPicker.setData(cityData);
+	  }
+	  
+	}) 
+	
+	var showCityPickerButton = document.getElementById('showCityPicker');	
+	document.getElementById('showCityPicker').addEventListener('tap', function(event) {
+		cityPicker.show(function(items) {
+			var text = "你选择的城市是:" + (items[0] || {}).value + " " + (items[1] || {}).value;
+			console.log(text);
+			//返回 false 可以阻止选择框的关闭
+			//return false;
+		});
+	}, false);
+})(mui, document);	
+
+
+
+ </script>
+ 
+ 
+</html>

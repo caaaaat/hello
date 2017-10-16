@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>支付结果</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">
+      
+    </script>
+</head>
+<body style="background: #F5F5F5;">
+	
+	<header class="mui-bar mui-bar-nav">
+	    <h1 class="mui-title">支付结果</h1>
+	</header>
+	
+	<div class="mui-content" style="padding: 0 20px;background: #F5F5F5;">
+	   	    
+	    <div style="width: 100%;text-align: center;padding-top: 140px;padding-bottom: 30px;">
+	    	<div id="success" style="display: none;">
+	    		<img src="../../../image/person/vip/icon_zhifu_chenggong@3x.png" width="80px"/>
+	    		<p style="color: #333333;font-weight: 700;line-height: 28px;">支付成功</p>
+	    	</div>
+	    	
+	    	<div id="faild" style="display: none;">
+	    		<img src="../../../image/person/vip/icon_zhifu_shibai@3x.png" width="80px"/>
+	    		<p style="color: #333333;font-weight: 700;line-height: 28px;">支付失败</p>
+	    	</div>
+	    	
+	    </div>
+	    
+	    <button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" onclick="goBack()">返回</button>
+	</div>
+	
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+ <script src="../../../js/jquery.min.js"></script>
+ <script>
+ 	//mui初始化
+	mui.init();
+	//初始化
+	mui.plusReady(function() {
+
+		var self = plus.webview.currentWebview();
+		var status = self.status;
+		if(status=='success'){
+			$("#success").show();
+		}else{
+			$("#faild").show();
+		}
+
+	})
+
+	/**
+	 * 返回
+	 */
+	function goBack(){
+		plus.webview.getWebviewById("person_refresh_index").reload(true);
+		plus.webview.close('person_refresh_pay', 'slide-out-bottom', '300');
+		mui.back();
+	}
+	
+ </script>
+</html>

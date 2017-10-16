@@ -1,0 +1,140 @@
+<link rel="stylesheet" href="/css/pc/person/approveInfo.css">
+<style>
+    .renZhengImgListDiv img:hover{cursor: pointer;}
+</style>
+<div style="min-height: 640px;">
+    <div class="titles" style="position: relative">
+        <div class="goBackDiv"><a href="javascript:history.back(-1)"><img src="/images/qpxm/pc/person/shopInfo/left.png" style="vertical-align: baseline" alt=""> 返回</a></div>
+        <span style="font-size: 24px;font-weight: 500;">认证信息</span>
+    </div>
+    <!--认证列表-->
+    <div id="renZhengList">
+        <table>
+            <tr>
+                <td>
+                    <img src="/images/qpxm/pc/person/approveInfo/renZheng.png" width="35px" height="25px" alt="">
+                    <span>营业执照 ：</span>
+                    <?php if($renZheng && $renZheng['status']==2 && $renZheng['licence_pic']){?>
+                    <img src="/images/qpxm/pc/person/approveInfo/yes.png" class="yesImg" alt="">
+                    <?php }?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/images/qpxm/pc/person/approveInfo/renZheng.png" width="35px" height="25px" alt="">
+                    <span>纳税认证 ：</span>
+                    <?php if($renZheng && $renZheng['status']==2 && $renZheng['taxes_pic']){?>
+                    <img src="/images/qpxm/pc/person/approveInfo/yes.png" class="yesImg" alt="">
+                    <?php }?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/images/qpxm/pc/person/approveInfo/renZheng.png" width="35px" height="25px" alt="">
+                    <span>实地认证 ：</span>
+                    <?php if($renZheng && $renZheng['status']==2 && $renZheng['field_pic']){?>
+                    <img src="/images/qpxm/pc/person/approveInfo/yes.png" class="yesImg" alt="">
+                    <?php }?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/images/qpxm/pc/person/approveInfo/renZheng.png" width="35px" height="25px" alt="">
+                    <span>商标认证 ：</span>
+                    <?php if($renZheng && $renZheng['status']==2 && $renZheng['brand_pic']){?>
+                    <img src="/images/qpxm/pc/person/approveInfo/yes.png" class="yesImg" alt="">
+                    <?php }?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/images/qpxm/pc/person/approveInfo/renZheng.png" width="35px" height="25px" alt="">
+                    <span>产品代理认证 ：</span>
+                    <?php if($renZheng && $renZheng['status']==2 && $renZheng['agents_pic']){?>
+                    <img src="/images/qpxm/pc/person/approveInfo/yes.png" class="yesImg" alt="">
+                    <?php }?>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!--认证证书图片-->
+    <div class="renZhengImgDiv">
+        <div class="renZhengImgListDiv">
+            <?php if($renZheng && $renZheng['status']==2 && $renZheng['licence_pic']){?>
+            <img src="<?php echo $renZheng['licence_pic'];?>" class="zhiZhaoImg" alt="">
+            <?php }else{?>
+            <img src="/images/qpxm/pc/person/approveInfo/noRenZheng.png" class="zhiZhaoImg" alt="">
+            <?php }?>
+            <div class="zhengShuText">营业执照</div>
+        </div>
+        <div class="renZhengImgListDiv">
+            <?php if($renZheng && $renZheng['status']==2 && $renZheng['taxes_pic']){?>
+            <img src="<?php echo $renZheng['taxes_pic'];?>" class="zhiZhaoImg" alt="">
+            <?php }else{?>
+            <img src="/images/qpxm/pc/person/approveInfo/noRenZheng.png" class="zhiZhaoImg" alt="">
+            <?php }?>
+            <div class="zhengShuText">纳税认证</div>
+        </div>
+        <div class="renZhengImgListDiv">
+            <?php if($renZheng && $renZheng['status']==2 && $renZheng['field_pic']){?>
+            <img src="<?php echo $renZheng['field_pic'];?>" class="zhiZhaoImg" alt="">
+            <?php }else{?>
+            <img src="/images/qpxm/pc/person/approveInfo/noRenZheng.png" class="zhiZhaoImg" alt="">
+            <?php }?>
+            <div class="zhengShuText">实地认证</div>
+        </div>
+        <div class="renZhengImgListDiv">
+            <?php if($renZheng && $renZheng['status']==2 && $renZheng['brand_pic']){?>
+            <img src="<?php echo $renZheng['brand_pic'];?>" class="zhiZhaoImg" alt="">
+            <?php }else{?>
+            <img src="/images/qpxm/pc/person/approveInfo/noRenZheng.png" class="zhiZhaoImg" alt="">
+            <?php }?>
+            <div class="zhengShuText">商标认证</div>
+        </div>
+        <div class="renZhengImgListDiv">
+            <?php if($renZheng && $renZheng['status']==2 && $renZheng['agents_pic']){?>
+            <img src="<?php echo $renZheng['agents_pic'];?>" class="zhiZhaoImg" alt="">
+            <?php }else{?>
+            <img src="/images/qpxm/pc/person/approveInfo/noRenZheng.png" class="zhiZhaoImg" alt="">
+            <?php }?>
+            <div class="zhengShuText">产品代理认证</div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <div class="renZhengDivBtn">
+        <?php if($ing==1){?>
+            <button class="renZhengBtnDiv" onclick="location.href='/person/approveResult'">重新认证</button>
+        <?php }else{?>
+            <button class="renZhengBtnDiv" onclick="location.href='/person/approve'">重新认证</button>
+        <?php }?>
+    </div>
+</div>
+
+
+<!--右侧固定定位QQ、电话-->
+<div class="fixedDinWei">
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="showF(this)">
+            <div class="fixedYuan"><img src="/images/qpxm/pc/index/phone.png" alt=""></div>
+        </a>
+        <div class="fixedQQ">123456</div>
+    </div>
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="showF(this)" target="_blank">
+            <div style="float: right;"><img src="/images/qpxm/pc/index/rQQ.png" alt=""></div>
+        </a>
+        <div class="fixedQQ">123456</div>
+    </div>
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="goTop()">
+            <div style="float: right;"><img src="/images/qpxm/pc/index/rUp.png" alt=""></div>
+        </a>
+    </div>
+</div>
+<script src="/js/pc/layer/layer.js"></script>
+<script>
+    layer.photos({
+        photos: '.renZhengImgListDiv'
+        ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+    });
+</script>

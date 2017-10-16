@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>咨询列表</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.32x32.ico">
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <!--<link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">-->
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .wrapper-content{padding-top: 2px;}
+        th{text-align: center;}
+        .w100{  width: 100px; display: inline-block;  overflow:hidden;  text-overflow:ellipsis;  white-space:nowrap;}
+        .w80{  width: 80px; display: inline-block;  overflow:hidden;  text-overflow:ellipsis;  white-space:nowrap;}
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content" style="padding-bottom: 0">
+    <div class="row" style="padding-left: 0;">
+        <div class="col-xs-6 col-sm-6 input-group">
+            <input type="hidden" value="<?php echo isset($type) ? $type : 1 ;?>" id="_type" />
+            <input type="text" class="form-control input-xs" id="searchKey" placeholder="企业ID/昵称/绑定手机"/>
+            <span class="input-group-btn"><button type="submit" class="btn btn-primary" id="find"> 搜 索 </button></span>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <!--列表开始-->
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>企业ID</th>
+                    <th>昵称</th>
+                    <th>手机号</th>
+                    <th>企业名称</th>
+                    <th>企业类型</th>
+                    <th>企业分类</th>
+                    <th>所属区域</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="firm_show" style="text-align: center"></tbody>
+            </table>
+        </div>
+            <script id="firm_model" type="text/html">
+            {{# if(d.massageCode == 'success') { }}
+            {{# var list = d.list; for(var i = 0, len = list.length; i < len; i++){ }}
+            {{# var typeArr = { 0:'',1:'经销商',2:'修理厂'} }}
+            {{# var classArr = { 0:{0:'',1:'',2:'',3:'',4:'',5:'',6:''} , 1:{0:'',1:'轿车商家',2:'货车商家',3:'用品商家',4:'',5:'',6:''}, 2:{0:'',1:'',2:'',3:'',4:'修理厂',5:'快修保养',6:'美容店'}  }   }}
+            <tr style="cursor: pointer; height: 32px;" onclick="choice(this)">
+                <td>
+                    <span>{{ list[i].EnterpriseID }}</span>
+                </td>
+                <td>
+                    <span class="w100" title="{{ list[i].uname == null ? '' : list[i].uname }}">{{ list[i].uname == null ? '' : list[i].uname }}</span>
+                </td>
+                <td>
+                    <span>{{ list[i].phone }}</span>
+                </td>
+                <td>
+                    <span class="w100" title="{{ list[i].companyname == null ? '' : list[i].companyname }}">{{ list[i].companyname == null ? '' : list[i].companyname }}</span>
+                </td>
+                <td>
+                    <span>{{ list[i].type == null ? '' : typeArr[list[i].type] }}</span>
+                </td>
+
+                <td>
+                    <span>{{ list[i].type == null ? '' : classArr[list[i].type][list[i].classification] }}</span>
+                </td>
+                <td>
+                    <span class="w80" title="{{ list[i].area }}">{{ list[i].area }}</span>
+                </td>
+                <td>
+                    <span><input  value="{{ list[i].id }}" data-name="{{ list[i].companyname }}" type="radio" name="firm"/></span>
+                </td>
+            </tr>
+            {{# } }}
+            {{# }else{ }}
+            <td colspan="10">
+                <span>{{ d.massage }}</span>
+            </td>
+            {{# } }}
+        </script>
+        <!--列表结束-->
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-xs-12" style="text-align: center; margin-bottom: 25px;">
+        <button class="btn btn-def" type="submit" onclick="parent.layer.closeAll()">取消</button>
+        <button class="btn btn-primary" type="submit" onclick="choice_ok()">确认</button>
+    </div>
+</div>
+</body>
+<script  type="text/javascript" src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<!--弹窗js-->
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+<script src="/js/laytpl/laytpl.js"></script>
+
+<script>
+    $(function(){
+        getChoiceFirm();
+        $("#find").click(function(){
+            getChoiceFirm();
+        });
+    });
+    /**
+     * 获取数据
+     */
+    function getChoiceFirm(){
+        var data      = {} ;
+        data.type     = $("#_type").val();
+        data.keywords = $("#searchKey").val();//关键字
+        var url       = '/plat.charge/getChoiceFirm';
+        $.post(url,{data:data},function(rv){
+            var tpl = $("#firm_model").html();
+            laytpl(tpl).render(rv, function(html){
+                $("#firm_show").html(html);
+            });
+        },'json');
+    }
+    /**
+     * 选中
+     * @param obj
+     */
+    function choice(obj) {
+        var radio = $(obj).find('input[type=radio]');
+        $(radio).prop('checked',true);
+    }
+
+    function choice_ok() {
+        var checkedObj = $('input[type=radio]:checked');
+        var type     = $("#_type").val();
+
+        if(checkedObj.length == 0){
+            if(type == 1){
+                layer.msg('请选择充值的经销商')
+            }else {
+                layer.msg('请选择充值的厂商')
+            }
+        }else {
+            var id    = checkedObj.val() ;
+            var name  = checkedObj.attr('data-name') ;
+            if(type == 1){
+                $(parent.document.getElementById('tab_1_2_firm_id')).val(id);
+                $(parent.document.getElementById('tab_1_1_firm_name')).text(name);
+            }else {
+                $(parent.document.getElementById('tab_1_2_firm_id')).val(id);
+                $(parent.document.getElementById('tab_1_2_firm_name')).text(name);
+            }
+            parent.layer.closeAll();
+        }
+    }
+</script>
+</html>

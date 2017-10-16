@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>认证</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link href="../../../css/mui.picker.all.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css?v=1.0.1" type="text/css" charset="utf-8"/>
+</head>
+<style> 
+	.sw-list-title{
+		font-size: 12px;color: #999;width: 70px;display: inline-block;
+	}
+	.sw-list-title1{
+		font-size: 14px;width: 70px;display: inline-block;color: #333;
+	}
+	.sw-list-text1{
+		font-size: 12px;margin-left: 12px;color: #666;
+	}
+	.sw-list-text2{
+		float: right;margin-right:16px;font-size: 12px;color: #666;
+	}
+	.sw-list-text3{
+		margin-right:16px;font-size: 12px;color: #666;
+	}
+	.sw-list-input1{
+		border: none;height: 21px;font-size:12px;width: 70%;color: #666;
+	}
+	.sw-list-input2{
+		border: none;height: 21px;font-size:12px;width: 60%;color: #666;
+	}
+	
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.sw-after-r:after{
+		margin-right: 15px;
+	}
+	.sw-after-no:after{
+		height: 0;
+	}
+	.sw-before-no:before{
+		height: 0;
+	}
+	.sw-tips{
+		font-size: 12px;text-align: center;margin-bottom: 0;
+	}
+	.sw-after-l:after{
+		left: 0;
+	}
+	.sw-address{
+		border: none;font-size: 12px;overflow-y: hidden;padding: 0;margin-bottom: 0;color: #666;
+	}
+	.sw-icon-ca{
+		position: absolute;right: 2px;top: 12px;width: 14px;height: 14px;background: url(../../../image/person/purchase/icon_zp_cha.png) no-repeat;background-size: contain;
+	}
+	
+	.mui-popup-button:after {
+    width: 0px;
+}
+.mui-popup-inner:after {
+    height: 0px;
+}
+.mui-popup-button:first-child:last-child {
+    border-radius: 4px;
+}
+.sw-popu-btn{
+	width:70%;height:36px;line-height:14px;border-radius: 1px;margin: auto;font-size: 16px;
+}
+</style>
+<body style="background: #F5f5f5;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">认证</h1>
+	     <button class="mui-btn mui-btn-link mui-pull-right" id="reAuth" style="display: none;">重新认证</button> 
+	</header>
+	
+	<div style="width: 100%;margin-top: 45px;margin-bottom: 55px;">
+	<div style="padding: 6px 15px;">
+		<p class="sw-ctheme sw-tips">经销商需认证后才会被搜索到</p>
+		<p class="sw-ctheme sw-tips">汽修厂/美容店需认证后才能上架清仓商品</p>
+		<input type="text" name="authStatus" id="authStatus" value="1" hidden="hidden" />
+		
+	</div>	
+	
+	<ul class="mui-table-view" style="margin-top: -1px;" id="authList">
+		 <li class="mui-table-view-cell  sw-no-active sw-after-r">
+		 	<p style="font-size: 14px;color: #333333;">公司信息 <span class="sw-ctheme">(必填)</span></p>
+		 </li>
+		 <li class="mui-table-view-cell  sw-no-active sw-after-r">
+		 	<span class="sw-list-title">公司全称：</span>
+		 	<input class="sw-list-input1" id="firmsName" placeholder="请输入公司全称"/>
+		 </li>
+		 
+		  <li class="mui-table-view-cell  sw-no-active sw-after-r">
+		 	<span class="sw-list-title">联系人：</span>
+		 	<input class="sw-list-input1" id="firmsMan" placeholder="请输入联系人名称"/>
+		 </li>
+		
+		 <li class="mui-table-view-cell  sw-no-active sw-after-r">
+		 	<span class="sw-list-title">手机号码：</span>
+		 	<input class="sw-list-input1" id="firmsTel" placeholder="请输入联系人手机号码"/>
+		 </li>
+		
+		
+		<li class="mui-table-view-cell sw-after-r" id="showCityPicker">
+			<a class="mui-navigate-right">
+				<span class="sw-list-title">所在城市：</span>
+				<span class="sw-list-text2" id="cityStr">请选择所在城市</span>
+				<input type="text" name="province"  id="province" value="" hidden="hidden"/>
+				<input type="text" name="city" 		id="city" value="" hidden="hidden"/>
+				<input type="text" name="district"  id="district" value="" hidden="hidden"/>
+			</a>
+		</li>
+
+		 <li class="mui-table-view-cell sw-no-active sw-after-l">
+			<span class="sw-list-title">详细地址：</span>
+			<div style="margin-left: 72px;margin-top: -22px;font-size: 12px;color: #999999;">
+	 			<textarea class="sw-address" name="address" id="address" placeholder="坐标地址不计入详细地址中，需再手动填写"></textarea>
+	 		</div>
+		</li>
+		 
+		<li class="mui-table-view-cell sw-after-r sw-no-active" style="padding-right: 0;padding-left: 0;">
+			<p style="font-size: 14px;color: #333333;padding-left: 15px;padding-right: 15px;">资质照片 <span class="sw-ctheme">(至少上传1张)</span></p>
+			
+			<ul class="mui-table-view mui-grid-view mui-grid-5 sw-after-no sw-before-no" style="padding:0 0 20px;">
+		            
+	            <li class="mui-table-view-cell mui-media mui-col-sm-33" id="yyzz">	            		
+	            	<img class="mui-media-object" id="imgSrc" src="../../../image/person/purchase/tianjiazp.png" onclick="showActionSheet(this,'yyzz')">
+	            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">营业执照</span>
+	            </li>
+	            
+	            <li class="mui-table-view-cell mui-media mui-col-sm-33" id="nsrz">
+	            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png" onclick="showActionSheet(this,'nsrz')">
+	            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">纳税认证</span>
+	            </li>
+	            
+	            <li class="mui-table-view-cell mui-media mui-col-sm-33" id="sdrz">
+	            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png" onclick="showActionSheet(this,'sdrz')">
+	            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">实地认证</span>
+	            </li>
+	            
+	            <li class="mui-table-view-cell mui-media mui-col-sm-33" id="sbrz">
+	            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png" onclick="showActionSheet(this,'sbrz')">	
+	            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">商标认证</span>
+	            </li>
+	            
+	            <li class="mui-table-view-cell mui-media mui-col-sm-33" id="cpdlrz">
+	            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png" onclick="showActionSheet(this,'cpdlrz')">	
+	            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">产品代理认证</span>
+	            </li>
+ 
+			    </ul>
+		    
+		    <div style="width: 100%;padding: 0 10%;">
+				 	<button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" onclick="saveAuth()">提交审核</button>
+			</div>
+		</li> 
+	</ul>		
+</div>
+<!--认证模板-->	
+<script id="auth-list-tpl" type="text/html">
+	{{# if(d.status==3){ }}
+	<!--审核失败-->	
+ 	<li class="mui-table-view-cell  sw-no-active sw-after-r">
+	 	<p style="font-size: 14px;color: #333333;">公司信息 <span class="sw-ctheme">(必填)</span></p>
+	 </li>
+	 <li class="mui-table-view-cell  sw-no-active sw-after-r">
+	 	<span class="sw-list-title">公司全称：</span>
+	 	<input class="sw-list-input1" id="firmsName" value="{{ d.firmsName }}" placeholder="请输入公司全称"/>
+	 </li>
+	 
+	  <li class="mui-table-view-cell  sw-no-active sw-after-r">
+	 	<span class="sw-list-title">联系人：</span>
+	 	<input class="sw-list-input1" id="firmsMan" maxlength="10" value="{{ d.firmsMan }}" placeholder="请输入联系人名称"/>
+	 </li>
+	
+	 <li class="mui-table-view-cell  sw-no-active sw-after-r">
+	 	<span class="sw-list-title">手机号码：</span>
+	 	<input class="sw-list-input1" id="firmsTel" maxlength="11" value="{{ d.firmsTel }}" placeholder="请输入联系人手机号码"/>
+	 </li>
+	
+	
+	<li class="mui-table-view-cell sw-after-r" id="showCityPicker">
+		<a class="mui-navigate-right">
+			<span class="sw-list-title">所在城市：</span>
+			<span class="sw-list-text2"  id="cityStr">{{ d.province }} {{ d.city }} {{ d.district }}</span>
+			<input type="text" name="province"  id="province" value="{{ d.province }}" hidden="hidden"/>
+			<input type="text" name="city" 		id="city" value="{{ d.city }}" hidden="hidden"/>
+			<input type="text" name="district"  id="district" value="{{ d.district }}" hidden="hidden"/>					
+		
+		</a>
+	</li>
+
+	 <li class="mui-table-view-cell sw-no-active sw-after-l">
+		<span class="sw-list-title">详细地址：</span>
+		<div style="margin-left: 72px;margin-top: -22px;font-size: 12px;color: #999999;">
+ 			<textarea class="sw-address" name="address" id="address" placeholder="坐标地址不计入详细地址中，需再手动填写">{{ d.address }}</textarea>
+ 		</div>
+	</li>
+	 
+	<li class="mui-table-view-cell sw-after-r sw-no-active" style="padding-right: 0;padding-left: 0;">
+		<p style="font-size: 14px;color: #333333;padding-left: 15px;padding-right: 15px;">资质照片 <span class="sw-ctheme">(至少上传1张)</span></p>
+		
+		<ul class="mui-table-view mui-grid-view mui-grid-5 sw-after-no sw-before-no" style="padding:0 0 20px;">
+	            
+            <li class="mui-table-view-cell mui-media mui-col-sm-33" id="yyzz">
+            	{{# if(d.licence_pic&&d.licence_pic!=null){ }}
+            	<p class="sw-icon-ca" onclick="delImg(this,'yyzz')"></p>
+            	<img class="mui-media-object" style="height:{{ imgH }}px;" src="{{ imgUrl+d.licence_pic }}">
+            	{{# }else{ }}	
+            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png" onclick="showActionSheet(this,'yyzz')">
+            	{{# } }}
+            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">营业执照</span>
+            </li>
+            
+            <li class="mui-table-view-cell mui-media mui-col-sm-33" id="nsrz">
+            	
+            	{{# if(d.taxes_pic&&d.taxes_pic!=null){ }}
+            	<p class="sw-icon-ca" onclick="delImg(this,'nsrz')"></p>
+            	<img class="mui-media-object" style="height:{{ imgH }}px;" src="{{ imgUrl+d.taxes_pic }}">
+            	{{# }else{ }}	
+            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png" onclick="showActionSheet(this,'nsrz')">
+            	{{# } }}
+            	
+            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">纳税认证</span>
+            </li>
+            
+            <li class="mui-table-view-cell mui-media mui-col-sm-33" id="sdrz">
+            	
+            	{{# if(d.field_pic&&d.field_pic!=null){ }}
+            	<p class="sw-icon-ca" onclick="delImg(this,'sdrz')"></p>
+            	<img class="mui-media-object" style="height:{{ imgH }}px;" src="{{ imgUrl+d.field_pic }}">
+            	{{# }else{ }}	
+            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png" onclick="showActionSheet(this,'sdrz')">
+            	{{# } }}
+            	
+            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">实地认证</span>
+            </li>
+            
+            <li class="mui-table-view-cell mui-media mui-col-sm-33" id="sbrz">
+            	
+            	{{# if(d.brand_pic&&d.brand_pic!=null){ }}
+            	<p class="sw-icon-ca" onclick="delImg(this,'sbrz')"></p>
+            	<img class="mui-media-object" style="height:{{ imgH }}px;" src="{{ imgUrl+d.brand_pic }}">
+            	{{# }else{ }}	
+            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png" onclick="showActionSheet(this,'sbrz')">
+            	{{# } }}
+            	
+            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">商标认证</span>
+            </li>
+            
+            <li class="mui-table-view-cell mui-media mui-col-sm-33" id="cpdlrz">
+            	
+            	{{# if(d.agents_pic&&d.agents_pic!=null){ }}
+            	<p class="sw-icon-ca" onclick="delImg(this,'cpdlrz')"></p>
+            	<img class="mui-media-object" style="height:{{ imgH }}px;" src="{{ imgUrl+d.agents_pic }}">
+            	{{# }else{ }}	
+            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png" onclick="showActionSheet(this,'cpdlrz')">
+            	{{# } }}
+            	
+            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">产品代理认证</span>
+            </li>
+ 
+		 </ul>
+	   
+	</li>
+	
+	<li class="mui-table-view-cell sw-after-l sw-no-active" style="text-align: center;padding-top: 20px;padding-bottom: 30px;">
+        <p style="font-size: 12px;" class="sw-ctheme">审核失败</p>
+        {{# if(d.reason){ }}
+        <p style="font-size: 12px;color: #666666;">{{ d.reason }}，请重新进行审核申请</p>
+        {{# }else{ }}
+        <p style="font-size: 12px;color: #666666;">未填写拒绝审核原因，请重新进行审核申请</p>
+        {{# } }}
+		<div style="width: 100%;padding: 0 8%;margin-top: 30px;">
+		 	<button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" onclick="saveAuth()">重新申请</button>
+		</div>           
+	</li>
+	{{# }else{ }}
+
+	<!--审核中和审核通过-->	
+	<li class="mui-table-view-cell  sw-no-active sw-after-r">
+	 	<p style="font-size: 14px;color: #333333;">公司信息 <span class="sw-ctheme">(必填)</span></p>
+	 </li>
+	 <li class="mui-table-view-cell  sw-no-active sw-after-r">
+	 	<span class="sw-list-title">公司全称：</span>
+	 	<span class="sw-list-text3">{{ d.firmsName }}</span>
+	 </li>
+	 
+	  <li class="mui-table-view-cell  sw-no-active sw-after-r">
+	 	<span class="sw-list-title">联系人：</span>
+	 	<span class="sw-list-text3">{{ d.firmsMan }}</span>
+	 </li>
+	
+	 <li class="mui-table-view-cell  sw-no-active sw-after-r">
+	 	<span class="sw-list-title">手机号码：</span>
+	 	<span class="sw-list-text3">{{ d.firmsTel }}</span>
+	 </li>
+	
+	
+	<li class="mui-table-view-cell sw-no-active sw-after-r">	
+		<span class="sw-list-title">所在城市：</span>
+		<span class="sw-list-text3">{{ d.province }} {{ d.city }} {{ d.district }}</span>		
+	</li>
+
+	 <li class="mui-table-view-cell sw-no-active sw-after-l">
+		<span class="sw-list-title">详细地址：</span>
+		<span class="sw-list-text3">{{ d.address }}</span>		
+	</li>
+	 
+	<li class="mui-table-view-cell sw-after-r sw-no-active" style="padding-right: 0;padding-left: 0;">
+		<p style="font-size: 14px;color: #333333;padding-left: 15px;padding-right: 15px;">资质照片 <span class="sw-ctheme">(至少上传1张)</span></p>
+		
+		<ul class="mui-table-view mui-grid-view mui-grid-5 sw-after-no sw-before-no" style="padding:0 0 20px;">
+	            
+             <li class="mui-table-view-cell mui-media mui-col-sm-33" >
+            	{{# if(d.licence_pic&&d.licence_pic!=null){ }}
+            	<img class="mui-media-object" style="height:{{ imgH }}px;" src="{{ imgUrl+d.licence_pic }}" data-preview-src="{{ imgUrl+d.licence_pic }}" data-preview-group="1">
+            	{{# }else{ }}	
+            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png">
+            	{{# } }}
+            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">营业执照</span>
+            </li>
+            
+            <li class="mui-table-view-cell mui-media mui-col-sm-33">
+            	
+            	{{# if(d.taxes_pic&&d.taxes_pic!=null){ }}
+            	<img class="mui-media-object" style="height:{{ imgH }}px;" src="{{ imgUrl+d.taxes_pic }}" data-preview-src="{{ imgUrl+d.taxes_pic }}" data-preview-group="1">
+            	{{# }else{ }}	
+            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png"> 
+            	{{# } }}
+            	
+            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">纳税认证</span>
+            </li>
+            
+            <li class="mui-table-view-cell mui-media mui-col-sm-33">
+            	
+            	{{# if(d.field_pic&&d.field_pic!=null){ }}
+            	<img class="mui-media-object" style="height:{{ imgH }}px;" src="{{ imgUrl+d.field_pic }}" data-preview-src="{{ imgUrl+d.field_pic }}" data-preview-group="1">
+            	{{# }else{ }}	
+            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png">
+            	{{# } }}
+            	
+            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">实地认证</span>
+            </li>
+            
+            <li class="mui-table-view-cell mui-media mui-col-sm-33">
+            	
+            	{{# if(d.brand_pic&&d.brand_pic!=null){ }}
+            	<img class="mui-media-object" style="height:{{ imgH }}px;" src="{{ imgUrl+d.brand_pic }}" data-preview-src="{{ imgUrl+d.brand_pic }}" data-preview-group="1">
+            	{{# }else{ }}	
+            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png">
+            	{{# } }}
+            	
+            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">商标认证</span>
+            </li>
+            
+            <li class="mui-table-view-cell mui-media mui-col-sm-33">
+            	
+            	{{# if(d.agents_pic&&d.agents_pic!=null){ }}
+            	<img class="mui-media-object" style="height:{{ imgH }}px;" src="{{ imgUrl+d.agents_pic }}" data-preview-src="{{ imgUrl+d.agents_pic }}" data-preview-group="1">
+            	{{# }else{ }}	
+            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png">
+            	{{# } }}
+            	
+            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">产品代理认证</span>
+            </li>
+ 
+		</ul>		    		    
+	</li>
+	
+	{{# if(d.status==1){ }}
+		<li class="mui-table-view-cell sw-after-l sw-no-active" style="text-align: center;padding-top: 20px;padding-bottom: 30px;">
+	        <p style="font-size: 12px;" class="sw-ctheme">审核中</p>
+	        <p style="font-size: 12px;color: #666666;">提交日期  {{ d.create_time }}</p>
+	        <p style="font-size: 12px;color: #666666;">将在1~3个工作日完成审核，请保持电话通畅</p>          
+		</li>
+	{{# }else{ }}
+		<li class="mui-table-view-cell sw-after-l sw-no-active" style="text-align: center;padding-top: 20px;padding-bottom: 30px;">
+	        <p style="font-size: 12px;" class="sw-ctheme">审核通过</p>
+	        <p style="font-size: 12px;color: #666666;">通过日期 {{ d.create_time }}</p>        
+		</li>
+	{{# } }} 
+	
+	{{# } }} 
+</script>
+
+<!--图片上传-->	
+<script id="imgUpload-list-tpl" type="text/html">
+	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png"  onclick="showActionSheet(this,'{{ d.imgId }}')">	
+	<span style="font-size: 12px;color: #666666;" class="sw-word-one">{{ d.str }}</span>
+</script>
+
+<!--图片上传完成后模板-->	
+<script id="imgShow-list-tpl" type="text/html">
+	<p class="sw-icon-ca" onclick="delImg(this,'{{ d.imgId }}')"></p>
+	<img class="mui-media-object" style="height:{{ imgH }}px;" src="{{ imgUrl+d.url }}">	
+	<span style="font-size: 12px;color: #666666;" class="sw-word-one">{{ d.str }}</span>
+</script>
+
+</body>
+<!--基础函数-->
+<script src="../../../js/mui.min.js"></script>
+<script src="../../../js/global.js"></script>
+<script src="../../../js/jquery.min.js"></script>
+<!--城市选择-->
+<script src="../../../js/mui.picker.js"></script>
+<script src="../../../js/mui.poppicker.js"></script>
+<script src="../../../js/city.data-3.js"></script>
+<!--模板-->
+<script src="../../../js/laytpl/laytpl.js"></script>
+<!--图片预览-->
+<script src="../../../js/mui.previewimage.js?v=1.0.6"></script>   
+<script src="../../../js/mui.zoom.js"></script> 
+<script>
+	//mui初始化
+	mui.init();
+	
+	var imgH = $("#imgSrc").width();
+	//mui plusReady
+	mui.plusReady(function() {	
+		
+		var token  = plus.storage.getItem('token');
+	    //请求经销商数据
+		//加载弹窗
+		loading('加载中...'); 
+		//获取数据
+		http.load('api.sev.user','getCompanyAuth',{'token':token},function(rData){
+			sw.jcon(rData);
+			//关闭加载框 
+			closeLoading(300);
+			if(rData.status==200){	//未提交认证 页面不做任何处理			
+				if(rData.status==200){
+					var auth = rData.data;						       							
+					//初始化公司信息					 	 				
+				 	var authTpl   = $('#auth-list-tpl').html();	 		
+			        laytpl(authTpl).render(auth,function(render){            
+			            $('#authList').html(render);    
+			        });
+			        
+			        if(auth.status==2||auth.status==1){
+			        	//重新审核按钮
+			        	$("#reAuth").show();
+			        	
+			        	mui("#reAuth")[0].addEventListener('tap',function(){
+							openView('../../../view/person/auth/reAuth.html','person_auth_reAuth','pop-in');  
+						})
+			        }
+			        
+			        
+			        if(auth.status==3){
+			        	//初始化城市选择
+						setCityPick();
+						//初始化图片保存
+						plus.storage.setItem('authImgyyzz',auth.licence_pic);
+						plus.storage.setItem('authImgnsrz',auth.taxes_pic);
+						plus.storage.setItem('authImgsdrz',auth.field_pic);
+						plus.storage.setItem('authImgsbrz',auth.brand_pic);
+						plus.storage.setItem('authImgcpdlrz',auth.agents_pic); 
+			        }else if(auth.status==2||auth.status==1){
+			        	mui.previewImage();		
+			        }
+				}			
+			}else if(rData.status==201){
+					//初始化城市选择
+					setCityPick();
+					//初始化图片保存
+					plus.storage.setItem('authImgyyzz','');
+					plus.storage.setItem('authImgnsrz','');
+					plus.storage.setItem('authImgsdrz','');
+					plus.storage.setItem('authImgsbrz','');
+					plus.storage.setItem('authImgcpdlrz',''); 					
+			}else{
+				sw.toast(rData.msg); 
+			}
+			   	 
+		},function(xhr,type,errorThrown){			
+		 		//关闭加载框
+				closeLoading();		
+				//无网络提示
+				sw.toast('获取数据失败，请检查网络'); 	
+		}) 
+
+									
+	})
+	
+	//初始化城市选择
+	function setCityPick(){		
+		
+		var cityPicker = new mui.PopPicker({
+				layer: 3,
+				title:'选择城市'
+		});
+		cityPicker.setData(cityData3);
+		
+		var showCityPickerButton = document.getElementById('showCityPicker');
+		
+		document.getElementById('showCityPicker').addEventListener('tap', function(event) {
+			cityPicker.show(function(items) {
+				var province = (items[0] || {}).text;
+				var city     = (items[1] || {}).text;
+				var district = (items[2] || {}).text;
+				
+				province = province?province:'';
+				city     = city?city:'';
+				district = district?district:'';
+				
+				$("#province").val(province);
+				$("#city").val(city);			
+				$("#district").val(district);
+							
+				var cityStr = province+ " " + city+ " " + district;
+				$("#cityStr").text(cityStr);
+			});
+		}, false);			
+	}
+	
+	
+	//选取图片的来源，拍照和相册  
+function showActionSheet(conf,imgId){  
+  var divid = conf.id;  
+      var actionbuttons=[{title:"拍照"},{title:"相册选取"}];  
+      var actionstyle={title:"选择照片",cancel:"取消",buttons:actionbuttons};  
+      plus.nativeUI.actionSheet(actionstyle, function(e){  
+            if(e.index==1){  
+                appendByCamera(imgId);
+            }else if(e.index==2){  
+                appendByGallery(imgId);  
+            }  
+      } );  
+    }  
+
+var files={};
+// 上传文件
+function upload(imgId){
+	if(files.length<=0){
+		plus.nativeUI.alert("没有添加上传文件！");
+		return;
+	}
+	loading('上传中');
+	var task=plus.uploader.createUpload(imgUploadImg, 
+		{method:"POST"},
+		function(t,status){ //上传完成
+			closeLoading();			
+			if(status==200){
+				sw.jcon(t.responseText);	
+				var rData   = JSON.parse(t.responseText);
+					sw.toast(rData.msg);
+					
+				var rStatus = rData.status;
+					if(rStatus==200){
+					
+						var rz   = [];
+						rz['yyzz'] = '营业执照';
+						rz['nsrz'] = '纳税认证';
+						rz['sdrz'] = '实地认证';
+						rz['sbrz'] = '商标认证';
+						rz['cpdlrz'] = '产品代理认证';
+								
+					var data = {};
+						data.imgId = imgId;
+						data.url   = rData.url;
+						data.str   = rz[imgId];
+				 	var imgShowTpl   = $('#imgShow-list-tpl').html();	 		
+				    laytpl(imgShowTpl).render(data,function(render){            
+				        $("#"+imgId).html(render);    
+				    });
+					
+					var storId = 'authImg'+imgId;
+					plus.storage.setItem(storId,rData.url);
+					
+					}
+			}else{
+				sw.toast("上传失败："+status);				
+			}
+			
+		}
+	);
+	task.addFile(files.path,{key:files.name});	
+	task.start();
+}
+// 拍照添加文件
+function appendByCamera(imgId){
+	plus.camera.getCamera().captureImage(function(p){
+		appendFile(p,imgId);
+	});	
+}
+// 从相册添加文件
+function appendByGallery(imgId){
+	plus.gallery.pick(function(p){
+        appendFile(p,imgId);
+    });
+}
+// 添加文件
+function appendFile(p,imgId){
+	files = {name:"uploadkey",path:p};
+	upload(imgId);
+}
+// 产生一个随机数
+function getUid(){
+	return Math.floor(Math.random()*100000000+10000000).toString();
+}
+
+/**
+ * 删除图片
+ * @param {Object} j
+ * @param {Object} imgId
+ */
+function delImg(j,imgId){
+	var rz   = [];
+		rz['yyzz'] = '营业执照';
+		rz['nsrz'] = '纳税认证';
+		rz['sdrz'] = '实地认证';
+		rz['sbrz'] = '商标认证';
+		rz['cpdlrz'] = '产品代理认证';
+				
+	var data = {};
+		data.imgId = imgId;
+		data.str   = rz[imgId];
+		sw.jcon(data) 
+ 	var imgUploadTpl   = $('#imgUpload-list-tpl').html();	 		
+    laytpl(imgUploadTpl).render(data,function(render){            
+        $("#"+imgId).html(render);    
+    });
+    
+    var storId = 'authImg'+imgId;
+	plus.storage.setItem(storId,'');
+}
+
+
+/**
+ * 保存认证信息
+ */
+function saveAuth(){
+	var firmsName = $.trim($("#firmsName").val());
+	var firmsMan = $.trim($("#firmsMan").val());
+	var firmsTel = $.trim($("#firmsTel").val());
+	var province = $.trim($("#province").val());
+	var city 	 = $.trim($("#city").val());
+	var district = $.trim($("#district").val());
+	var address  = $.trim($("#address").val());
+	
+	var licence_pic = plus.storage.getItem('authImgyyzz');
+	var taxes_pic   = plus.storage.getItem('authImgnsrz');
+	var field_pic   = plus.storage.getItem('authImgsdrz');
+	var brand_pic   = plus.storage.getItem('authImgsbrz');
+	var agents_pic  = plus.storage.getItem('authImgcpdlrz');
+	
+	//监控页面是否登录
+	if(UserInfo.has_login()){
+		token   = plus.storage.getItem('token');	
+	}else{
+		sw.toast('您还未登录，请先登陆才能发布求购');
+		return;
+	}
+	
+	if(firmsName==''){
+		sw.toast('请填写公司全称');
+		return;
+	}
+	
+	if(firmsMan==''){
+		sw.toast('请填写联系人姓名');
+		return;
+	}
+	
+	if(firmsTel==''){
+		sw.toast('请填写手机号码');		
+		return;
+	}else{//验证手机号
+		if(Verification.isTel(firmsTel)==false){//验证手机号码输入是否正确
+ 				sw.toast('您输入的手机号码有误，请检查后重试');
+ 				return; 
+ 			}	
+	}
+	
+	if(province==''){
+		sw.toast('请选择所在城市');
+		return;
+	}
+	
+	if(address==''){
+		sw.toast('请填写公司详细地址');
+		return;
+	}
+	
+	if(licence_pic==''&&taxes_pic==''&&field_pic==''&&brand_pic==''&&agents_pic==''){		
+		sw.toast('请至少上传一张资质照片');
+		return;
+	}
+	
+	var postData = {};
+		postData.token = token;
+	
+		postData.firmsName = firmsName;
+		postData.firmsMan  = firmsMan;
+		postData.firmsTel  = firmsTel;
+		postData.province  = province;
+		postData.city     = city;
+		postData.district = district;
+		postData.address  = address;
+		
+		postData.licence_pic = licence_pic;
+		postData.taxes_pic   = taxes_pic;
+		postData.field_pic   = field_pic;
+		postData.brand_pic   = brand_pic;
+		postData.agents_pic  = agents_pic;
+		
+		sw.jcon(postData)
+	mui.confirm('确认提交审核？', '&nbsp;', ['<span class="mui-popup-button mui-btn sw-popu-btn" style="color:#333">确认</span>','<span class="mui-popup-button mui-btn mui-btn-blue sw-popu-btn">取消</span>' ], function(e) {				
+					var authStatus = $("#authStatus").val();
+					if (e.index == 1&&authStatus==1) {//确认						
+						$("#authStatus").val(0); 
+						loading('发布中...');
+						//如果已经登陆 获取登录后的数据
+						http.load('api.sev.user','saveAuth',postData,function(rData){//请求成功
+							closeLoading();	
+							sw.toast(rData.msg); 
+							if(rData.status==200){
+				 				//发布求购成功
+								var person = plus.webview.getWebviewById("person_purchase_auth");
+								person.reload(true);  									 					
+							}else{
+								$("#authStatus").val(1); 
+							}
+							
+						},function(){
+							$("#authStatus").val(1); 
+							closeLoading();	
+							//无网络提示
+				 			//sw.toast('请求失败，服务器或网络异常');
+						});
+												
+					}				
+				},'div')
+				$('.mui-popup-button').css('font-size','16px');		
+		
+	
+}
+</script>
+</html>

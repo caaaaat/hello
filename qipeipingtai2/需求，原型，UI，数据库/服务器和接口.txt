@@ -1,0 +1,89 @@
+服务器：
+http://www.7pqun.com
+http://119.23.215.135/
+
+Xm800065822
+
++--------------------------
+
+远程数据库（mysql)
+  IP:www.7pqun.com 119.23.215.135
+user:car
+ pwd:!@car@!
+
++--------------------------
+
+苹果账号（ios）
+
+账号 3200680070@qq.com
+密码 hyq976369BB
+io.dcloud.H504CB610
+
+
+io.dcloud.H504CB6101
+
++--------------------------
+
+天翼短信
+账号 ixumei@qq.com
+密码 ixumei
+
+
++--------------------------
+腾讯开发者平台
+2397992048@qq.com
+密码：hyq976369
+
+微信平台相关账号
+
+微信开发者
+账号 569330915@qq.com
+密码 hyq976369
+
+微信支付商户号 1482223572
+商户平台登录账号 1482223572@1482223572
+商户平台登录密码 683576
+appid：wx0e20859689356ec5
+key：hlshfosdhfshfdsodhfsdhfoisdfidkv
+AppSecret：a32b97daee82cec9f14c247052a005bd
+
+汽配群（）
+应用APPID wx0e20859689356ec5
+
+
++--------------------------
+
+
+支付宝
+账号      ixumei@qq.com
+密码      hyq976369BB
+支付密码  hyq97636981895BB
+ 
+应用公钥RSA2(SHA256)密钥(推荐)
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxnOIZKvvR4EauuxPe8+lMmNTRU5aqith+mQaFg/gR5gBvk1og//CTJlYjuXAgxxgO0M+I/IVgTtCmcqbXgjb7U4gQcyVTpfFLpsfLYz2v8jeiadYbeT4W/IMXcvKmXp1cOxH3OBv4Xltz6vFy4ss1cJ/gQyMMYBIHN4IGXXw8bHCyEYpoDnyNjahbvvrad0RSB9Akvm91MJDQEmufZ2BB9HWiX64zXnAXHIQbXIO93AffqN5KPQHub/4xMwqDvzF+bEb6Vi/yR6aNA78Y0C+kKPEIZlHtInBsLHMhqkrPPkCgKFL8jyHOyXxZx7dEOm+FEwlWpn7ZXpkGI+Y3w2cPwIDAQAB
+
+支付宝公钥
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnDsADRzZYjynNILO8pqGYQfpVpXVYWU4nOAlvz7b37gtof3eB96Rmspl4/9Fu+W9kKv3MIM6Vn076akHo9WPGItosMndGNQWW2eFnZ+L/qh4uqm8TAntQLT0ikRXJyTYBdfj64ij+FeDEwGhVz/pjBPyvYaHruHCVoUqLyhqCVC63bZdawIah4uvXBTrmHWK2KAtWZbxgGq5DaDzmph6waRFc4ppHWBI3kHc62vRmfgU24DMETNapM5KAVf3vqlRk6Q96oHTn0MPA+NAf3Tgbp7iISo2lBsXmdojz3tpulcM1s4stsASp93qe9+Qrvjt4GsbF3A73+EpB2UvoGwibwIDAQAB
+
+商户私钥
+MIIEpAIBAAKCAQEAxnOIZKvvR4EauuxPe8+lMmNTRU5aqith+mQaFg/gR5gBvk1og//CTJlYjuXAgxxgO0M+I/IVgTtCmcqbXgjb7U4gQcyVTpfFLpsfLYz2v8jeiadYbeT4W/IMXcvKmXp1cOxH3OBv4Xltz6vFy4ss1cJ/gQyMMYBIHN4IGXXw8bHCyEYpoDnyNjahbvvrad0RSB9Akvm91MJDQEmufZ2BB9HWiX64zXnAXHIQbXIO93AffqN5KPQHub/4xMwqDvzF+bEb6Vi/yR6aNA78Y0C+kKPEIZlHtInBsLHMhqkrPPkCgKFL8jyHOyXxZx7dEOm+FEwlWpn7ZXpkGI+Y3w2cPwIDAQABAoIBAQDFKU1t71/n432CDnsdX/wZJpM5fRIYlMdf9Anyt0008/FvdwqKchRA8+0G834jBJMa7cCUB9STsyOFFcTsVNLjXkYv+Sixj5mopxb/s1gGzHNDwY3aiKyy9LSSj4C2oPKDAUyYRicBlRmjRF5bzeb6bKUuuh+ioneCrpjPaty50gjVuUowYgOdCdAAhbjN4qzzPd1CGt5x9BpyEvjZ4Fq6hhMYIc1M0br2l6ywgVhk/odT+tnHODXGmvi6N5mD1eWzxsZ5EVZ2Sl+ZpjccrdjFeZb65wNqxKXAwqBm5KCmGUMZSGUPE8ZRiCavbSdlzdoFrXoBw+6RPXfe0l8CcgzxAoGBAOc947npy/OVPbK4SxGSZxMHOWSi/bIdmCt4XqCiOzKxPD+9t4JMx5jgGVk5fMcOSSk/tzMWW+rGqxkUrFyp2bUfKKXrTaNi4IjvGreH8YqQ5YjlaZXMsIdciZ71h3ZN/9DBcPl+YIxVjylneUOqzvr52S1WuULjAa2XcddA50bXAoGBANuy444oTNWUxkGK3V5r9QpWCiSsxVVVj4G+qEML1oqz670zVDotLHbBoBdqgc5N7VdDeqiyQS+kTFVtZrRfKLq33Gwh1LaPi81uTxvnbVyd2lt5NwS+l6v5ayiaXwQszO0Om61WRQXjh+URVB1MHl9FLmmEEJemv+eVTgfuD/DZAoGAdu+SLZFe4U4licLYeZU/hr30exqKOg6WseUbZquKnywhvPcrZ81t6+d3oji7QPbMEnc/FvutEzhT0HadoJuL6mi4U36PVDYLHuM8bqFxTr/wD1VP1UiOk1C5SBUpM2Qy64BTR0AFEKkBFV6vNGqqQtQ3K+arKwfvWQXH+9raGckCgYBRYU5RVjQ/2UAm/x1I4IyAK6bONwFRvsPNt6X0T+pErqjgCKdmdV1HECoRAm7a0Jrd/CzvWDg1QZLVAhVNMwKPR5Pqqg11Im8SxY2gNHWaHQ7JW3k51K+yEE3VWHlhvoaaORMJfi9LIyEvhN+3in6lo6axhy3uPuJPEks5PMHC4QKBgQDF6x7qFR+sraIfy6AINoXcqrqnYrVFE5TQQuuhHqWHOEAzLlPkFSyizgqdTuepLL+Sfucd8wlsbKrCP7nCFEsUX4gdfUvoyNZ/Lr4aPJdqQi1ECywmQsmkg28m5bZxsnd/+/NC2SCj/ioRrVw2I2Ut0mPOWDEnW37QHiso85fFJA==
+
+
+应用公钥RSA(SHA1)密钥
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxnOIZKvvR4EauuxPe8+lMmNTRU5aqith+mQaFg/gR5gBvk1og//CTJlYjuXAgxxgO0M+I/IVgTtCmcqbXgjb7U4gQcyVTpfFLpsfLYz2v8jeiadYbeT4W/IMXcvKmXp1cOxH3OBv4Xltz6vFy4ss1cJ/gQyMMYBIHN4IGXXw8bHCyEYpoDnyNjahbvvrad0RSB9Akvm91MJDQEmufZ2BB9HWiX64zXnAXHIQbXIO93AffqN5KPQHub/4xMwqDvzF+bEb6Vi/yR6aNA78Y0C+kKPEIZlHtInBsLHMhqkrPPkCgKFL8jyHOyXxZx7dEOm+FEwlWpn7ZXpkGI+Y3w2cPwIDAQAB
+
+支付宝公钥
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDI6d306Q8fIfCOaTXyiUeJHkrIvYISRcc73s3vF1ZT7XN8RNPwJxo8pWaJMmvyTn9N4HQ632qJBVHf8sxHi/fEsraprwCtzvzQETrNRwVxLO5jVmRGi60j8Ue1efIlzPXV9je9mkjzOmdssymZkh2QhUrCmZYI/FCEa3/cNMW0QIDAQAB
+
+商户私钥
+MIIEpAIBAAKCAQEAxnOIZKvvR4EauuxPe8+lMmNTRU5aqith+mQaFg/gR5gBvk1og//CTJlYjuXAgxxgO0M+I/IVgTtCmcqbXgjb7U4gQcyVTpfFLpsfLYz2v8jeiadYbeT4W/IMXcvKmXp1cOxH3OBv4Xltz6vFy4ss1cJ/gQyMMYBIHN4IGXXw8bHCyEYpoDnyNjahbvvrad0RSB9Akvm91MJDQEmufZ2BB9HWiX64zXnAXHIQbXIO93AffqN5KPQHub/4xMwqDvzF+bEb6Vi/yR6aNA78Y0C+kKPEIZlHtInBsLHMhqkrPPkCgKFL8jyHOyXxZx7dEOm+FEwlWpn7ZXpkGI+Y3w2cPwIDAQABAoIBAQDFKU1t71/n432CDnsdX/wZJpM5fRIYlMdf9Anyt0008/FvdwqKchRA8+0G834jBJMa7cCUB9STsyOFFcTsVNLjXkYv+Sixj5mopxb/s1gGzHNDwY3aiKyy9LSSj4C2oPKDAUyYRicBlRmjRF5bzeb6bKUuuh+ioneCrpjPaty50gjVuUowYgOdCdAAhbjN4qzzPd1CGt5x9BpyEvjZ4Fq6hhMYIc1M0br2l6ywgVhk/odT+tnHODXGmvi6N5mD1eWzxsZ5EVZ2Sl+ZpjccrdjFeZb65wNqxKXAwqBm5KCmGUMZSGUPE8ZRiCavbSdlzdoFrXoBw+6RPXfe0l8CcgzxAoGBAOc947npy/OVPbK4SxGSZxMHOWSi/bIdmCt4XqCiOzKxPD+9t4JMx5jgGVk5fMcOSSk/tzMWW+rGqxkUrFyp2bUfKKXrTaNi4IjvGreH8YqQ5YjlaZXMsIdciZ71h3ZN/9DBcPl+YIxVjylneUOqzvr52S1WuULjAa2XcddA50bXAoGBANuy444oTNWUxkGK3V5r9QpWCiSsxVVVj4G+qEML1oqz670zVDotLHbBoBdqgc5N7VdDeqiyQS+kTFVtZrRfKLq33Gwh1LaPi81uTxvnbVyd2lt5NwS+l6v5ayiaXwQszO0Om61WRQXjh+URVB1MHl9FLmmEEJemv+eVTgfuD/DZAoGAdu+SLZFe4U4licLYeZU/hr30exqKOg6WseUbZquKnywhvPcrZ81t6+d3oji7QPbMEnc/FvutEzhT0HadoJuL6mi4U36PVDYLHuM8bqFxTr/wD1VP1UiOk1C5SBUpM2Qy64BTR0AFEKkBFV6vNGqqQtQ3K+arKwfvWQXH+9raGckCgYBRYU5RVjQ/2UAm/x1I4IyAK6bONwFRvsPNt6X0T+pErqjgCKdmdV1HECoRAm7a0Jrd/CzvWDg1QZLVAhVNMwKPR5Pqqg11Im8SxY2gNHWaHQ7JW3k51K+yEE3VWHlhvoaaORMJfi9LIyEvhN+3in6lo6axhy3uPuJPEks5PMHC4QKBgQDF6x7qFR+sraIfy6AINoXcqrqnYrVFE5TQQuuhHqWHOEAzLlPkFSyizgqdTuepLL+Sfucd8wlsbKrCP7nCFEsUX4gdfUvoyNZ/Lr4aPJdqQi1ECywmQsmkg28m5bZxsnd/+/NC2SCj/ioRrVw2I2Ut0mPOWDEnW37QHiso85fFJA==
+
++--------------------------
+VIN接口相关
+
+AppKey:  fc93d445cc35decd
+AppSecret: 206bec36ebcf48f39e1dda63532f500c
+开通接口： level.vehicle.vin.get   VIN码识别查询
+接口访问URL：http://service.vin114.net/req
+接口技术文档：http://service.vin114.net/tools/Doc/webservice.html
+

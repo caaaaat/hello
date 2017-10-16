@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .td_width_95{width: 105px; color: black;font-weight: 600;text-align: left;}
+        .div_90x110{width: 90px;display: inline-block; margin-right: 10px; margin-bottom: 10px;}
+        .span_90x110{width: 96px;height: 118px; text-align: center;line-height: 110px; display: inline-block; border: 1px solid lightgrey;margin-bottom: 5px;padding: 2px;}
+        .span_90x20{width: 90px;height: 20px; text-align: center;line-height: 20px; display: inline-block;}
+        .text-center th , .text-center td{ text-align: center;}
+    </style>
+</head>
+<body>
+<div class="col-xs-1"></div>
+<div class="col-xs-10">
+    <div class="ibox-content" style="border-width:0">
+        <div class="panel-body" style="padding-left: 25px;"></div>
+        <table class="table table-hover">
+            <?php $oneBuy = isset($oneBuy) ? $oneBuy : '' ;?>
+            <?php if($oneBuy) {?>
+            <tr>
+                <td class="td_width_95">经销商：</td>
+                <td><?php echo $oneBuy['companyname'] ;?></td>
+                <td class="td_width_95">
+                    <span>
+                        <!--<button type="submit" class="btn btn-xs btn-primary">编辑</button>-->
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="td_width_95">车系：</td>
+                <td colspan="2"><?php echo $oneBuy['car_group'] ;?></td>
+            </tr>
+            <tr>
+                <td class="td_width_95">车架号：</td>
+                <td colspan="2"><?php echo $oneBuy['frame_number'] ;?></td>
+            </tr>
+            <tr>
+                <td class="td_width_95">发布时间：</td>
+                <td colspan="2"><?php echo $oneBuy['create_time'] ;?></td>
+            </tr>
+            <tr>
+                <td class="td_width_95">有效期：</td>
+                <td colspan="2"><?php echo $oneBuy['limitation'] ;?> 天</td>
+            </tr>
+
+            <tr>
+                <td class="td_width_95"><span style="color: black;font-weight: 600;">基本信息：</span></td>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="col-xs-12 col-sm-12 input-group">
+                        <div class="div_90x110">
+                            <span class="span_90x110">
+                                <?php if($oneBuy['vin_pic']) { ?>
+                                <img style="width: 90px;height: 110px ;border: 0;" alt="VIN照片" src="<?php echo $oneBuy['vin_pic'] ;?>">
+                                <?php }else{ ?>
+                                未上传
+                                <?php } ?>
+                            </span>
+                            <span class="span_90x20">VIN照片</span>
+                        </div>
+                        <?php $picList = isset($picList) ? $picList : '' ;?>
+                        <?php if($picList) {?>
+                        <?php foreach($picList as $v ) {?>
+                        <div class="div_90x110">
+                            <span class="span_90x110">
+                                <?php if($v['pic_url']) { ?>
+                                <img style="width: 90px;height: 110px ;border: 0;" alt="相关照片" src="<?php echo $v['pic_url'] ;?>">
+                                <?php }else{ ?>
+                                未上传
+                                <?php } ?>
+                            </span>
+                            <span class="span_90x20">相关照片</span>
+                        </div>
+                        <?php }?>
+                        <?php }?>
+                    </div>
+                </td>
+            </tr>
+            <?php if( $oneBuy['memo'] ) {?>
+            <tr>
+                <td class="td_width_95">备注：</td>
+                <td colspan="2"><?php echo $oneBuy['memo'] ;?> </td>
+            </tr>
+            <?php }?>
+        </table>
+
+        <table class="table table-hover table-bordered text-center">
+                <tr><th colspan="4" style="text-align: left;padding-left: 20px; font-weight: 600;">采购清单</th></tr>
+                <tr>
+                    <th width="10%">序号</th>
+                    <th width="35%">配件类别</th>
+                    <th width="10%">数量</th>
+                    <th width="45%">备注</th>
+                </tr>
+            <?php $childList = isset($childList) ? $childList : '' ;?>
+            <?php if($childList) {?>
+            <?php foreach($childList as $k=>$v ) {?>
+                <tr>
+                    <td><?php echo ++$k ;?></td>
+                    <td><?php echo $v['cate_name1'] .'/'. $v['cate_name2'] ;?></td>
+                    <td><?php echo $v['amount'] ;?></td>
+                    <td><?php echo $v['list_memo'] ;?></td>
+                </tr>
+            <?php }?>
+            <?php }?>
+        </table>
+
+        <?php }else{?>
+        获取数据失败
+        <?php }?>
+    </div>
+</div>
+</body>
+</html>

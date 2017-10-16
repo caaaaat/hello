@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>设置</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">   
+    </script>
+</head>
+<style>
+	.sw-payList:after{
+		left: 0;
+	}
+	.sw-title{
+		font-size: 14px;color: #666;
+	}
+	.sw-text{
+		font-size: 14px;color: #666;margin-right: 18px;line-height: 21px;float: right;margin-top: 4px;
+	}
+	
+		.mui-popup-button:after {
+		    width: 0px;
+		}
+		.mui-popup-inner:after {
+		    height: 0px;
+		}
+		.mui-popup-button:first-child:last-child {
+		    border-radius: 4px;
+		}
+		.sw-popu-btn{
+			width:70%;height:36px;line-height:14px;border-radius: 1px;margin: auto;font-size: 16px;
+		}
+</style>
+<body style="background: #EFEFEF;">
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">设置</h1>
+	</header>
+	
+	<div class="mui-content" style="background: #EFEFEF;">
+		   
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell sw-payList" id="clear">
+				<a class="mui-navigate-right">
+					<span class="sw-title">清除缓存</span>
+				</a>
+			</li>
+		</ul>
+	    
+	    <ul class="mui-table-view" style="margin-top: 10px;">
+			<li class="mui-table-view-cell sw-payList" id="aboutCompany">
+				<a class="mui-navigate-right">
+					<span class="sw-title">公司简介</span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell sw-payList" id="kfQQBox">
+				<a class="mui-navigate-right"> 
+					<span class="sw-title">客服QQ</span>
+					<span class="sw-text" id="kfQQ"></span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell sw-payList" id="kfTelBox">
+				<a class="mui-navigate-right">
+					<span class="sw-title">客服电话</span>
+					<span class="sw-text" id="kfTel"></span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell sw-payList" id="aboutMe">
+				<a class="mui-navigate-right">
+					<span class="sw-title">关于我们</span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell sw-payList" id="newVersionBox">
+				<a class="mui-navigate-right">
+					<span class="sw-title">检查更新</span>
+					<span class="sw-text sw-ctheme" id="newVersion"></span>
+				</a>
+			</li>
+		</ul>
+	    
+	    <div style="padding: 40px 40px 20px;">
+	    	<button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" style="border: 1px solid #FF534C;" onclick="loginOut()" id="loginBtn">退出登录</button>
+	    </div>
+	    
+	</div>
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+ <script src="../../../js/jquery.min.js"></script> 
+ <script>
+ 	
+ 	//关于我们
+ 	mui("#aboutMe")[0].addEventListener('tap',function(){
+		openView('../../../view/person/set/aboutMe.html','aboutMe','pop-in');
+		})
+ 	//关于公司 
+ 	mui("#aboutCompany")[0].addEventListener('tap',function(){
+		openView('../../../view/person/set/aboutCompany.html','aboutCompany','pop-in');
+		})
+ 	
+ 	//mui初始化
+	mui.init({  
+	    beforeback: function() {  
+	    //获得列表界面的webview  
+	    var info = plus.webview.currentWebview().opener();  
+	    //触发列表界面的自定义事件（refresh）,从而进行数据刷新  
+	    mui.fire(info, 'login_refresh');  
+	    //返回true，继续页面关闭逻辑  
+	    return true;  
+	    }  
+	});
+	
+	var updateStatus = 1;
+ 	//mui plusReady
+	mui.plusReady(function() {	
+		//读取qq 电话
+		http.load('api.sev.user','getLinkInfo',{},function(rData){
+			sw.jcon(rData) 
+			var data = rData.data;
+			if(data.QQ){
+				$("#kfQQ").text(data.QQ);
+				
+				var qqStr = "document.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin="+data.QQ+"&version=1&src_type=web&web_src=qq.com;';";
+				$("#kfQQBox").attr('onclick',qqStr);
+			}
+			
+			if(data.Tel){
+				
+				$("#kfTel").text(data.Tel);
+				
+				var telStr = "document.location.href = 'tel:"+data.Tel+"'; ";
+				$("#kfTelBox").attr('onclick',telStr);                  
+			} 
+			
+		},function(xhr,type,errorThrown){	
+				//无网络提示
+				sw.toast('获取数据失败，服务器或网络异常'); 	
+		}) 
+		
+		//检查版本
+		http.load('api.sev.user','getAppVersion',{},function(rData){
+			sw.jcon(rData)   
+			//获取本地app版本号
+			plus.runtime.getProperty(plus.runtime.appid, function(wgtinfo){
+				var html = [wgtinfo.version];
+				if(rData.data.value!=html){
+					$("#newVersion").text('有最新版本');
+					$("#newVersionBox").attr('onclick','downloadApp()');  
+				}   
+			});
+			
+			
+		},function(xhr,type,errorThrown){	
+				//无网络提示
+				sw.toast('获取数据失败，服务器或网络异常'); 	
+		}) 
+		
+		
+		
+		/**
+		 * 初始化底部按钮
+		 */
+		if(!UserInfo.has_login()){
+			$("#loginBtn").text('立即登录');
+			$("#loginBtn").attr('onclick','loginView()');
+		}
+
+		/**
+		 * 清除缓存
+		 */
+		mui("#clear")[0].addEventListener('tap',function(){
+			
+			plus.cache.clear( function(){
+		
+				sw.toast('清除缓存成功');  
+			
+			});
+		
+		})
+					
+	})	
+
+	//登录界面
+	function loginView(){
+		openView('../../../view/login/login.html','view_login_login','slide-in-bottom'); 		
+	}
+
+/**
+ * 退出登录
+ */
+function loginOut(){
+	//退出动画
+	loading('退出中'); 
+	//退出登录 清除记录的个人信息
+	plus.storage.removeItem('token');
+	plus.storage.removeItem('userInfo');
+	JsonStorage.removeItem('userType')
+	JsonStorage.removeItem('yeWuInfo')
+	//关闭加载框
+	closeLoading(1000);
+	
+	setTimeout(function(){
+		//刷新个人中心
+		plus.storage.setItem('pIIs','1');	//父级刷新标记	
+		sw.toast('退出登录成功'); 
+		mui.back();
+		//按钮更新
+//		$("#loginBtn").text('立即登录');
+//		$("#loginBtn").attr('onclick','loginView()');
+		
+		
+	},1500)
+
+	
+ }
+	
+	/**
+	 * 有最新版本的app
+	 */
+	function downloadApp(){
+		mui.confirm('有最新版本的App，是否需要更新？', '&nbsp;', ['<span class="mui-popup-button mui-btn sw-popu-btn" style="color:#333">关闭</span>','<span class="mui-popup-button mui-btn mui-btn-blue sw-popu-btn">确定</span>' ], function(e) {				
+			if (e.index == 3&&updateStatus==1) {//确认
+				updateStatus = 0;
+				setTimeout(function(){
+					updateStatus = 1;
+					 plus.runtime.install(apkUrl);  // 自动安装apk文件
+				},300)									
+			}	  			
+		},'div')
+		$('.mui-popup-button').css('font-size','16px');	
+	}
+		
+ </script>
+</html>
+
+
+

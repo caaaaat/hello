@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="../../../../css/mui.min.css" />
+    <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8"/>
+    <style>
+	.sw-input{
+		text-align: left;
+		height: 48px!important;
+		font-size: 14px!important;
+		text-align: center;
+		border: none!important;
+	}
+</style>
+</head>
+<body style="background: #efefef;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">修改昵称</h1>
+	</header>
+	<div class="mui-content" style="padding: 0 20px;background: #efefef;">
+		
+	    <div class="mui-input-row" style="padding-top:90px;margin-bottom: 30px;">
+	        <input type="text" id="uname" placeholder="请输入您的昵称（11个字符以内）" onkeyup="value=sw.Trim(value);disBtn();" onchange="disBtn()" onclick="disBtn()" maxlength="11" class="sw-input" value="">
+	    </div>
+	    
+	    <button type="button" class="mui-btn mui-btn-tangerine mui-btn-block mui-disabled" id="subBtn">保存修改</button>
+	</div>
+</body>
+<script src="../../../../js/mui.min.js"></script>
+<script src="../../../../js/global.js"></script>
+<script src="../../../../js/jquery.min.js"></script>
+<script>
+	mui.init({  
+    beforeback: function() {  
+    //获得列表界面的webview  
+    var info = plus.webview.currentWebview().opener();  
+    //触发列表界面的自定义事件（refresh）,从而进行数据刷新  
+    mui.fire(info, 'refresh');  
+    //返回true，继续页面关闭逻辑  
+    return true;  
+    }  
+	});
+	
+	//mui plusReady
+	mui.plusReady(function() {		
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+			var token   = plus.storage.getItem('token');			
+			var postData = {};
+				postData.token = token;
+			//如果已经登陆 获取登录后的数据
+			http.load('api.sev.user','getYeWuUserInfo',postData,function(rData){//请求成功 			
+	 			if(rData.status==200){				
+	 				var data = rData.data;	
+	    			mui("#uname")[0].value = data.uname;     				    			
+	 			}else{
+	 				sw.toast(rData.msg); 	
+	 			}	
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+	 			var data = plus.storage.getItem('userInfo');
+	 				if(data){
+	 					data = JSON.parse(data);
+		    			mui("#uname")[0].innerText = data.uname; 
+	 				}
+	 				//无网络提示
+	 				sw.toast('请求失败，请检查网络'); 
+	 		})
+
+		}else{//未登录显示未登录界面	 		
+
+		}
+	
+	})	
+	
+	
+	 /**
+     * 保存公司信息
+     */
+    function changeUname(){		
+        var uname    = $.trim($("#uname").val());
+        var token   = plus.storage.getItem('token');
+        sw.jcon(token);
+        var nameLen = uname.length;
+        if(!uname){
+        	sw.toast('请输入您的姓名');
+            $("#uname").focus();          
+            return false;
+        }else if(nameLen>11){
+        	sw.toast('你输入的名字太长了');
+            $("#uname").focus();
+            return false;
+        } 
+        var postData    = {};
+        postData.uname    = uname;
+        postData.token    = token;
+		//如果已经登陆 获取登录后的数据
+		http.load('api.sev.user','changeYeWuUname',postData,function(rData){//请求成功
+ 			sw.toast(rData.msg); 
+ 			if(rData.status==200){//保存成功 设置父级是否需要刷新
+ 				plus.storage.setItem('pIIIs','1');//父级	 
+ 				plus.storage.setItem('pIIs','1');	//父级 父级 
+ 				setTimeout(function(){//延时返回父级
+ 					mui.back();
+ 				},1000) 
+ 			}
+ 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+			//无网络提示
+			sw.toast('请求失败，请检查您网络'); 
+ 		})
+    }
+	
+	//提交按钮
+    function disBtn(){
+
+        var uname    = $.trim($("#uname").val());
+
+        var isSubmit = 1;
+
+        if(!uname){
+            isSubmit = 0;
+        }
+
+        if(isSubmit==1){
+
+            $("#subBtn").attr('onclick',"changeUname()").removeClass('mui-disabled');
+
+        }else{
+            $("#subBtn").attr('onclick','').addClass('mui-disabled');
+
+        }
+
+
+    }
+</script>
+</html>

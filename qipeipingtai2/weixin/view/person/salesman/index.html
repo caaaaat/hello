@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="../../../css/mui.min.css" />
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">
+      
+    </script>
+</head>
+<style>
+	.sw-input{
+		text-align: left;
+		height: 48px!important;
+		font-size: 14px!important;
+		text-align: center;
+		
+
+</style>
+<body style="background: #FFFFFF;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">绑定业务员</h1>
+	</header>
+	
+	<div class="mui-content" style="padding: 0 20px;background: #FFFFFF;" id="salesList">
+   
+	</div>
+<!--数据模板-->
+<script id="sales-list-tpl" type="text/html">
+	
+	{{# if(d.isSalesMan==true){ }}
+		<div class="mui-input-row" style="margin-top: 160px;margin-bottom: 20px;text-align: center;">
+			<img src="../../../image/person/more/icon_more_yewuyuan.png" width="90px"/>
+			<p style="font-size: 14px;color: #666666;">已绑定业务员</p>
+			<p style="font-size: 16px;line-height: 48px;" class="sw-ctheme">业务员ID：{{ d.uId }}</p>
+		</div>
+	{{# }else{ }}
+	    <div class="mui-input-row" style="padding-top: 80px;margin-bottom: 20px;">
+		
+			<div style="color: #666;font-size: 14px;text-align: center;margin-bottom: 40px;">输入业务员ID完成绑定验证，请向业务员索取</div>
+			
+	        <input type="text" placeholder="业务员ID" maxlength="8" class="sw-input" id="salesUserId" value="">
+   		</div>   
+   		 <button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" onclick="bindSales(this)">确定</button>	
+	{{# } }}	
+</script>
+</body> 
+<script src="../../../js/mui.min.js"></script> 
+<script src="../../../js/global.js"></script>
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/laytpl/laytpl.js"></script>
+<script type="text/javascript">
+	//mui初始化
+	mui.init();
+	
+	//mui plusReady
+	$(function() {
+		
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+
+			var token   = JsonStorage.getItem('token');
+			
+			var postData = {};
+				postData.token = token; 
+			loading('加载中...');	
+			//如果已经登陆 获取登录后的数据
+			http.load('api.sev.user','salesMan',postData,function(rData){//请求成功
+	 			closeLoading(); 
+	 			if(rData.status==200){
+	 				sw.jcon(rData);  				
+	 				var data = rData.data;	
+	 				
+	    			var salesTpl = $('#sales-list-tpl').html();			
+					var salesData = rData.data;
+			        laytpl(salesTpl).render(salesData,function(render){           
+			            mui('#salesList')[0].innerHTML = render;
+			        });  
+			        
+	 			}else{
+	 				sw.toast(rData.msg); 	
+	 			}
+		
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入	 			
+ 				//无网络提示
+ 				sw.toast('请求失败，请检查网络'); 
+	 		})
+		}else{//未登录显示未登录界面	 		
+			//无网络提示
+ 			sw.toast('您还未登录,请登录后重试');  
+		}	
+	})	
+	
+	
+	/**
+	 * 绑定业务员
+	 */
+	function bindSales(j){
+		
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+					
+			var token   = JsonStorage.getItem('token');
+			var salesUserId = $.trim($("#salesUserId").val());
+			
+			if(salesUserId==''){				
+				sw.toast('请输入业务员ID'); 
+				$("#salesUserId").focus();
+				return;
+			}
+			
+			var postData = {};
+				postData.token = token;
+				postData.salesUserId = salesUserId;
+				
+			$(j).addClass('mui-disabled');	
+			$(j).attr('onclick','');				
+			//如果已经登陆 获取登录后的数据
+			http.load('api.sev.user','bindSales',postData,function(rData){//请求成功
+	 			sw.toast(rData.msg);   	 			
+	 			if(rData.status==200){
+	 			     setTimeout(function(){
+						 location.reload();
+	 			     },300)
+	 			}else{
+	 				$(j).removeClass('mui-disabled');	
+					$(j).attr('onclick','bindSales(this)');	
+	 			}
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入	 			
+ 				//无网络提示
+ 				sw.toast('请求失败，请检查网络'); 
+	 		})
+		}else{//未登录显示未登录界面	 		
+			//无网络提示
+ 			sw.toast('您还未登录,请登录后重试'); 
+		}	
+		
+	}
+	
+	
+	
+</script>	
+</html>

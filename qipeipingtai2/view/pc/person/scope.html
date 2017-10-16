@@ -1,0 +1,136 @@
+<link rel="stylesheet" href="/css/pc/person/scope.css">
+<div class="rightDivScope">
+    <div class="titles">
+        <span style="font-size: 24px;font-weight: 500;">经营范围</span>
+    </div>
+    <?php if($userInfo && $userInfo['four_ids']){$userInfo['four_ids']=explode(',',$userInfo['four_ids']);};?>
+    <?php foreach($data as $k=>$v){?>
+    <div class="jingYanListDiv">
+        <div class="jingYanList">
+            <div class="jingYanText">经营范围:</div>
+            <div class="jingYanType"><?php echo $v['pName'].'/'.$v['name'];?></div>
+            <button class="jingYanButton" onclick="showAlert('<?php echo $k;?>')">车系管理</button>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <!--模态框 (选择车系)-->
+    <div class="modal fade" id="myModal<?php echo $k;?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div id="alertK">
+                    <div class="alertTitle">设置车系</div>
+                    <div class="padLeft26padRight26">
+                        <div class="alertHead">
+                            <div class="floLeft">车系列表</div>
+                            <div class="floRight">
+                                <label style="min-width: 65px;">
+                                    <input type="checkbox" class="quanXuan" onclick="checkAll()">
+                                    <span>全选</span>
+                                </label>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+                        <div style="overflow: auto;height: 340px;width: 560px">
+                            <?php if(isset($v['three']) && $v['three']){?>
+                            <?php foreach($v['three'] as $vv){?>
+                            <?php if(isset($vv['four']) && $vv['four']){?>
+                            <div>
+                                <div class="alertType"><?php echo $vv['name'];?></div>
+                                <?php if(isset($vv['four']) && $vv['four']){?>
+                                <?php foreach($vv['four'] as $vvv){?>
+                                <div class="alertListDiv" data_id="<?php echo $vvv['id'];?>">
+                                    <label class="alertLabel">
+                                        <div class="floLeft"><?php echo $vvv['name'];?></div>
+                                        <div class="alertCheckDiv">
+                                            <?php if($userInfo && $userInfo['four_ids'] && in_array($vvv['id'],$userInfo['four_ids'])){?>
+                                            <input type="checkbox" checked="checked" class="alertCheck">
+                                            <?php }else{?>
+                                            <input type="checkbox" class="alertCheck">
+                                            <?php }?>
+                                        </div>
+                                    </label>
+                                    <div style="clear: both;"></div>
+                                </div>
+                                <?php }}?>
+                            </div>
+                            <?php }?>
+                            <?php }?>
+                            <?php }else{?>
+                            <div style="text-align: center;">没有对应的车系数据，尽请期待!!!</div>
+                            <?php }?>
+                        </div>
+
+                    </div>
+                    <div class="alertBottom">
+                        <button class="alertQuXiao" onclick="$('#myModal<?php echo $k;?>').modal('hide');">取消</button>
+                        <button class="alertBaoCun" onclick="save(this)" id="save">保存</button>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?php }?>
+</div>
+
+<script src="/js/pc/layer/layer.js"></script>
+<script>
+    function showAlert(k){
+        var model = '#myModal'+k;
+        $(model).modal('show');
+    }
+
+    /*全选*/
+    function checkAll(){
+        var isCheck = $('.quanXuan').is(':checked');
+        var len = $('.alertCheck').length;
+        for(var i=0; i<len; ++i){
+            if(isCheck){
+                $('.quanXuan').next().text('全不选');
+                $('.alertCheck')[i].checked = true;
+            }else{
+                $('.quanXuan').next().text('全选');
+                $('.alertCheck')[i].checked = false;
+            }
+        }
+    }
+
+    /*点击保存*/
+    function save(obj){
+        var len = $('.alertListDiv').length;
+        var ids = [];
+        for(var i=0; i<len; ++i){
+            if($('.alertListDiv').eq(i).find('input').is(':checked')){
+                var id = $('.alertListDiv').eq(i).attr('data_id');
+                ids.push(id);
+            }
+        }
+        if(ids && ids.length>0){
+            $('#save').attr('');
+            ids = ids.join(',');
+            $.ajax({
+                url: "/pc.product/save_four_ids",    //请求的url地址
+                dataType: "json",   //返回格式为json
+                async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+                data: {"ids": ids},    //参数值
+                type: "POST",   //请求方式
+                success: function (req) {
+                    $('#save').attr('save(this)');
+                    if(req.status==1){
+                        layer.msg('修改成功');
+                        setTimeout(function(){
+                            location.reload();
+                        },1000);
+                    }else{
+                        layer.msg(req.msg);
+                        $(obj).prev().click();
+                    }
+                }
+            });
+        }else{
+            layer.msg('您还没有选择车系');
+        }
+
+    }
+</script>

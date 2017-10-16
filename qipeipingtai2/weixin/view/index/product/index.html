@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>产品列表</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <link href="../../../css/swiper.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="utf-8">
+      
+    </script>
+</head>
+<style>
+	.sw-payList:after{
+		height: 0;
+	}
+	.sw-after-l:after{
+		left: 0;
+	}
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	
+	.sw-no-img:after,.sw-no-img:before{
+		height: 0;
+	}
+	
+	.sw-header {
+		width: 100%;
+		height: 48px;
+		overflow: hidden;
+		font-size: 12px;
+		line-height: 48px;
+		background: #FFFFFF;
+		border-bottom: 1px solid #ccc;
+	}
+	.sw-header .swiper-slide {
+	    padding: 0 10px;
+	    margin: 0 4px;
+	    width: auto;
+	}
+	
+	
+	.sw-scope-box{
+		background: #EFEFEF;
+	}
+	.sw-scope-box:after{
+		height: 0;
+	}
+	.sw-input-search{
+		text-align: left;height: 42px!important;		
+		padding-left: 20px!important;
+		width:90%!important;
+		margin-bottom: 0px!important;
+		border-radius: 24px!important;
+		font-size: 14px;
+		color: #666666;
+	}
+	.sw-input-icon{
+		background: url(../../../image/index/icon_wz_sousuo@3x.png)no-repeat;
+		background-position: 24px;
+		background-size: 16px;
+	}
+	.sw-input-box{
+		width: 100%;background: #F5F5F5;padding-top: 10px;padding-bottom: 10px;text-align: center;border-bottom: 1px solid #DDDDDD;
+	}
+	.sw-table-text3{
+		line-height: 18px!important;margin-top: 0!important;color: #666666!important;font-size: 12px!important;
+	}
+	/*左侧选项卡*/
+	.mui-row.mui-fullscreen>[class*="mui-col-"] {
+				height: 100%;
+			}
+			.mui-col-xs-3,
+			.mui-control-content {
+				overflow-y: auto;
+				height: 100%;
+			}
+			.mui-segmented-control .mui-control-item {
+				line-height: 50px;
+				width: 100%;
+				background-color: #FFFFFF;
+			}
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				background-color: #EEEEEE;
+				color: #333333;
+				border-right: #EEEEEE 1px solid!important; 
+			}
+			.sw-p-list{
+				margin-right:0!important;border-right:1px solid #DDDDDD!important;border-bottom: 1px solid #DDDDDD!important;
+			}
+			.sw-search-p{
+				    background: url(../../../image/index/icon_wz_sousuo@3x.png)no-repeat;
+				    width: 45px;
+				    height: 36px;
+				    margin: 0!important;
+				    background-size: 17px;
+				    position: absolute;
+				    top: 13px;
+				    background-position: center;
+				    margin-top: -50px;
+				    right: 25px; 
+			}
+</style>
+<body style="background: #EFEFEF;">
+	
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title" id="mui-title"></h1>
+	</header>
+	
+	<div class="mui-content" style="background: #EEEEEE;">	
+		<div class="mui-row mui-content mui-fullscreen">
+			 <div class="mui-input-row sw-input-box" style="position: fixed;top: 42px;z-index: 99;"> 
+	        	<input type="text" placeholder="输入产品名称、品牌、适用车系查询" class="sw-input-search" id="keyword">
+	    		<p class="sw-search-p" onclick="search(1,0)"></p>
+			 </div>
+			
+			<div class="mui-col-xs-3" style="padding-top: 105px;"> 
+				<div id="segmentedControls" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical" style="height: 100%;background: #FFFFFF;">
+				</div>
+			</div>
+			<div id="segmentedControlContents" class="mui-col-xs-9" style="padding-top: 105px;background: #EEEEEE;"> 
+			</div> 
+		</div>
+	</div>
+	<!--父级内容-->
+	<script id="p-list-tpl" type="text/html">
+		{{# var len = d.length }} 
+		<a class="mui-control-item sw-p-list mui-active" href="#content{{ d[0].id }}">{{ d[0].name }}</a> 
+		{{# for(var i = 1;i < len; i++){ }}		
+		<a class="mui-control-item sw-p-list" href="#content{{ d[i].id }}">{{ d[i].name }}</a>
+		{{# } }}
+	</script>
+
+	<!--子级内容-->
+	<script id="c-list-tpl" type="text/html">
+	
+		{{# var list = d.list; var len = list.length; var pid = d.pid; }} 
+		
+		{{# for(var i = 0;i < len; i++){ }}	
+			
+		{{# if(pid==list[i].pid){ }}
+		
+		<div id="content{{ list[i].pid }}" class="mui-control-content mui-active">					
+			<ul class="mui-table-view mui-grid-view sw-scope-box">
+				
+				{{# var clist = list[i].data; var clen = clist.length; }} 
+				{{# for(var j = 0;j < clen; j++){ }}	
+			        <li class="mui-table-view-cell mui-media mui-col-xs-4" onclick="search(2,'{{ clist[j].id }}')">
+		            	<img class="mui-media-object" src="{{ imgUrl+clist[j].img }}" style="border: 1px solid #DDDDDD;">
+		                <span class="mui-media-body sw-table-text3">{{ clist[j].name }}</span>
+			        </li> 
+		        {{# } }}	        
+			</ul> 	 
+		</div> 
+		{{# }else{ }}
+		
+		<div id="content{{ list[i].pid }}" class="mui-control-content">	 				
+			<ul class="mui-table-view mui-grid-view sw-scope-box">
+				
+				{{# var clist = list[i].data; var clen = clist.length; }} 
+				{{# for(var m = 0;m < clen; m++){ }}	
+			        <li class="mui-table-view-cell mui-media mui-col-xs-4" onclick="search(2,'{{ clist[m].id }}')">
+		            	<img class="mui-media-object" src="{{ imgUrl+clist[m].img }}" style="border: 1px solid #DDDDDD;">
+		                <span class="mui-media-body sw-table-text3">{{ clist[m].name }}</span>
+			        </li> 
+		        {{# } }}	        
+			</ul> 	 
+		</div> 
+				
+		{{# } }}
+		
+		{{# } }}
+	</script>
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+ <script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/laytpl/laytpl.js"></script>
+ <script type="text/javascript" charset="utf-8">
+	//mui初始化
+	mui.init();
+	
+	var type = '';
+	//mui plusReady
+	$(function() {
+
+		var self  = sw.getQueryVariable();
+		    type  = self.type;
+
+		var title = type==1?'新品促销':'库存清仓';  
+		//更换标题
+		$("#mui-title").text(title);
+		
+		//如果已经登陆 获取登录后的数据
+		http.load('api.sev.index','getProductGroup',{},function(rData){//请求成功
+			
+ 			if(rData.status==200){    	 
+	 				//父级将数据输出到页面     
+					var cate_1 = rData.cat_1;	 	 				
+				 	var pTpl   = $('#p-list-tpl').html();	 		
+			        laytpl(pTpl).render(cate_1,function(render){           
+			            $('#segmentedControls').html(render);    
+			        });	 
+ 			 		
+ 			 		//子级数据页面输出
+	 				var cate2 = {};
+	 					cate2.pid  = cate_1[0].id;
+	 					cate2.list = rData.cat_2;
+	 					sw.jcon(cate2)
+	 				 var cTpl   = $('#c-list-tpl').html();	 
+			        laytpl(cTpl).render(cate2,function(render){  
+			            $('#segmentedControlContents').html(render);      
+			        });
+ 			 		
+ 			}else{
+ 				sw.toast(rData.msg); 	
+ 			}
+	
+ 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入			
+ 				//无网络提示
+ 				sw.toast('请求失败，请检查网络'); 
+ 		})				
+	})
+	
+	
+	/**
+	 * 搜索
+	 * @param {Object} searchType 搜索类型 1 输入框搜索 2 直接点击产品分类搜索
+	 * @param {Object} key 值  searchType=2 时   分类id
+	 */
+	function search(searchType,key){
+
+		var keyword = '';
+		var groupId = '';
+		if(searchType==1){//按钮搜索				
+			keyword = $("#keyword").val();				
+		}else{//产品分类搜索	
+			groupId = key;
+		}
+		
+		var postData = {'type':type,'searchType':searchType,'keyword':keyword,'groupId':groupId};
+		
+		openView('../../../view/index/product/list.html','index_product_list','pop-in',postData); 
+				
+	}
+	
+</script>
+</html>

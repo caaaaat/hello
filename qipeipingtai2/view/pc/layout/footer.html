@@ -1,0 +1,71 @@
+<!--底部开始-->
+<div id="bottomBiv">
+    <div class="bottomBiv">
+        <div class="bottomList">
+            <div class="bottomListDiv"><a href="/def/index" class="bottomText">首页</a></div>
+            <div class="bottomDivT"><a href="/def/cars" class="bottomText">轿车商家</a></div>
+            <div class="bottomDivT"><a href="/def/vans" class="bottomText">货车商家</a></div>
+            <div class="bottomDivT"><a href="/def/newMarket" class="bottomText">新品促销</a></div>
+            <div class="bottomDivT"><a href="/def/clearance" class="bottomText">库存清仓</a></div>
+            <div class="bottomDivT"><a href="/def/vinQuery" class="bottomText">VIN查询</a></div>
+            <div style="float: left;width: 14%;text-align: left"><a href="/def/mountings" class="bottomText">配件求购</a></div>
+        </div>
+        <div class="bottomList">
+            <div class="bottomDivT">&nbsp;</div>
+            <div class="bottomDivT"><a href="/def/activities" class="bottomText">活动促销</a></div>
+            <div class="bottomDivT"><a href="/def/news" class="bottomText">新闻中心</a></div>
+            <div class="bottomDivT"><a href="/def/info" class="bottomText">公司简介</a></div>
+            <div class="bottomDivT"><a href="/def/newbie" class="bottomText">新手上路</a></div>
+            <div class="bottomDivT"><a href="/def/xieyi" class="bottomText">服务协议</a></div>
+        </div>
+        <div class="bottomYou">
+            <?php if($fLinks){ ?>
+            友情链接：
+            <?php foreach($fLinks as $item){ ?>
+            <a href="<?php echo $item['vurl'];?>" class="bottomA" target="_blank"><?php echo $item['vname'];?></a>
+            <?php } ?>
+            <?php } ?>
+        </div>
+        <div class="bottomBor"></div>
+        <div class="bottomLian">
+        <span class="bottomSpan">
+          <img src="/images/qpxm/pc/index/qq.png" alt=""> 客服QQ ：<?php echo $qqTel['QQ'];?>
+        </span>
+            <span>
+          <img src="/images/qpxm/pc/index/tel.png" alt=""> 客服电话 ：<?php echo $qqTel['Tel'];?>
+        </span>
+        </div>
+        <div class="bottomDi">
+            <div class="bottomBei">&#169;2015-2016 XXX 版权所有,并保留所有权。ICP备案证书号：蜀ICP备111111111号</div>
+            <div><img src="/images/qpxm/pc/index/jingHui.png" height="15px" alt="">蜀公网安备 42030202000345号</div>
+        </div>
+    </div>
+</div>
+<script src="/css/swiper/swiper.min.js"></script>
+<script src="/css/bootstrap/bootstrap.min.js"></script>
+<!--<script src="/css/swiper2/idangerous.swiper.min.js"></script>-->
+<script>
+    //  window.onload = function() {
+    //    var mySwiper = new Swiper('.swiper-container',{
+    //      loop: true
+    //      //其他设置
+    //    });
+    //  }
+
+    /*回到顶部*/
+    function goTop(){
+        var speed=200;//滑动的速度
+        $('body,html').animate({ scrollTop: 0 }, speed);
+        return false;
+    }
+    /*点击QQ或电话*/
+    function showF(obj){
+        if($(obj).next().css("display")=='block'){
+            $(obj).next().hide(400);
+        }else{
+            $(obj).next().show(400);
+        }
+    }
+</script>
+</body>
+</html>

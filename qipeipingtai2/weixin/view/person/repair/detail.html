@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>汽修厂</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	
+	.mui-indicator{
+		width: 10px!important;
+		height: 10px!important;
+		box-shadow: none!important;
+		background: url(../../../image/index/dian_next@2x.png) no-repeat!important;
+		background-size: contain!important;
+	}
+	.mui-slider-indicator .mui-active.mui-indicator {
+		background: url(../../../image/index/dian_now@2x.png) no-repeat!important;
+		background-size: contain!important;
+		border-radius: 0;
+		box-shadow: none;
+		width: 26px!important;
+	}
+	.sw-bottom-banner{
+		height: 180px;display: block;
+	}
+	.sw-meida-text{
+				font-size: 14px!important;color: #666!important;
+			}
+	.sw-after-no:after{
+		height: 0;
+	}	
+	.sw-title-box{
+		width: 100%;height: 42px;border-bottom: 1px solid #DDDDDD;background: #FFFFFF;
+	}
+	.sw-title-1{
+		width: 50%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+	}
+	.sw-title-active{
+		display: inline-block;margin-bottom: 0;border-bottom: 2px solid #FF534C;height:42px;color:#FF534C ;
+	}
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.companyNav{
+		margin-bottom: 0;
+	}
+	/*公司信息*/		
+	.sw-list-title2{
+		font-size: 14px;color: #666;display: inline-block;width: 56px;
+	}
+	.sw-list-title3{
+		line-height:40px;font-size: 14px;color: #666;
+	}
+	.sw-list-title4{
+		font-size: 14px;color: #666;display: inline-block;width: 100px;
+	}
+	.sw-list-text2{
+		margin-left:56px ;margin-top: -21px;
+	}	
+	.sw-img1{
+		width: 40px;height: 40px;vertical-align: middle;
+	}
+	.sw-sj-phone{
+		width: 21px;height: 21px;float: right;background: url(../../../image/index/icon_mc_iphone.png) no-repeat;background-size: contain;
+	}
+	.sw-sj-tel{
+		width: 21px;height: 21px;float: right;background: url(../../../image/index/icon_mc_tel.png) no-repeat;background-size: contain;
+	}
+	.sw-sj-qq{
+		width: 21px;height: 21px;float: right;background: url(../../../image/index/icon_qq@3x.png) no-repeat;background-size: contain;
+	}
+	.sw-sj-uesr{
+		padding-left:16px;padding-top:1px;padding-bottom:1px;background: url(../../../image/index/people.png) no-repeat;background-size: 14px;
+	}
+	.sw-sj-tel1{
+		padding-left:16px;padding-top:1px;float: right;padding-bottom:1px;background: url(../../../image/index/icon_tel@3x.png) no-repeat;background-size: 14px;background-position: 1px 3px;
+	}
+	.sw-card-img1{
+		width: 72px!important;max-width:72px!important;height: 72px!important;
+	}
+	.sw-renz-img{
+		width: 16px;vertical-align: middle;margin-left: 4px;
+	}
+	.sw-biao-lei1{
+		display:inline-block;border: 1px solid #3EB7FF;font-size: 10px;color: #3EB7FF;height: 18px;line-height: 18px;padding: 0 4px;border-radius: 9px;margin-top: 20px;
+	}
+	.sw-biao-lei2{
+		display:inline-block;border: 1px solid #18C839;font-size: 10px;color: #18C839;height: 18px;line-height: 18px;padding: 0 4px;border-radius: 9px;margin-top: 20px;
+	}
+	.sw-biao-lei3{
+		display:inline-block;border: 1px solid #FF6699;font-size: 10px;color: #FF6699;height: 18px;line-height: 18px;padding: 0 4px;border-radius: 9px;margin-top: 20px;
+	}
+	/*产品展示*/	
+	.sw-title-3{
+		width: 33.3%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+	}
+	.sw-rafter:after{
+		content: '';
+		height: 24px;
+		background: #EFEFEF;
+		margin-top: 9px;
+		width: 1px;
+		float: right;
+	}
+	.sw-fanye{
+			padding:1px 8px;background: url(../../../image/person/repair/icon_fanye_1.png) no-repeat;background-size: 10px;background-position: center;margin-left: 4px;
+	
+	}
+	/*认证信息*/
+	.sw-after-l:after{
+		left: 0;
+	}
+	.sw-zhizhao{
+		font-size: 14px;padding-left: 28px;color:#333;padding-top:2px;padding-bottom:2px;background: url(../../../image/index/icon_zhizhao.png) no-repeat;background-size: 23px 16px;background-position:0 3px;
+	}
+	.sw-renz-status{
+		font-size: 14px;color: #999;float: right;
+	}
+	.sw-renz{
+		background: url(../../../image/person/renzheng2.png) no-repeat;background-size: 16px;background-position: right 0px;padding-right:18px;
+	}
+	
+	
+	.sw-box-1{
+		font-size: 14px;padding-right:70px;height: 90px;background:#FFFFFF;padding-left: 87px;padding-right:15px;position: relative;padding-top: 10px;padding-bottom: 10px;border-top: 1px solid #DDDDDD;
+		border-bottom: 1px solid #DDDDDD;margin-top: 10px;
+	}
+	.sw-box-2{
+		position: absolute;top: 12px;right: 15px;width: 72px;height: 72px;text-align: center;border-left: 1px solid #EFEFEF;
+	}
+
+
+	.mui-tab-items{
+		    display: table-cell;
+		    overflow: hidden;
+		    width: 1%;
+		    height: 50px;
+		    text-align: center;
+		    vertical-align: middle;
+		    white-space: nowrap;
+		    text-overflow: ellipsis;
+		    color: #929292;
+	}
+	.mui-bar-tab .mui-tab-items .mui-icon {
+	    top: 3px;
+	    width: 24px;
+	    height: 24px;
+	    padding-top: 0;
+	    padding-bottom: 0;
+		}
+	.mui-bar-tab .mui-tab-items .mui-icon~.mui-tab-label {
+	    font-size: 11px;
+	    display: block;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	}
+	.sw-box-3{
+		    padding-right: 190px;  
+		    display: inline-block;
+		    position: absolute;
+		    max-width: 100%;
+	}
+	.sw-box-4{
+		display: inline-block;max-width: 100%;position: relative;
+	}
+	.sw-box-5{
+		display: inline-block;max-width: 100%;color: #666666;
+	}		
+	.sw-renz{
+		background: url(../../../image/person/renzheng2.png) no-repeat;background-size: 16px;background-position: right 1px;padding-right:18px;
+	}
+</style>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title" id="mui_title">汽修厂名称</h1>
+	    <button class="mui-btn mui-btn-link mui-pull-right" id='msgList' onclick="collectStore()">
+	    	<img src="../../../image/index/like.png" class="sw-title-img2"/>
+	    </button>
+	</header>
+	<div class="mui-content" id="refreshContainer">
+	    <div id="bannerList"> 
+			<img src="../../../image/start/banner.png" height="200px" width="100%" style="display: block;"> 
+		</div>
+		
+		<div class="sw-title-box">
+	   		<div class="sw-title-1"><p class="sw-title-active companyNav" onclick="selectNav(this,'infoList')">公司信息</p></div>
+	   		<div class="sw-title-1"><p class="companyNav" onclick="selectNav(this,'authList')">认证信息</p></div>
+	   </div>
+		
+		<!--公司信息-->
+		<div class="companyCon" style="margin-bottom: 75px;" id="infoList">
+	
+		<div class="sw-box-1">
+			
+		</div> 
+			
+			<div style="clear: both;"></div>
+		 	<ul class="mui-table-view" style="margin-top:10px;">
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">主营</span>
+				<p class="sw-list-text2">&nbsp;</p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">联系人</span>
+				<p class="sw-list-text2">&nbsp;</p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">手机</span>
+				<div class="sw-list-text2">
+					<p style="margin-bottom: 6px;">&nbsp;<span class="sw-sj-phone"></span></p>
+				</div>	
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">座机</span>
+				<div class="sw-list-text2">
+					<p style="margin-bottom: 6px;">&nbsp;<span class="sw-sj-tel"></span></p>
+				</div>
+				
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">QQ</span>
+				<div class="sw-list-text2">
+					<p style="margin-bottom: 6px;">&nbsp;<span class="sw-sj-qq"></span></p>
+				</div>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">微信</span>
+				<div class="sw-list-text2">
+					<p style="margin-bottom: 6px;">&nbsp;</p>	
+				</div>
+			</li>
+		</ul>    
+		
+			<ul class="mui-table-view" style="margin-top:10px;margin-bottom: 20px;">
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title4">企业介绍</span>
+				<p style="margin-top: 8px;">&nbsp;</p>
+			</li>
+			
+		</ul>
+		
+		</div>
+			
+		<div style="clear: both;"></div> 
+		<!--认证信息-->
+		<div class="companyCon" style="margin-bottom: 75px;display: none;" id="authList">		
+			<ul class="mui-table-view" style="margin: 0;">
+				 <li class="mui-table-view-cell sw-after-l">
+				 	<span class="sw-zhizhao">营业执照</span><span class="sw-renz-status">无</span>
+				 </li>
+		         <li class="mui-table-view-cell sw-after-l">
+				 	<span class="sw-zhizhao">纳税认证</span><span class="sw-renz-status">无</span>
+				 </li>
+				 <li class="mui-table-view-cell sw-after-l">
+				 	<span class="sw-zhizhao">实地认证</span><span class="sw-renz-status">无</span>
+				 </li>
+				 <li class="mui-table-view-cell sw-after-l">
+				 	<span class="sw-zhizhao">商标认证</span><span class="sw-renz-status">无</span>
+				 </li>
+				 <li class="mui-table-view-cell sw-after-l">
+				 	<span class="sw-zhizhao">产品代理认证</span><span class="sw-renz-status">无</span>
+				 </li>	 
+			</ul>  
+		</div>
+		
+		
+	</div>
+		
+		<div id="popover4" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;background: #FFFFFF;">
+		<div style="width: 100%;padding: 20px 0;">
+		
+		<p style="text-align: center;padding: 0 15px;">
+			<span style="color: #333;font-weight: 700;">分享</span>
+			<span style="float: right;" id="closePopover">
+			<img src="../../../image/person/purchase/icon_qg_c.png" height="12px">
+			</span>
+		</p>
+		
+		 <ul class="mui-table-view mui-grid-view mui-grid-5 sw-no-img sw-payList" style="padding:0 0 20px;background: #FFFFFF;">
+		
+		<!--<li class="mui-table-view-cell mui-media mui-col-sm-20" onclick="shareAction('weixin', 'WXSceneSession');">
+			<img class="mui-media-object" src="../../../image/person/more/icon_more_wechat.png">
+			<span style="font-size: 12px;color: #666666;" class="sw-word-one">微信</span>
+		</li>
+		
+		<li class="mui-table-view-cell mui-media mui-col-sm-20" onclick="shareAction('weixin', 'WXSceneTimeline');">
+			<img class="mui-media-object" src="../../../image/person/more/icon_more_fri.png">
+			<span style="font-size: 12px;color: #666666;" class="sw-word-one">朋友圈</span>
+		</li>-->
+		
+		<li class="mui-table-view-cell mui-media mui-col-sm-20" onclick="shareMessage('qq', '');">
+			<img class="mui-media-object" src="../../../image/person/more/icon_more_qq.png">
+			<span style="font-size: 12px;color: #666666;" class="sw-word-one">QQ好友</span>
+		</li>
+		
+		<li class="mui-table-view-cell mui-media mui-col-sm-20" onclick="sharesQQZ()">
+			<img class="mui-media-object" src="../../../image/person/more/icon_more_qqkj.png">	
+			<span style="font-size: 12px;color: #666666;" class="sw-word-one">QQ空间</span>
+		</li>
+		
+		<li class="mui-table-view-cell mui-media mui-col-sm-20" onclick="shareStore()">
+			<img class="mui-media-object" src="../../../image/person/more/icon_chenggong_mrtx.png">	
+			<span style="font-size: 12px;color: #666666;" class="sw-word-one">圈子</span>
+		</li>
+		
+		</ul>
+		
+		</div>    	
+	</div>
+		
+		
+	<nav class="mui-bar mui-bar-tab" id="navList" style="background: #FFFFFF;box-shadow:  0 0 1px #DDDDDD;padding-top: 10px;">
+			<a class="mui-tab-item mui-active">
+				<span class="mui-icon sw-shouji"></span>
+				<span class="mui-tab-label sw-ctheme">手机</span>
+			</a>
+			<a class="mui-tab-item">
+				<span class="mui-icon sw-QQ"></span> 
+				<span class="mui-tab-label sw-ctheme">QQ</span>
+			</a>
+			<a class="mui-tab-items">  
+				<span class="mui-icon">
+					<img height="20px" width="24px" style="vertical-align: bottom;" src="../../../image/index/weixin.png" />
+				</span> 
+				<span class="mui-tab-label sw-ctheme" style="margin-top:5px;">微信</span>  
+			</a> 
+			<a class="mui-tab-item">
+				<span class="mui-icon sw-daohang"></span>
+				<span class="mui-tab-label sw-ctheme">导航</span>
+			</a>
+			<a class="mui-tab-item">
+				<span class="mui-icon sw-fenxiang"></span>
+				<span class="mui-tab-label sw-ctheme">分享</span>
+			</a> 
+		</nav>
+
+	<div id="sheet1" class="mui-popover mui-popover-bottom mui-popover-action " style="height: 160px;">
+		<!-- 可选择菜单 -->
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell" onclick="shareCard()">
+				<a>分享店铺名片</a>
+			</li>
+			<li class="mui-table-view-cell" onclick="mui('#popover4').popover('show');">
+				<a>分享店铺链接</a>
+			</li>
+		</ul>
+		<!-- 取消菜单 -->
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				<a href="#sheet1"><b>取消</b></a>
+			</li>
+		</ul>
+	</div>
+<!--商家banner模板-->
+<script id="banner-list-tpl" type="text/html">
+	
+	{{# var len = d.length }}
+	<div id="slider" class="mui-slider" style="height: 200px; ">
+		<div class="mui-slider-group mui-slider-loop">
+			
+			<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+			<div class="mui-slider-item mui-slider-item-duplicate">
+				<a href="#">
+					<img src="{{ imgUrl+d[len-1].banner_url }}" height="200px" style="display: block;width: 100%;">
+				</a>
+			</div>
+			
+			{{# for(var i = 0;i < len; i++){ }}
+			<div class="mui-slider-item">
+				<a href="#">
+					<img src="{{ imgUrl+d[i].banner_url }}" height="200px" style="display: block;width: 100%;">
+				</a>
+			</div>
+			{{# } }}
+			<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+			<div class="mui-slider-item mui-slider-item-duplicate">
+				<a href="#">
+					<img src="{{ imgUrl+d[0].banner_url }}" height="200px" style="display: block;width: 100%;">
+				</a>
+			</div>
+		</div>
+		<div class="mui-slider-indicator">
+			{{# if(len>1){ }}
+			<div class="mui-indicator mui-active"></div>
+			{{# } }}
+			{{# for(var i = 1;i < len; i++){ }}
+			<div class="mui-indicator"></div>
+			{{# } }}
+		</div>
+	</div>
+</script>
+
+<!--//公司信息模板-->
+<script id="info-list-tpl" type="text/html">	
+	<div class="" style="margin-bottom: 75px;">
+		
+		<ul class="mui-table-view" style="margin-top: 10px;">
+			<li class="mui-table-view-cell mui-media sw-no-active">
+					
+				{{# if(d.face_pic!=null&&d.face_pic!=''){ }} 
+				<img class="mui-media-object mui-pull-left sw-card-img1" src="{{ imgUrl+d.face_pic }}">
+				{{# }else{ }}			
+				<img class="mui-media-object mui-pull-left sw-card-img1" src="../../../image/log.png">	
+				{{# } }}
+				<input type="text" name="EnterpriseID" id="EnterpriseID" value="{{ d.EnterpriseID }}" hidden="hidden"/>	
+				<div style="font-size: 14px;padding-right:70px;height:72px;">  
+					<!--<p class="sw-ctheme sw-word-one" style="margin-left: 72px;">{{ d.companyname }}{{ d.companyname }}
+						{{# if(d.is_vip==1){ }}
+						<img src="../../../image/person/renzheng.png" class="sw-renz-img"/>
+						{{# } }}
+					</p>-->	
+					<div class="sw-box-3">
+
+						{{# if(d.is_check==1){ }}
+						<div class="sw-box-4 sw-renz">
+							<p class="sw-word-one sw-box-5 sw-ctheme">{{ d.companyname }}</p>			
+						</div>
+						{{# }else{ }}
+						<div class="sw-box-4">
+							<p class="sw-word-one sw-box-5">{{ d.companyname }}</p>			
+						</div>
+						{{# } }}
+						
+						{{# if(d.classification==4){ }}
+							<p class="sw-biao-lei1">  
+						修理店
+						</p> 
+						{{# }else if(d.classification==5){ }}
+							<p class="sw-biao-lei2">
+						快修保养
+						</p> 
+						{{# }else{ }}
+							<p class="sw-biao-lei3">
+						美容店
+						</p> 
+						{{# } }}  
+						
+					</div>
+		
+				</div>
+				
+				<div onclick="document.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin={{ d.qqIni }}&version=1&src_type=web&web_src=qq.com'" style="position: absolute;top: 0;right: 0;width: 80px;height: 97px;text-align: center;">
+					<div style="height:72px;margin:12px 0;border-left: 1px solid #F5F5F5;">
+						<img src="../../../image/index/icon_tousu_qq.png" width="42px">
+							<p style="font-size: 12px;color: #666666;">平台投诉</p>
+					</div>
+				</div>
+					
+			</li>
+		 </ul>
+		
+		
+		
+		<ul class="mui-table-view" style="margin-top:10px;">
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">主营</span>
+				{{# if(d.major){ }}
+				<p class="sw-list-text2">{{ d.major }}&nbsp;</p>
+				{{# }else{ }}
+				<p class="sw-list-text2">未填写</p>
+				{{# } }}
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">联系人</span>
+				{{# if(d.linkMan){ }}				
+				<p class="sw-list-text2">{{ d.linkMan }}</p>
+				{{# }else{ }}
+				<p class="sw-list-text2">未填写</p>
+				{{# } }}
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">手机</span>  
+				{{# if(d.linkPhoneArr.length>0){ var linkPhoneArr = d.linkPhoneArr; }}			
+					<div class="sw-list-text2">
+						{{# for(var i=0,iLen=linkPhoneArr.length;i<iLen;i++){ }}
+						<p style="margin-bottom: 6px;">{{ linkPhoneArr[i] }}<span class="sw-sj-phone"></span></p>				
+						{{# } }}
+					</div>					
+				{{# }else{ }}
+				<p class="sw-list-text2">未填写</p>
+				{{# } }}
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">座机</span>
+				{{# if(d.linkTelArr.length>0){ var linkTelArr = d.linkTelArr; }}		
+				<div class="sw-list-text2">
+					{{# for(var j=0,jLen=linkTelArr.length;j<jLen;j++){ }}
+					<p style="margin-bottom: 6px;">{{ linkTelArr[j] }}<span class="sw-sj-tel"></span></p>
+					{{# } }}
+				</div>
+				{{# }else{ }}
+				<p class="sw-list-text2">未填写</p>
+				{{# } }}
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">QQ</span>
+				{{# if(d.qqArr.length>0){ var qqArr = d.qqArr; }}		
+				<div class="sw-list-text2">
+					{{# for(var m=0,mLen=qqArr.length;m<mLen;m++){ }}
+					<p style="margin-bottom: 6px;">{{ qqArr[m] }}<span class="sw-sj-qq"></span></p>	
+					{{# } }}
+				</div>
+				{{# }else{ }}
+				<p class="sw-list-text2">未填写</p>
+				{{# } }}
+			</li>
+			
+			
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">微信</span>
+				{{# if(d.wechat_pic){ }}
+				<img src="{{ imgUrl+d.wechat_pic }}" class="sw-img1"/>
+				{{# }else{ }}
+				<div class="sw-list-text2">
+					<p style="margin-bottom: 6px;">未上传</p>	
+				</div>
+				{{# } }}
+			</li>
+			
+		</ul>    
+		
+			<ul class="mui-table-view" style="margin-top:10px;margin-bottom: 20px;">
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title4">企业介绍</span>
+				{{# if(d.info){ }}
+				<p style="margin-top: 8px;">{{ d.info }}</p>
+				{{# }else{ }}
+				<p style="margin-top: 8px;">未填写</p>
+				{{# } }}
+			</li>
+			
+		</ul>
+		
+		</div>
+		
+	
+</script>
+	
+<!--公司认证模板-->
+<script id="auth-list-tpl" type="text/html">
+	<ul class="mui-table-view">
+		
+		 <li class="mui-table-view-cell sw-after-l">
+		 	<span class="sw-zhizhao">营业执照</span>
+		 	<span class="sw-renz-status">
+		 		{{# if(d.licence_pic!=null&&d.licence_pic!=''){ }}
+		 		<img src="../../../image/login/icon_gou.png" height="16px"/>
+		 		{{# }else{ }}
+		 		无
+		 		{{# } }}		
+		 	</span>
+		 </li>
+		 
+         <li class="mui-table-view-cell sw-after-l">
+		 	<span class="sw-zhizhao">纳税认证</span>
+		 	<span class="sw-renz-status">
+		 		{{# if(d.taxes_pic!=null&&d.taxes_pic!=''){ }}
+		 		<img src="../../../image/login/icon_gou.png" height="16px"/>
+		 		{{# }else{ }}
+		 		无
+		 		{{# } }}		
+		 	</span>
+		 </li>
+		 
+		 <li class="mui-table-view-cell sw-after-l">
+		 	<span class="sw-zhizhao">实地认证</span>
+		 	<span class="sw-renz-status">
+		 		{{# if(d.field_pic!=null&&d.field_pic!=''){ }}
+		 		<img src="../../../image/login/icon_gou.png" height="16px"/>
+		 		{{# }else{ }}
+		 		无
+		 		{{# } }}		
+		 	</span>
+		 </li>
+		 
+		 <li class="mui-table-view-cell sw-after-l">
+		 	<span class="sw-zhizhao">商标认证</span>
+		 	<span class="sw-renz-status">
+		 		{{# if(d.brand_pic!=null&&d.brand_pic!=''){ }}
+		 		<img src="../../../image/login/icon_gou.png" height="16px"/>
+		 		{{# }else{ }}
+		 		无
+		 		{{# } }}		
+		 	</span>
+		 </li>
+		 
+		 <li class="mui-table-view-cell sw-after-l">
+		 	<span class="sw-zhizhao">产品代理认证</span>
+		 	<span class="sw-renz-status">
+		 		{{# if(d.agents_pic!=null&&d.agents_pic!=''){ }}
+		 		<img src="../../../image/login/icon_gou.png" height="16px"/>
+		 		{{# }else{ }}
+		 		无
+		 		{{# } }}		
+		 	</span>
+		 </li>	
+		 
+	</ul>  
+	
+	<ul class="mui-table-view mui-grid-view mui-grid-5 sw-after-no sw-before-no" style="padding:0 0 20px;background: #F5F5F5;">
+        {{# if(d.licence_pic!=null&&d.licence_pic!=''){ }}    
+        <li class="mui-table-view-cell mui-media mui-col-sm-33">      		
+	 		<img class="mui-media-object" src="{{ imgUrl+d.licence_pic }}" style="border: 1px solid #DDDDDD;border-radius: 4px;height: {{ imgH }}px;"/>		
+        	<span style="font-size: 12px;color: #666666;" class="sw-word-one">营业执照</span>
+        </li>
+        {{# } }}
+        
+        {{# if(d.taxes_pic!=null&&d.taxes_pic!=''){ }}
+        <li class="mui-table-view-cell mui-media mui-col-sm-33">       	
+	 		<img class="mui-media-object" src="{{ imgUrl+d.taxes_pic }}" style="border: 1px solid #DDDDDD;border-radius: 4px;height: {{ imgH }}px;"/>	 		
+        	<span style="font-size: 12px;color: #666666;" class="sw-word-one">纳税认证</span>
+        </li>
+        {{# } }}
+        
+        
+        {{# if(d.field_pic!=null&&d.field_pic!=''){ }}
+        <li class="mui-table-view-cell mui-media mui-col-sm-33">       	
+	 		<img class="mui-media-object" src="{{ imgUrl+d.field_pic }}" style="border: 1px solid #DDDDDD;border-radius: 4px;height: {{ imgH }}px;"/>	 			
+        	<span style="font-size: 12px;color: #666666;" class="sw-word-one">实地认证</span>
+        </li>
+        {{# } }}
+        
+        {{# if(d.brand_pic!=null&&d.brand_pic!=''){ }}
+        <li class="mui-table-view-cell mui-media mui-col-sm-33">       	
+	 		<img class="mui-media-object" src="{{ imgUrl+d.brand_pic }}" style="border: 1px solid #DDDDDD;border-radius: 4px;height: {{ imgH }}px;"/>	 	
+        	<span style="font-size: 12px;color: #666666;" class="sw-word-one">商标认证</span>
+        </li>
+        {{# } }}
+        
+        {{# if(d.agents_pic!=null&&d.agents_pic!=''){ }}
+        <li class="mui-table-view-cell mui-media mui-col-sm-33">       	
+	 		<img class="mui-media-object" src="{{ imgUrl+d.agents_pic }}" style="border: 1px solid #DDDDDD;border-radius: 4px;height: {{ imgH }}px;"/>
+	 		<span style="font-size: 12px;color: #666666;" class="sw-word-one">产品代理认证</span>
+        </li>
+ 		{{# } }} 	
+	</ul>
+			
+	
+</script>
+
+<!--底部导航-->
+<script id="nav-list-tpl" type="text/html">
+	{{# if(d.linkPhone){ }}
+	<a class="mui-tab-items" onclick="callLog('{{ d.id }}',1);setTimeout(function(){ document.location.href = 'tel:{{ d.linkPhone }}';  },300)">		
+	{{# }else{ }}
+	<a class="mui-tab-items" onclick="sw.toast('该公司未填写手机号码');">			
+	{{# } }}
+	<span class="mui-icon sw-shouji"></span>
+		<span class="mui-tab-label sw-ctheme">手机</span>
+	</a>
+	
+	{{# if(d.qq){ }}
+	<a class="mui-tab-items" onclick="callLog('{{ d.id }}',2);setTimeout(function(){ document.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin={{ d.qq }}&version=1&src_type=web&web_src=qq.com;';  },300)">
+	{{# }else{ }}
+	<a class="mui-tab-items" onclick="sw.toast('该公司未填写QQ号码');">
+	{{# } }}
+		<span class="mui-icon sw-QQ"></span> 
+		<span class="mui-tab-label sw-ctheme">QQ</span>
+	</a>
+	
+	{{# if(d.wechat_pic==''){ }}
+	<a class="mui-tab-items" id="imgCon"> 
+		<span class="mui-icon" data-preview-src="{{ imgUrl+d.wechat_pic }}" data-preview-group="1">
+			<img height="20px" width="24px" style="vertical-align:bottom" src="../../../image/index/weixin.png" data-preview-src="{{ imgUrl+d.wechat_pic }}" data-preview-group="1"/>
+		<span class="mui-tab-label sw-ctheme" style="margin-top:5px;">微信</span> 
+	</a> 		
+	{{# }else{ }}
+	<a class="mui-tab-items" onclick="sw.toast('该公司未上传微信二维码');"> 
+		<span class="mui-icon">
+			<img height="20px" width="24px" style="vertical-align: bottom;" src="../../../image/index/weixin.png" />
+		</span> 
+		<span class="mui-tab-label sw-ctheme" style="margin-top:5px;">微信</span>  
+	</a> 		
+	{{# } }}   
+	
+	<a class="mui-tab-items" id="dhdetail">
+		<span class="mui-icon sw-daohang"></span>
+		<span class="mui-tab-label sw-ctheme">导航</span>
+	</a>
+	
+	<a class="mui-tab-items" id="fxdetail">
+		<span class="mui-icon sw-fenxiang"></span>
+		<span class="mui-tab-label sw-ctheme">分享</span>
+	</a>
+	
+</script>
+
+</body>
+<script src="../../../js/mui.min.js"></script>
+<script src="../../../js/global.js"></script>
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/laytpl/laytpl.js"></script>
+<script src="../../../js/mui.previewimage.js?v=1.0.6"></script>   
+<script src="../../../js/mui.zoom.js"></script> 	
+ <script type="text/javascript" charset="utf-8">
+ 	//mui初始化
+	mui.init();
+	var imgH = parseInt((document.body.clientWidth-60)/3);	
+	var lat  = '';
+	var lng  = '';
+	var EnterpriseID;
+
+	var Intent = null,
+        File = null,
+        Uri = null,
+        main = null;
+    var shares = null;
+    var shareImageUrl = '';
+ 	//初始化
+	$(function() {
+		
+		var self = sw.getQueryVariable();
+		var token  = JsonStorage.getItem('token');
+		var userType = JsonStorage.getItem('userType');	//2为业务员 	
+			EnterpriseID = self.EnterpriseID;
+		var	qxName       = self.qxName;	
+
+      	var title = qxName?qxName:'经销商名字未设置';
+		//设置标题     
+	    $("#mui_title").text(title);
+	    //请求经销商数据
+		//加载弹窗
+		loading('加载中...');
+		//获取数据
+		http.load('api.sev.index','getFirmDetail',{'EnterpriseID':EnterpriseID,'token':token,'userType':userType},function(rData){
+			sw.jcon(rData);
+			//关闭加载框     
+			closeLoading(300);
+			if(rData.status==200){				
+				var info = rData.data;
+				//访问记录
+				visitedLog(info.id);
+				//公司banner图
+				var bannerTpl = $('#banner-list-tpl').html();			
+				var banner    = info.banners; 
+				if(banner){
+					var bannerLen = banner.length;
+					 if(bannerLen>0){
+					 	laytpl(bannerTpl).render(banner,function(render){           
+				            $('#bannerList').html(render);
+				            //顶部轮播大于一张时启动滚动
+				            var bannerLen = banner.length;
+				            if(bannerLen>1){
+					            //轮播滚动定时
+								mui("#slider").slider({
+									interval: 3000
+								});
+				            }	            
+			        	});  
+					 }
+				}
+				 
+				 sw.jcon(info.isCollect)      
+				//收藏样式
+				if(info.isCollect==1){
+					var collectStr = '<img src="../../../image/index/like_2.png" class="sw-title-img2"/>';
+					$("#msgList").html(collectStr); 
+				}
+				if(info.isCollect==1){//收藏
+					$("#msgList").attr('onclick','collectStore('+info.id+',0,this)');
+				}else{//取消收藏
+					$("#msgList").attr('onclick','collectStore('+info.id+',1,this)');
+				} 
+				
+				var qq   = JsonStorage.getItem('qqIni');
+					info.qqIni = qq;
+				//初始化公司信息					 	 				
+			 	var infoTpl   = $('#info-list-tpl').html();	 		
+		        laytpl(infoTpl).render(info,function(render){           
+		            $('#infoList').html(render);    
+		        });
+		        
+		        //认证信息
+		        var renzheng_info = info.renzheng_info; 
+		        if(renzheng_info!=null&&renzheng_info!=''){
+		        	var authTpl   = $('#auth-list-tpl').html();	 		
+			        laytpl(authTpl).render(renzheng_info,function(render){           
+			            $('#authList').html(render);    
+			        });
+		        }
+		        
+		        //底部导航
+		        var nav_info = {};
+		        	nav_info.linkPhone = (info.linkPhoneArr.length>0)?info.linkPhoneArr[0]:'';
+		        	nav_info.qq = (info.qqArr.length>0)?info.qqArr[0]:'';
+		        	nav_info.wechat_pic = info.QR_pic;
+					nav_info.id = info.id;
+		        	
+		        if(nav_info!=null&&nav_info!=''){
+		        	var navTpl   = $('#nav-list-tpl').html();	 		
+			        laytpl(navTpl).render(nav_info,function(render){           
+			            $('#navList').html(render);    
+			        });
+		        }
+		        //图片预览
+		        mui.previewImage();  		
+		        //导航详情
+				mui("#dhdetail")[0].addEventListener('tap',function(){
+//					openView('../../../view/index/shangjia/daohang.html','index_shangjia_daohang','pop-in');
+					// 设置目标位置坐标点和其实位置坐标点
+					var dst = new plus.maps.Point(info.longitude,info.latitude);
+					var src = new plus.maps.Point(lng,lat);
+					// 调用系统地图显示 
+					plus.maps.openSysMap( dst, info.coordinate, src );
+				})
+				
+				 //分享详情
+				mui("#fxdetail")[0].addEventListener('tap',function(){
+
+					mui('#sheet1').popover('toggle');
+					
+				})
+				
+			}else{
+				sw.toast(rData.msg); 
+			}
+			   	
+		},function(xhr,type,errorThrown){			
+		 		//关闭加载框
+				closeLoading();		
+				//无网络提示
+				sw.toast('获取数据失败，请检查网络'); 	
+		}) 
+
+	})
+ 
+  /**
+  * 获取当前坐标
+  */
+ function getLatLng(){
+
+ }
+ 
+ /**
+  * 分享店铺
+  */
+ function shareStore(){
+ 	var postData = {'EnterpriseID':EnterpriseID,'publishType':3};
+ 		openView('../../../view/person/share/publish.html','person_share_publish','pop-in',postData);
+ }
+
+	//分享名片
+	function shareCard(){
+
+		var EnterpriseID = $("#EnterpriseID").val();
+		var postData = {'EnterpriseID':EnterpriseID};
+		openView('../../../view/person/card/shareCard.html','person_card_shareCard','pop-in',postData);
+
+	}
+	/**
+	 * 发送分享消息
+	 */
+	function shareMessage(s, ex) {
+
+		var title    = $("#mui_title").text();
+		var face_pic = $("#face_pic").attr('src');
+		location.href = 'http://connect.qq.com/widget/shareqq/index.html?url='+encodeURIComponent(document.location.href)+'&desc=&title=' + title +'&summary=' + title +'&pics=' + face_pic+ '&flash=&site=&style=101&width=112&height=24&showcount=';
+
+	}
+
+ //切换视图
+ function selectNav(j,conId){
+ 	//导航切换
+ 	$(".companyNav").removeClass('sw-title-active');
+ 	$(j).addClass('sw-title-active'); 
+ 	//内容切换
+ 	var id = '#'+conId;
+ 	$(".companyCon").css('display','none');
+ 	$(id).css('display','inherit');	
+ }
+ 
+//收藏店铺
+function collectStore(firmsId,type,j){
+   //判断是否登录
+   if(UserInfo.has_login()==false){//未登录	   	
+	   	sw.toast('您还未登录，请先登录');   	
+   }else{//登录
+   	
+   	var token  = JsonStorage.getItem('token');
+	var postData = {};
+		postData.token   = token;
+		postData.firmsId = firmsId;
+		postData.type    = type;
+		postData.userType= JsonStorage.getItem('userType');	//2为业务员		
+   	//获取数据
+	http.load('api.sev.user','collectFirms',postData,function(rData){
+		sw.toast(rData.msg);   
+		if(rData.status==200){
+			$(j).toggleClass('sw-like-r').toggleClass('sw-like')
+			
+			var collectStr = '<img src="../../../image/index/like_2.png" class="sw-title-img2"/>';	
+			if(type==1){//收藏
+				$(j).attr('onclick','collectStore('+firmsId+',0,this)');  									
+			}else{//取消收藏
+				$(j).attr('onclick','collectStore('+firmsId+',1,this)');
+				collectStr = '<img src="../../../image/index/like.png" class="sw-title-img2"/>';
+			} 
+			$("#msgList").html(collectStr); 			
+		}			
+	},function(xhr,type,errorThrown){	   			
+			//无网络提示
+			sw.toast('获取数据失败，服务器或网络异常'); 	
+	})
+			
+   }	   
+}
+ 
+//轮播滚动定时
+mui("#slider").slider({
+	interval: 3000
+});
+
+	//分享到qq空间
+	function sharesQQZ(){
+  		var title    = $("#mui_title").text(); 
+  		var face_pic = $("#face_pic").attr('src');
+  		
+		var shareUrl = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=';
+			shareUrl += apkUrl;
+			shareUrl += '&title='+title+'&pics='+face_pic; 	
+			openBrowser(shareUrl); 
+			return false;
+	}
+ </script>
+</html>

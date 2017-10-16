@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>设置</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">   
+    </script>
+</head>
+<style>
+	.sw-payList:after{
+		left: 0;
+	}
+	.sw-title{
+		font-size: 14px;color: #666;
+	}
+	.sw-text{
+		font-size: 14px;color: #666;margin-right: 18px;line-height: 21px;float: right;margin-top: 4px;
+	}
+	
+		.mui-popup-button:after {
+		    width: 0px;
+		}
+		.mui-popup-inner:after {
+		    height: 0px;
+		}
+		.mui-popup-button:first-child:last-child {
+		    border-radius: 4px;
+		}
+		.sw-popu-btn{
+			width:70%;height:36px;line-height:14px;border-radius: 1px;margin: auto;font-size: 16px;
+		}
+</style>
+<body style="background: #EFEFEF;">
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">设置</h1>
+	</header>
+	
+	<div class="mui-content" style="background: #EFEFEF;">
+		   
+
+	    <ul class="mui-table-view" style="margin-top: 10px;">
+			<li class="mui-table-view-cell sw-payList" id="aboutCompany">
+				<a class="mui-navigate-right">
+					<span class="sw-title">公司简介</span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell sw-payList" id="kfQQBox">
+				<a class="mui-navigate-right"> 
+					<span class="sw-title">客服QQ</span>
+					<span class="sw-text" id="kfQQ"></span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell sw-payList" id="kfTelBox">
+				<a class="mui-navigate-right">
+					<span class="sw-title">客服电话</span>
+					<span class="sw-text" id="kfTel"></span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell sw-payList" id="aboutMe">
+				<a class="mui-navigate-right">
+					<span class="sw-title">关于我们</span>
+				</a>
+			</li>
+
+		</ul>
+	    
+	    <div style="padding: 40px 40px 20px;">
+	    	<button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" style="border: 1px solid #FF534C;" onclick="loginOut()" id="loginBtn">退出登录</button>
+	    </div>
+	    
+	</div>
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+ <script src="../../../js/jquery.min.js"></script> 
+ <script>
+ 	
+ 	//关于我们
+ 	mui("#aboutMe")[0].addEventListener('tap',function(){
+		openView('../../../view/person/set/aboutMe.html','aboutMe','pop-in');
+		})
+ 	//关于公司 
+ 	mui("#aboutCompany")[0].addEventListener('tap',function(){
+		openView('../../../view/person/set/aboutCompany.html','aboutCompany','pop-in');
+		})
+ 	
+
+	var updateStatus = 1;
+ 	//mui plusReady
+	$(function() {
+		//读取qq 电话
+		http.load('api.sev.user','getLinkInfo',{},function(rData){
+			sw.jcon(rData) 
+			var data = rData.data;
+			if(data.QQ){
+				$("#kfQQ").text(data.QQ);
+				
+				var qqStr = "document.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin="+data.QQ+"&version=1&src_type=web&web_src=qq.com;';";
+				$("#kfQQBox").attr('onclick',qqStr);
+			}
+			
+			if(data.Tel){
+				
+				$("#kfTel").text(data.Tel);
+				
+				var telStr = "document.location.href = 'tel:"+data.Tel+"'; ";
+				$("#kfTelBox").attr('onclick',telStr);                  
+			} 
+			
+		},function(xhr,type,errorThrown){	
+				//无网络提示
+				sw.toast('获取数据失败，服务器或网络异常'); 	
+		}) 
+		
+
+		/**
+		 * 初始化底部按钮
+		 */
+		if(!UserInfo.has_login()){
+			$("#loginBtn").text('立即登录');
+			$("#loginBtn").attr('onclick','loginView()');
+		}
+
+	});
+
+	//登录界面
+	function loginView(){
+		openView('../../../view/login/login.html','login','slide-in-bottom'); 		
+	}
+
+/**
+ * 退出登录
+ */
+function loginOut(){
+	//退出动画
+	//loading('退出中');
+	//退出登录 清除记录的个人信息
+	JsonStorage.removeItem('token');
+	JsonStorage.removeItem('userInfo');
+	JsonStorage.removeItem('userType');
+	JsonStorage.removeItem('yeWuInfo');
+	//关闭加载框
+	//closeLoading(1000);
+	
+	setTimeout(function(){
+		//刷新个人中心
+		sw.toast('退出登录成功'); 
+		//按钮更新
+		$("#loginBtn").text('立即登录');
+		$("#loginBtn").attr('onclick','loginView()');
+	},1500)
+
+	
+ }
+
+		
+ </script>
+</html>
+
+
+

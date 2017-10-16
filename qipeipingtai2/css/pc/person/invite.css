@@ -1,0 +1,40 @@
+.titles{height: 90px;line-height: 90px;margin-top: 15px;text-align: center;font-size: 20px;font-weight: bold;color: #5D5D5D}
+#yaoQingMaDiv{width: 935px;height: 314px;border: 1px solid #DDD;margin: 0 auto;padding: 20px;}
+.yaoQingRenDiv{float: left;width: 50%;text-align: center;height: 274px;border-right: 1px solid #DDD;}
+.yaoQingRen{margin-bottom: 60px;font-size: 18px;padding-top: 20px;}
+.marBottom40{margin-bottom: 40px;}
+.yaoQingInput{font-size: 16px;text-align: center;width: 295px;height: 42px;border: 1px solid #DDD;border-radius: 3px;line-height: 42px;}
+.bangDingBtn{font-size: 18px;background: #FF524B;width: 155px;height: 42px;color: #FFF;border: none;border-radius: 7px;}
+.bangDingBtn:hover{background: #FF7871;}
+.bangDingBtn:active{opacity: .6}
+
+.yaoQingMaDiv{float: right;width: 50%;text-align: center;}
+.meYaoQingMa{margin-bottom: 30px;font-size: 18px;padding-top: 20px;}
+.posRelative{position: relative}
+.yaoQingText{top: 20px;position: absolute;font-size: 22px;color: #FFE82A;font-weight: bold;width: 100%;text-align: center;}
+.yaoQingInfo{padding-top: 5px;width: 158px;font-size: 13px;color: #999;margin: 0 auto;}
+.fenXiangDiv{width: 245px;margin: 0 auto;margin-top: 15px;}
+.floLeftMarRight50{float: left;margin-right: 50px;}
+.floLeft{float: left;}
+.width45{width: 45px;}
+#yaoQingRen{padding: 15px;margin-top: 30px;padding-bottom: 40px;}
+.yaoQingSuccess{color: #666;font-size: 20px;font-weight: 500;}
+.yaoQingRenList{height: 100px;border-bottom: 1px solid #DDD;}
+.h65PadTop22{height: 65px;padding-top: 22px;}
+.touXiangDiv{float: left;width: 65px;height: 65px;overflow: hidden;border-radius: 50%;}
+.w65maxH65{width: 65px;max-height: 65px;}
+.niChengDiv{float: left;margin-left: 15px;padding-top: 5px;}
+.niCheng{color: #FF4F4B;font-size: 18px;margin-bottom: 10px;}
+.time{font-size: 12px;color: #9A9A9A;}
+.rightDiv{float: right;height: 65px;padding-top: 22px;}
+.marTop15{margin-top: -15px;}
+.niChengText{font-size: 14px;margin-top: 5px;margin-bottom: 20px;}
+
+
+
+/*固定定位QQ、电话*/
+.fixedQQ{display: none;color: #FFF;text-align:center;float: right;height: 40px;margin-top: 10px;width: 150px;border: 2px solid #FAA29E;border-radius: 30px;line-height: 40px;background: #FAA29E}
+.fixedDiv{height: 60px;margin-top: 20px;}
+.fixedDinWei{position: fixed;width: 260px;height: 260px;top: 300px;right: 15px;z-index: 100}
+.fixedYuan{float: right;height: 60px;width: 60px;text-align: center;line-height: 52px}
+

@@ -1,0 +1,348 @@
+<link rel="stylesheet" href="/css/pc/style.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/pc/index/circle.css" crossorigin="anonymous">
+<script src="/js/global.js" type="text/javascript"></script>
+<script src="/js/pc/layer/layer.js" type="text/javascript"></script>
+<style>
+
+</style>
+<!--圈子-->
+<div id="quanZi">
+    <!--左侧导航-->
+    <div id="leftDiv">
+        <div>
+            <img src="/images/qpxm/pc/circle/bg.jpg" class="bgImg" alt="">
+        </div>
+        <div class="touXiang">
+            <img src="/images/qpxm/pc/circle/touXiang.png" class="touXiangImg" alt="">
+        </div>
+        <a href="/person"><div class="niChen">昵称</div></a>
+        <a href="/def/circle?do=home"><div class="<?php echo $func1==='home'?'shouYe':'xuanXiang';?>">首页</div></a>
+        <a href="/def/circle?do=collect"><div class="<?php echo $func1==='collect'?'shouYe':'xuanXiang';?>">收藏</div></a>
+        <a href="/def/circle?do=mine"><div class="<?php echo $func1==='mine'?'shouYe':'xuanXiang';?>">我的</div></a>
+    </div>
+    <!--右侧-->
+    <div id="RightDiv">
+
+        <?php if($func1==='home'){ ?>
+        <!--发表动态-->
+        <div id="pushSay">
+            <div>
+                <span class="pushSay">发表动态</span>
+                <span class="ziShu" style="color: #A9A9A9"><span id="text-count">0</span>/200字</span>
+            </div>
+            <textarea id="area" placeholder="写点什么?" class="textareaClass"></textarea>
+            <a href="javascript:;" onclick="showView()"><img src="/images/qpxm/pc/circle/upImg.png" class="upImg" alt=""></a>
+            <div class="floatR">
+                <button class="btn btn-default faBu" type="submit" onclick="toCircle()">发布</button>
+            </div>
+            <!--图片上传视图-->
+            <div id="send">
+                <div class="relativeP">
+                    <img src="/images/qpxm/pc/circle/uoImgKuang.png" class="upKuangImg" alt="">
+                    <div class="sendDiv">
+                        <div class="fontSize15">
+                            <span>全部上传图片 ：<span id="upImgshul">0</span>/9张</span>
+                            <span class="floatR">
+                                <a href="javascript:;" onclick="hideView()"><img src="/images/qpxm/pc/circle/x.png" alt=""></a>
+                            </span>
+                        </div>
+                        <div class="marTop">
+                            <div class="sendBtn">
+                                <a href="javascript:;" id="shangchuanpic" onclick="upImg()">
+                                    <img src="/images/qpxm/pc/circle/jia.png" class="sengImg" alt="">
+                                </a>
+                            </div>
+                            <div id="showImgForThis">
+
+                            </div>
+                            <div id="upImg"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div id="allmap" style="display: none"></div>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=<?php echo 'MasrxSBSfRTUNMnck3fejCBc7amXYjPn';?>"></script>
+        <script type="text/javascript" src="/js/webuploader/webuploader.custom.min.js"></script>
+        <script type="text/javascript">
+            // 百度地图API功能
+            var map = new BMap.Map('allmap');
+            var point = new BMap.Point(116.331398,39.897445);
+            map.centerAndZoom(point,12);
+            var area = '';
+            function myFun(result){
+                var cityName = result.name;
+                map.setCenter(cityName);
+                area = cityName;
+            }
+            var myCity = new BMap.LocalCity();
+            myCity.get(myFun);
+        </script>
+        <script>
+            function toCircle() {
+                console.log(area);
+                var circleStr = $('#area').val();
+                var imgs = '';
+                $('#showImgForThis').find('.leftMarR').find('img').each(function (i,v) {
+                    imgs += $(v).attr('src')+',';
+                });
+                //console.log([circleStr,imgs]);
+                api.load('pc.circle','release',{content:circleStr,img:imgs,area:area},function (data) {
+                    layer.alert(data.msg,{icon:data.status,skin: 'layui-layer-rim'},function () {
+                        if(data.status===0){
+                            window.location.href = '/login';
+                        }else if(data.status===1){
+                            location.reload();
+                        }else {
+                            layer.closeAll();
+                        }
+                    });
+                });
+            }
+
+
+            function upImg() {
+                var count = 1;
+                $('#showImgForThis').find('.leftMarR').find('img').each(function (i,v) {
+                    count+=1;
+                });
+
+                if(count>9){
+                    var text = '最多能上传9张图片';
+                    layer.alert(text,{icon:2,skin: 'layui-layer-rim'});
+                    return ;
+                }
+                $('#upImg').find('input[type="file"]').click();
+            }
+
+            /*字数限制*/
+            $("#area").on("input propertychange", function() {
+                var $this = $(this),
+                    _val = $this.val(),
+                    count = "";
+                if (_val.length > 200) {
+                    $this.val(_val.substring(0, 200));
+                }
+                count = 200 - $this.val().length;
+                $("#text-count").text(count);
+            });
+
+            //图片上传
+            var BASE_URL = '';
+            var wordUploader = WebUploader.create({
+                // 选完文件后，是否自动上传。
+                auto: true,
+                // swf文件路径
+                swf: BASE_URL + '/js/webuploader/Uploader.swf',
+                // 文件接收服务端。
+                server: '/tools/baiduUploadForHome',
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: '#upImg',
+                sendAsBinary: true,
+                // 只允许选择文件类型。
+                accept: {
+                    title: 'Applications',
+                    extensions: 'jpg,png,jpeg,png',
+                    mimeTypes: '.jpg,.png,.jpeg,.png'
+                }
+            });
+
+            //文件上传成功后的处理，在界面上的呈现，显示
+            wordUploader.on('uploadSuccess', function (file, response) {
+                imgrl007 = response.httpUrl;
+                //成功提示
+                var str003 = '<div class="leftMarR">\
+                    <img src="'+imgrl007+'" class="imgSize" alt="">\
+                    </div>';
+                $('#showImgForThis').append(str003);
+                $('#upImgshul').html(parseInt($('#upImgshul').html())+1);
+            });
+            //文件上传失败
+            wordUploader.on('uploadError', function (file, response) {
+                //失败提示
+                var text = '上传失败';
+                layer.alert(text,{icon:2,skin: 'layui-layer-rim'});
+            });
+
+            //文件上中
+            wordUploader.on('uploadProgress', function (file, percentage) {
+
+            });
+
+
+        </script>
+
+        <?php } ?>
+
+        <!--动态内容-->
+        <div id="dongTaiContent">
+            <div class="souSay">
+                <span>全部</span>
+                <div class="souSayDiv">
+                    <input type="text" placeholder="输入关键字搜索" class="inputSou">
+                    <button class="btn btn-default inputBtn" type="submit">搜索</button>
+                </div>
+                <div class="bottomX"></div>
+            </div>
+            <?php for($j=0;$j<2;++$j){?>
+            <div class="dongTaiInfo">
+                <div class="sayDiv">
+                    <div id="content">
+                        <div class="contentName">
+                            昵称
+                            <div class="del"><a href="javascript:;">删除</a></div>
+                        </div>
+                        <div class="contentInfo">
+                            <a href="javascript:;" style="color: #CCC"><img src="/images/qpxm/pc/circle/dingWei.png" alt="">&nbsp;&nbsp;城市</a>
+                            <div class="contentText">
+                                <p>文字内容。。。文字内容。。。文字内容。。。文字内容。。。文字内容。。。文字内容。。。文字内容。。。文字内容。。。文字内容。。。文字内容。。。文字内容。。。文字内容。。。</p>
+                                <div class="contentImgDiv">
+                                    <?php for($i=0; $i<9; ++$i){?>
+                                    <div class="contentImgDivs">
+                                        <img class="contentImgs" src="/images/qpxm/pc/circle/touXiang.png" alt="">
+                                    </div>
+                                    <?php }?>
+                                    <div style="clear: both"></div>
+                                </div>
+                                <div>
+                                    <span class="contentTime">02-28 12:00</span>
+                                    <div class="zanDiv">
+                                <span class="zanSpan">
+                                    <a href="javascript:;"><img src="/images/qpxm/pc/circle/zan.png" alt=""></a>
+                                    <span class="zanNum">2</span>
+                                </span>
+                                <span>
+                                    <a href="javascript:;"><img src="/images/qpxm/pc/circle/say.png" alt=""></a>
+                                    <span class="zanNum">2</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--发表者的头像-->
+                        <div class="faBuTouXiang">
+                            <img src="/images/qpxm/pc/circle/touXiang.png" class="faBuTouXiangImg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <!--留言-->
+                <div style="background: #CCC;">
+                    <div class="liuYan">
+                        <div class="touXiangListImgD">
+                            <img src="/images/qpxm/pc/circle/touXiang.png" class="touXiangListImg" alt="">
+                        </div>
+                        <div class="faBuDiv">
+                            <textarea name="" class="faBuTextar"></textarea>
+                            <div style="margin-top: 10px;">
+                                <span>0/200字</span>
+                                <span style="float: right"><button class="btn btn-default faBu" type="submit">发布</button></span>
+                            </div>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div style="width: 800px;border-bottom: 3px solid #F5F5F5;margin: 0 auto;padding-top: 20px"></div>
+                    <!--留言列表-->
+                    <?php for($i=0; $i<3; ++$i){?>
+                    <div class="liuYanList">
+                        <div class="liuYanImgDs">
+                            <img src="/images/qpxm/pc/circle/touXiang.png" class="liuYanImgs" alt="">
+                        </div>
+                        <div class="niChens">
+                            <div style="font-size: 16px">昵称</div>
+                            <div style="font-size: 10px">
+                                <span>02-28 12:00</span>
+                                <div style="float: right">
+                                    <span style="margin-right: 30px"><a href="javascript:;">删除</a></span>
+                                    <span><a href="javascript:;">回复</a></span>
+                                </div>
+                            </div>
+                            <div class="huiFuDiv">
+                                <div>
+                                    回复 <span style="color: #5CA9D3">昵称</span>: <span>回复的文字内容...回复的文字内容...回复的文字内容...</span>
+                                </div>
+                                <div class="huiFuText">
+                                    <span>昵称</span> ：评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <?php }?>
+                    <div style="clear: both"></div>
+                </div>
+            </div>
+            <?php }?>
+        </div>
+        <!--更多-->
+        <a href="javascript:;" onclick="moreContent()"><div class="showMores">查看更多</div></a>
+    </div>
+    <div style="clear: both"></div>
+</div>
+
+<script>
+    function showView(){
+        $('#send').show();
+    }
+    function hideView(){
+        $('#send').hide();
+    }
+    /*点击更多*/
+    function moreContent(){
+        for(var i=0; i<2; ++i){
+            var str = data();
+            $('.dongTaiInfo:last').after(str);
+        }
+    }
+
+    function data(){
+        var str = '';
+            str += '<div class="dongTaiInfo"><div class="sayDiv">';
+            str += '<div id="content"><div class="contentName">昵称';
+            str += '<div class="del"><a href="javascript:;">删除</a></div></div>';
+            str += '<div class="contentInfo">';
+            str += '<a href="javascript:;" style="color: #CCC">';
+            str += '<img src="/images/qpxm/pc/circle/dingWei.png" alt="">&nbsp;&nbsp;城市</a>';
+            str += '<div class="contentText"><p>文字内</p>';
+            str += '<div class="contentImgDiv">';
+            for(var i=0; i<2; ++i){
+                str += '<div class="contentImgDivs">';
+                str += '<img class="contentImgs" src="/images/qpxm/pc/circle/touXiang.png" alt=""></div>';
+            }
+            str += '<div style="clear: both"></div></div><div>';
+            str += '<span class="contentTime">02-28 12:00</span>';
+            str += '<div class="zanDiv">';
+            str += '<span class="zanSpan">';
+            str += '<a href="javascript:;"><img src="/images/qpxm/pc/circle/zan.png" alt=""></a>';
+            str += '<span class="zanNum">2</span></span><span>';
+            str += '<a href="javascript:;"><img src="/images/qpxm/pc/circle/say.png" alt=""></a>';
+            str += '<span class="zanNum">2</span></span></div></div></div></div>';
+            str += '<div class="faBuTouXiang">';
+            str += '<img src="/images/qpxm/pc/circle/touXiang.png" class="faBuTouXiangImg" alt=""></div></div></div>';               str += '<div style="background: #CCC;"><div class="liuYan">';
+            str += '<div class="touXiangListImgD">';
+            str += '<img src="/images/qpxm/pc/circle/touXiang.png" class="touXiangListImg" alt=""></div>';
+            str += '<div class="faBuDiv"><textarea name="" class="faBuTextar"></textarea>';
+            str += '<div style="margin-top: 10px;"><span>0/200字</span>';
+            str += '<span style="float: right"><button class="btn btn-default faBu" type="submit">发布</button></span>';
+            str += '</div></div><div style="clear: both"></div></div>';
+            str += '<div style="width: 800px;border-bottom: 3px solid #F5F5F5;margin: 0 auto;padding-top: 20px"></div>';
+            for(var k=0; k<2; ++k){
+                str += '<div class="liuYanList">';
+                str += '<div class="liuYanImgDs">';
+                str += '<img src="/images/qpxm/pc/circle/touXiang.png" class="liuYanImgs" alt=""></div>';
+                str += '<div class="niChens"><div style="font-size: 16px">昵称</div>';
+                str += '<div style="font-size: 10px"><span>02-28 12:00</span>';
+                str += '<div style="float: right">';
+                str += '<span style="margin-right: 30px"><a href="javascript:;">删除</a></span>';
+                str += '<span><a href="javascript:;">回复</a></span>';
+                str += '</div></div<div class="huiFuDiv"><div>';
+                str += '回复 <span style="color: #5CA9D3">昵称</span>: <span>回复的文字内容...回复的文字内容...</span>';
+                str += '</div><div class="huiFuText">';
+                str += '<span>昵称</span> ：评论的文字内容。。。评</div>';
+                str += '</div></div><div style="clear: both"></div></div>';
+            }
+            str += '<div style="clear: both"></div></div></div>';
+            return str;
+    }
+</script>

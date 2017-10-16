@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>导航</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">   
+    </script>
+</head>
+<style>
+	.sw-no-active:active{
+		background: #FFFFFF;
+	}
+	#allmap{
+		height: 100%;width: 100%;position: absolute
+	}
+	.sw-sj-div1{
+		height: 64px;width: 100%;position: fixed;bottom: 0;background: #FFFFFF;padding:10px 15px;
+	}
+	.sw-sj-btn1{
+		font-size: 14px;position: absolute;top:15px;right: 15px;width: 60px;
+	}
+</style>
+<body style="background: #EFEFEF;">
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">导航</h1>
+	</header>
+	
+	<div class="mui-content" style="background: #EFEFEF;">
+	   
+	 	<div id="allmap"><p style="text-align: center;margin-top: 20px;">地图加载中...</p></div>
+	    
+	</div>
+	
+	<div class="sw-sj-div1">
+		
+		<div style="padding-right: 78px;">
+			<p class="sw-word-one" style="color: #333333;margin-bottom: 4px;">成都某某有限责任公司</p>
+			<p class="sw-word-one">定位地址定位点定位地址定位点定位地址定位点定位地址定位点定位地址定位点定位地址定位点</p>		
+		</div>
+		<button type="button" class="mui-btn mui-btn-tangerine sw-sj-btn1">导航</button>
+		
+	</div>  
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+ <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZBcSIHdvwjfx105K8jvQCj5W"></script> 
+ <script>
+ 	
+		//设置地图高度
+		var allHeight = window.screen.height;	
+		var mapHight  = (allHeight -138)+'px'; 
+		document.getElementById('allmap').style.height = mapHight; 
+		
+		var point = new BMap.Point(116.404, 39.915);	
+		
+		setMap(point);
+		//生成坐标
+		function setMap(point){      	 
+		 	// 百度地图API功能
+			var map = new BMap.Map("allmap"); 
+	//		map.disablePinchToZoom(); 
+			//	var point = new BMap.Point(116.404, 39.915);
+			map.centerAndZoom(point, 15);
+			var myIcon = new BMap.Icon("../../../image/person/repair/icon_dingwei_x.png", new BMap.Size(60,120));
+			var marker = new BMap.Marker(point,{icon:myIcon});  // 创建标注
+			map.addOverlay(marker);   
+		}
+	
+		
+ </script>
+</html>

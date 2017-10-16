@@ -1,0 +1,371 @@
+{
+  "view/coterie/coterieDetail.html": {
+    "href": "view/coterie/coterieDetail.html",
+    "resources": [],
+    "priority": 0
+  },
+  "view/coterie/publish.html": {
+    "href": "view/coterie/publish.html",
+    "resources": [],
+    "priority": 1
+  },
+  "view/coterie/list.html": {
+    "href": "view/coterie/list.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  },
+  "view/vin/index.html": {
+    "href": "view/vin/index.html",
+    "resources": [],
+    "priority": 1
+  },
+  "view/index/shangjia/daohang.html": {
+    "href": "view/index/shangjia/daohang.html",
+    "resources": [],
+    "priority": 2
+  },
+  "view/index/shangjia/share.html": {
+    "href": "view/index/shangjia/share.html",
+    "resources": [],
+    "priority": 3
+  },
+  "view/index/shangjia/jingxiao.html": {
+    "href": "view/index/shangjia/jingxiao.html",
+    "resources": [],
+    "refer": [],
+    "priority": 2
+  },
+  "view/index/car/index.html": {
+    "href": "view/index/car/index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 2
+  },
+  "view/index/product/detail.html": {
+    "href": "view/index/product/detail.html",
+    "resources": [],
+    "priority": 3
+  },
+  "view/index/product/list.html": {
+    "href": "view/index/product/list.html",
+    "resources": [],
+    "refer": [],
+    "priority": 3
+  },
+  "view/index/product/index.html": {
+    "href": "view/index/product/index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 3
+  },
+  "view/index/qiugou/detail.html": {
+    "href": "view/index/qiugou/detail.html",
+    "resources": [],
+    "priority": 5
+  },
+  "view/index/qiugou/index.html": {
+    "href": "view/index/qiugou/index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 5
+  },
+  "view/index/wuliu/index.html": {
+    "href": "view/index/wuliu/index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 6
+  },
+  "view/index/changeCity.html": {
+    "href": "view/index/changeCity.html",
+    "resources": [],
+    "priority": 7
+  },
+  "view/index/track/index.html": {
+    "href": "view/index/track/index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 8
+  },
+  "view/index/index.html": {
+    "href": "view/index/index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 2
+  },
+  "view/person/orbit/history.html": {
+    "href": "view/person/orbit/history.html",
+    "resources": [],
+    "priority": 3
+  },
+  "view/person/orbit/index.html": {
+    "href": "view/person/orbit/index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 3
+  },
+  "view/person/salesman/login/login.html": {
+    "href": "view/person/salesman/login/login.html",
+    "resources": [],
+    "priority": 4
+  },
+  "view/common/uploadImg.html": {
+    "href": "view/common/uploadImg.html",
+    "resources": [],
+    "priority": 5
+  },
+  "view/register/scope.html": {
+    "href": "view/register/scope.html",
+    "resources": [],
+    "priority": 6
+  },
+  "view/register/setPwd.html": {
+    "href": "view/register/setPwd.html",
+    "resources": [],
+    "refer": [],
+    "priority": 5
+  },
+  "view/register/register.html": {
+    "href": "view/register/register.html",
+    "resources": [],
+    "refer": [],
+    "priority": 5
+  },
+  "view/login/resetPwd.html": {
+    "href": "view/login/resetPwd.html",
+    "resources": [],
+    "priority": 6
+  },
+  "view/login/viPhone.html": {
+    "href": "view/login/viPhone.html",
+    "resources": [],
+    "refer": [],
+    "priority": 6
+  },
+  "view/login/login.html": {
+    "href": "view/login/login.html",
+    "resources": [],
+    "refer": [],
+    "priority": 4
+  },
+  "view/person/refresh/payHistory.html": {
+    "href": "view/person/refresh/payHistory.html",
+    "resources": [],
+    "priority": 5
+  },
+  "view/person/refresh/payResult.html": {
+    "href": "view/person/refresh/payResult.html",
+    "resources": [],
+    "priority": 6
+  },
+  "view/person/refresh/index.html": {
+    "href": "view/person/refresh/index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 5
+  },
+  "view/person/myCircle/coterieDetail.html": {
+    "href": "view/person/myCircle/coterieDetail.html",
+    "resources": [],
+    "priority": 6
+  },
+  "view/person/myCircle/list.html": {
+    "href": "view/person/myCircle/list.html",
+    "resources": [],
+    "refer": [],
+    "priority": 6
+  },
+  "view/person/info/editNick.html": {
+    "href": "view/person/info/editNick.html",
+    "resources": [],
+    "priority": 7
+  },
+  "view/person/info/viCode.html": {
+    "href": "view/person/info/viCode.html",
+    "resources": [],
+    "priority": 8
+  },
+  "view/person/info/setTel.html": {
+    "href": "view/person/info/setTel.html",
+    "resources": [],
+    "refer": [],
+    "priority": 8
+  },
+  "view/person/info/editPwd.html": {
+    "href": "view/person/info/editPwd.html",
+    "resources": [],
+    "priority": 9
+  },
+  "view/person/info/index.html": {
+    "href": "view/person/info/index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 7
+  },
+  "view/person/collect/index.html": {
+    "href": "view/person/collect/index.html",
+    "resources": [],
+    "priority": 8
+  },
+  "view/person/purchase/detail.html": {
+    "href": "view/person/purchase/detail.html",
+    "resources": [],
+    "priority": 9
+  },
+  "view/person/purchase/carSeries.html": {
+    "href": "view/person/purchase/carSeries.html",
+    "resources": [],
+    "priority": 10
+  },
+  "view/person/purchase/carClass.html": {
+    "href": "view/person/purchase/carClass.html",
+    "resources": [],
+    "refer": [],
+    "priority": 10
+  },
+  "view/person/purchase/type.html": {
+    "href": "view/person/purchase/type.html",
+    "resources": [],
+    "refer": [],
+    "priority": 10
+  },
+  "view/person/purchase/otherp.html": {
+    "href": "view/person/purchase/otherp.html",
+    "resources": [],
+    "priority": 11
+  },
+  "view/person/purchase/vinp.html": {
+    "href": "view/person/purchase/vinp.html",
+    "resources": [],
+    "priority": 12
+  },
+  "view/person/purchase/publish.html": {
+    "href": "view/person/purchase/publish.html",
+    "resources": [],
+    "refer": [],
+    "priority": 10
+  },
+  "view/person/purchase/index.html": {
+    "href": "view/person/purchase/index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 9
+  },
+  "view/person/store/rangeList.html": {
+    "href": "view/person/store/rangeList.html",
+    "resources": [],
+    "priority": 10
+  },
+  "view/person/store/range.html": {
+    "href": "view/person/store/range.html",
+    "resources": [],
+    "refer": [],
+    "priority": 10
+  },
+  "view/person/card/cardTpl.html": {
+    "href": "view/person/card/cardTpl.html",
+    "resources": [],
+    "priority": 11
+  },
+  "view/person/card/index.html": {
+    "href": "view/person/card/index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 11
+  },
+  "view/person/store/productCate.html": {
+    "href": "view/person/store/productCate.html",
+    "resources": [],
+    "priority": 13
+  },
+  "view/person/store/product.html": {
+    "href": "view/person/store/product.html",
+    "resources": [],
+    "refer": [],
+    "priority": 12
+  },
+  "view/person/store/history.html": {
+    "href": "view/person/store/history.html",
+    "resources": [],
+    "priority": 13
+  },
+  "view/person/store/uploadImg.html": {
+    "href": "view/person/store/uploadImg.html",
+    "resources": [],
+    "priority": 14
+  },
+  "view/person/store/uploadBanner.html": {
+    "href": "view/person/store/uploadBanner.html",
+    "resources": [],
+    "priority": 15
+  },
+  "view/person/store/editInfo.html": {
+    "href": "view/person/store/editInfo.html",
+    "resources": [],
+    "refer": [],
+    "priority": 14
+  },
+  "view/person/store/info.html": {
+    "href": "view/person/store/info.html",
+    "resources": [],
+    "refer": [],
+    "priority": 14
+  },
+  "view/person/store/index.html": {
+    "href": "view/person/store/index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 10
+  },
+  "view/person/salesman/index.html": {
+    "href": "view/person/salesman/index.html",
+    "resources": [],
+    "priority": 11
+  },
+  "view/person/share/index.html": {
+    "href": "view/person/share/index.html",
+    "resources": [],
+    "priority": 12
+  },
+  "view/person/index.html": {
+    "href": "view/person/index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 3
+  },
+  "view/gonggao/news.html": {
+    "href": "view/gonggao/news.html",
+    "resources": [],
+    "refer": [],
+    "priority": 5
+  },
+  "view/gonggao/Promotion.html": {
+    "href": "view/gonggao/Promotion.html",
+    "resources": [],
+    "refer": [],
+    "priority": 6
+  },
+  "view/gonggao/newbieDetail.html": {
+    "href": "view/gonggao/newbieDetail.html",
+    "resources": [],
+    "priority": 7
+  },
+  "view/gonggao/newbie.html": {
+    "href": "view/gonggao/newbie.html",
+    "resources": [],
+    "refer": [],
+    "priority": 7
+  },
+  "view/gonggao/notice.html": {
+    "href": "view/gonggao/notice.html",
+    "resources": [],
+    "refer": [],
+    "priority": 4
+  },
+  "index.html": {
+    "href": "index.html",
+    "resources": [],
+    "refer": [],
+    "priority": 0
+  }
+}

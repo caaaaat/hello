@@ -1,0 +1,41 @@
+.titles{height: 90px;line-height: 90px;margin-top: 15px;text-align: center;font-size: 20px;font-weight: 500;color: #5D5D5D}
+.vipBGImg{margin: auto;height: 400px;width: 706px;border-radius: 10px;overflow: hidden;background: url('/images/qpxm/pc/person/vip/vip.png')}
+.daoQiTime{text-align: center;font-size: 18px;color: #F06163;padding-top: 360px;font-weight: bold;}
+.vipKaiTongDiv{text-align: center;margin-top: 48px;margin-bottom: 50px;}
+.vipKaiTong{font-size: 18px;color: #FFF;background: #FF524B;width: 440px;height: 62px;border:none;border-radius: 7px;line-height: 62px;}
+.goBackDiv{position: absolute;top: -20px;left: 30px;font-weight: normal}
+/*VIP续费*/
+#recharge{padding: 40px;font-size: 18px;}
+.marLeft150W570{width: 570px;margin-left: 150px;}
+.rechargeList{height: 50px;line-height: 50px;border-bottom: 1px solid #DDD;}
+.floLeftMarLeft70{float: left;margin-left: 70px;}
+.floRightMarRight25{float: right;margin-right: 25px;}
+.marTop55{margin-top: 55px;}
+.payDiv{margin: 0 auto;width: 395px;margin-top: 30px;}
+.floLeftW86{float: left;width: 86px;}
+.payImgDiv{text-align: center;margin-top: 15px;}
+.payBtnDiv{width: 440px;margin: 0 auto;margin-top: 80px;margin-bottom: 50px;}
+.payBtn{font-size: 20px;width: 100%;height: 64px;background: #FF524B;border: none;border-radius: 7px;color: #FFF;}
+.floRightW86{float: right;width: 86px;}
+/*支付结果*/
+.payResult{text-align: center;font-size: 22px;color: #333;margin-top: 50px;margin-bottom: 30px;}
+.resultImgDiv{margin: 0 auto;text-align: center;}
+.resultSuccess{text-align: center;font-size: 18px;color: #666;margin-top: 20px;margin-bottom: 40px;}
+.yuE{text-align: center;line-height: 25px;}
+.payTypeText{text-align: center;line-height: 25px;margin-bottom: 50px;}
+.resultLoser{text-align: center;font-size: 18px;color: #666;margin-top: 20px;margin-bottom: 130px;}
+/*支付记录*/
+#payRecord{font-size: 24px;font-weight: 500;}
+.pad1040{padding: 0 40px;}
+.recordList{border-top: 1px solid #DDD;border-bottom: 1px solid #DDD;height: 75px;font-size: 16px;padding-top: 12px;line-height: 25px;margin-top: -1px;}
+.floLeft{float: left;}
+.floRight{float: right;}
+
+
+/*分页*/
+.btn-primary.active{background: #FFF;color: #2E2E2E;border: 1px solid #FE534B;border-top: none;border-bottom: none;box-shadow:none;}
+.btn-white{border: 1px solid #FE534B;color: #FE534B;}
+.btn:hover{border: 1px solid #FE534B;}
+.pager{height: 34px;min-width: 34px;display: inline-block;line-height: 34px;margin: 0;}
+#pager button{padding: 0;height: 34px;min-width: 34px;}
+

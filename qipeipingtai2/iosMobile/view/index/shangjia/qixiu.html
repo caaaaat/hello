@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>首页</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	
+	.mui-indicator{
+		width: 10px!important;
+		height: 10px!important;
+		box-shadow: none!important;
+		background: url(../../../image/index/dian_next@2x.png) no-repeat!important;
+		background-size: contain!important;
+	}
+	.mui-slider-indicator .mui-active.mui-indicator {
+		background: url(../../../image/index/dian_now@2x.png) no-repeat!important;
+		background-size: contain!important;
+		border-radius: 0;
+		box-shadow: none;
+		width: 26px!important;
+	}
+	.sw-bottom-banner{
+		height: 180px;display: block;
+	}
+	.sw-meida-text{
+				font-size: 14px!important;color: #666!important;
+			}
+	.sw-after-no:after{
+		height: 0;
+	}	
+	.sw-title-box{
+		width: 100%;height: 42px;border-bottom: 1px solid #DDDDDD;background: #FFFFFF;
+	}
+	.sw-title-1{
+		width: 50%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+	}
+	.sw-title-active{
+		display: inline-block;margin-bottom: 0;border-bottom: 2px solid #FF534C;height:42px;color:#FF534C ;
+	}
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF;
+	}
+	/*公司信息*/		
+	.sw-list-title2{
+		font-size: 14px;color: #666;display: inline-block;width: 56px;
+	}
+	.sw-list-title3{
+		line-height:40px;font-size: 14px;color: #666;
+	}
+	.sw-list-title4{
+		font-size: 14px;color: #666;display: inline-block;width: 100px;
+	}
+	.sw-list-text2{
+		margin-left:56px ;margin-top: -21px;
+	}	
+	.sw-img1{
+		width: 40px;height: 40px;vertical-align: middle;
+	}
+	.sw-sj-phone{
+		width: 21px;height: 21px;float: right;background: url(../../../image/index/icon_mc_iphone.png) no-repeat;background-size: contain;
+	}
+	.sw-sj-tel{
+		width: 21px;height: 21px;float: right;background: url(../../../image/index/icon_mc_tel.png) no-repeat;background-size: contain;
+	}
+	.sw-sj-qq{
+		width: 21px;height: 21px;float: right;background: url(../../../image/index/icon_qq@3x.png) no-repeat;background-size: contain;
+	}
+	.sw-sj-uesr{
+		padding-left:16px;padding-top:1px;padding-bottom:1px;background: url(../../../image/index/people.png) no-repeat;background-size: 14px;
+	}
+	.sw-sj-tel1{
+		padding-left:16px;padding-top:1px;padding-bottom:1px;background: url(../../../image/index/icon_tel@3x.png) no-repeat;background-size: 14px;
+	}
+	.sw-card-img1{
+		width: 72px!important;max-width:72px!important;height: 72px!important;
+	}
+	.sw-renz-img{
+		width: 16px;vertical-align: middle;margin-left: 4px;
+	}
+	.sw-biao-lei1{
+		display:inline-block;border: 1px solid #15b1fe;font-size: 10px;color: #15b1fe;height: 18px;line-height: 18px;padding: 0 4px;border-radius: 9px;
+	}
+	
+	/*产品展示*/	
+	.sw-title-3{
+		width: 33.3%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+	}
+	.sw-rafter:after{
+		content: '';
+		height: 24px;
+		background: #EFEFEF;
+		margin-top: 9px;
+		width: 1px;
+		float: right;
+	}
+	.sw-fanye{
+			padding:1px 8px;background: url(../../../image/person/repair/icon_fanye_1.png) no-repeat;background-size: 10px;background-position: center;margin-left: 4px;
+	
+	}
+	/*认证信息*/
+	.sw-after-l:after{
+		left: 0;
+	}
+	.sw-zhizhao{
+		font-size: 14px;padding-left: 28px;color:#333;padding-top:2px;padding-bottom:2px;background: url(../../../image/index/icon_zhizhao.png) no-repeat;background-size: 23px 16px;background-position:0 3px;
+	}
+	.sw-renz-status{
+		font-size: 14px;color: #999;float: right;
+	}
+</style>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">经销商名称</h1>
+	    <button class="mui-btn mui-btn-link mui-pull-right" id='msgList'>
+	    	<img src="../../../image/index/like.png" class="sw-title-img2"/>
+	    </button>
+	</header>
+	<div class="mui-content">
+	    <div id="slider" class="mui-slider" style="height: 200px;">
+			<div class="mui-slider-group mui-slider-loop">
+				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="#">
+						<img src="../../../image/yuantiao.jpg">
+					</a>
+				</div>
+				<!-- 第一张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="../../../image/shuijiao.jpg">
+					</a>
+				</div>
+				<!-- 第二张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="../../../image/muwu.jpg">
+					</a>
+				</div>
+				<!-- 第四张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="../../../image/yuantiao.jpg">
+					</a>
+				</div>
+				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="#">
+						<img src="../../../image/shuijiao.jpg">
+					</a>
+				</div>
+			</div>
+			<div class="mui-slider-indicator">
+				<div class="mui-indicator mui-active"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+			</div>
+		</div>
+		
+		<div class="sw-title-box">
+	   		<div class="sw-title-1"><p class="sw-title-active">公司信息</p></div>
+	   		<div class="sw-title-1"><p class="sw-title-active">认证信息</p></div>
+	   </div>
+		
+		<!--公司信息-->
+		<div class="" style="margin-bottom: 75px;">
+			<ul class="mui-table-view" style="margin-top: 10px;">
+			<li class="mui-table-view-cell mui-media sw-no-active">
+					
+				<img class="mui-media-object mui-pull-left sw-card-img1" src="../../../image/shuijiao.jpg">
+					
+				<div style="font-size: 14px;padding-right:70px;height: 72px;">
+					<p class="sw-ctheme" style="margin-left: 72px;">经销商企业名称<img src="../../../image/person/renzheng2.png" class="sw-renz-img"/></p>
+					<p class="sw-biao-lei1" style="margin-top: 25px;">快修保养</p>
+				</div>
+				
+				<div style="position: absolute;top: 0;right: 0;width: 80px;height: 97px;text-align: center;">
+					<div style="height:72px;margin:12px 0;border-left: 1px solid #F5F5F5;">
+						<img src="../../../image/index/icon_tousu_qq.png" width="42px">
+							<p style="font-size: 12px;color: #666666;">平台投诉</p>
+					</div>
+				</div>
+					
+			</li>
+		 </ul>
+		
+		 	<ul class="mui-table-view" style="margin-top:10px;">
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">主营</span>
+				<p class="sw-list-text2">三菱集团（Mitsubishi Group）是由原先日本三菱财阀解体后的公司共同组成的一个松散的实体，Mitsubishi这个名字中的mitsu表示“三”</p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">联系人</span>
+				<p class="sw-list-text2">Alina</p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">手机</span>
+				<div class="sw-list-text2">
+					<p style="margin-bottom: 6px;">13548085398<span class="sw-sj-phone"></span></p>
+					<p style="margin-bottom: 6px;">13548085398<span class="sw-sj-phone"></span></p>
+					<p style="margin-bottom: 6px;">13548085398<span class="sw-sj-phone"></span></p>
+				</div>	
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">座机</span>
+				<div class="sw-list-text2">
+					<p style="margin-bottom: 6px;">13548085398<span class="sw-sj-tel"></span></p>
+					<p style="margin-bottom: 6px;">13548085398<span class="sw-sj-tel"></span></p>	
+				</div>
+				
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">QQ</span>
+				<div class="sw-list-text2">
+					<p style="margin-bottom: 6px;">13548085398<span class="sw-sj-qq"></span></p>
+					<p style="margin-bottom: 6px;">13548085398<span class="sw-sj-qq"></span></p>	
+				</div>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">微信</span>
+				<img src="../../../image/person/store/beijing.png" class="sw-img1"/>
+			</li>
+		</ul>    
+		
+			<ul class="mui-table-view" style="margin-top:10px;margin-bottom: 20px;">
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title4">企业介绍</span>
+				<p style="margin-top: 8px;">三菱集团（Mitsubishi Group）是由原先日本三菱财阀解体后的公司共同组成的一个松散的实体，这个名字中的mitsu表示“三”</p>
+			</li>
+			
+		</ul>
+		
+		</div>
+		
+	
+		<!--认证信息-->
+		<div class="" style="margin-bottom: 75px;display: none;">
+			<ul class="mui-table-view">
+				 <li class="mui-table-view-cell sw-after-l">
+				 	<span class="sw-zhizhao">营业执照</span><span class="sw-renz-status">无</span>
+				 </li>
+		         <li class="mui-table-view-cell sw-after-l">
+				 	<span class="sw-zhizhao">纳税认证</span><span class="sw-renz-status"><img src="../../../image/login/icon_gou.png" height="16px"/></span>
+				 </li>
+				 <li class="mui-table-view-cell sw-after-l">
+				 	<span class="sw-zhizhao">实地认证</span><span class="sw-renz-status">无</span>
+				 </li>
+				 <li class="mui-table-view-cell sw-after-l">
+				 	<span class="sw-zhizhao">商标认证</span><span class="sw-renz-status">无</span>
+				 </li>
+				 <li class="mui-table-view-cell sw-after-l">
+				 	<span class="sw-zhizhao">产品代理认证</span><span class="sw-renz-status">无</span>
+				 </li>	 
+			</ul>
+			
+			<ul class="mui-table-view mui-grid-view mui-grid-5 sw-after-no sw-before-no" style="padding:0 0 20px;background: #F5F5F5;">
+		            
+	            <li class="mui-table-view-cell mui-media mui-col-sm-33">
+	            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png">
+	            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">营业执照</span>
+	            </li>
+	            
+	            <li class="mui-table-view-cell mui-media mui-col-sm-33">
+	            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png">
+	            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">纳税认证</span>
+	            </li>
+	            
+	            <li class="mui-table-view-cell mui-media mui-col-sm-33">
+	            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png">
+	            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">实地认证</span>
+	            </li>
+	            
+	            <li class="mui-table-view-cell mui-media mui-col-sm-33">
+	            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png">	
+	            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">商标认证</span>
+	            </li>
+	            
+	            <li class="mui-table-view-cell mui-media mui-col-sm-33">
+	            	<img class="mui-media-object" src="../../../image/person/purchase/tianjiazp.png">	
+	            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">产品代理认证</span>
+	            </li>
+ 
+			    </ul>
+			
+		</div>
+		
+		
+	</div>
+	
+	
+	<div id="popover1" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;">
+	    	
+	    	<ul class="mui-table-view" style="margin-top: 0;text-align: center;font-size: 14px;color: #666666;">
+				 <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no" >
+				 	 全部汽修厂
+				 </li>	
+				 <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">
+				 	快修保养
+				 </li>
+				  <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">
+				 	修理店
+				 </li>
+				   <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">
+				 	美容店
+				 </li>
+	 		</ul>
+	    	
+	    </div>
+	    
+	    
+	    <div id="popover2" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;">
+	    	
+	    	<ul class="mui-table-view" style="margin-top: 0;text-align: center;font-size: 14px;color: #666666;">
+				 <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no" >
+				 	 全部汽修厂
+				 </li>	
+				 <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">
+				 	快修保养
+				 </li>
+				  <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">
+				 	修理店
+				 </li>
+				   <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">
+				 	美容店
+				 </li>
+	 		</ul>
+	    	
+	    </div>
+	    
+	    
+	    <div id="popover3" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;">
+	    	
+	    	<ul class="mui-table-view" style="margin-top: 0;text-align: center;font-size: 14px;color: #666666;">
+				 <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no" >
+				 	 全部汽修厂
+				 </li>	
+				 <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">
+				 	快修保养
+				 </li>
+				  <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">
+				 	修理店
+				 </li>
+				   <li style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no">
+				 	美容店
+				 </li>
+	 		</ul>
+	    	
+	    </div>
+	
+	
+	<nav class="mui-bar mui-bar-tab" style="background: #FFFFFF;box-shadow:  0 0 1px #DDDDDD;padding-top: 10px;">
+			<a class="mui-tab-item mui-active">
+				<span class="mui-icon sw-shouji"></span>
+				<span class="mui-tab-label sw-ctheme">手机</span>
+			</a>
+			<a class="mui-tab-item">
+				<span class="mui-icon sw-QQ"></span> 
+				<span class="mui-tab-label sw-ctheme">QQ</span>
+			</a>
+			<a class="mui-tab-item">
+				<span class="mui-icon sw-WX"></span>
+				<span class="mui-tab-label sw-ctheme">微信</span>
+			</a>
+			<a class="mui-tab-item">
+				<span class="mui-icon sw-daohang"></span>
+				<span class="mui-tab-label sw-ctheme">导航</span>
+			</a>
+			<a class="mui-tab-item">
+				<span class="mui-icon sw-fenxiang"></span>
+				<span class="mui-tab-label sw-ctheme">分享</span>
+			</a>
+		</nav>
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+ <script type="text/javascript" charset="utf-8">
+  //轮播滚动定时
+	mui("#slider").slider({
+		interval: 3000
+	});
+ </script> 
+</html>

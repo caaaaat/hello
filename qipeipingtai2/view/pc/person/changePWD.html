@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="/css/pc/person/changePWD.css">
+<div class="titles">
+    <span style="font-size: 24px;font-weight: 500;">密码修改</span>
+</div>
+<div class="oldPWD">
+    <input type="password" name="oldPassword" placeholder="请输入原来密码" class="oldInput">
+</div>
+<div class="newPWD">
+    <input type="password" name="NewPassword" placeholder="请设置新密码，6-16位数字、字母或字符" class="newInput">
+</div>
+<div class="newPWD">
+    <input type="password" name="RepPassword" placeholder="请再次输入新密码" class="newInput">
+</div>
+<div class="saveDiv">
+    <button type="button" class="btn btn-danger saveBtn" onclick="saves()">保存</button>
+</div>
+<div style="height: 40px;"></div>
+
+<script src="/js/global.js" type="text/javascript"></script>
+<script src="/js/pc/layer/layer.js"></script>
+<script>
+    /*点击保存*/
+    function saves(){
+        var oldPassword = $('input[name="oldPassword"]').val();
+        var newPassword = $('input[name="NewPassword"]').val();
+        var repPassword = $('input[name="RepPassword"]').val();
+
+        var index = layer.load(2);
+        api.load('pc.firm','changePwd',{oldPassword:oldPassword,newPassword:newPassword,repPassword:repPassword},function (data) {
+            layer.alert(data['msg'],{icon: data['status'],skin: 'layui-layer-rim'},function(){
+                location.reload();
+                layer.closeAll();
+            });
+        })
+
+        //layer.alert('请填写昵称',{icon: 2,skin: 'layui-layer-rim'});
+
+    }
+</script>

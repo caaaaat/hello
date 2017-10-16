@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+        th{text-align: center;}
+        #tab-1 .mail-box-header label{ height: 34px; line-height: 34px;width: 50px; margin-bottom: 0; padding-left: 0;padding-right: 0;}
+        #tab-2 .mail-box-header label{ height: 34px; line-height: 34px;width: 60px; margin-bottom: 0; padding-left: 0;padding-right: 0;}
+        .l a{ color: #0066ff;}
+    </style>
+</head>
+<body>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true" id="tab_1">求购记录</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+                            <!--搜索-->
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="mail-box-header" style="padding-top: 5px;padding-bottom: 5px; border: 0;">
+                                        <div class="form-group">
+                                            <div class="col-xs-6 col-sm-4 col-lg-4 mt5" style="">
+                                                <label class="col-xs-4 col-sm-4 col-lg-4 control-label">状态</label>
+                                                <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="">
+                                                    <select id="tab_1_status" class="form-control">
+                                                        <option value=''>全部</option>
+                                                        <option value='1'>求购中</option>
+                                                        <option value='2'>已下架</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-8 col-lg-8" style="">
+                                                <label class="col-xs-4 col-sm-4 col-lg-4 control-label">关键字</label>
+                                                <div class="col-xs-8 col-sm-8 col-lg-8" style="padding-left: 0;">
+                                                    <div class="col-xs-12 col-sm-12 input-group">
+                                                        <input type="text" class="form-control input-xs" id="tab_1_keywords" placeholder="求购ID/企业ID/企业昵称/企业手机号/企业名称"/>
+                                                        <span class="input-group-btn">
+                                                            <button type="submit" class="btn btn-primary" id="tab_1_find"> 搜 索 </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="clear: both"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="wrapper wrapper-content">
+                                <div class="ibox-content">
+                                    <!--列表开始-->
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>求购ID</th>
+                                                <th>企业ID</th>
+                                                <th>昵称</th>
+                                                <th>手机号</th>
+                                                <th>企业名称</th>
+                                                <th>区域</th>
+                                                <th>状态</th>
+                                                <th>发布时间</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="tab_1_show" style="text-align: center"></tbody>
+                                        </table>
+                                    </div>
+                                    <script id="tab_1_model" type="text/html">
+                                         {{# if(d.massageCode == 'success') { }}
+                                         {{# var statusArr = { 0:'',1:'求购中',2:'已下架'} }}
+                                         {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+                                        <tr>
+                                            <td>
+                                                <span>{{ list[i].bID }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].EnterpriseID }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].uname }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].phone }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].companyname == null ? '' : list[i].companyname  }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].area == null ? '' : list[i].area  }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ statusArr[list[i].status] }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].create_time == null ? '' : list[i].create_time }}</span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span class="l">
+
+                                                    <a data-id="{{ list[i]['id'] }}" onclick="getOneBuy(this)">[ 查看 ]</a>
+                                                    {{# if(list[i].status == 1){ }}
+                                                    <a data-id="{{ list[i].id }}" data-val="2" onclick="checkStatus(this)"  style="margin-left: -4px;">[ 下架 ]</a>
+                                                    {{# }else{ }}
+                                                    <!--<a data-id="{{ list[i].id }}" data-val="1" onclick="checkStatus(this)"  style="margin-left: -4px;">[ 上架 ]</a>-->
+                                                    {{# } }}
+                                                    <a data-id="{{ list[i].id }}" onclick="delWant(this)" style="margin-left: -4px;">[ 删除 ]</a>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        {{# } }}
+                                        {{# }else{ }}
+                                        <td colspan="10">
+                                            <span>{{ d.massage }}</span>
+                                        </td>
+                                        {{# } }}
+                                    </script>
+                                    <!--table end-->
+                                    <!--page-->
+                                    <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                        <input hidden="hidden" value="1" id="tab_1_page"/>
+                                        <span>每页显示
+                                    <select id="tab_1_pageSize" onchange="getLists(1,1)">
+                                        <option value="10"  selected="selected">10</option>
+                                        <option value="30" >30</option>
+                                        <option value="50" >50</option>
+                                        <option value="100">100</option>
+                                        <option value="300">300</option>
+                                        <option value="500">500</option>
+                                        <option value="1000">1000</option>
+                                        <option value="3000">3000</option>
+                                        <option value="5000">5000</option>
+                                    </select>&nbsp;
+                                </span>
+                                        <span id="tab_1_pageInfo" style="margin-right: 10px;"></span>
+                                        <div class="btn-group" id="tab_1_pager"></div>
+                                    </div>
+                                    <!--页码结束-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/js/laytpl/laytpl.js"></script>
+<!--弹窗js-->
+<!--<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>-->
+<script  type="text/javascript" src="/js/hplus/js/plugins/layer/layer-3.0.3.min.js"></script>
+<!--分页插件-->
+<script src="/js/jquery.page.js"></script>
+
+<!--自定义JS-->
+<script src="/js/global.js"></script>
+<script>
+    $(function(){
+        getLists(1,1);
+        $('#tab_1_find').click(function () {
+            getLists(1,1);
+        });
+    });
+
+    //===============getLists 开始======================
+    function getLists(type,page) {
+        var data      = {} ;
+        data.status   = $("#tab_1_status").val() ;
+        data.keywords = $("#tab_1_keywords").val() ;
+        data.page     = page ? page : 1 ;
+        data.pageSize = $("#tab_1_pageSize").val() ;
+        var url = '/plat.want/getLists';
+        //var index = layer.load(2);
+        $.post(url,{data:data},function(rv){
+            var pageObj   = $("#tab_1_page") ;
+            var pagerObj  = $("#tab_1_pager") ;
+            var modelObj  = $("#tab_1_model") ;
+            var bannerObj = $("#tab_1_show") ;
+            var pInfoObj  = $("#tab_1_pageInfo") ;
+            var p        = rv.page;
+            var pageSize = rv.pageSize;
+            var count    = rv.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            pInfoObj.text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+
+            pagerObj.createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getLists(type,p);
+                }
+            });
+            var tpl = modelObj.html();
+            laytpl(tpl).render(rv, function(html){
+                bannerObj.html(html);
+            });
+            pageObj.val(p);
+        },'json');
+    }
+
+    function getOneBuy(obj) {
+        var id    = $(obj).attr('data-id');
+        var title = "求购详情";
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['90%', '90%'],
+            content: '/plat.firms/getOneWantBuy?id='+id
+        });
+    }
+
+    function delWant(obj) {
+        var data = {} ;
+        data.id  = $(obj).attr('data-id');
+        var tip = '是否删除 ? 删除之后无法恢复!' ;
+        layer.confirm(tip,{shadeClose: true, title:'重要提示'},function (index) {
+
+            var url = '/plat.want/delWant';
+            $.post(url,{data:data},function(rv){
+                if(rv.massageCode == 'success'){
+                    layer.close(index);
+                    layer.msg(rv.massage) ;
+                    getLists('1',1);
+                }else {
+                    layer.msg(rv.massage) ;
+                }
+            },'json')
+        });
+    }
+
+    function checkStatus(obj) {
+        var data  = {} ;
+        data.id   = $(obj).attr('data-id');
+        data.val  = $(obj).attr('data-val');
+        var  p    = $("#tab_1_page").val() ;
+        console.log(p);
+        var tip = '是否下架 ? 下架之后无法恢复!' ;
+        layer.confirm(tip,{shadeClose: true, title:'重要提示'},function (index) {
+
+            var url = '/plat.want/checkStatus';
+            $.post(url,{data:data},function(rv){
+                if(rv.massageCode == 'success'){
+                    layer.close(index);
+                    layer.msg(rv.massage) ;
+                    getLists('1',p);
+                }else {
+                    layer.msg(rv.massage) ;
+                }
+            },'json')
+        });
+    }
+</script>
+</body>
+</html>

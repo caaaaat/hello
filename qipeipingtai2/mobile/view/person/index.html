@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>个人中心</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8"/>
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			 
+			.mui-content img{  
+				width: 100%;  
+			}
+			.mui-bar{
+				background: none;
+			}
+			
+			.sw-header-con{
+				width: 100%;height: 170px;background: url(../../image/person/beijing_pic.png) no-repeat;background-size: cover;
+			}
+			.sw-person-face{
+				width: 60px!important;height: 60px!important;margin-top: -12px;margin-right: 8px;border-radius: 30px;
+			}
+			.sw-card-header{
+				padding-top:38px!important;
+			}
+			.sw-card-header1{
+				padding-top:28px!important; 
+			}
+			.sw-card-header:after{
+				height: 0;
+			}
+			.sw-card-con:after{
+				height: 0;
+			}
+			.sw-media-body{
+				margin-left: 68px!important;
+			}
+			.sw-card-list{
+				width: 100%;margin-top: 10px;margin-bottom: 20px;
+			}
+			.sw-card-list ul{
+				background: #FFFFFF!important;border: none;
+			}
+			.sw-meida-text{
+				font-size: 14px!important;color: #666!important;line-height: 18px!important;
+			}
+			.sw-biao-vip{
+				width:40px;height: 40px;background: url(../../image/person/biao_vip@2x.png) no-repeat;background-size: contain;position: absolute;right: -3px;top: 0;
+			}
+			.sw-biao-weirz{
+				width:40px;height: 40px;background: url(../../image/person/biao_weirz@2x.png) no-repeat;background-size: contain;position: absolute;right:-3px;top: 0;
+			}
+			.sw-first{
+				color: #FFFFFF;font-size: 16px;
+			}
+			.sw-ch{
+				font-size: 12px;float: right;
+			}
+			.sw-company{
+				color: #FFFFFF;line-height: 36px;border-bottom: 1px solid #FFFFFF;font-size: 14px;
+			}
+			.sw-two{
+				color: #FFFFFF;line-height: 36px;font-size: 12px;
+			}
+			.sw-vip-text{
+				margin-left: 28px;
+			}
+			.sw-title-img2{
+				width: 18px!important;
+			}
+			.sw-title-badge{
+				left: 22px;
+				top: 14px!important;
+			}
+			
+			.sw-link{
+				color: #666;
+				border: 1px solid #efefef;
+				height: 48px;
+				line-height: 48px;
+				text-align: left;
+				width: 240px;
+				margin: auto;
+				border-radius: 24px;
+				font-size: 14px;
+				padding-left: 24px;
+			}
+			
+			
+/*下拉加载*/
+.mui-bar~.mui-content .mui-fullscreen {
+	top: 44px;
+	height: auto;
+}
+.mui-pull-top-tips {
+	position: absolute;
+	top: -20px;
+	left: 50%;
+	margin-left: -25px;
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+	z-index: 1;
+}
+.mui-bar~.mui-pull-top-tips {
+	top: 24px;
+}
+.mui-pull-top-wrapper {
+	width: 42px;
+	height: 42px;
+	display: block;
+	text-align: center;
+	background-color: #efeff4;
+	border-radius: 25px;
+	background-clip: padding-box;
+	overflow: hidden; 
+}
+.mui-pull-top-tips.mui-transitioning {
+	-webkit-transition-duration: 200ms;
+	transition-duration: 200ms;
+}
+.mui-pull-top-tips .mui-pull-loading {
+	/*-webkit-backface-visibility: hidden;
+	-webkit-transition-duration: 400ms;
+	transition-duration: 400ms;*/
+	
+	margin: 0;
+}
+.mui-pull-top-wrapper .mui-icon,
+.mui-pull-top-wrapper .mui-spinner {
+	margin-top: 7px;
+}
+.mui-pull-top-wrapper .mui-icon.mui-reverse {
+	/*-webkit-transform: rotate(180deg) translateZ(0);*/
+}
+.mui-pull-bottom-tips {
+	text-align: center;
+	background-color: #efeff4;
+	font-size: 15px;
+	line-height: 40px;
+	color: #777;
+}
+.mui-pull-top-canvas {
+	overflow: hidden;
+	background-color: #fafafa;
+	border-radius: 40px;
+	width: 40px;
+	height: 40px;
+	margin: 0 auto;
+}
+.mui-pull-top-canvas canvas {
+	width: 40px;
+}
+.mui-slider-indicator.mui-segmented-control {
+	background-color: #efeff4;
+} 
+		</style>
+	</head>
+
+	<body>
+	<div class="mui-content">
+			
+			<div id="userInfo" style="display: none;">
+				<!--顶部板块-->
+				<div class="sw-header-con">
+					<button class="mui-btn mui-btn-link mui-pull-right" id='msgList'>
+				    	<span class="mui-badge sw-title-badge" id="naTip" style="display: none;"></span>
+				    	<img src="../../image/index/icon_xiaoxi@3x.png" class="sw-title-img2"/>
+			    	</button>
+			    	<div style="clear: both;"></div>
+			    	<!--//顶部信息盒子--> 
+			    	<div id="info">
+			    		
+			    	</div>
+				</div>
+				 
+				<!--模板盒子-->
+				<div class="sw-card-list">
+					
+					<ul class="mui-table-view mui-grid-view mui-grid-9 sw-card-con" id="banList">
+						
+					<!--	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">   
+							<img src="../../image/person/icon_dianpu@2x.png" style="max-width: 60px;"/>
+							<div class="mui-media-body sw-meida-text">店铺管理</div>
+						</li>
+						
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">   
+							<img src="../../image/person/icon_qxcguiji@2x.png" style="max-width: 60px;"/>
+							<div class="mui-media-body  sw-meida-text">汽修厂轨迹</div>  
+						</li>
+						
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">
+							<img src="../../image/person/icon_wodeguiji@2x.png" style="max-width: 60px;"/>
+							<div class="mui-media-body  sw-meida-text">我的轨迹</div>    
+						</li>
+						
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">	
+							<img src="../../image/person/icon_vip@2x.png" style="max-width: 60px;"/>
+							<div class="mui-media-body  sw-meida-text">VIP会员</div>
+						</li>
+						
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">
+							<img src="../../image/person/icon_shuaxindian@2x.png" style="max-width: 60px;"/> 
+							<div class="mui-media-body  sw-meida-text">我的刷新点</div>  
+						</li>
+						
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+							<img src="../../image/person/icon_renzheng@2x.png" style="max-width: 60px;" onclick="loginView()"/>
+							<div class="mui-media-body sw-meida-text">认证</div>
+						</li>
+						
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()"> 
+							<img src="../../image/person/icon_quanzi@2x.png" style="max-width: 60px;"/>
+							<div class="mui-media-body sw-meida-text">我的圈子</div>
+						</li>
+						
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">						   
+							<img src="../../image/person/icon_qiugou@2x.png" style="max-width: 60px;"/>
+							<div class="mui-media-body sw-meida-text">我的求购</div>
+						</li>
+						
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">
+							<img src="../../image/person/icon_shoucangjilv@2x.png" style="max-width: 60px;"/>
+							<div class="mui-media-body sw-meida-text">收藏记录</div>
+						</li>
+						
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">
+							<img src="../../image/person/icon_bdywy@2x.png" style="max-width: 60px;"/>
+							<div class="mui-media-body sw-meida-text">绑定业务员</div>
+						</li>
+						
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">
+							<img src="../../image/person/icon_fenxiangyq@2x.png" style="max-width: 60px;"/>
+							<div class="mui-media-body sw-meida-text">分享邀请</div>
+						</li>
+						
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="openView('../../view/person/set/index.html','setSys','pop-in')">
+							<img src="../../image/person/icon_shezhi@2x.png" style="max-width: 60px;"/>
+							<div class="mui-media-body sw-meida-text">设置</div>
+						</li>-->
+					</ul>
+					
+				</div>
+			</div>
+			
+			<div id="userLogin" style="display: none;">
+				<header class="mui-bar mui-bar-nav" style="background: #FF534C!important;">
+				    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+				    <h1 class="mui-title">登录</h1>
+				    <button class="mui-btn mui-btn-link mui-pull-right" onclick="registerView()">注册</button>
+				</header>
+				<div class="mui-content" style="padding: 20px 20px;background: #FFFFFF;margin-top: 50px;"> 
+				    <div class="mui-input-row" style="padding-top: 20px;">
+				        <input type="number"   id="userTel" onkeyup="value=sw.trim(value)" oninput="if(value.length>11)value=value.slice(0,11)"  placeholder="请输入手机号" style="text-align: center;height: 48px;font-size: 14px;">
+				    </div> 
+				    <div class="mui-input-row"> 
+				        <input type="password" id="userPwd" placeholder="请输入密码" style="text-align: center;height: 48px;font-size: 14px;">
+				    </div>
+				    <button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" onclick="getToken()">登录</button>
+				    <div><a style="color: #666;font-size: 14px;" onclick="salesmanLogin()">业务员登录</a><a style="float: right;color: #999;font-size: 14px;" onclick="viPhone()">忘记密码</a></div>
+				    
+				    <div class="sw-extra-area">
+				        <div class="sw-link" style="margin-top: 40px;" id="kfQQBox">  
+				        	<img src="../../image/login/icon_qq.png" style="width: 24px;height: 24px;vertical-align: middle;"/> 客服QQ：<span id="kfQQ"></span>
+				        </div>
+						<div class="sw-link" style="margin-top: 10px;" id="kfTelBox">
+							<img src="../../image/login/icon_tel.png" style="width: 24px;height: 24px;vertical-align: middle;"/> 客服电话：<span id="kfTel"></span>
+						</div>
+			      </div>
+				</div>
+			</div>
+			
+		</div>
+		
+<!--未登录个人中心头部模板-->
+<script id="noTop-list-tpl" type="text/html">
+	
+	<!--//未登录-->
+    	<div class="mui-card-header mui-card-media">
+			<div style="text-align: center;"> 
+				<p style="color: #FFFFFF;font-size: 16px;">个人中心</p>
+				<p style="color: #FFFFFF;line-height: 36px;">
+					<button type="button" class="mui-btn mui-btn-tangerinec" onclick="loginView()">立即登录</button>
+				</p>
+				<p style="color: #FFFFFF;line-height: 36px;">登陆后查看完整信息</p>
+			</div>	
+		</div>
+	
+</script>
+
+<!--未登录个人中心列表模板-->
+<script id="noList-list-tpl" type="text/html">
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">   
+		<img src="../../image/person/icon_dianpu@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body sw-meida-text">店铺管理</div>
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">   
+		<img src="../../image/person/icon_qxcguiji@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">汽修厂轨迹</div>  
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">
+		<img src="../../image/person/icon_wodeguiji@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">我的轨迹</div>    
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">	
+		<img src="../../image/person/icon_vip@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">VIP会员</div>
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">
+		<img src="../../image/person/icon_shuaxindian@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">我的刷新点</div>  
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+		<img src="../../image/person/icon_renzheng@2x.png" style="max-width: 60px;" onclick="loginView()"/>
+		<div class="mui-media-body sw-meida-text">认证</div>
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()"> 
+		<img src="../../image/person/icon_quanzi@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body sw-meida-text">我的圈子</div>
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">						   
+		<img src="../../image/person/icon_qiugou@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body sw-meida-text">我的求购</div>
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">
+		<img src="../../image/person/icon_shoucangjilv@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body sw-meida-text">收藏记录</div>
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">
+		<img src="../../image/person/icon_bdywy@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body sw-meida-text">绑定业务员</div>
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="loginView()">
+		<img src="../../image/person/icon_fenxiangyq@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body sw-meida-text">分享邀请</div>
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="openView('../../view/person/set/index.html','setSys','pop-in')">
+		<img src="../../image/person/icon_shezhi@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body sw-meida-text">设置</div>
+	</li>
+	
+</script>
+
+<script id="login-tpl" type="text/html">
+<header class="mui-bar mui-bar-nav" style="background: #FF534C!important;">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">登录</h1>
+    <button class="mui-btn mui-btn-link mui-pull-right" onclick="registerView()">注册</button>
+</header>
+<div class="mui-content" style="padding: 20px 20px;background: #FFFFFF;margin-top: 50px;"> 
+    <div class="mui-input-row" style="padding-top: 20px;">
+        <input type="number"   id="userTel" onkeyup="value=sw.trim(value)" oninput="if(value.length>11)value=value.slice(0,11)"  placeholder="请输入手机号" style="text-align: center;height: 48px;font-size: 14px;">
+    </div> 
+    <div class="mui-input-row"> 
+        <input type="password" id="userPwd" placeholder="请输入密码" style="text-align: center;height: 48px;font-size: 14px;">
+    </div>
+    <button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" onclick="getToken()">登录</button>
+    <div><a style="color: #666;font-size: 14px;" onclick="salesmanLogin()">业务员登录</a><a style="float: right;color: #999;font-size: 14px;" onclick="viPhone()">忘记密码</a></div>
+    
+    <div class="sw-extra-area">
+        <div class="sw-link" style="margin-top: 40px;" id="kfQQBox">  
+        	<img src="../../image/login/icon_qq.png" style="width: 24px;height: 24px;vertical-align: middle;"/> 客服QQ：<span id="kfQQ"></span>
+        </div>
+		<div class="sw-link" style="margin-top: 10px;" id="kfTelBox">
+			<img src="../../image/login/icon_tel.png" style="width: 24px;height: 24px;vertical-align: middle;"/> 客服电话：<span id="kfTel"></span>
+		</div>
+  </div>
+</div>
+</script>
+
+
+<!--已登录个人中心头部模板-->
+<script id="top-list-tpl" type="text/html">
+	<!--//已登录-->
+	{{# if(d.type==3){ }}
+		<div class="mui-card-header mui-card-media sw-card-header" onclick="yeWuInfo()">
+	    	{{# if(d.head_pic!=null&&d.head_pic!=''){ }} 
+			<img src="{{ imgUrl+d.head_pic }}" class="sw-person-face"/>
+			{{# }else{ }}  
+			<img src="../../image/person/more/icon_chenggong_mrtx.png" class="sw-person-face"/>
+			{{# } }}   
+			
+			<div class="mui-media-body sw-media-body">			
+				 <p class="sw-first">{{ d.uname }}</p>
+				 <p class="sw-first">业务员ID：{{ d.uId }}</p>
+				 <p class="sw-first">管辖区域：{{ d.area }}</p>
+			</div>	
+		</div>   
+	{{# }else{ }}
+	<div class="mui-card-header mui-card-media sw-card-header" onclick="infoIndex()">  
+	    	{{# if(d.head_pic!=null&&d.head_pic!=''){ }} 			
+			<img src="{{ imgUrl+d.head_pic }}" class="sw-person-face"/>
+			{{# }else{ }} 
+			<img src="../../image/person/more/icon_chenggong_mrtx.png" class="sw-person-face"/>
+			{{# } }}   
+			<div class="mui-media-body sw-media-body">			
+				 <p class="sw-first">{{ d.uname }}<span class="sw-ch">{{ d.role }}</span></p>
+				 <p class="sw-company">{{ d.companyname }}</p>
+				 <p class="sw-two">刷新点：{{ d.refresh_point }}
+				 	{{# if(d.vip==1&&d.type==1){ }} 
+				 	<span class="sw-vip-text">VIP：{{ d.vip_time }}</span> 
+				 	{{# } }}  
+				 </p> 
+			</div>	  
+		</div> 
+	{{# } }}
+</script>
+
+<!--个人中心板块模板-->
+<script id="ban-list-tpl" type="text/html">
+	
+	{{# if(d.type==3){ }} 
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="zhuCe">   
+		<img src="../../image/salesman/person/zhuCe.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">注册账号</div>  
+	</li>
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="yanZheng">   
+		<img src="../../image/salesman/person/yanZheng.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">验证厂商</div>  
+	</li>
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="gongZi">   
+		<img src="../../image/salesman/person/gongZi.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">我的工资</div>  
+	</li>
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="boDaJiLu">   
+		<img src="../../image/salesman/person/boDaJiLu.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">拨打记录</div>  
+	</li>
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="shouCang">   
+		<img src="../../image/salesman/person/shouCang.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">收藏记录</div>  
+	</li>
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="quanZi">   
+		<img src="../../image/salesman/person/quanZi.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">我的圈子</div>  
+	</li>
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="sheZhi">   
+		<img src="../../image/salesman/person/sheZhi.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">设置</div>  
+	</li>
+	{{# }else{ }}
+	
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="store">   
+		<img src="../../image/person/icon_dianpu@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body sw-meida-text">店铺管理</div>
+	</li>
+	{{# if(d.type==1){ }}
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="qixiu">   
+		<img src="../../image/person/icon_qxcguiji@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">汽修厂轨迹</div>  
+	</li>
+	{{# } }}
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="guiji">
+		<img src="../../image/person/icon_wodeguiji@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">我的轨迹</div>    
+	</li>
+	
+	{{# if(d.type==1){ }}
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="goPerson('VIP/index.html','person_vip_index')" >
+		{{# if(d.vip==1){ }} 
+		<p class="sw-biao-vip"></p>
+		{{# } }}
+		<img src="../../image/person/icon_vip@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">VIP会员</div>
+	</li>
+	{{# } }}  
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="refresh">
+		<img src="../../image/person/icon_shuaxindian@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">我的刷新点</div>  
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+		{{# if(d.is_check!=1){ }} 
+		<p class="sw-biao-weirz"></p>
+		{{# } }}
+		<img src="../../image/person/icon_renzheng@2x.png" style="max-width: 60px;" id="auth"/>
+		<div class="mui-media-body sw-meida-text">认证</div>
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="myCircle"> 
+		<img src="../../image/person/icon_quanzi@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body sw-meida-text">我的圈子</div>
+	</li>
+	
+	{{# if(d.type==2){ }}
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="purchase">						   
+		<img src="../../image/person/icon_qiugou@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body sw-meida-text">我的求购</div>
+	</li>
+	{{# } }}
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="collect">
+		<img src="../../image/person/icon_shoucangjilv@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body sw-meida-text">收藏记录</div>
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="salesman">
+		<img src="../../image/person/icon_bdywy@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body sw-meida-text">绑定业务员</div>
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="share">
+		<img src="../../image/person/icon_fenxiangyq@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body sw-meida-text">分享邀请</div>
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="openView('../../view/person/set/index.html','setSys','pop-in')">
+		<img src="../../image/person/icon_shezhi@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body sw-meida-text">设置</div>
+	</li>
+	{{# } }} 
+</script>
+
+<script type="text/javascript" src="../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../js/global.js"></script>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/laytpl/laytpl.js"></script>
+<script src="../../js/mui.pullToRefresh.js"></script>
+<script src="../../js/mui.pullToRefresh.material.js"></script> 
+<script type="text/javascript" charset="utf-8">
+	//监听自定义事件
+	window.addEventListener('refresh', function(e) {  
+		var pIIs = plus.storage.getItem('pIIs');
+			if(pIIs==1){			
+				//刷新后清除刷新标记
+				plus.storage.removeItem('pIIs');
+				location.reload();
+			} 
+	}) 
+	
+	//监听自定义事件
+	window.addEventListener('login_refresh', function(e) {  
+		var pIIs = plus.storage.getItem('pIIs');
+			if(pIIs==1){			 
+			//刷新后清除刷新标记
+			plus.storage.removeItem('pIIs');
+			//刷新个人中心页面
+			location.reload();
+			} 
+	}) 
+	//mui初始化
+	mui.init(); 
+	
+	//mui plusReady
+	mui.plusReady(function() {		
+		  getUserInfo(false);
+		 		  
+		  //监控消息提示
+		if(UserInfo.has_login()){		
+			var token   = plus.storage.getItem('token');			
+			var postData = {};
+				postData.token = token;
+				postData.userType = JsonStorage.getItem('userType');	//2为业务员
+			//如果已经登陆 获取登录后的数据
+			http.load('api.sev.index','getUnReadMsgNum',postData,function(rData){//请求成功	 
+	 			if(rData.status==200){ 	
+	 				var data = rData.data; 				
+	 				if(data.naNum>0){
+	 					$("#naTip").show(); 
+	 				}
+	 			}		
+	 		})	
+		}
+	});	
+	
+	function getUserInfo(isDown){	      	
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+			
+			$("#userInfo").show();
+			$("#userLogin").hide();
+			
+			var token   = plus.storage.getItem('token');
+			
+			var postData = {};
+				postData.token = token;
+			var tokenType = JsonStorage.getItem('userType');	//2为业务员	
+			if(tokenType == 2){
+				//业务员
+				var url = 'getYeWuUserInfo';
+			}else{
+				var url = 'getUserInfo';
+			}
+			loading('加载中...'); 
+			//如果已经登陆 获取登录后的数据
+			http.load('api.sev.user',url,postData,function(rData){//请求成功
+				//关闭加载框
+				closeLoading();	
+				
+				
+	 			if(isDown){
+   					setTimeout(function(){
+   						isDown.endPullDownToRefresh();
+   					},300) 					
+ 				}
+	 			
+	 			if(rData.status==200){
+	 				sw.jcon(rData); 
+	 				
+	 				var data = rData.data;	
+	 				console.log(imgUrl+data.head_pic)
+	 				//初始化页面数据
+					setInfo(data);			        
+			         //登录监控事件
+	        		listenLink(data.type);
+			        //将请求的数据保存到本地
+			        plus.storage.setItem('userInfo',JSON.stringify(data));
+			        	        
+	 			}else{ 
+	 				sw.toast(rData.msg); 	 
+	 			}
+		
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+	 			isDown.endPullDownToRefresh();
+//				if(isDown){
+//	 				isDown.endPullDownToRefresh();
+//	 			}
+//				
+//	 			var data = plus.storage.getItem('userInfo');
+//	 				if(data){
+//		 				data = JSON.parse(data);  
+//		 			 	//初始化页面数据
+//		 				setInfo(data);
+//	 				}
+	 				//无网络提示
+	 				sw.toast('请求失败，请检查网络'); 
+	 		})
+
+		}else{//未登录显示未登录界面
+			
+			if(isDown){
+ 				isDown.endPullDownToRefresh();
+ 			}
+			$("#userInfo").hide();
+			$("#userLogin").show();
+			//读取配置
+			getLinkInfo();
+			//顶部 
+			/*var topTpl = $('#noTop-list-tpl').html();	 		
+	        laytpl(topTpl).render({},function(render){           
+	            mui('#info')[0].innerHTML = render;   
+	        });	*/		  
+		}	
+	} 
+	
+	//获取联系信息
+	function getLinkInfo(){
+		//读取qq 电话
+		http.load('api.sev.user','getLinkInfo',{},function(rData){
+		sw.jcon(rData) 
+			var data = rData.data;
+			if(data.QQ){
+				$("#kfQQ").text(data.QQ);
+				
+				var qqStr = "document.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin="+data.QQ+"&version=1&src_type=web&web_src=qq.com;';";
+				$("#kfQQBox").attr('onclick',qqStr);
+			}
+			
+			if(data.Tel){
+				
+				$("#kfTel").text(data.Tel);
+				
+				var telStr = "document.location.href = 'tel:"+data.Tel+"'; ";
+				$("#kfTelBox").attr('onclick',telStr);                  
+			} 
+			
+		},function(xhr,type,errorThrown){	
+				//无网络提示
+				sw.toast('获取数据失败，服务器或网络异常'); 	
+		}) 
+	}
+	//获取登录令牌	 
+ 	function getToken(){
+ 		
+ 		var userTel = document.getElementById('userTel').value;
+ 		var userPwd = document.getElementById('userPwd').value;
+ 			
+ 			userTel = sw.trim(userTel);
+ 			userPwd = sw.trim(userPwd);
+ 			
+ 		//验证手机号码
+ 		if(userTel==''){
+ 			sw.toast('请输入登录手机号码');
+ 			return;
+ 		}else{
+ 			
+ 			if(Verification.isTel(userTel)==false){//验证手机号码输入是否正确
+ 				sw.toast('您输入的手机号码有误，请检查后重试');
+ 				return; 
+ 			}
+ 			
+ 		}
+ 		//验证登录密码
+ 		if(userPwd==''){
+ 			sw.toast('请输入登录密码'); 
+ 			return;
+ 		}
+ 				
+ 		var postData = {};
+ 			postData.userTel = userTel;
+ 			postData.userPwd = userPwd;
+ 		
+ 		http.load('api.sev.login','getToken',postData,function(rData){//请求成功		
+// 			console.log(JSON.stringify(rData));
+   			sw.toast( rData.massage);  
+ 			if(rData.status==200){
+ 			   onSuccess(rData);
+ 			   	//刷新个人中心
+ 				location.reload();
+ 				
+ 			}else if(rData.status==102){				
+ 				openView('../../view/register/material.html','register_material','pop-in',{'firmsId':rData.firmId});				
+ 			}  
+ 					
+ 		},function(xhr,type,errorThrown){//请求失败			
+			sw.toast('请求失败');  
+ 		})
+ 		
+ 		
+ 		
+	
+ 	}  
+ 		  
+ 	//注册界面
+	function registerView(){
+		openView('../../view/register/register.html','register','pop-in'); 		
+	}
+ 	
+ 	//忘记密码第一步 验证手机号是否存在
+ 	function viPhone(){
+ 		openView('../../view/login/viPhone.html','login_viPhone','pop-in'); 	
+ 	}
+ 	
+ 	//跳转业务员登录页面
+ 	function salesmanLogin(){
+ 		openView('../../view/person/salesman/login/login.html','salesman_login_login','pop-in'); 	
+ 	}
+	
+	//循环初始化所有下拉刷新，上拉加载。
+	mui(".mui-content").pullToRefresh({
+		down: {   
+			callback: function() {				
+				var self = this;
+				getUserInfo(self);				
+			}
+		} 
+		
+	})  
+	
+	
+	//登录界面
+	function loginView(){
+		openView('../../view/login/login.html','login','slide-in-bottom'); 		
+	}
+	
+	//个人信息编辑
+	function infoIndex(){
+		openView('../../view/person/info/index.html','person_info_index','pop-in');
+	}
+	
+	//业务员资料编辑
+	function yeWuInfo(){
+		openView('../../view/person/salesman/info/index.html','person_salesman_info_index','pop-in');
+	}
+	
+	//跳转消息
+	function xiaoXi(){
+		openView('../../view/msg/index.html','msg_index','pop-in');
+	}
+	//已经登陆 监控跳转事件
+	function listenLink(type){	
+		//消息列表
+		mui("#msgList")[0].addEventListener('tap',function(){
+			openView('../../view/msg/index.html','view_msg_index','pop-in');
+		})
+	
+		if(type==1 || type==2){
+			if(type==1){
+			mui("#qixiu")[0].addEventListener('tap',function(){
+				openView('../../view/person/repair/index.html','person_repair_index','pop-in');
+			}) 
+		}
+		
+		if(type==2){
+			mui("#purchase")[0].addEventListener('tap',function(){
+				openView('../../view/person/purchase/index.html','person_purchase_index','pop-in');
+			}) 
+		}
+		
+		mui("#refresh")[0].addEventListener('tap',function(){
+			openView('../../view/person/refresh/index.html','person_refresh_index','pop-in');
+		})
+		
+		mui("#guiji")[0].addEventListener('tap',function(){
+			openView('../../view/person/orbit/index.html','orbit','pop-in');
+		})
+			 	
+		mui("#store")[0].addEventListener('tap',function(){
+			openView('../../view/person/store/index.html','person_purchase_store','pop-in');
+		})
+		
+		mui("#salesman")[0].addEventListener('tap',function(){
+			openView('../../view/person/salesman/index.html','person_salesman_index','pop-in');
+		})
+		
+		 
+		mui("#share")[0].addEventListener('tap',function(){
+			openView('../../view/person/share/index.html','person_share_index','pop-in');
+		})
+				
+		mui("#auth")[0].addEventListener('tap',function(){
+			openView('../../view/person/auth/index.html','person_auth_index','pop-in');
+		})
+		
+		mui("#myCircle")[0].addEventListener('tap',function(){
+			openView('../../view/person/myCircle/list.html','person_myCircle_list','pop-in');
+		})
+		
+		mui("#collect")[0].addEventListener('tap',function(){
+			openView('../../view/person/collect/index.html','person_collect_index','pop-in');
+		})
+		}else{
+			//业务员
+		mui("#zhuCe")[0].addEventListener('tap',function(){	//注册页面
+			openView('../../view/person/salesman/register/material.html','person_salesman_register_material','pop-in');
+		})
+		mui("#yanZheng")[0].addEventListener('tap',function(){	//验证厂商
+			openView('../../view/person/salesman/verifyCompany/index.html','person_salesman_verifyCompany_index','pop-in');
+		})
+		mui("#gongZi")[0].addEventListener('tap',function(){	//我的工资
+			openView('../../view/person/salesman/myWage/index.html','person_salesman_myWage_index','pop-in');
+		})
+		mui("#boDaJiLu")[0].addEventListener('tap',function(){	//拨打记录 
+			openView('../../view/person/salesman/jilu/dial.html','person_salesman_jilu_dial','pop-in');
+		}) 
+		mui("#shouCang")[0].addEventListener('tap',function(){	//收藏记录 
+			openView('../../view/person/collect/index.html','person_collect_index','pop-in');
+		})  
+		mui("#quanZi")[0].addEventListener('tap',function(){	//圈子
+			openView('../../view/person/myCircle/list.html','person_salesman_coterie_list','pop-in');
+		})
+		mui("#sheZhi")[0].addEventListener('tap',function(){	//设置
+			openView('../../view/person/set/index.html','setSys','pop-in');
+		})
+		}
+		
+	}
+	
+	//将用户数据填入
+	function setInfo(data){
+		//顶部 
+		var topTpl = $('#top-list-tpl').html();	 		
+        laytpl(topTpl).render(data,function(render){           
+            mui('#info')[0].innerHTML = render;   
+        });
+			        
+        //模块
+		var banTpl = $('#ban-list-tpl').html();	 		
+        laytpl(banTpl).render(data,function(render){           
+            mui('#banList')[0].innerHTML = render;   
+        });
+		
+	}
+	
+	//跳转链接 跳转前判断是否已经登陆 未登录进行登录
+	function goPerson(html,pageId,style){		
+		//监控页面是否登录
+		if(UserInfo.has_login()){//已经登陆 前往对应页面
+			var url = '../../view/person/'+html;
+			var style = style?style:'pop-in';
+			//打开页面
+			openView(url,pageId,style);	
+			
+		}else{//未登录		
+			//刷新个人中心页面
+			var wobj = plus.webview.getWebviewById("view/person/index.html");
+				wobj.reload(true); 
+			//打开登录页面	
+				loginView();
+		}	
+	}
+		
+</script>
+
+	</body>
+</html>

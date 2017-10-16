@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <title>汽配业务交易系统</title>
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <!--[if lt IE 9]>
+    <script>
+        alert('对不起，我们不支持老旧的IE');
+        //window.location.href = 'https://www.baidu.com' ;
+    </script>
+
+    <![endif]-->
+
+    <link href="/favicon.32x32.ico" rel ="shortcut icon">
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/js/hplus/css/animate.min.css" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+<div id="wrapper">
+    <!--左侧导航开始-->
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="nav-close"><i class="fa fa-times-circle"></i>
+        </div>
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="nav-header" style="padding-top: 15px;text-align: center;"></li>
+                <?php $auth = isset($auth) ? $auth : '' ;?>
+                <?php if($auth){?>
+                    <?php $top = 'style="margin-top:40px;" class="active"' ;?>
+                    <?php foreach($auth as $key=>$val){?>
+                            <?php if(count($val) > 1){?>
+                                <li <?php echo $top ;?> >
+                                    <a href="#">
+                                        <i class="fa <?php echo $val[0]['modIco'] ;?>"></i>
+                                        <span class="nav-label"><?php echo $key ;?></span>
+                                        <span class="fa arrow"></span>
+                                    </a>
+                                    <ul class="nav nav-second-level">
+                                        <?php foreach($val as $k=>$v){?>
+                                        <li>
+                                            <a class="J_menuItem" href="<?php echo $v['url'] ;?>" data-index="0">
+                                                <i class="fa <?php echo $v['funIco'] ;?>"></i> <?php echo $v['funName'] ;?>
+                                            </a>
+                                        </li>
+                                        <?php }?>
+                                    </ul>
+                                </li>
+                            <?php } else{?>
+                                <li <?php echo $top ;?> >
+                                    <a class="J_menuItem" href="<?php echo $val[0]['url'] ;?>" data-index="0"><i class="fa <?php echo $val[0]['funIco'] ;?>"></i> <?php echo $val[0]['funName'] ;?></a>
+                                </li>
+                            <?php }?>
+                        <?php $top = '' ;?>
+                    <?php }?>
+                <?php }?>
+            </ul>
+        </div>
+    </nav>
+    <!--左侧导航结束-->
+    <!--右侧部分开始-->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom"  style="height: 50px;">
+            <nav class="navbar navbar-fixed-top" role="navigation" style="margin-bottom: 0;height: 50px;">
+                <div class="navbar-header" style="width: 85%;">
+                    <a class="navbar-minimalize minimalize-styl-2 btn btn-xs btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    <a class="minimalize-styl-2">现在时间: <span id="today"></span></a>
+                    <!--<form role="search" class="navbar-form-custom" method="post" action="http://www.zi-han.net/theme/hplus/search_results.html">
+                        <div class="form-group">
+                            <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search" id="top-search">
+                        </div>
+                    </form>-->
+                </div>
+                <!--<ul class="nav navbar-top-links navbar-right">
+                    <li class="dropdown hidden-xs" style="height: 40px;">
+                        <a class="right-sidebar-toggle" aria-expanded="false" style="padding: 15px;height: 20px;">
+                            <i class="fa fa-tasks"></i> 主题
+                        </a>
+                    </li>
+                </ul>-->
+            </nav>
+        </div>
+        <div class="row content-tabs">
+            <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i>
+            </button>
+            <nav class="page-tabs J_menuTabs">
+                <div class="page-tabs-content">
+                    <a href="javascript:;" class="active J_menuTab" data-id="index_v1.html">首页</a>
+                </div>
+            </nav>
+            <!--<button class="roll-nav roll-right J_tabRight" ><i class="fa fa-forward"></i></button>
+            <div class="btn-group roll-nav roll-right" >
+                <button class="dropdown J_tabClose" data-toggle="dropdown" style="width: 85px;">控制面板 <span class="caret"></span></button>
+                <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                    <li><a>超级管理员</a></li>
+                    <li class="divider"></li>
+                    <li><a onclick="upPasswordPage()">修改密码</a></li>
+                    <li><a onclick="logOut()" >退出</a></li>
+                </ul>
+            </div>-->
+            <div class="btn-group roll-nav roll-right" style="width: 100px;text-align: left" >
+                <button class="dropdown J_tabClose" data-toggle="dropdown" >关闭操作<span class="caret"></span></button>
+                <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                    <li class="J_tabShowActive"><a>定位当前选项卡</a></li>
+                    <li class="divider"></li>
+                    <li class="J_tabCloseAll"><a>关闭全部选项卡</a></li>
+                    <li class="J_tabCloseOther"><a>关闭其他选项卡</a></li>
+                </ul>
+            </div>
+            <a href="javascript:void(0) ;" class="roll-nav roll-right J_tabExit" style="width: 85px;"  data-toggle="dropdown">控制面板</a>
+            <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                <li><a><?php echo $user['name'] ;?></a></li>
+                <li class="divider"></li>
+                <li><a onclick="upPasswordPage()">修改密码</a></li>
+                <li><a onclick="logOut()" >退出</a></li>
+            </ul>
+        </div>
+        <div class="row J_mainContent" id="content-main">
+            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="/suadmin/_blank" frameborder="0" data-id="index_v1.html" seamless></iframe>
+        </div>
+        <div class="footer">
+            <div class="pull-right">&copy; 2017-2018 <a href="javascript:void (0);" target="_blank">汽配管理系统</a></div>
+            <a class="J_menuItem" href=""  id="diy-menu" style="display: none;">
+                <span class="nav-label"></span>
+            </a>
+        </div>
+    </div>
+    <!--右侧部分结束-->
+    <!--右侧边栏开始-->
+    <div id="right-sidebar">
+        <div class="sidebar-container">
+
+            <!--<ul class="nav nav-tabs navs-3">
+                <li class="active">
+                    <a data-toggle="tab" href="#tab-1">
+                        <i class="fa fa-gear"></i> 主题
+                    </a>
+                </li>
+            </ul>-->
+
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane active">
+                    <div class="sidebar-title">
+                        <h3> <i class="fa fa-comments-o"></i> 主题设置</h3>
+                        <small><i class="fa fa-tim"></i> 你可以从这里选择和预览主题的布局和样式，这些设置会被保存在本地，下次打开的时候会直接应用这些设置。</small>
+                    </div>
+                    <div class="skin-setttings">
+                        <div class="title">主题设置</div>
+                        <div class="setings-item">
+                            <span>收起左侧菜单</span>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="collapsemenu">
+                                    <label class="onoffswitch-label" for="collapsemenu">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setings-item">
+                            <span>固定顶部</span>
+
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="fixednavbar" class="onoffswitch-checkbox" id="fixednavbar">
+                                    <label class="onoffswitch-label" for="fixednavbar">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setings-item">
+                                <span>
+                        固定宽度
+                    </span>
+
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="boxedlayout" class="onoffswitch-checkbox" id="boxedlayout">
+                                    <label class="onoffswitch-label" for="boxedlayout">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="title">皮肤选择</div>
+                        <div class="setings-item default-skin nb">
+                                <span class="skin-name ">
+                         <a href="#" class="s-skin-0">
+                             默认皮肤
+                         </a>
+                    </span>
+                        </div>
+                        <div class="setings-item blue-skin nb">
+                                <span class="skin-name ">
+                        <a href="#" class="s-skin-1">
+                            蓝色主题
+                        </a>
+                    </span>
+                        </div>
+                        <div class="setings-item yellow-skin nb">
+                                <span class="skin-name ">
+                        <a href="#" class="s-skin-3">
+                            黄色/紫色主题
+                        </a>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--右侧边栏结束-->
+</div>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/js/hplus/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="/js/hplus/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+<script src="/js/hplus/js/hplus.min.js?v=4.1.0"></script>
+
+<script src="/js/hplus/js/contabs.min.js" type="text/javascript"></script>
+<script src="/js/hplus/js/plugins/pace/pace.min.js"></script>
+<script src="/js/global.js"></script>
+</body>
+<script>
+    function logOut() {
+        var url = "/suadmin/logOut";
+        $.post(url,{},function (rdata) {
+            if(rdata.massageCode == 'success'){
+
+                setTimeout(function () {
+                    window.location.href = "/suadmin/login";
+                },800);
+            }else {
+                layer.msg(rdata.massage);
+            }
+        },'json');
+    }
+    function setTime() {
+        var now = new Date();
+        var Y   = now.getFullYear();//:获取年份
+        var M   = now.getMonth()+1; //:获取月份，区间(0~11)
+        var D   = now.getDate();    //:当前月的号数
+        var H   = now.getHours();   //:获取时间的小时
+        var I   = now.getMinutes(); //:获取时间的分钟
+        var S   = now.getSeconds(); //:获取时间的秒
+        var W   = now.getDay();     //:获取星期几
+        var week= ['日','一','二','三','四','五','六'];
+        $("#today").html( Y +'年'+ M +'月'+ D +'日'+( H >=10?  H  : '0'+ H )+'时'+( I >=10?  I  : '0'+ I )+'分'+( S >=10? S : '0'+ S )+'秒 '+'星期'+ week[W] );
+    }
+    //时钟
+    setInterval(function() {
+     setTime();
+     }, 1000)
+</script>
+<script>
+    //修改密码
+    function upPasswordPage(){
+        var area = ['580px', '440px'];
+        layer.open({
+            type: 2,
+            title: '修改密码',
+            shadeClose: true,
+            shift:5,
+            //maxmin: true, //开启最大化最小化按钮
+            area: area,
+            content: '/suAdmin/updatePwd'
+        });
+    }
+</script>
+</html>

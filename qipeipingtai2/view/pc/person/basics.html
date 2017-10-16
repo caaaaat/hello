@@ -1,0 +1,140 @@
+<link rel="stylesheet" href="/css/pc/person/basics.css">
+
+<!--<link rel="stylesheet" href="/js/webuploader/webuploader.css">cursor: pointer!important;-->
+<style>
+    #upImg input[name="file"]{opacity: 0;cursor: pointer;z-index: -1;}
+    #upImg input[name="file"]:hover{cursor: pointer;!important;}
+    #upImg label{opacity: 0;}
+    #upImg input{width: 40px;height: 60px;z-index: 100;}
+    #upImg:last-child div{width: 40px;height: 60px;}
+    .buttonXcmToken{width: 40px!important;height: 60px!important;top: -16px!important;left: 0!important;}
+</style>
+<!--个人资料/基本资料-->
+<div id="rightDiv">
+    <!--<div id="upImg" style="">aa</div>-->
+    <!--基本资料信息-->
+    <div class="martop20 bianJiView">
+        <div class="touXiang185Div">
+            <img src="<?php echo $userInfo['head_pic']?$userInfo['head_pic']:'/images/qpxm/pc/person/basics/morentouxiang.png';?>" class="touXiang185" style="width: 185px;" alt="">
+        </div>
+        <div class="phoneNumber">
+            <?php echo $userInfo['uname']?$userInfo['uname']:'还没有设置昵称';?>
+        </div>
+        <div class="bianJiBtnDiv">
+            <button type="button" class="bianJiBtn" data-toggle="button" aria-pressed="false" onclick="bianJi()">编辑</button>
+        </div>
+        <div style="height: 50px;"></div>
+    </div>
+    <!--编辑页面-->
+    <div style="display: none" class="bianJi">
+        <input type="hidden" name="head_pic" value="<?php echo $userInfo['head_pic'];?>">
+        <div class="touXiangDiv">
+            <div class="postinRelative" style="background: #DDD;" onclick="upImgs()" id="shangchuantouxiang">
+                <img src="<?php echo $userInfo['head_pic']?$userInfo['head_pic']:'/images/qpxm/pc/person/basics/bg.png';?>" class="touXiangImg" id="touxiangpic007" style="width: 130px;" alt="">
+                <div class="upImg">
+                    <img src="/images/qpxm/pc/person/basics/up.png" style="cursor: pointer;width: 40px;height: 40px;position: absolute;left: 2px;" alt="">
+                    <div style="position: relative;width: 40px;height: 60px;">
+                        <div style="position: absolute;top: 0;z-index: 50;width: 40px;height: 40px;cursor: pointer;">
+                            <div id="upImg"></div>
+                        </div>
+                        <!--<div style="position: absolute;top: 0;z-index: 50;width: 40px;height: 40px;" id="upImg"></div>-->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="marginAuto">
+            <input type="text" class="inputNum" name="uname" value="<?php echo $userInfo['uname'];?>">
+        </div>
+        <div class="bottomDivBtn">
+            <button type="button" class="quXiao" data-toggle="button" aria-pressed="false" onclick="quXiao()">取消</button>
+            <button type="button" class="saves" data-toggle="button" aria-pressed="false" onclick="saves()">保存</button>
+        </div>
+    </div>
+</div>
+<script src="/js/global.js" type="text/javascript"></script>
+<script src="/js/pc/layer/layer.js"></script>
+<script>
+    function upImgs(){
+        $('#upImg').find('input[name="file"]').click();
+//        $('.upImgs').click();
+    }
+    /*点击编辑，显示编辑信息框*/
+    function bianJi(){
+//        chushihuabdsc();
+        $('.bianJiView').hide();
+        $('.bianJi').show();
+    }
+    /*点击取消，隐藏编辑框*/
+    function quXiao(){
+        $('.bianJiView').show();
+        $('.bianJi').hide();
+    }
+    /*点击保存*/
+    function saves(){
+        var uname    = $('input[name="uname"]').val();
+        var head_pic = $('input[name="head_pic"]').val();
+        if(uname){
+            var index = layer.load(2);
+            api.load('pc.firm','changeUname',{uname:uname,head_pic:head_pic},function (data) {
+                layer.alert(data['msg'],{icon: data['status'],skin: 'layui-layer-rim'},function(){
+                    if(data['status']===1){
+                        location.reload();
+                    }
+                    layer.closeAll();
+                });
+            })
+        }else {
+            layer.alert('请填写昵称',{icon: 2,skin: 'layui-layer-rim'});
+        }
+    }
+</script>
+<script type="text/javascript" src="/js/webuploader-0.1.5/webuploader.js"></script>
+<script>
+    $(function(){
+        chushihuabdsc();
+    });
+
+
+    function chushihuabdsc() {
+        var wordUploader = WebUploader.create({
+            // 选完文件后，是否自动上传。
+            auto: true,
+            // swf文件路径
+            swf: '/js/webuploader-0.1.5/Uploader.swf',
+            // 文件接收服务端。
+            server: '/tools/baiduUploadForHome',
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#upImg',
+            sendAsBinary: true,
+            // 只允许选择文件类型。
+            accept: {
+                title: 'Applications',
+                extensions: 'jpg,png,jpeg,png',
+                mimeTypes: '.jpg,.png,.jpeg,.png'
+            }
+        });
+
+        //文件上传成功后的处理，在界面上的呈现，显示
+        wordUploader.on('uploadSuccess', function (file, response) {
+            layer.closeAll('loading'); //关闭加载层
+            var imgrl007 = response.httpUrl;
+            //成功提示
+            $("#touxiangpic007").attr("src", imgrl007);
+            $("input[name='head_pic']").val(imgrl007);
+            //$(".webuploader-pick").html('上传');
+        });
+        //文件上传失败
+        wordUploader.on('uploadError', function (file, response) {
+            layer.closeAll('loading'); //关闭加载层
+            //失败提示
+            var text = '上传失败';
+        });
+        //文件上中
+        wordUploader.on('uploadProgress', function (file, percentage) {
+            layer.load(0, {shade: false});
+        });
+    }
+
+</script>

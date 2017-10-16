@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>选择经营范围</title>
+<link href="../../../../css/mui.min.css" rel="stylesheet"/>
+<link href="../../../../css/swiper.css" rel="stylesheet"/>
+<link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	html{
+		background: #F5F5F5;
+	}
+	.sw-card-cuBox{
+		margin: -1px 0 10px 0;box-shadow: none;border-bottom: 1px solid #DDDDDD;border-top: 1px solid #DDDDDD;
+	}
+	.sw-card-cuBox1{
+		width: 100%;padding:10px 15px;
+	}
+	.sw-card-cuBox2{
+		padding: 8px 0 0 0;
+	}
+	.sw-card-img{
+		border:1px solid #DDDDDD;height:180px;
+	}
+	.sw-card-title{
+		color: #333;margin-bottom: 0;
+	}
+	.sw-header {
+		width: 100%;
+		height: 48px;
+		overflow: hidden;
+		font-size: 12px;
+		line-height: 48px;
+		background: #FFFFFF;
+		border-bottom: 1px solid #ccc;
+	}
+	.sw-header .swiper-slide {
+	    padding: 0 10px;
+	    margin: 0 4px;
+	    width: auto;
+	}
+	
+	.sw-header .swiper-slide.active{
+	  border-bottom: 1px solid #FF534C;
+	}
+	
+	.sw-scope-box{
+		background: none;
+	}
+	.sw-scope-box:after{
+		height: 0;
+	}
+	.sw-table-text3{
+		margin-top: 0!important;font-size: 12px!important;
+	}
+	.sw-icon-gou{
+		position: absolute;right: 2px;top: 12px;width: 14px;height: 14px;background: url(../../../../image/login/icon_gou.png) no-repeat;background-size: contain;
+	}
+	.sw-icon-quan{
+		position: absolute;right: 2px;top: 12px;width: 14px;height: 14px;background: url(../../../../image/login/icon_quan.png) no-repeat;background-size: contain;
+	}
+</style>	
+<body style="background: #FFFFFF;">
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">选择经营范围</h1>
+	    <button class="mui-btn mui-btn-link mui-pull-right" onclick="sureGoBack()">确认</button>
+	</header>
+	
+	<div class="mui-content" style="background: #F5F5F5;">
+		
+		<div class="sw-header" id="header">
+		  <div class="swiper-wrapper" id="p-list"></div>
+		</div>
+
+		<ul class="mui-table-view mui-grid-view sw-scope-box" id="c-list"></ul>   
+				
+	</div> 
+<!--父级内容-->
+	<script id="p-list-tpl" type="text/html">
+		{{# var len = d.length }} 			
+		<div class="swiper-slide active sw-parent" onclick="selectGroup(this,'{{ d[0].id }}')" data-id="{{ d[0].id }}">{{ d[0].name }}</div>		
+		{{# for(var i = 1;i < len; i++){ }}			
+		<div class="swiper-slide sw-parent" onclick="selectGroup(this,'{{ d[i].id }}')" data-id="{{ d[i].id }}">{{ d[i].name }}</div>		
+		{{# } }}
+	</script>
+	
+	<!--子级内容-->
+	<script id="c-list-tpl" type="text/html">
+		{{# var list = d.list; var len = list.length; var pid = d.pid; }} 
+		
+		{{# for(var i = 0;i < len; i++){ }}	
+			{{# if(pid==list[i].pid){ }}	
+			<li class="mui-table-view-cell mui-media mui-col-xs-3 sw-child cpid{{ list[i].pid }}" onclick="selectChild(this,'{{ list[i].id }}','{{ list[i].name }}')" data-pid="{{ list[i].pid }}">	           
+            	<label for="firmClass{{ list[i].id }}">
+	            	<input type="checkbox" name="firmClass" id="firmClass{{ list[i].id }}" value="{{ list[i].id }},{{ list[i].pName }}/{{ list[i].name }}" hidden="hidden" />
+	            	<p class="sw-icon-quan sw-icon"></p>	
+	                <img class="mui-media-object" src="{{ imgUrl+list[i].img }}">  
+	                <span class="mui-media-body sw-table-text3">{{ list[i].name }}</span>
+            	</label>	            
+	        </li>
+        	{{# }else{ }}
+        	<li class="mui-table-view-cell mui-media mui-col-xs-3 sw-child cpid{{ list[i].pid }}" onclick="selectChild(this,'{{ list[i].id }}','{{ list[i].name }}')" style="display: none;" data-pid="{{ list[i].pid }}">	           
+            	<label for="firmClass{{ list[i].id }}">
+	            	<input type="checkbox" name="firmClass" id="firmClass{{ list[i].id }}" value="{{ list[i].id }},{{ list[i].pName }}/{{ list[i].name }}" hidden="hidden" />
+	            	<p class="sw-icon-quan sw-icon"></p>	 
+	                <img class="mui-media-object" src="{{ imgUrl+list[i].img }}">  
+	                <span class="mui-media-body sw-table-text3">{{ list[i].name }}</span>       
+            	</label>	            
+	        </li> 
+	        
+        	{{# } }}	
+		{{# } }}	
+	</script>	
+</body>
+<script type="text/javascript" src="../../../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../../../js/swiper.js"></script>
+<script type="text/javascript" src="../../../../js/global.js"></script>
+<script type="text/javascript" src="../../../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../../../js/laytpl/laytpl.js"></script> 
+<script>	
+	//mui初始化
+	mui.init({  
+	    beforeback: function() {  
+	    //获得列表界面的webview  
+	    var info = plus.webview.currentWebview().opener();  
+	    //触发列表界面的自定义事件（refresh）,从而进行数据刷新  
+	    mui.fire(info, 'refreshScope');  
+	    //返回true，继续页面关闭逻辑  
+	    return true;  
+	    }  
+	});
+	//mui plusReady
+	mui.plusReady(function() {		
+		var self      = plus.webview.currentWebview();	
+		    firmClass = self.firmClass;	
+			//进入后检查手机短信验证码  未发送进行发送手机验证码
+			getFirmClass(firmClass);	
+	})
+
+	//点击确认返回
+	function sureGoBack(){
+		var firmChild = $("input[name='firmClass']:checked");
+		var firmCount = firmChild.length;
+		//将选择的数据保存
+		if(firmCount<1){
+			sw.toast('请至少选择一项');
+		}else{
+			var firmChildVal = firmChild.val();
+			var firmClasses = [];
+				$.each(firmChild,function(index,item){										
+					var classVal = item.value;	
+					firmClasses.push(classVal);
+				}) 
+			plus.storage.setItem('firmClasses',JSON.stringify(firmClasses));	
+			plus.storage.setItem('pIIIs','1');//父级刷新标记	
+			setTimeout(function(){//延时返回父级
+				mui.back();
+			},300)
+		}
+		  
+	}
+
+  
+	//获取经营范围
+	function getFirmClass(firmClass){
+		var fun = (firmClass==1)?'getCarGroup':((firmClass==2)?'getTrackGroup':'getWuLiuGroup')
+		//如果已经登陆 获取登录后的数据
+		http.load('api.sev.index',fun,{},function(rData){//请求成功
+	
+			if(rData.status==200){    	 
+	 			//父级将数据输出到页面     
+				var cate_1 = rData.data.cate_1;	 	 				
+			 	var pTpl   = $('#p-list-tpl').html();	 		
+		        laytpl(pTpl).render(cate_1,function(render){           
+		            $('#p-list').html(render);    
+		        });	  
+				//子级数据页面输出
+				var cate2 = {};
+				sw.jcon(rData.data.cate_2);
+					cate2.pid  = cate_1[0].id;
+					cate2.list = rData.data.cate_2;
+				 var cTpl   = $('#c-list-tpl').html();	
+		        laytpl(cTpl).render(cate2,function(render){  
+		            $('#c-list').html(render);      
+		        });	
+				 
+				 //父级滚动
+				 mySwiper();
+			 				  
+			}else{
+				sw.toast(rData.msg); 	
+			}
+	
+		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入		
+				//无网络提示
+				//sw.toast('请求失败，请检查网络');
+		})
+			
+	}
+	
+	//切换父级选项子级变化
+	function selectGroup(j,pid){
+		//清除父级选择项
+		$(".sw-parent").removeClass('active');
+		//选中当前父级
+		$(j).addClass('active');
+		//隐藏全部子级
+		$(".sw-child").hide();
+		//显示对应子级
+		$(".cpid"+pid).show();
+	}
+	
+	//选择子级
+	function selectChild(j,cid,name){
+		//判断已选择个数	
+		var firmChild = $("input[name='firmClass']:checked");
+		var firmCount = firmChild.length;
+//		if(firmCount>=4){
+//			$(j).find('input').prop('checked',false);
+//			$(j).find('.sw-icon').addClass('sw-icon-quan').removeClass('sw-icon-gou');
+//			sw.toast('最多可选择3项');
+//		}else{
+			$(j).find('.sw-icon').toggleClass('sw-icon-quan').toggleClass('sw-icon-gou');	
+//		}		
+//		sw.jcon(firmCount);		
+	}
+	
+	
+	//父级滚动
+	function mySwiper(){
+		
+		//父级滚动  
+ 	var mySwiper = new Swiper('#header',{ 
+				  freeMode : true,
+				  slidesPerView : 'auto',
+				  freeModeSticky : true ,
+			  });
+			 
+	}
+	</script>
+</html>

@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>经销商名称</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	
+	.mui-indicator{
+		width: 10px!important;
+		height: 10px!important;
+		box-shadow: none!important;
+		background: url(../../../image/index/dian_next@2x.png) no-repeat!important;
+		background-size: contain!important;
+	}
+	.mui-slider-indicator .mui-active.mui-indicator {
+		background: url(../../../image/index/dian_now@2x.png) no-repeat!important;
+		background-size: contain!important;
+		border-radius: 0;
+		box-shadow: none;
+		width: 26px!important;
+	}
+	.sw-bottom-banner{
+		height: 180px;display: block;
+	}
+	.sw-meida-text{
+				font-size: 14px!important;color: #666!important;
+			}
+	.sw-after-no:after{
+		height: 0;
+	}	
+	.sw-title-box{
+		width: 100%;height: 42px;border-bottom: 1px solid #DDDDDD;background: #FFFFFF;
+	}
+	.sw-title-1{
+		width: 33.3%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+	}
+	.sw-title-active{
+		display: inline-block;margin-bottom: 0;border-bottom: 2px solid #FF534C;height:42px;color:#FF534C ;
+	}
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.companyNav{
+		margin-bottom: 0;
+	}
+	/*公司信息*/		
+	.sw-list-title2{
+		font-size: 14px;color: #666;display: inline-block;width: 56px;
+	}
+	.sw-list-title3{
+		line-height:40px;font-size: 14px;color: #666;
+	}
+	.sw-list-title4{
+		font-size: 14px;color: #666;display: inline-block;width: 100px;
+	}
+	.sw-list-text2{
+		margin-left:56px ;margin-top: -21px;
+	}	
+	.sw-img1{
+		width: 40px;height: 40px;vertical-align: middle;
+	}
+	.sw-sj-phone{
+		width: 21px;height: 21px;float: right;background: url(../../../image/index/icon_mc_iphone.png) no-repeat;background-size: contain;
+	}
+	.sw-sj-tel{
+		width: 21px;height: 21px;float: right;background: url(../../../image/index/icon_mc_tel.png) no-repeat;background-size: contain;
+	}
+	.sw-sj-qq{
+		width: 21px;height: 21px;float: right;background: url(../../../image/index/icon_qq@3x.png) no-repeat;background-size: contain;
+	}
+	.sw-sj-uesr{
+		padding-left:16px;padding-top:1px;padding-bottom:1px;background: url(../../../image/index/people.png) no-repeat;background-size: 14px;
+	}
+	.sw-sj-tel1{
+		padding-left:16px;padding-top:1px;float: right;padding-bottom:1px;background: url(../../../image/index/icon_tel@3x.png) no-repeat;background-size: 14px;background-position: 1px 3px;
+	}
+	.sw-card-img1{
+		width: 72px!important;max-width:72px!important;height: 72px!important;
+	}
+	.sw-renz-img{
+		width: 16px;vertical-align: middle;margin-left: 4px;
+	}
+	.sw-biao-lei1{
+		display:inline-block;border: 1px solid #3EB7FF;font-size: 10px;color: #3EB7FF;height: 18px;line-height: 18px;padding: 0 4px;border-radius: 9px;
+	}
+	.sw-biao-lei2{
+		display:inline-block;border: 1px solid #18C839;font-size: 10px;color: #18C839;height: 18px;line-height: 18px;padding: 0 4px;border-radius: 9px;
+	}
+	.sw-biao-lei3{
+		display:inline-block;border: 1px solid #FF6699;font-size: 10px;color: #FF6699;height: 18px;line-height: 18px;padding: 0 4px;border-radius: 9px;
+	}
+	/*产品展示*/	
+	.sw-title-3{
+		width: 33.3%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+	}
+	.sw-rafter:after{
+		content: '';
+		height: 24px;
+		background: #EFEFEF;
+		margin-top: 9px;
+		width: 1px;
+		float: right;
+	}
+	.sw-fanye{
+			padding:1px 8px;background: url(../../../image/person/repair/icon_fanye_1.png) no-repeat;background-size: 10px;background-position: center;margin-left: 4px;
+	
+	}
+	/*认证信息*/
+	.sw-after-l:after{
+		left: 0;
+	}
+	.sw-zhizhao{
+		font-size: 14px;padding-left: 28px;color:#333;padding-top:2px;padding-bottom:2px;background: url(../../../image/index/icon_zhizhao.png) no-repeat;background-size: 23px 16px;background-position:0 3px;
+	}
+	.sw-renz-status{
+		font-size: 14px;color: #999;float: right;
+	}
+	
+	.mui-tab-items{
+		    display: table-cell;
+		    overflow: hidden;
+		    width: 1%;
+		    height: 50px;
+		    text-align: center;
+		    vertical-align: middle;
+		    white-space: nowrap;
+		    text-overflow: ellipsis;
+		    color: #929292;
+	}
+	.mui-bar-tab .mui-tab-items .mui-icon {
+	    top: 3px;
+	    width: 24px;
+	    height: 24px;
+	    padding-top: 0;
+	    padding-bottom: 0;
+		}
+	.mui-bar-tab .mui-tab-items .mui-icon~.mui-tab-label {
+	    font-size: 11px;
+	    display: block;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	}
+	
+	
+	   /*跨webview需要手动指定位置*/         
+        .mui-popover {
+            height: auto;
+            height: 200px;
+            background: #FFFFFF;
+        }
+        .mui-popover .mui-scroll-wrapper {
+		    margin:0;
+		 
+		}
+		
+		
+		/*产品样式*/
+		.sw-money{
+			font-size: 14px;
+			font-weight: 700;
+		}
+		.sw-csl-div1{
+			width: 100%;padding: 0 15px;margin-bottom: 10px;
+		}
+		.sw-csl-div2{
+			background: #FFFFFF;border: #DDDDDD 1px solid;
+		}
+		.sw-csl-div3{
+			padding: 8px;
+		}
+		.sw-csl-div4{
+			padding-left: 106px;display:block;position: relative;margin-top:-104px;width: 100%;
+		}
+		.sw-csl-p1{
+			font-size: 14px;line-height: 28px;margin-bottom: 0;width: 100%;
+		}
+		.sw-csl-p2{
+			font-size: 12px;line-height: 24px;margin-bottom: 0;width: 100%;
+		}
+		.sw-search-p{
+			    background: url(../../../image/index/icon_wz_sousuo@3x.png)no-repeat;
+			    width: 45px;
+			    height: 36px;
+			    margin: 0!important;
+			    background-size: 17px;
+			    position: absolute;
+			    top: 13px;
+			    background-position: center;
+			    margin-top: -50px;
+			    right: 25px; 
+				}
+				
+	.sw-box-3{
+		    padding-right: 180px;  
+		    display: inline-block;
+		    position: absolute;
+		    max-width: 100%;
+	}
+	.sw-box-4{
+		display: inline-block;max-width: 100%;position: relative;
+	}
+	.sw-box-5{
+		display: inline-block;max-width: 100%;color: #666666;
+	}		
+	.sw-renz{
+		background: url(../../../image/person/renzheng2.png) no-repeat;background-size: 16px;background-position: right 1px;padding-right:18px;
+	}
+	.sw-renv{
+		background: url(../../../image/person/renzheng.png) no-repeat;background-size: 16px;background-position: right 1px;padding-right:18px;
+	}	
+	.sw-renv-renz{
+		background: url(../../../image/person/renzv-renz.png) no-repeat;background-size: 36px;background-position: right 1px;padding-right:38px;
+	}
+	#bannerList img{
+	width: 100%;height: 200px;
+}	
+</style>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title" id="mui_title">经销商名称</h1>
+	     <button class="mui-btn mui-btn-link mui-pull-right" id='msgList' onclick="collectStore()">
+	    	<img src="../../../image/index/like.png" class="sw-title-img2"/>
+	    </button>
+	</header>
+	<div class="mui-content">
+	    <div id="bannerList"> 
+			<img src="../../../image/start/banner.png" height="200px" width="100%"> 
+		</div>
+		
+		<div class="sw-title-box">
+	   		<div class="sw-title-1"><p class="sw-title-active companyNav" onclick="selectNav(this,'infoList')">公司信息</p></div>
+	   		<div class="sw-title-1"><p class="companyNav" onclick="selectNav(this,'product')">产品展示</p></div>
+	   		<div class="sw-title-1"><p class="companyNav" onclick="selectNav(this,'authList')">认证信息</p></div>
+	   </div>
+		
+		<!--公司信息-->
+		<div class="companyCon" style="margin-bottom: 75px;" id="infoList">
+			<div style="clear: both;"></div>
+			
+			<ul class="mui-table-view" style="margin-top: 10px;">
+			<li class="mui-table-view-cell mui-media sw-no-active">
+					
+				<img class="mui-media-object mui-pull-left sw-card-img1" src="../../../image/log.png">
+					
+				<div style="font-size: 14px;padding-right:70px;height: 72px;">
+					<p class="sw-ctheme" style="margin-left: 72px;">					
+				</div>
+				
+				<div style="position: absolute;top: 0;right: 0;width: 80px;height: 97px;text-align: center;">
+					<div style="height:72px;margin:12px 0;border-left: 1px solid #F5F5F5;">
+						<img src="../../../image/index/icon_tousu_qq.png" width="42px">
+							<p style="font-size: 12px;color: #666666;">平台投诉</p>
+					</div>
+				</div>
+					
+			</li>
+		 </ul>
+		
+		 	<ul class="mui-table-view" style="margin-top:10px;">
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">主营</span>
+				<p class="sw-list-text2">&nbsp;</p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">联系人</span>
+				<p class="sw-list-text2">&nbsp;</p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">手机</span>
+				<div class="sw-list-text2">
+					<p style="margin-bottom: 6px;">&nbsp;<span class="sw-sj-phone"></span></p>
+				</div>	
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">座机</span>
+				<div class="sw-list-text2">
+					<p style="margin-bottom: 6px;">&nbsp;<span class="sw-sj-tel"></span></p>
+				</div>
+				
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">QQ</span>
+				<div class="sw-list-text2">
+					<p style="margin-bottom: 6px;">&nbsp;<span class="sw-sj-qq"></span></p>
+				</div>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">微信</span>
+				<div class="sw-list-text2">
+					<p style="margin-bottom: 6px;">&nbsp;</p>	
+				</div>
+			</li>
+		</ul>    
+		
+			<ul class="mui-table-view" style="margin-top:10px;margin-bottom: 20px;">
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title4">企业介绍</span>
+				<p style="margin-top: 8px;">&nbsp;</p>
+			</li>
+			
+		</ul>
+		
+		</div>
+		
+		<div style="clear: both;"></div>
+		<!--产品展示-->
+		<div class="companyCon" style="margin-bottom: 75px;display: none;" id="product">		
+			<div class="sw-title-box">
+		   		<div class="sw-title-3 sw-rafter" id="chanpin"><span id="cp1">全部产品</span><span class="sw-fanye"></span></div>
+		   		<div class="sw-title-3 sw-rafter" id="leibie"><span id="cp2">全部类别</span><span class="sw-fanye"></span></div>
+		   		<div class="sw-title-3" id="fenlei"><span id="cp3">全部分类</span><span class="sw-fanye"></span></div>
+	   			<input type="text" name="proType" id="proType" value="" hidden="hidden" />
+	   			<input type="text" name="cate_1" id="cate_1" value="" hidden="hidden"/>
+	   			<input type="text" name="cate_2" id="cate_2" value="" hidden="hidden"/>
+	   			
+			</div>
+	   		
+	   		<div id="proList" style="padding-top: 10px;">
+	   			
+	   			
+	   			
+	   		</div>
+	   		<div id="loadList"><input value="1" hidden="hidden" id="page"/></div> 	
+			<!--<div style="width: 100%;padding: 0 15px;margin-top: 10px;" id="cxdetail">
+		   		<div style="background: #FFFFFF;border: #DDDDDD 1px solid;">
+		   			<div style="padding: 8px 8px 0;">
+		   				<img src="../../../image/coterie/muwu.png" height="98px" width="98px"/>
+		   				
+		   				<div style="margin-left: 8px;display: inline-block;position: relative;top:-4px;">
+		   					<p style="font-size: 14px;line-height: 28px;margin-bottom: 0;">
+		   						<span class="sw-ctheme">轮胎</span>
+		   					</p>
+		   					
+		   					<p style="font-size: 12px;line-height: 24px;margin-bottom: 0;">
+		   						<span style="color: #333;">类别：</span><span style="color: #666;">一级分类</span>
+		   					</p>
+		   			
+		   					<p style="font-size: 12px;line-height: 24px;margin-bottom: 0;">
+		   						<span style="color: #333;">车系：</span><span style="color: #666;">日系</span>
+		   					</p>
+		   					<p style="font-size: 12px;line-height: 24px;margin-bottom: 0;">
+		   						<span style="color: #333;">价格：</span><span style="color: #666;" class="sw-money sw-ctheme">￥300</span>
+		   					</p>
+		   				</div>
+		   			</div>  			
+		   		</div>
+		   </div>-->
+		   
+		   
+			
+		</div>
+		
+		<div style="clear: both;"></div>
+		<!--认证信息-->
+		<div class="companyCon" style="margin-bottom: 75px;display: none;" id="authList">		
+			<ul class="mui-table-view" style="margin: 0;">
+				 <li class="mui-table-view-cell sw-after-l">
+				 	<span class="sw-zhizhao">营业执照</span><span class="sw-renz-status">无</span>
+				 </li>
+		         <li class="mui-table-view-cell sw-after-l">
+				 	<span class="sw-zhizhao">纳税认证</span><span class="sw-renz-status">无</span>
+				 </li>
+				 <li class="mui-table-view-cell sw-after-l">
+				 	<span class="sw-zhizhao">实地认证</span><span class="sw-renz-status">无</span>
+				 </li>
+				 <li class="mui-table-view-cell sw-after-l">
+				 	<span class="sw-zhizhao">商标认证</span><span class="sw-renz-status">无</span>
+				 </li>
+				 <li class="mui-table-view-cell sw-after-l">
+				 	<span class="sw-zhizhao">产品代理认证</span><span class="sw-renz-status">无</span>
+				 </li>	 
+			</ul>  
+		
+			
+		</div>
+		
+		
+	</div>
+	
+	
+	<div id="popover1" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;height: 130px;">	    	
+    	<ul id="cat0List" class="mui-table-view" style="margin-top: 0;text-align: center;font-size: 14px;color: #666666;">
+			 <li onclick="selectGroup('proType','','全部产品')" style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no" >
+			 	 全部产品
+			 </li>	 
+ 		</ul>	    	
+    </div>
+	    
+	    
+    <div id="popover2" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;">
+    	<div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+		    	<ul id="cat1List" class="mui-table-view" style="margin-top: 0;text-align: center;font-size: 14px;color: #666666;">
+					 <li onclick="selectGroup('cate_1','','全部类别')"  style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no" >
+					 	 全部类别
+					 </li>	 
+		 		</ul>
+			</div>
+	 	</div>
+    </div>
+    
+    
+    <div id="popover3" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;">
+    	 <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+	    		<ul id="cat2List"   class="mui-table-view" style="margin-top: 0;text-align: center;font-size: 14px;color: #666666;overflow: auto;">
+					 <li onclick="selectGroup('cate_2','','全部分类')" style="background: #FFFFFF;" class="mui-table-view-cell sw-after-no" >
+					 	 全部分类
+					 </li>  							 
+		 		</ul>
+		    	
+			</div>
+	 	</div>   	
+    </div>
+
+
+	<div id="popover4" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;">
+		<div style="width: 100%;padding: 20px 0;">
+		
+		<p style="text-align: center;padding: 0 15px;">
+			<span style="color: #333;font-weight: 700;">分享</span>
+			<span style="float: right;" id="closePopover">
+			<img src="../../../image/person/purchase/icon_qg_c.png" height="12px">
+			</span>
+		</p>
+		
+		 <ul class="mui-table-view mui-grid-view mui-grid-5 sw-no-img sw-payList" style="padding:0 0 20px;background: #FFFFFF;">
+		
+		<li class="mui-table-view-cell mui-media mui-col-sm-20" onclick="shareAction('weixin', 'WXSceneSession');">
+			<img class="mui-media-object" src="../../../image/person/more/icon_more_wechat.png">
+			<span style="font-size: 12px;color: #666666;" class="sw-word-one">微信</span>
+		</li>
+		
+		<li class="mui-table-view-cell mui-media mui-col-sm-20" onclick="shareAction('weixin', 'WXSceneTimeline');">
+			<img class="mui-media-object" src="../../../image/person/more/icon_more_fri.png">
+			<span style="font-size: 12px;color: #666666;" class="sw-word-one">朋友圈</span>
+		</li>
+		
+		<li class="mui-table-view-cell mui-media mui-col-sm-20" onclick="shareAction('qq', '');">
+			<img class="mui-media-object" src="../../../image/person/more/icon_more_qq.png">
+			<span style="font-size: 12px;color: #666666;" class="sw-word-one">QQ好友</span>
+		</li>
+		
+		<li class="mui-table-view-cell mui-media mui-col-sm-20" onclick="sharesQQZ()">
+			<img class="mui-media-object" src="../../../image/person/more/icon_more_qqkj.png">	
+			<span style="font-size: 12px;color: #666666;" class="sw-word-one">QQ空间</span>
+		</li>
+		
+		<li class="mui-table-view-cell mui-media mui-col-sm-20" onclick="shareStore()">
+			<img class="mui-media-object" src="../../../image/person/more/icon_chenggong_mrtx.png">	
+			<span style="font-size: 12px;color: #666666;" class="sw-word-one">圈子</span>
+		</li>
+		
+		</ul>
+		
+		</div>    	
+	</div>
+	
+	<nav class="mui-bar mui-bar-tab" id="navList"  style="background: #FFFFFF;box-shadow:  0 0 1px #DDDDDD;padding-top: 10px;">
+		<a class="mui-tab-item mui-active">
+			<span class="mui-icon sw-shouji"></span>
+			<span class="mui-tab-label sw-ctheme">手机</span>
+		</a>
+		<a class="mui-tab-item">
+			<span class="mui-icon sw-QQ"></span> 
+			<span class="mui-tab-label sw-ctheme">QQ</span>
+		</a>
+		<a class="mui-tab-item">
+			<span class="mui-icon">
+				<img height="20px" width="24px" style="vertical-align: bottom;" src="../../../image/index/weixin.png" />
+			</span> 
+			<span class="mui-tab-label sw-ctheme" style="margin-top:5px;">微信</span>          
+		</a> 
+		<a class="mui-tab-item" id="dhdetail">
+			<span class="mui-icon sw-daohang"></span>
+			<span class="mui-tab-label sw-ctheme">导航</span>
+		</a>
+		<a class="mui-tab-item" id="fxdetail">
+			<span class="mui-icon sw-fenxiang"></span>
+			<span class="mui-tab-label sw-ctheme">分享</span>
+		</a>
+	</nav>
+
+
+<!--商家banner模板-->
+<script id="banner-list-tpl" type="text/html">
+	
+	{{# var len = d.length }}
+	<div id="slider" class="mui-slider" style="height: 200px;">
+		<div class="mui-slider-group mui-slider-loop">
+			
+			<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+			<div class="mui-slider-item mui-slider-item-duplicate">
+				<a href="#">
+					<img src="{{ imgUrl+d[len-1].banner_url }}" height="200px">
+				</a>
+			</div>
+			
+			{{# for(var i = 0;i < len; i++){ }}
+			<div class="mui-slider-item">
+				<a href="#">
+					<img src="{{ imgUrl+d[i].banner_url }}" height="200px">
+				</a>
+			</div>
+			{{# } }}
+			<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+			<div class="mui-slider-item mui-slider-item-duplicate">
+				<a href="#">
+					<img src="{{ imgUrl+d[0].banner_url }}" height="200px">
+				</a>
+			</div>
+		</div>
+		<div class="mui-slider-indicator">
+			{{# if(len>1){ }}
+			<div class="mui-indicator mui-active"></div>
+			{{# } }}
+			{{# for(var i = 1;i < len; i++){ }}
+			<div class="mui-indicator"></div>
+			{{# } }}
+		</div>
+	</div>
+</script>
+<!--//公司信息模板-->
+<script id="info-list-tpl" type="text/html">	
+	<div class="" style="margin-bottom: 75px;">
+			<ul class="mui-table-view" style="margin-top: 10px;">
+			<li class="mui-table-view-cell mui-media sw-no-active">
+					
+				{{# if(d.face_pic!=null&&d.face_pic!=''){ }} 
+				<img class="mui-media-object mui-pull-left sw-card-img1" src="{{ imgUrl+d.face_pic }}">
+				{{# }else{ }}			
+				<img class="mui-media-object mui-pull-left sw-card-img1" src="../../../image/log.png">	
+				{{# } }}
+				<input type="text" name="EnterpriseID" id="EnterpriseID" value="{{ d.EnterpriseID }}" hidden="hidden"/>	
+				<div style="font-size: 14px;padding-right:70px;height:72px;">  
+					<!--<p class="sw-ctheme sw-word-one" style="margin-left: 72px;">{{ d.companyname }}{{ d.companyname }}
+						{{# if(d.is_vip==1){ }}
+						<img src="../../../image/person/renzheng.png" class="sw-renz-img"/>
+						{{# } }}
+					</p>-->	
+					<div class="sw-box-3">
+						
+						{{# if(d.is_vip==1&&d.is_check==1){ }}
+							<div class="sw-box-4 sw-renv-renz">   
+								<p class="sw-word-one sw-box-5 sw-ctheme">{{ d.companyname }}</p>	 		
+							</div>					
+						{{# }else{ }}
+							{{# if(d.is_vip==1){ }}  
+						 	<div class="sw-box-4 sw-renv">  
+								<p class="sw-word-one sw-box-5 sw-ctheme">{{ d.companyname }}</p>			
+							</div>
+							{{# }else if(d.is_check==1){ }}
+							<div class="sw-box-4 sw-renz">
+								<p class="sw-word-one sw-box-5 sw-ctheme">{{ d.companyname }}</p>			
+							</div>
+							{{# }else{ }}
+							<div class="sw-box-4">
+								<p class="sw-word-one sw-box-5">{{ d.companyname }}</p>			
+							</div>
+							{{# } }}
+							
+						{{# } }}
+												
+						{{# if(d.classification==1){ }}
+						<p class="sw-biao-lei1">
+						轿车商家
+						</p> 
+						{{# }else if(d.classification==2){ }}
+						<p class="sw-biao-lei2">
+						货车商家
+						</p> 
+						{{# }else{ }}
+						<p class="sw-biao-lei3">
+						用品商家
+						</p> 
+						{{# } }}
+						
+						
+					</div>
+						<p style="margin-top:4px;min-width: 100%;position: absolute;margin-top: 50px;padding-left:84px ;padding-right: 100px;">
+							<span class="sw-sj-uesr">{{ d.visit_num }}</span>
+							<span class="sw-sj-tel1" style="float: right;">{{ d.call_num }}</span>  
+						</p>
+				</div>
+				
+				<div onclick="document.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin={{ d.qqIni }}&version=1&src_type=web&web_src=qq.com'" style="position: absolute;top: 0;right: 0;width: 80px;height: 97px;text-align: center;">
+					<div style="height:72px;margin:12px 0;border-left: 1px solid #F5F5F5;">
+						<img src="../../../image/index/icon_tousu_qq.png" width="42px">
+							<p style="font-size: 12px;color: #666666;">平台投诉</p>
+					</div>
+				</div>
+					
+			</li>
+		 </ul>
+		
+		 	<ul class="mui-table-view" style="margin-top:10px;">
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">主营</span>
+				{{# if(d.major){ }}
+				<p class="sw-list-text2">{{ d.major }}&nbsp;</p>
+				{{# }else{ }}
+				<p class="sw-list-text2">未填写</p>
+				{{# } }}
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">联系人</span>
+				{{# if(d.linkMan){ }}				
+				<p class="sw-list-text2">{{ d.linkMan }}</p>
+				{{# }else{ }}
+				<p class="sw-list-text2">未填写</p>
+				{{# } }}
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">手机</span>  
+				{{# if(d.linkPhoneArr.length>0){ var linkPhoneArr = d.linkPhoneArr; }}			
+					<div class="sw-list-text2">
+						{{# for(var i=0,iLen=linkPhoneArr.length;i<iLen;i++){ }}
+						<p style="margin-bottom: 6px;">{{ linkPhoneArr[i] }}<span class="sw-sj-phone" onclick="callLog('{{ d.id }}',1);setTimeout(function(){ document.location.href = 'tel:{{ linkPhoneArr[i] }}'; },300)"></span></p>				
+						{{# } }}
+					</div>					
+				{{# }else{ }}
+				<p class="sw-list-text2">未填写</p>
+				{{# } }}
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">座机</span>
+				{{# if(d.linkTelArr.length>0){ var linkTelArr = d.linkTelArr; }}		
+				<div class="sw-list-text2">
+					{{# for(var j=0,jLen=linkTelArr.length;j<jLen;j++){ }}
+					<p style="margin-bottom: 6px;">{{ linkTelArr[j] }}<span class="sw-sj-tel" onclick="callLog('{{ d.id }}',1);setTimeout(function(){ document.location.href = 'tel:{{ linkTelArr[i] }}'; },300)"></span></p>
+					{{# } }}
+				</div>
+				{{# }else{ }}
+				<p class="sw-list-text2">未填写</p>
+				{{# } }}
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">QQ</span>
+				{{# if(d.qqArr.length>0){ var qqArr = d.qqArr; }}		
+				<div class="sw-list-text2">
+					{{# for(var m=0,mLen=qqArr.length;m<mLen;m++){ }}
+					<p style="margin-bottom: 6px;">{{ qqArr[m] }}<span class="sw-sj-qq" onclick="callLog('{{ d.id }}',2);setTimeout(function(){ document.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin={{ qqArr[m] }}&version=1&src_type=web&web_src=qq.com;'; },300)"></span></p>	
+					{{# } }}
+				</div>
+				{{# }else{ }}
+				<p class="sw-list-text2">未填写</p>
+				{{# } }}
+			</li>
+			
+			
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">微信</span>
+				{{# if(d.wechat_pic){ }}
+				<img src="{{ imgUrl+d.wechat_pic }}" class="sw-img1"/>
+				{{# }else{ }}
+				<div class="sw-list-text2">
+					<p style="margin-bottom: 6px;">未上传</p>	
+				</div>
+				{{# } }}
+			</li>
+			
+		</ul>    
+		
+			<ul class="mui-table-view" style="margin-top:10px;margin-bottom: 20px;">
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title4">企业介绍</span>
+				{{# if(d.info){ }}
+				<p style="margin-top: 8px;">{{ d.info }}</p>
+				{{# }else{ }}
+				<p style="margin-top: 8px;">未填写</p>
+				{{# } }}
+			</li>
+			
+		</ul>
+		
+		</div>
+		
+	
+</script>
+	
+<!--公司认证模板-->
+<script id="auth-list-tpl" type="text/html">
+	<ul class="mui-table-view">
+		 <li class="mui-table-view-cell sw-after-l">
+		 	<span class="sw-zhizhao">营业执照</span>
+		 	<span class="sw-renz-status">
+		 		{{# if(d.licence_pic!=null&&d.licence_pic!=''){ }}
+		 		<img src="../../../image/login/icon_gou.png" height="16px"/>
+		 		{{# }else{ }}
+		 		无
+		 		{{# } }}		
+		 	</span>
+		 </li>
+         <li class="mui-table-view-cell sw-after-l">
+		 	<span class="sw-zhizhao">纳税认证</span>
+		 	<span class="sw-renz-status">
+		 		{{# if(d.taxes_pic!=null&&d.taxes_pic!=''){ }}
+		 		<img src="../../../image/login/icon_gou.png" height="16px"/>
+		 		{{# }else{ }}
+		 		无
+		 		{{# } }}		
+		 	</span>
+		 </li>
+		 <li class="mui-table-view-cell sw-after-l">
+		 	<span class="sw-zhizhao">实地认证</span>
+		 	<span class="sw-renz-status">
+		 		{{# if(d.field_pic!=null&&d.field_pic!=''){ }}
+		 		<img src="../../../image/login/icon_gou.png" height="16px"/>
+		 		{{# }else{ }}
+		 		无
+		 		{{# } }}	 	
+		 	</span>
+		 </li>
+		 <li class="mui-table-view-cell sw-after-l">
+		 	<span class="sw-zhizhao">商标认证</span>
+		 	<span class="sw-renz-status">
+		 		{{# if(d.brand_pic!=null&&d.brand_pic!=''){ }}
+		 		<img src="../../../image/login/icon_gou.png" height="16px"/>
+		 		{{# }else{ }}
+		 		无
+		 		{{# } }}		
+		 	</span>
+		 </li>
+		 <li class="mui-table-view-cell sw-after-l">
+		 	<span class="sw-zhizhao">产品代理认证</span>
+		 	<span class="sw-renz-status">
+		 		{{# if(d.agents_pic!=null&&d.agents_pic!=''){ }}
+		 		<img src="../../../image/login/icon_gou.png" height="16px"/>
+		 		{{# }else{ }}
+		 		无
+		 		{{# } }}		
+		 	</span>
+		 </li>	 
+	</ul>  
+	
+	
+	<ul class="mui-table-view mui-grid-view mui-grid-5 sw-after-no sw-before-no" style="padding:0 0 20px;background: #F5F5F5;">
+        {{# if(d.licence_pic!=null&&d.licence_pic!=''){ }}   
+        <li class="mui-table-view-cell mui-media mui-col-sm-33">       		
+	 		<img class="mui-media-object" src="{{ imgUrl+d.licence_pic }}" style="border: 1px solid #DDDDDD;border-radius: 4px;height: {{ imgH }}px;"/>	 			
+        	<span style="font-size: 12px;color: #666666;" class="sw-word-one">营业执照</span>
+        </li>
+        {{# } }}
+        
+        {{# if(d.taxes_pic!=null&&d.taxes_pic!=''){ }}
+        <li class="mui-table-view-cell mui-media mui-col-sm-33">        	
+	 		<img class="mui-media-object" src="{{ imgUrl+d.taxes_pic }}" style="border: 1px solid #DDDDDD;border-radius: 4px;height: {{ imgH }}px;"/>
+        	<span style="font-size: 12px;color: #666666;" class="sw-word-one">纳税认证</span>
+        </li>
+        {{# } }}	
+        
+        {{# if(d.field_pic!=null&&d.field_pic!=''){ }}
+        <li class="mui-table-view-cell mui-media mui-col-sm-33">       	
+	 		<img class="mui-media-object" src="{{ imgUrl+d.field_pic }}" style="border: 1px solid #DDDDDD;border-radius: 4px;height: {{ imgH }}px;"/>
+        	<span style="font-size: 12px;color: #666666;" class="sw-word-one">实地认证</span>
+        </li>
+        {{# } }}	
+        
+        
+        {{# if(d.brand_pic!=null&&d.brand_pic!=''){ }}
+        <li class="mui-table-view-cell mui-media mui-col-sm-33">        	
+	 		<img class="mui-media-object" src="{{ imgUrl+d.brand_pic }}" style="border: 1px solid #DDDDDD;border-radius: 4px;height: {{ imgH }}px;"/>	 			
+        	<span style="font-size: 12px;color: #666666;" class="sw-word-one">商标认证</span>
+        </li>
+        {{# } }}
+        
+        {{# if(d.agents_pic!=null&&d.agents_pic!=''){ }}
+        <li class="mui-table-view-cell mui-media mui-col-sm-33">        	
+	 		<img class="mui-media-object" src="{{ imgUrl+d.agents_pic }}" style="border: 1px solid #DDDDDD;border-radius: 4px;height: {{ imgH }}px;"/>	 			
+        	<span style="font-size: 12px;color: #666666;" class="sw-word-one">产品代理认证</span>
+        </li>
+ 		{{# } }}
+	</ul>
+	
+</script>
+
+<!--底部导航-->
+<script id="nav-list-tpl" type="text/html">
+	{{# if(d.linkPhone){ }}
+	<a class="mui-tab-items" onclick="callLog('{{ d.id }}',1);setTimeout(function(){ document.location.href = 'tel:{{ d.linkPhone }}'; },300)">		
+	{{# }else{ }}
+	<a class="mui-tab-items" onclick="sw.toast('该公司未填写手机号码');">			
+	{{# } }}
+	<span class="mui-icon sw-shouji"></span>
+		<span class="mui-tab-label sw-ctheme">手机</span> 
+	</a>
+	
+	{{# if(d.qq){ }}  
+	<a class="mui-tab-items" onclick="callLog('{{ d.id }}',2);setTimeout(function(){ document.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin={{ d.qq }}&version=1&src_type=web&web_src=qq.com;'; },300)">
+	{{# }else{ }}
+	<a class="mui-tab-items" onclick="sw.toast('该公司未填写QQ号码');">
+	{{# } }}
+		<span class="mui-icon sw-QQ"></span> 
+		<span class="mui-tab-label sw-ctheme">QQ</span>
+	</a>
+	
+	{{# if(d.wechat_pic==''){ }}
+	<a class="mui-tab-items" onclick="sw.toast('该公司未上传微信二维码');"> 
+		<span class="mui-icon"><img height="20px" width="24px" style="vertical-align: bottom;" src="../../../image/index/weixin.png" /></span> 
+		<span class="mui-tab-label sw-ctheme" style="margin-top:5px;">微信</span>          
+	</a>  
+	{{# }else{ }} 
+	<a class="mui-tab-items" id="imgCon"> 
+		<span class="mui-icon">
+			<img height="20px" width="24px" style="vertical-align: bottom;" src="../../../image/index/weixin.png" data-preview-src="{{ imgUrl+d.wechat_pic }}" data-preview-group="1"/></span> 
+		<span class="mui-tab-label sw-ctheme" style="margin-top:5px;">微信</span> 
+	</a> 	
+	{{# } }}  
+	
+	<a class="mui-tab-items" id="dhdetail">
+		<span class="mui-icon sw-daohang"></span>
+		<span class="mui-tab-label sw-ctheme">导航</span>
+	</a>
+	
+	<a class="mui-tab-items" id="fxdetail">
+		<span class="mui-icon sw-fenxiang"></span>
+		<span class="mui-tab-label sw-ctheme">分享</span>
+	</a>
+	
+</script>
+
+<!--顶级分类模板-->
+<script id="cat0-list-tpl" type="text/html">
+	{{# var len = d.length }} 
+	
+	{{# for(var i = 0;i < len; i++){ }}
+	<li style="background: #FFFFFF;" onclick="selectGroup('proType','{{ d[i].pro_type }}','{{ d[i].pro_type }}')" class="mui-table-view-cell sw-after-no">
+	 	{{ d[i].pro_type }}
+	</li>
+	{{# } }}
+</script>
+
+<!--一级分类模板-->
+<script id="cat1-list-tpl" type="text/html">
+	{{# var len = d.length }} 
+	
+	{{# for(var i = 0;i < len; i++){ }}
+	<li style="background: #FFFFFF;" onclick="selectGroup('cate_1','{{ d[i].pro_cate_1 }}','{{ d[i].name }}')" class="mui-table-view-cell sw-after-no">
+	 	{{ d[i].name }}
+	</li>
+	{{# } }} 
+</script>
+
+
+<!--二级分类模板-->
+<script id="cat2-list-tpl" type="text/html">
+	{{# var len = d.length }} 
+	
+	{{# for(var i = 0;i < len; i++){ }} 
+	<li style="background: #FFFFFF;" onclick="selectGroup('cate_2','{{ d[i].pro_cate_2 }}','{{ d[i].name }}')" class="mui-table-view-cell sw-after-no">
+	 	{{ d[i].name }}    
+	</li>
+	{{# } }}
+</script>
+
+<!--产品列表模板-->
+<script id="pro-list-tpl" type="text/html">
+	{{# var len = d.length }} 	
+	{{# for(var i = 0;i < len; i++){ }} 
+		
+		<div class="sw-csl-div1" onclick="goProductDetail('{{ d[i].proId }}','{{ d[i].pro_type }}')"> 
+	   		<div class="sw-csl-div2">
+	   			<div class="sw-csl-div3" style="position: relative;">
+	   				<img src="{{ imgUrl+d[i].pro_pic }}" height="98px" width="98px" style="border: 1px solid #DDDDDD;"/>
+	   				
+	   				<div class="sw-csl-div4">
+	   					<p class="sw-csl-p1 sw-word-one sw-ctheme">
+	   						{{ d[i].proName }}
+	   					</p>		   					
+	   					<p class="sw-csl-p2 sw-word-one">
+	   						<span style="color: #333;">类别：</span><span style="color: #666;">{{ d[i].cate_1_name }}</span>
+	   					</p>		   			
+	   					<p  class="sw-csl-p2 sw-word-one">
+	   						<span style="color: #333;">车系：</span><span style="color: #666;">{{ d[i].car_group }}</span>
+	   					</p>
+	   					<p  class="sw-csl-p2 sw-word-one"> 
+	   						<span style="color: #333;">价格：</span><span style="color: #666;" class="sw-money sw-ctheme">{{ d[i].price }}</span>
+	   					</p>
+	   				</div> 
+	   			</div>  			 
+	   		</div>
+   		</div>		
+   		{{# } }}
+</script>
+
+</body>
+<script src="../../../js/mui.min.js"></script>
+<script src="../../../js/global.js"></script>
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/laytpl/laytpl.js"></script>
+<script src="../../../js/mui.previewimage.js?v=1.0.6"></script>   
+<script src="../../../js/mui.zoom.js"></script> 
+ <script type="text/javascript" charset="utf-8">
+ //mui初始化
+	mui.init({
+	  pullRefresh : {
+	    container:'#loadList',//待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
+	    up : {
+	      height:50,//可选.默认50.触发上拉加载拖动距离
+	      auto:true,//可选,默认false.自动上拉加载一次
+	      contentrefresh : "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+	      contentnomore:'没有更多产品了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+	      callback :function(){	
+	      	getStartList();
+	      } //必选，刷新函数
+	    }
+	  }
+	});
+		 
+	mui('.mui-scroll-wrapper').scroll();
+	var imgH = parseInt((document.body.clientWidth-60)/3);
+	var lat  = '';
+	var lng  = '';
+	var EnterpriseID;
+
+
+	var Intent = null,
+        File = null,
+        Uri = null,
+        main = null;
+    var shares = null;
+    var shareImageUrl = '';
+ 	//初始化
+	mui.plusReady(function() {        
+		//获取坐标
+		getLatLng();
+		
+		var self = plus.webview.currentWebview();
+		var token= plus.storage.getItem('token');		
+			EnterpriseID = self.EnterpriseID;
+		var	jxName       = self.jxName;	
+		var userType = JsonStorage.getItem('userType');	//2为业务员
+      	var title = jxName?jxName:'经销商名字未设置';
+		//设置标题     
+	    $("#mui_title").text(title);                 
+	    //请求经销商数据
+		//加载弹窗
+		loading('加载中...'); 
+		//获取数据  
+		http.load('api.sev.index','getFirmDetail',{'EnterpriseID':EnterpriseID,'token':token,'userType':userType},function(rData){
+			//关闭加载框
+			closeLoading(300);
+			if(rData.status==200){				
+				var info = rData.data;
+				dy(info)
+				//访问记录
+				visitedLog(info.id);  
+				//公司banner图
+				var bannerTpl = $('#banner-list-tpl').html();			
+				var banner    = info.banners; 
+				 var bannerLen = banner.length;
+				 if(bannerLen>0){
+				 	laytpl(bannerTpl).render(banner,function(render){           
+			            $('#bannerList').html(render);
+			            //顶部轮播大于一张时启动滚动
+			            var bannerLen = banner.length;
+			            if(bannerLen>1){
+				            //轮播滚动定时
+							mui("#slider").slider({ 
+								interval: 3000
+							});
+			            }	            
+		        	});  
+				 }
+				// dy(info.isCollect)      
+		       	//收藏样式
+				if(info.isCollect==1){
+					var collectStr = '<img src="../../../image/index/like_2.png" class="sw-title-img2"/>';
+					$("#msgList").html(collectStr); 
+				}
+				if(info.isCollect==1){//收藏
+					$("#msgList").attr('onclick','collectStore('+info.id+',0,this)');
+				}else{//取消收藏
+					$("#msgList").attr('onclick','collectStore('+info.id+',1,this)');
+				}	
+				
+				var qq   = plus.storage.getItem('qqIni');
+					info.qqIni = qq;
+				//初始化公司信息					 	 				
+			 	var infoTpl   = $('#info-list-tpl').html();	 		
+		        laytpl(infoTpl).render(info,function(render){           
+		            $('#infoList').html(render);    
+		        });
+		        //认证信息
+		        if(info.renzheng_info!=''&&info.renzheng_info!=null){ 
+		        	var renzheng_info = info.renzheng_info; 		        
+		        	var authTpl   = $('#auth-list-tpl').html();	 		
+			        laytpl(authTpl).render(renzheng_info,function(render){           
+			            $('#authList').html(render);    
+			        });
+		        }
+				//		        产品分类	
+	        	var proType = info.pro_type; 		        
+	        	var cat0Tpl   = $('#cat0-list-tpl').html();	 		
+		        laytpl(cat0Tpl).render(proType,function(render){           
+		            $('#cat0List').append(render);    
+		        });
+		        	
+		        var cat1 = info.pro_cate_1; 		        
+	        	var cat1Tpl   = $('#cat1-list-tpl').html();	 		
+		        laytpl(cat1Tpl).render(cat1,function(render){           
+		            $('#cat1List').append(render);    
+		        });
+		        
+		         var cat2 = info.pro_cate_2; 		        
+	        	var cat2Tpl   = $('#cat2-list-tpl').html();	 		
+		        laytpl(cat2Tpl).render(cat2,function(render){           
+		            $('#cat2List').append(render);    
+		        });
+		        	
+		        //底部导航
+		        var nav_info = {};
+		        	nav_info.linkPhone = (info.linkPhoneArr.length>0)?info.linkPhoneArr[0]:'';
+		        	nav_info.qq = (info.qqArr.length>0)?info.qqArr[0]:'';
+		        	nav_info.id = info.id;
+		        	nav_info.wechat_pic = info.QR_pic;
+ 	
+		        if(nav_info!=null&&nav_info!=''){
+		        	var navTpl   = $('#nav-list-tpl').html();	 		
+			        laytpl(navTpl).render(nav_info,function(render){           
+			            $('#navList').html(render);    
+			        });
+		        }
+		        //图片预览 
+		        mui.previewImage();  		
+		        //导航详情
+				mui("#dhdetail")[0].addEventListener('tap',function(){
+//					openView('../../../view/index/shangjia/daohang.html','index_shangjia_daohang','pop-in');
+
+					if(info.longitude==null||info.latitude==null){
+						sw.toast('未设置公司坐标');
+					}else{
+						// 设置目标位置坐标点和其实位置坐标点
+						var dst = new plus.maps.Point(info.longitude,info.latitude);
+						var src = new plus.maps.Point(lng,lat);
+						// 调用系统地图显示 
+						plus.maps.openSysMap( dst, info.coordinate, src );
+					}
+									
+				})
+				
+							
+				 //分享详情
+				mui("#fxdetail")[0].addEventListener('tap',function(){
+					
+					var btnArray = [{title:"分享店铺名片"},{title:"分享店铺链接"}];
+						plus.nativeUI.actionSheet( {
+							buttons:btnArray
+						}, function(e){
+							var index = e.index;
+							  	if(index==1){//分享名片
+							  		var EnterpriseID = $("#EnterpriseID").val();
+							  		var postData = {'EnterpriseID':EnterpriseID};
+							  		openView('../../../view/person/card/shareCard.html','person_card_shareCard','pop-in',postData);
+							  	}
+							  	
+							  	if(index==2){//分享店铺链接
+							  		mui('#popover4').popover('show');
+							  	}
+			
+						} );
+					
+				})
+		        
+			}else{
+				sw.toast(rData.msg); 
+			}
+			   	
+		},function(xhr,type,errorThrown){			
+		 		//关闭加载框
+				closeLoading();		
+				//无网络提示
+				sw.toast('获取数据失败，请检查网络'); 	
+		}) 
+		
+				
+		//获取分享
+		updateSerivces();
+		if(plus.os.name=="Android"){
+			main = plus.android.runtimeMainActivity();
+			Intent = plus.android.importClass("android.content.Intent");
+			File = plus.android.importClass("java.io.File");
+			Uri = plus.android.importClass("android.net.Uri");
+		}
+		
+	})
+ 
+ 
+ /**
+  * 获取当前坐标
+  */
+ function getLatLng(){
+		//获取当前位置
+		plus.geolocation.getCurrentPosition( function ( p ) { 
+		lat = p.coords.latitude;					
+		lng = p.coords.longitude;					
+	}, function ( e ) {
+		sw.toast(e.message); 
+	    switch(e.code) {
+	      case e.PERMISSION_DENIED:
+	          alert("User denied the request for Geolocation.");
+	          break;
+	      case e.POSITION_UNAVAILABLE:
+	          alert("Location information is unavailable.");
+	          break;
+	      case e.TIMEOUT:
+	          alert("The request to get user location timed out.");
+	          break;
+	      case e.UNKNOWN_ERROR:
+	          alert("An unknown error occurred.");
+	          break;
+	      }
+	    
+	} );
+	
+	
+ }
+ 
+ /**
+  * 分享店铺
+  */
+ function shareStore(){
+ 	var postData = {'EnterpriseID':EnterpriseID,'publishType':3};
+ 		openView('../../../view/person/share/publish.html','person_share_publish','pop-in',postData);
+ }
+ 
+ //切换视图
+ function selectNav(j,conId){  
+ 	//导航切换
+ 	$(".companyNav").removeClass('sw-title-active');
+ 	$(j).addClass('sw-title-active'); 
+ 	//内容切换
+ 	var id = '#'+conId;
+ 	$(".companyCon").css('display','none');
+ 	$(id).css('display','inherit');	
+ }
+           
+   
+  //轮播滚动定时
+	mui("#slider").slider({
+		interval: 3000
+	});
+	
+	mui("#chanpin")[0].addEventListener('tap',function(){
+		mui('#popover1').popover('show');
+	})
+	
+	mui("#leibie")[0].addEventListener('tap',function(){
+		mui('#popover2').popover('show');
+	})
+	
+	mui("#fenlei")[0].addEventListener('tap',function(){
+		mui('#popover3').popover('show');
+	})
+	
+//收藏店铺
+function collectStore(firmsId,type,j){
+   //判断是否登录
+   if(UserInfo.has_login()==false){//未登录	   	
+	   	sw.toast('您还未登录，请先登录');   	
+   }else{//登录
+   	
+   	var token  = plus.storage.getItem('token');				
+	var postData = {};
+		postData.token   = token;
+		postData.firmsId = firmsId;
+		postData.type    = type;
+		postData.userType= JsonStorage.getItem('userType');	//2为业务员		
+   	//获取数据
+	http.load('api.sev.user','collectFirms',postData,function(rData){
+		dy(rData)
+		sw.toast(rData.msg);   
+		if(rData.status==200){
+			$(j).toggleClass('sw-like-r').toggleClass('sw-like')
+			
+			var collectStr = '<img src="../../../image/index/like_2.png" class="sw-title-img2"/>';	
+			if(type==1){//收藏
+				$(j).attr('onclick','collectStore('+firmsId+',0,this)');  									
+			}else{//取消收藏
+				$(j).attr('onclick','collectStore('+firmsId+',1,this)');
+				collectStr = '<img src="../../../image/index/like.png" class="sw-title-img2"/>';
+			} 
+			$("#msgList").html(collectStr); 			
+		}			
+	},function(xhr,type,errorThrown){	   			
+			//无网络提示
+			sw.toast('获取数据失败，服务器或网络异常'); 	
+	})
+			
+   }	   
+}	
+
+//从新开始加载数据 
+ function getStartList(){
+ 	 
+ 	var page = mui("#page")[0].value;//获取页数
+   	var type = mui("#proType")[0].value;
+   	var cate_1 = mui("#cate_1")[0].value;
+   	var cate_2 = mui("#cate_2")[0].value;
+   	
+   	
+  	var data = {};  
+  	var postData = {};
+  		
+  		//请求的数据
+  		postData.page     = page;//请求的页码
+  		postData.pageSize = 10;//每页显示数量
+  		//其余参数
+		postData.EnterpriseID  = EnterpriseID;//经销商id      
+		postData.cate_1 = cate_1;
+		postData.cate_2 = cate_2; 
+		
+		postData.type    = type;
+  		 dy(postData)
+  		data.postData = postData;    		
+  		//页面相关数据
+  		data.mod      = 'api.sev.index';//模型
+  		data.fun      = 'getFirmProducts';//方法  
+  		data.tpl      = 'pro-list-tpl';//列表模板
+  		data.listId   = 'proList';//列表容器  
+		//请求并处理数据
+		loadInfo(data,false);	 	
+ }
+
+//选择类别
+function selectGroup(groupId,key,str){
+	var oldV = $('#'+groupId).val();
+	if(oldV!=key){		
+		if(groupId=='proType'){
+			$("#cp1").text(str);			
+		}else if(groupId=='cate_1'){
+			$("#cp2").text(str);					
+		}else{
+			$("#cp3").text(str);		
+		}
+		$("#page").val(1);		
+		$("#proList").html('');
+		$('#'+groupId).val(key);
+		getStartList()
+		//加载标记								
+		mui('#loadList').pullRefresh().refresh(true);
+	}
+	mui('#popover1').popover('hide');
+	mui('#popover2').popover('hide');
+	mui('#popover3').popover('hide');
+	
+	
+}
+
+/**
+ * 前往产品详情
+ * @param {Object} proId
+ * @param {Object} pro_type
+ */
+function goProductDetail(proId,pro_type){
+	openView('../../../view/index/product/detail.html','index_product_detail','pop-in',{'proId':proId,'pro_type':pro_type}); 		
+}
+
+
+		/**
+         * 更新分享服务
+         */
+        function updateSerivces() {
+            plus.share.getServices(function(s) {
+                shares = {};
+                for (var i in s) {
+                    var t = s[i];
+                    shares[t.id] = t;
+                }
+//              outSet("获取分享服务列表成功");
+            }, function(e) {
+//              outSet("获取分享服务列表失败：" + e.message);  
+            });
+        }
+        /**
+         * 分享操作
+         */
+        function shareAction(id, ex) {
+        	        
+            var s = null;
+            if (!id || !(s = shares[id])) {
+                sw.toast("无效的分享服务！");
+                return;
+            }
+            if (s.authenticated) {
+//              sw.toast("---已授权---");
+                shareMessage(s, ex);
+            } else {
+//              sw.toast("---未授权---");
+                s.authorize(function() {
+                    shareMessage(s, ex);
+                }, function(e) {
+//                  sw.toast("认证授权失败");
+                });
+            }
+        }
+        /**
+         * 发送分享消息
+         */
+        function shareMessage(s, ex) {
+      		var shareUrl = apkUrl;
+      		var title    = $("#mui_title").text(); 
+      		var face_pic = $("#face_pic").attr('src');
+      		dy(title)
+      		dy(face_pic)
+            var msg = {
+                href: shareUrl,//分享链接 apk 下载地址                         
+                title: title,        
+                content: title,
+                thumbs: [logBg],   
+                pictures: [face_pic],    
+                extra: {
+                    scene: ex
+                }
+            };
+            s.send(msg, function() {
+				sw.toast('分享成功！')
+            }, function(e) {
+                sw.toast("取消分享");
+            });
+        }
+	
+	//分享到qq空间
+	function sharesQQZ(){
+  		var title    = $("#mui_title").text(); 
+  		var face_pic = $("#face_pic").attr('src');
+  		
+		var shareUrl = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=';
+			shareUrl += apkUrl;
+			shareUrl += '&title='+title+'&pics='+face_pic; 	
+			openBrowser(shareUrl); 
+			return false;
+	}
+</script>
+</html>

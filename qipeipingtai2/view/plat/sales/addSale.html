@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .control-label{margin-bottom: 0;height: 34px;line-height: 34px; padding-right: 0;}
+    </style>
+</head>
+<body>
+<div class="col-xs-1"></div>
+<div class="col-xs-10">
+    <div class="ibox-content" style="border-width:0">
+
+        <div class="form-horizontal" style="margin-bottom: 10px;height: 36px;">
+            <div class="col-xs-2 " style="width: 60px;height: 36px; text-align: center;line-height: 36px;">
+                <span style="display: inline-block;width: 36px;height: 36px;border-radius: 18px;background-color: red; color: white;font-size: 25px;">!</span>
+            </div>
+            <div class="col-xs-10" style="padding-left: 0;">
+                <p style="color: #0099FF;">
+                    创建后自动生成业务员ID，即为账号，初始密码默认为7777777
+                </p>
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-xs-4 control-label"><span style="color: red;">＊</span>昵称:</label>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <input type="text" id="uname" class="form-control" placeholder="请输入昵称">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 control-label"><span style="color: red;">＊</span>管辖区域:</label>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <select class="control-label" style="width: 100%;font-size: 14px;" id="province">
+                        <option><?php echo $me['province'] ; ?></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 control-label"><span style="display: inline-block;width: 15px;"></span>联系电话:</label>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <input type="text" id="tel" class="form-control" placeholder="请输入联系电话">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 control-label"><span style="display: inline-block;width: 15px;"></span>姓名:</label>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <input type="text" id="realname" class="form-control" placeholder="请输入真实姓名">
+                </div>
+            </div>
+            <div class="form-group" style="height: 25px;">
+                <div class="col-xs-4"></div>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <span id="tip" style="color: red;height: 25px;"></span>
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+                <input type="hidden" value="<?php echo $me['province'] ; ?>" id="prov"/>
+                <div class="col-xs-12" style="text-align: center;">
+                    <button class="btn btn-primary" type="submit" onclick="saveSale()">创建业务员</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/plat/province.js"></script>
+<!--弹窗js-->
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+<script>
+    $(function () {
+       $("input") .focus(function () {
+           $("#tip").text('');
+       });
+        var prov = $('#prov').val() ;
+        if( prov == '' || prov == '0'  ){
+            setProvince('province',$('#province').val());
+        }
+    });
+    function saveSale() {
+        var uname    = $.trim($("#uname").val());
+        var province = $.trim($("#province").val());
+        var city     = $.trim($("#city").val());
+        var county   = $.trim($("#county").val());
+        var tel      = $.trim($("#tel").val());
+        var realname = $.trim($("#realname").val());
+
+        if(!uname || uname==''){
+            $("#uname").focus();
+            $("#tip").text('请输入业务员昵称');
+            //layer.msg('请输入业务员昵称',{time:1500});
+            return false;
+        }else {
+            $.post('/plat.sales/saveSale',{uname:uname,province:province,city:city,county:county,tel:tel,realname:realname},function(Rv){
+                if(Rv.massageCode == 'success'){
+                    layer.msg(Rv.massage,{time:1500});
+                    parent.getList(1);
+                    setTimeout(function () {
+                        parent.layer.closeAll();
+                    },1500);
+                }else {
+                    layer.msg(Rv.massage,{time:1500});
+                }
+            },'json')
+        }
+    }
+
+
+
+</script>
+</body>
+</html>

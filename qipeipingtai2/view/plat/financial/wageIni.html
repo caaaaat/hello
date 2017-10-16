@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+
+</head>
+<body>
+<div class="col-xs-12">
+    <div class="ibox-content" style="border-width:0">
+
+        <?php $uid = isset($uid) ? $uid : '' ;?>
+        <?php if($uid) {?>
+        <input type="hidden" value="<?php echo $uid  ;?>" id="uid" />
+        <input type="hidden" value="<?php echo $type ;?>" id="type"/>
+        <!--业务员基本工资配置-->
+        <div class="form-group" style="height: 10px;"></div>
+        <div class="form-horizontal" style="margin-bottom: 10px;height: 36px;">
+            <div class="col-xs-12 col-xs-offset-4" style="padding-left: 0;height: 36px; line-height: 36px;">
+                <span style="display: inline-block;width: 20px;height: 20px; line-height:20px;border-radius: 10px;background-color: red; color: white;font-size: 20px; text-align: center;">!</span>
+                &nbsp;
+                <b>
+                    业务员基本工资配置
+                </b>
+
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-4" style="text-align: right;">
+                    <label style="height: 24px;line-height: 24px; margin-bottom: 0;"><span style="color: red;">＊</span>基本工资:</label>
+                </div>
+                <div class="col-xs-7">
+                    <input type="tel" value="<?php echo $wageIni['base_wage'] ;?>" id="wage"  style="text-align: left; padding-left: 10px;width: 280px;"/>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="col-xs-4" style="text-align: right;">
+                    <label style="height: 24px;line-height: 24px; margin-bottom: 0;"><span style="color: red;">＊</span>补贴:</label>
+                </div>
+                <div class="col-xs-7">
+                    <input type="tel" value="<?php echo $wageIni['subsidies'] ;?>" id="subsidy" style="text-align: left; padding-left: 10px;width: 280px;"/>
+                </div>
+
+            </div>
+
+            <div class="form-group" style="height: 25px;">
+                <div class="col-xs-4"></div>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <span id="tip" style="color: red;height: 25px; padding-left: 15px;"></span>
+                </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+                <div class="col-xs-12 col-xs-offset-4">
+                    <button class="btn btn-default" type="submit" onclick="parent.layer.closeAll()">取消</button>
+                    <button class="btn btn-primary" type="submit" onclick="saveWage()">确认</button>
+                </div>
+            </div>
+        </div>
+        <?php }?>
+    </div>
+</div>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+<!--弹窗js-->
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+</body>
+<script>
+    function saveWage() {
+        var data     = {} ;
+        var type     = $('#type').val() ;
+        data.uid     = $('#uid').val() ;
+        data.wage    = $('#wage').val() ;
+        data.subsidy = $('#subsidy').val() ;
+        var url = '/plat.financial/saveWageIni' ;
+        if(type == 2){
+            url = '/plat.financial/saveWage' ;
+        }
+        $.post(url,{data:data},function(Rv){
+            if(Rv.massageCode == 'success'){
+                layer.msg(Rv.massage,{time:1500});
+                setTimeout(function () {
+                    parent.layer.closeAll();
+                },1500);
+            }else {
+                layer.msg(Rv.massage,{time:1500});
+            }
+        },'json')
+    }
+
+</script>
+</html>

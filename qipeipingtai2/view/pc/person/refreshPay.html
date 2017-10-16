@@ -1,0 +1,134 @@
+<link rel="stylesheet" href="/css/pc/person/myRefresh.css">
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none !important;
+        margin: 0;
+    }
+</style>
+<div class="titles" style="position: relative">
+    <div class="goBackDiv"><a href="/person/myRefresh"><img src="/images/qpxm/pc/person/shopInfo/left.png" style="vertical-align: baseline" alt=""> 返回</a></div>
+    <span style="font-size: 24px;font-weight: 500;">购买刷新点</span>
+</div>
+
+<div id="recharge">
+    <?php if($data){ ?>
+        <div class="marBottom50">
+            <div class="biLi">当前比例</div>
+            <div class="floLeft"><?php echo $data['proportion']['money']?>元=<?php echo $data['proportion']['ref']?>个刷新点</div>
+            <div style="clear: both;"></div>
+        </div>
+
+        <div class="marBottom15">
+            <div class="gouMai">购买</div>
+            <div class="floLeft">
+                <input type="number" name="shuRefreshPoint" placeholder="输入充值金额，最低一元" class="jinEInput">
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <div class="marLeft150W570">
+            <?php foreach($data['select'] as $k=>$v){ ?>
+            <div class="rechargeList">
+                <div class="floLeftMarLeft70"><?php echo $v['number'];?>个</div>
+                <div class="floRightMarRight25">
+                    <a href="javascript:;" token="" tokenType="dealer" class="refreshPoint" data-m="<?php echo $v['number'];?>" onclick="companyType(this)"><?php echo $v['money'];?>元<img src="/images/qpxm/pc/person/vip/noXuan.png" style="margin-left: 15px;vertical-align: baseline;" alt=""></a>
+                </div>
+            </div>
+            <?php } ?>
+        </div>
+
+        <div class="marTop55">支付方式</div>
+        <div class="payDiv">
+            <div class="floLeftW86">
+                <a href="javascript:;" onclick="payType(this)">
+                    <img src="/images/qpxm/pc/person/vip/weiXin.png" alt="">
+                    <div class="payImgDiv">
+                        <img src="/images/qpxm/pc/person/vip/noXuan.png" token="" class="payType" data-value="wx" alt="">
+                    </div>
+                </a>
+            </div>
+            <div class="floRightW86">
+                <a href="javascript:;" onclick="payType(this)">
+                    <img src="/images/qpxm/pc/person/vip/zhiFuBao.png" alt="">
+                    <div class="payImgDiv">
+                        <img src="/images/qpxm/pc/person/vip/noXuan.png" token="" class="payType" data-value="ali" alt="">
+                    </div>
+                </a>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <div class="payBtnDiv">
+            <button class="payBtn" onclick="toPay()">支付</button>
+        </div>
+    <?php }else{ ?>
+    <div style="text-align: center">暂时无法充值,请联系客服</div>
+    <?php } ?>
+</div>
+
+<script src="/js/global.js" type="text/javascript"></script>
+<script src="/js/pc/layer/layer.js"></script>
+<script>
+    /*充值月份选择*/
+    function companyType(obj){
+        $('input[name="shuRefreshPoint"]').val('');
+        var token = $(obj).attr('token');
+        if(!token){
+            var len = $('.floRightMarRight25').length;
+            for(var i=0; i<len; ++i){
+                $('.floRightMarRight25').eq(i).find('a').attr('token','');
+                $('.floRightMarRight25').eq(i).find('img').attr('src','/images/qpxm/pc/person/vip/noXuan.png');
+            }
+            $(obj).attr('token',1);
+            $(obj).find('img').attr('src','/images/qpxm/pc/person/vip/yesXuan.png')
+        }
+    }
+
+    /*充值方式选择(支付宝/微信)*/
+    function payType(obj){
+        var token = $(obj).find('.payType').attr('token');
+        if(!token){
+            var len = $('.payType').length;
+            for(var i=0; i<len; ++i){
+                $('.payType').eq(i).attr('token','');
+                $('.payType').eq(i).attr('src','/images/qpxm/pc/person/vip/noXuan.png');
+            }
+            $(obj).find('.payType').attr('token',1);
+            $(obj).find('.payType').attr('src','/images/qpxm/pc/person/vip/yesXuan.png');
+        }
+    }
+
+    var order = '';
+    function toPay() {
+        var payType     = $('.payType[token="1"]').attr('data-value');
+        var refreshPoint= $('.refreshPoint[token="1"]').attr('data-m');
+        var shuMoney   = $('input[name="shuRefreshPoint"]').val();
+        if(payType){
+            api.load('pc.pay','toPayOfRefresh',{payType:payType,refreshPoint:refreshPoint,shuMoney:shuMoney},function (data) {
+                if(data.status===1){
+                    order = data.coder;
+                    layer.open({
+                        type: 2,
+                        title: data.msg,
+                        shadeClose: true,
+                        shade: 0.6,
+                        maxmin: false,
+                        area: ['600px', '400px'],
+                        content: '/pc.pay/toPayQROfVip?order='+data.coder
+                    });
+                }else {
+                    layer.msg(data.msg,{icon: 2,skin: 'layui-layer-rim'})
+                }
+            })
+        }else {
+            layer.msg('请选择支付方式',{icon: 0,skin: 'layui-layer-rim'})
+        }
+    }
+
+    $('input[name="shuRefreshPoint"]').on('focus',function () {
+        var len = $('.floRightMarRight25').length;
+        for(var i=0; i<len; ++i){
+            $('.floRightMarRight25').eq(i).find('a').attr('token','');
+            $('.floRightMarRight25').eq(i).find('img').attr('src','/images/qpxm/pc/person/vip/noXuan.png');
+        }
+    });
+</script>

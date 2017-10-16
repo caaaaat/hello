@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+
+    <style>
+        table th {background-color: #f2f2f2; text-align: center;}
+        table td {padding-left: 15px; text-align: left;}
+    </style>
+</head>
+<body>
+<div class="col-xs-1"></div>
+<div class="col-xs-10">
+    <div class="ibox-content" style="border-width:0">
+        <div class="form-horizontal">
+            <?php $pro = isset($pro) ? $pro : ''?>
+            <?php if($pro) {?>
+            <div class="form-group">
+                <table class="table table-hover table-bordered">
+                    <tbody>
+                    <tr>
+                        <th>封面</th>
+                        <td colspan="5">
+                            <?php if($pro['pro_text']) {?>
+                            <img src="<?php echo $pro['pro_pic'] ;?>" style="width: 320px; height: 160px;"/>
+                            <?php }?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>产品名称</th>
+                        <td><?php echo $pro['proName'] ;?></td>
+                        <th>厂商编码</th>
+                        <td><?php echo $pro['pro_no'] ;?></td>
+                        <th>产品品牌</th>
+                        <td><?php echo $pro['pro_brand'] ;?></td>
+                    </tr>
+                    <tr>
+                        <th>产品类别</th>
+                        <td><?php echo $pro['cate_name1'] ;?></td>
+                        <th>产品分类</th>
+                        <td colspan="3"><?php echo $pro['cate_name2'] ;?></td>
+
+                    </tr>
+                    <tr>
+                        <th>适用车系</th>
+                        <td colspan="5"><?php echo $pro['car_group'] ;?></td>
+                    </tr>
+                    <tr>
+                        <th>产品毛重</th>
+                        <td><?php echo $pro['pro_weight'] ;?></td>
+                        <th>产品产地</th>
+                        <td><?php echo $pro['pro_area'] ;?></td>
+                        <th>产品规格</th>
+                        <td><?php echo $pro['pro_spec'] ;?></td>
+                    </tr>
+
+                    <tr style="border: 0;"><td colspan="6" style="height: 10px;border: 0;"></td></tr>
+                    <tr>
+                        <th>企业名称</th>
+                        <td><?php echo $pro['companyname'] ;?></td>
+                        <th>企业ID</th>
+                        <td><?php echo $pro['EnterpriseID'] ;?></td>
+                        <th>企业类型</th>
+                        <td><?php echo $pro['firmType'] == 1 ? '经销商' : '汽修厂';?></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-group">
+                <?php if($pro['pro_text']) {?>
+                    <p>图文详情:</p>
+                <?php echo $pro['pro_text'] ;?>
+                <?php }?>
+            </div>
+            <?php }else{?>
+            <div class="col-xs-12">
+                <span style="word-break: break-all;padding-left: 2em">获取详情失败</span>
+            </div>
+            <?php }?>
+        </div>
+    </div>
+</div>
+</body>
+</html>

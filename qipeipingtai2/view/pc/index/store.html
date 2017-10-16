@@ -1,0 +1,288 @@
+<link rel="stylesheet" href="/css/pc/index/store.css">
+<style>
+    .swiper-container-horizontal>.swiper-pagination{z-index: 50;}
+</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZBcSIHdvwjfx105K8jvQCj5W"></script>
+<input type="hidden" name="storeId" value="<?php echo $firmsInfo['id'];?>">
+<!--头部导航-->
+<?php if($firmsInfo['type']==1){ ?>
+<div id="navigationLan" style="margin-top: 18px">
+    <div class="row navigationLan">
+        <a href="/def/store?ID=<?php echo $firmsInfo['EnterpriseID'];?>"><div class="navigation navigationActive">店铺首页</div></a>
+        <a href="/def/storeProduct?ID=<?php echo $firmsInfo['EnterpriseID'];?>"><div class="navigation ">店铺产品</div></a>
+    </div>
+</div>
+<?php } ?>
+<!--名片及轮播-->
+<div id="upInfo">
+    <!--轮播-->
+    <div class="lunBo" style="position: relative;">
+        <div class="swiper-wrapper">
+            <?php if($firmsInfo['banners']){
+            foreach($firmsInfo['banners'] as $v){?>
+            <div class="swiper-slide"><img src="<?php echo $v['banner_url'];?>" style="width: 822px;height: 313px;" alt=""></div>
+            <?php }
+                }else{ ?>
+            <div class="swiper-slide"><img src="/images/moren.jpg" style="width: 822px;height: 313px;" alt=""></div>
+            <?php } ?>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+    <!--经销商名片-->
+    <div id="shopCard">
+        <div class="shopImgDiv">
+            <img src="<?php echo $firmsInfo['face_pic'];?>" class="shopImg" alt="">
+        </div>
+        <div class="floLeftMarLeft10">
+            <div class="shopNameDiv">
+                <div class="shopName"><?php echo $firmsInfo['companyname'];?></div>
+                <?php if(strtotime($firmsInfo['vip_time'])>time()){?>
+                <img src="/images/qpxm/pc/person/shopInfo/v.png" class="vImg" alt="">
+                <?php } ?>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="marTop15size12" style="width: 211px">
+                <div class="floLeftW145" style="height: 66px">
+                    <?php $tag = array('','jiaoCheTag','huoCheTag','wuLiuTag','jiaoCheTag','huoCheTag','wuLiuTag')?>
+                    <div class="<?php echo $tag[$firmsInfo['classification']]?>">
+                        <?php $lxArr = array('','轿车商家','货车商家', '用品商家','修理厂','快修保养','美容店');?>
+                        <?php echo $lxArr[$firmsInfo['classification']];?>
+                    </div>
+                    <div class="lineHeight20">访问：<?php echo $firmsInfo['visit_num'];?></div>
+                </div>
+                <div class="floRight weiXinShowImg">
+                <!--<img src="<?php echo $firmsInfo['wechat_pic'];?>" class="w66h66" alt="">-->
+                <img src="http://www.7pqun.com/data/upload/20170919/20170919145052_57433.jpg" class="w66h66" alt="">
+            </div>
+                <div class="lineHeight20" style=" display: inline-block; white-space: nowrap;width: 212px;overflow: hidden;text-overflow:ellipsis;  ">地址：<?php echo $firmsInfo['province'];?>/<?php echo $firmsInfo['city'];?>/<?php echo $firmsInfo['district'];?></div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+        <div style="margin-top: 10px;">
+            <a href="javascript:;">
+                <div class="shopBtnList" onclick="showmptc()">
+                    <img src="/images/qpxm/pc/store/card.png" alt=""><span class="marLeft5">名片</span>
+                </div>
+                <div style="display: none" id="mingpianimg">
+                    <div style="background-color: white;height: 319px">
+                        <?php if(isset($firmsInfo['card']['path']) && $firmsInfo['card']['path']){?>
+                        <img src="<?php echo $firmsInfo['card']['path'];?>" alt="">
+                        <?php }else{ ?>
+                            <h3 style="margin-top: 0;color: #cccccc;text-align: center;height: 300px;line-height: 300px"><?php echo $firmsInfo['companyname'];?>暂未设置名片</h3>
+                        <?php } ?>
+                    </div>
+                </div>
+            </a>
+            <a href="javascript:;">
+                <div class="shopBtnList" onclick="daohangto()">
+                    <img src="/images/qpxm/pc/person/shopInfo/dingWeiRed.png" alt=""><span class="marLeft5">导航</span>
+                </div>
+            </a>
+            <a href="javascript:;">
+                <div class="shopBtnList"><a href="http://wpa.qq.com/msgrd?v=3&uin=&site=<?php echo $qqTel['QQ'];?>&menu=yes" target="_blank">
+                    <img src="/images/qpxm/pc/person/shopInfo/qqRed.png" alt=""><span class="marLeft5">投诉</span></a>
+                </div>
+            </a>
+            <div style="float: left;margin-left: 20px;">
+                <?php if(in_array($firmsInfo['id'],$myCollectFirms)){ ?>
+                <a href="javascript:;" onclick="collectstore(2,this)"><img src="/images/qpxm/pc/store/xin.png" style="vertical-align: -webkit-baseline-middle" alt=""></a>
+                <?php }else{ ?>
+                <a href="javascript:;" onclick="collectstore(1,this)"><img src="/images/qpxm/pc/product/souCang.png" style="vertical-align: -webkit-baseline-middle" alt=""></a>
+                <?php } ?>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <div class="xian"></div>
+        <!--认证信息-->
+        <div id="renZheng">
+            <div class="h30lineH30">认证信息</div>
+            <div>
+                <div class="renZhengLists">
+                    <img src="/images/qpxm/pc/product/renZ<?php echo isset($firmsInfo['renzheng_info'])?($firmsInfo['renzheng_info']['licence_pic']?'Yes':'No'):'No';?>.png" alt=""><span class="
+                    <?php echo isset($firmsInfo['renzheng_info'])?($firmsInfo['renzheng_info']['licence_pic']?'renZhengYes':'marLeft5'):'marLeft5';?>
+">营业执照</span>
+                </div>
+                <div class="renZhengLists">
+                    <img src="/images/qpxm/pc/product/renZ<?php echo isset($firmsInfo['renzheng_info'])?($firmsInfo['renzheng_info']['taxes_pic']?'Yes':'No'):'No';?>.png" alt=""><span class="
+                    <?php echo isset($firmsInfo['renzheng_info'])?($firmsInfo['renzheng_info']['taxes_pic']?'renZhengYes':'marLeft5'):'marLeft5';?>
+">纳税认证</span>
+                </div>
+                <div class="renZhengList">
+                    <img src="/images/qpxm/pc/product/renZ<?php echo isset($firmsInfo['renzheng_info'])?($firmsInfo['renzheng_info']['field_pic']?'Yes':'No'):'No';?>.png" alt=""><span class="
+                    <?php echo isset($firmsInfo['renzheng_info'])?($firmsInfo['renzheng_info']['field_pic']?'renZhengYes':'marLeft5'):'marLeft5';?>
+">实地认证</span>
+                </div>
+                <div class="renZhengLists">
+                    <img src="/images/qpxm/pc/product/renZ<?php echo isset($firmsInfo['renzheng_info'])?($firmsInfo['renzheng_info']['brand_pic']?'Yes':'No'):'No';?>.png" alt=""><span class="
+                    <?php echo isset($firmsInfo['renzheng_info'])?($firmsInfo['renzheng_info']['brand_pic']?'renZhengYes':'marLeft5'):'marLeft5';?>
+">商标认证</span>
+                </div>
+                <div class="renZhengLists">
+                    <img src="/images/qpxm/pc/product/renZ<?php echo isset($firmsInfo['renzheng_info'])?($firmsInfo['renzheng_info']['agents_pic']?'Yes':'No'):'No';?>.png" alt=""><span class="
+                    <?php echo isset($firmsInfo['renzheng_info'])?($firmsInfo['renzheng_info']['agents_pic']?'renZhengYes':'marLeft5'):'marLeft5';?>
+">产品代理认证</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--联系方式-->
+<div class="lianXiInfo">
+    <!--主营-->
+    <div class="marBottom30">
+        <div class="shopTitle">主营 :</div>
+        <div class="jieShao">
+            <?php echo $firmsInfo['major']?>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--地址-->
+    <div class="marBottom30">
+        <div class="shopTitle">地址 :</div>
+        <div class="jieShao"><?php echo $firmsInfo['province'];?><?php echo $firmsInfo['city'];?><?php echo $firmsInfo['district'];?><?php echo $firmsInfo['address'];?></div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--联系人-->
+    <div class="marBottom30">
+        <div class="shopTitle">联系人 :</div>
+        <div class="jieShao"><?php echo $firmsInfo['linkMan'];?></div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--手机-->
+    <div class="marBottom30">
+        <div class="shopTitle">手机 :</div>
+        <div class="jieShao"><?php echo $firmsInfo['linkPhone'];?></div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--座机-->
+    <div class="marBottom30">
+        <div class="shopTitle">座机 :</div>
+        <div class="jieShao"><?php echo $firmsInfo['linkTel'];?></div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--QQ-->
+    <div class="marBottom30">
+        <div class="shopTitle">QQ :</div>
+        <div class="jieShao">
+            <img src="/images/qpxm/pc/person/shopInfo/qq.png" class="qqImg" alt="">
+            <?php echo str_replace(',',' &emsp;<img src="/images/qpxm/pc/person/shopInfo/qq.png" class="qqImg" alt="">',$firmsInfo['qq']);?>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--微信-->
+    <div class="marBottom30">
+        <div class="shopTitle">微信 :</div>
+        <div class="jieShao weiXinShowImg">
+            <img src="<?php echo $firmsInfo['wechat_pic'];?>" style="width: 32px;height: 32px;" alt="">
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+</div>
+<!--地图-->
+<div class="map" id="allmap">
+
+</div>
+<!--企业介绍-->
+<div id="company">
+    <div class="companyTitle">
+        <img src="/images/qpxm/pc/index/yewollShu.png" class="shuImg" alt="">企业介绍
+    </div>
+    <div class="companyJieShao">
+        <?php echo $firmsInfo['info'];?>
+    </div>
+</div>
+<script src="/js/global.js" type="text/javascript"></script>
+<script src="/css/swiper/swiper.min.js"></script>
+<script src="/js/pc/layer/layer.js"></script>
+<script>
+    layer.photos({
+        photos: '.weiXinShowImg'
+        ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+    });
+    //banner轮播图
+    var swipers = new Swiper('.lunBo', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        spaceBetween: 10,
+        speed:1000,
+        centeredSlides: true,
+        autoplay: 2000,
+        autoplayDisableOnInteraction: false
+    });
+</script>
+<script>
+    var x  = <?php echo $firmsInfo['longitude'];?>;
+    var y = <?php echo $firmsInfo['latitude'];?>;
+</script>
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    map.centerAndZoom(new BMap.Point(116.331398,39.897445),16);
+    map.enableScrollWheelZoom(false);
+
+    // 用经纬度设置地图中心点
+    function theLocation(x,y){
+        map.clearOverlays();
+        var new_point = new BMap.Point(x,y);
+        var marker = new BMap.Marker(new_point);  // 创建标注
+        map.addOverlay(marker);              // 将标注添加到地图中
+        map.panTo(new_point);
+    }
+    $(function () {
+        theLocation(x,y);
+    });
+    function daohangto() {
+        var geolocation = new BMap.Geolocation();
+        geolocation.getCurrentPosition(function(r){
+            if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                //console.log(r);
+                //alert('您的位置：'+r.point.lng+','+r.point.lat);
+                //window.open("/def/daohang?x1="+r.point.lng+"&y1="+r.point.lat+"&x2="+x+"&y2="+y);
+                window.open('http://api.map.baidu.com/direction?origin=latlng:'+r.point.lat+','+r.point.lng+'|name:当前位置&destination='+y+','+x+'&mode=driving&region='+r.address.city+'&output=html&src=yourCompanyName|yourAppName');
+                //window.open('http://map.baidu.com/?latlng='+y+','+x+'&title=&content=&autoOpen=true&l');
+            }
+            else {
+                //alert('failed'+this.getStatus());
+            }
+        },{enableHighAccuracy: true})
+    }
+
+    function collectstore(n,i) {
+        var storeId = $('input[name="storeId"]').val();
+        api.load('pc.firm','collectStore',{storeId:storeId,type:n},function (data) {
+            if(data['status']!==1){
+                layer.alert(data['msg'],{icon: data['status'],skin: 'layui-layer-rim'});
+            }else {
+                if(n===1){
+                    $(i).attr('onclick','collectstore(2,this)');
+                    $(i).find('img').attr('src','/images/qpxm/pc/store/xin.png')
+                }else {
+                    $(i).attr('onclick','collectstore(1,this)');
+                    $(i).find('img').attr('src','/images/qpxm/pc/product/souCang.png')
+                }
+            }
+        });
+    }
+
+    setTimeout(function () {
+        var storeId = $('input[name="storeId"]').val();
+        api.load('pc.firm','visitLog',{storeId:storeId,type:1},function () {
+
+        });
+    },3000);
+
+    function showmptc() {
+        var content = $('#mingpianimg').html();
+        layer.open({
+            type: 1,
+            title: '名片',
+            closeBtn: 1,
+            area: ['520px','362px'],
+            skin: 'layui-layer-nobg', //没有背景色
+            shadeClose: true,
+            content: content
+        });
+    }
+</script>

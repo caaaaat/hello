@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .time_label{ height: 34px; line-height: 34px;width: 50px; margin-bottom: 0; padding-left: 0;padding-right: 0;}
+        .total{height: 100px; border: 1px solid #e7eaec;text-align: center;padding-top: 15px;margin-bottom: 3px;}
+        th{text-align: center;}
+        #tab-6 .mt5 label{ height: 34px; line-height: 34px;width: 60px; margin-bottom: 0; padding-left: 0;padding-right: 0;}
+        #tab-6 .mt5{margin-bottom: 5px; padding-right: 0;}
+        #tab-6 .lr{padding-left: 0;padding-right: 0;}
+    </style>
+</head>
+<body>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true" data-type="1" id="tab_1" class="tab">厂商统计</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2"  aria-expanded="false" data-type="2" id="tab_2" class="tab">产品统计</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3"  aria-expanded="false" data-type="3" id="tab_3" class="tab">活跃度统计</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-4"  aria-expanded="false" data-type="4" id="tab_4" class="tab">访问统计</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-5"  aria-expanded="false" data-type="5" id="tab_5" class="tab">圈子统计</a></li>
+                </ul>
+                <div class="tab-content">
+                    <!--厂商统计-->
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body" style="padding-left: 25px;">
+                            <div class="wrapper wrapper-content" style="padding-left: 0; padding-right: 0;">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12">
+                                        <div class="col-xs-2 col-sm-2 total" style="border-right: 0;">
+                                            <p>注册经销商数</p>
+                                            <span id="tab_1_num1"></span>
+                                        </div>
+                                        <div class="col-xs-2 col-sm-2 total" style="border-right: 0;">
+                                            <p>认证经销商数</p>
+                                            <span id="tab_1_num2"></span>
+                                        </div>
+                                        <div class="col-xs-2 col-sm-2 total" style="border-right: 0;">
+                                            <p>轿车商家数</p>
+                                            <span id="tab_1_num3"></span>
+                                        </div>
+                                        <div class="col-xs-2 col-sm-2 total" style="border-right: 0;">
+                                            <p>货车商家数</p>
+                                            <span id="tab_1_num4"></span>
+                                        </div>
+                                        <div class="col-xs-2 col-sm-2 total" style="border-right: 0;">
+                                            <p>用品商家商家数</p>
+                                            <span id="tab_1_num5"></span>
+                                        </div>
+                                        <div class="col-xs-2 col-sm-2 total">
+                                            <p>VIP经销商数</p>
+                                            <span id="tab_1_num6"></span>
+                                        </div>
+                                        <div class="col-xs-2 col-sm-2 total" style="border-right: 0;">
+                                            <p>注册汽修厂数</p>
+                                            <span id="tab_1_num7"></span>
+                                        </div>
+                                        <div class="col-xs-2 col-sm-2 total" style="border-right: 0;">
+                                            <p>认证汽修厂数</p>
+                                            <span id="tab_1_num8"></span>
+                                        </div>
+                                        <div class="col-xs-2 col-sm-2 total" style="border-right: 0;">
+                                            <p>快修保养厂家数</p>
+                                            <span id="tab_1_num9"></span>
+                                        </div>
+                                        <div class="col-xs-2 col-sm-2 total" style="border-right: 0;">
+                                            <p>修理厂厂家数</p>
+                                            <span id="tab_1_num10"></span>
+                                        </div>
+                                        <div class="col-xs-2 col-sm-2 total">
+                                            <p>美容点厂家数</p>
+                                            <span id="tab_1_num11"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="mail-box-header" style="padding-top: 15px; padding-bottom: 5px;">
+                                        <div class="form-group">
+                                            <div class="col-xs-12 col-sm-12 col-lg-12">
+                                                <label class="col-xs-2 col-sm-2 control-label time_label">时间段</label>
+                                                <div class="col-xs-3 col-sm-3" style="padding-left: 0; width: 165px;">
+                                                    <input type="text" class="form-control input-xs" id="tab_1_time1"/>
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3" style="padding-left: 0; width: 222px;">
+                                                    <div class="col-xs-12 col-sm-12 input-group">
+                                                        <input type="text" class="form-control input-xs" id="tab_1_time2"/>
+                                                        <span class="input-group-btn"><button type="submit" class="btn btn-primary tab" data-type="1" id="tab_1_find"> 搜 索 </button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="clear: both"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper wrapper-content" style="padding: 0;">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ibox float-e-margins">
+
+                                            <div class="ibox-content" style="padding-left: 0;padding-right: 0;">
+                                                <div style="text-align: right; padding-right: 15px;">
+                                                    <span><a id="tab_1_down" class="btn btn-xs btn-primary" href="/plat.statistics/exportStatisticsToExcel/?type=1">导出表格</a></span>
+                                                </div>
+                                                <!--列表开始-->
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th style="width:40%">日期</th>
+                                                            <th style="width:30%">新增经销商数</th>
+                                                            <th style="width:30%">新增汽修厂数</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tab_1_show" style="text-align: center"></tbody>
+                                                    </table>
+                                                </div>
+                                                <script id="tab_1_model" type="text/html">
+                                                    {{# if(d.massageCode == 'success') { }}
+                                                    {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                                                    <tr>
+                                                        <td>
+                                                            <span>{{ list[i].time }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].num1 }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].num2 }}</span>
+                                                        </td>
+                                                    </tr>
+
+                                                    {{# } }}
+                                                    {{# }else{ }}
+                                                    <td colspan="3">
+                                                        <span>{{ d.massage }}</span>
+                                                    </td>
+                                                    {{# } }}
+                                                </script>
+                                                <!--列表结束-->
+                                                <!--页码开始-->
+                                                <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                                    <input hidden="hidden" value="1" id="tab_1_page"/>
+                                                    <span>每页显示
+                                                        <select id="tab_1_pageSize" onchange="getData(1,1)">
+                                                            <option value="10"  selected="selected">10</option>
+                                                            <option value="30" >30</option>
+                                                            <option value="50" >50</option>
+                                                            <option value="100">100</option>
+                                                            <option value="300">300</option>
+                                                            <option value="500">500</option>
+                                                            <option value="1000">1000</option>
+                                                            <option value="3000">3000</option>
+                                                            <option value="5000">5000</option>
+                                                        </select>&nbsp;
+                                                    </span>
+                                                    <span id="tab_1_pageInfo" style="margin-right: 10px;"></span>
+                                                    <div class="btn-group" id="tab_1_pager"></div>
+                                                </div>
+                                                <!--页码结束-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--产品统计-->
+                    <div id="tab-2" class="tab-pane">
+                        <div class="panel-body" style="padding-left: 25px;">
+                            <div class="wrapper wrapper-content" style="padding-left: 0; padding-right: 0;">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12">
+                                        <div class="col-xs-3 col-sm-3 total" style="border-right: 0;">
+                                            <p>累计发布产品数量</p>
+                                            <span id="tab_2_num1"></span>
+                                        </div>
+                                        <div class="col-xs-3 col-sm-3 total" style="border-right: 0;">
+                                            <p>累计发布新品促销数</p>
+                                            <span id="tab_2_num2"></span>
+                                        </div>
+                                        <div class="col-xs-3 col-sm-3 total" style="border-right: 0;">
+                                            <p>累计发布库存清仓数</p>
+                                            <span id="tab_2_num3"></span>
+                                        </div>
+                                        <div class="col-xs-3 col-sm-3 total">
+                                            <p>新增发布发布询价数</p>
+                                            <span id="tab_2_num4"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="mail-box-header" style="padding-top: 15px; padding-bottom: 5px;">
+                                        <div class="form-group">
+                                            <div class="col-xs-12 col-sm-12 col-lg-12">
+                                                <label class="col-xs-2 col-sm-2 control-label time_label">时间段</label>
+                                                <div class="col-xs-3 col-sm-3" style="padding-left: 0; width: 165px;">
+                                                    <input type="text" class="form-control input-xs" id="tab_2_time1"/>
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3" style="padding-left: 0; width: 222px;">
+                                                    <div class="col-xs-12 col-sm-12 input-group">
+                                                        <input type="text" class="form-control input-xs" id="tab_2_time2"/>
+                                                        <span class="input-group-btn"><button type="submit" class="btn btn-primary tab" data-type="2" id="tab_2_find"> 搜 索 </button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="clear: both"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper wrapper-content" style="padding: 0;">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content" style="padding-left: 0; padding-right: 0;">
+                                                <div style="text-align: right; padding-right: 15px;">
+                                                    <span><a id="tab_2_down" class="btn btn-xs btn-primary" href="/plat.statistics/exportStatisticsToExcel/?type=2">导出表格</a></span>
+                                                </div>
+                                                <!--列表开始-->
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th style="width:30%">日期</th>
+                                                            <th style="width:23%">新增发布新品促销数</th>
+                                                            <th style="width:23%">新增发布增库存清仓数</th>
+                                                            <th style="width:23%">累计发布询价数</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tab_2_show" style="text-align: center"></tbody>
+                                                    </table>
+                                                </div>
+                                                <script id="tab_2_model" type="text/html">
+                                                    {{# if(d.massageCode == 'success') { }}
+                                                    {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                                                    <tr>
+                                                        <td>
+                                                            <span>{{ list[i].time }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].num1 }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].num2 }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].num3 }}</span>
+                                                        </td>
+                                                    </tr>
+
+                                                    {{# } }}
+                                                    {{# }else{ }}
+                                                    <td colspan="4">
+                                                        <span>{{ d.massage }}</span>
+                                                    </td>
+                                                    {{# } }}
+                                                </script>
+                                                <!--列表结束-->
+                                                <!--页码开始-->
+                                                <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                                    <input hidden="hidden" value="1" id="tab_2_page"/>
+                                                    <span>每页显示
+                                                        <select id="tab_2_pageSize" onchange="getData(2,1)">
+                                                            <option value="10"  selected="selected">10</option>
+                                                            <option value="30" >30</option>
+                                                            <option value="50" >50</option>
+                                                            <option value="100">100</option>
+                                                            <option value="300">300</option>
+                                                            <option value="500">500</option>
+                                                            <option value="1000">1000</option>
+                                                            <option value="3000">3000</option>
+                                                            <option value="5000">5000</option>
+                                                        </select>&nbsp;
+                                                    </span>
+                                                    <span id="tab_2_pageInfo" style="margin-right: 10px;"></span>
+                                                    <div class="btn-group" id="tab_2_pager"></div>
+                                                </div>
+                                                <!--页码结束-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--活跃度流水-->
+                    <div id="tab-3" class="tab-pane">
+                        <div class="panel-body" style="padding-left: 25px;">
+                            <h3>10天内登录厂商数</h3>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="mail-box-header" style="padding-top: 15px; padding-bottom: 5px;">
+                                        <div class="form-group">
+                                            <div class="col-xs-12 col-sm-12 col-lg-12">
+                                                <label class="col-xs-2 col-sm-2 control-label time_label">时间段</label>
+                                                <div class="col-xs-3 col-sm-3" style="padding-left: 0; width: 165px;">
+                                                    <input type="text" class="form-control input-xs" id="tab_3_time1"/>
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3" style="padding-left: 0; width: 222px;">
+                                                    <div class="col-xs-12 col-sm-12 input-group">
+                                                        <input type="text" class="form-control input-xs" id="tab_3_time2"/>
+                                                        <span class="input-group-btn"><button type="submit" class="btn btn-primary" onclick="getData(3,1)"> 搜 索 </button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="clear: both"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper wrapper-content" style="padding: 0;">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content" style="padding-left: 0; padding-right: 0;">
+                                                <div style="text-align: right; padding-right: 15px;">
+                                                    <span><a id="tab_3_down" class="btn btn-xs btn-primary" href="/plat.statistics/exportStatisticsToExcel/?type=3">导出表格</a></span>
+                                                </div>
+                                                <!--列表开始-->
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th style="width:24%">日期</th>
+                                                            <th style="width:19%">2次</th>
+                                                            <th style="width:19%">3-5次</th>
+                                                            <th style="width:19%">6-10次</th>
+                                                            <th style="width:19%">10次以上</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tab_3_show" style="text-align: center"></tbody>
+                                                    </table>
+                                                </div>
+                                                <script id="tab_3_model" type="text/html">
+
+                                                    {{# if(d.massageCode == 'success') { }}
+                                                    {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                                                    <tr>
+                                                        <td>
+                                                            <span>{{ list[i].time }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].num1 == null ? 0 : list[i].num1 }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].num2 == null ? 0 : list[i].num2 }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].num3 == null ? 0 : list[i].num3 }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].num4 == null ? 0 : list[i].num4 }}</span>
+                                                        </td>
+                                                    </tr>
+
+                                                    {{# } }}
+                                                    {{# }else{ }}
+                                                    <td colspan="5">
+                                                        <span>{{ d.massage }}</span>
+                                                    </td>
+                                                    {{# } }}
+                                                </script>
+                                                <!--列表结束-->
+                                                <!--页码开始-->
+                                                <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                                    <input hidden="hidden" value="1" id="tab_3_page"/>
+                                                    <span>每页显示
+                                                        <select id="tab_3_pageSize" onchange="getData(3,1)">
+                                                            <option value="10"  selected="selected">10</option>
+                                        <option value="30" >30</option>
+                                        <option value="50" >50</option>
+                                        <option value="100">100</option>
+                                        <option value="300">300</option>
+                                        <option value="500">500</option>
+                                        <option value="1000">1000</option>
+                                        <option value="3000">3000</option>
+                                        <option value="5000">5000</option>
+                                                        </select>&nbsp;
+                                                    </span>
+                                                    <span id="tab_3_pageInfo" style="margin-right: 10px;"></span>
+                                                    <div class="btn-group" id="tab_3_pager"></div>
+                                                </div>
+                                                <!--页码结束-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--访问统计-->
+                    <div id="tab-4" class="tab-pane">
+                        <div class="panel-body" style="padding-left: 25px;">
+                            <div class="wrapper wrapper-content" style="padding-left: 0; padding-right: 0;">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12">
+                                        <div class="col-xs-4 col-sm-4 total" data-type="2" style="border-right: 0; cursor: pointer;" onclick="showInfo(this)">
+                                            <p>累计访问经销商数（移动端）</p>
+                                            <span id="tab_4_num1"></span>
+                                            <p style="color: #0066ff; margin-top: 5px;margin-bottom: 0;">[查看明细]</p>
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 total" data-type="1" style="border-right: 0;cursor: pointer;" onclick="showInfo(this)">
+                                            <p>累计访问经销商店铺数（PC web端）</p>
+                                            <span id="tab_4_num2"></span>
+                                            <p style="color: #0066ff; margin-top: 5px;margin-bottom: 0;">[查看明细]</p>
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 total" data-type="3" style="cursor: pointer;" onclick="showInfo(this)">
+                                            <p>累计来电数（移动端）</p>
+                                            <span id="tab_4_num3"></span>
+                                            <p style="color: #0066ff; margin-top: 5px;margin-bottom: 0;">[查看明细]</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="mail-box-header" style="padding-top: 15px; padding-bottom: 5px;">
+                                        <div class="form-group">
+                                            <div class="col-xs-12 col-sm-12 col-lg-12">
+                                                <label class="col-xs-2 col-sm-2 control-label time_label">时间段</label>
+                                                <div class="col-xs-3 col-sm-3" style="padding-left: 0; width: 165px;">
+                                                    <input type="text" class="form-control input-xs" id="tab_4_time1"/>
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3" style="padding-left: 0; width: 222px;">
+                                                    <div class="col-xs-12 col-sm-12 input-group">
+                                                        <input type="text" class="form-control input-xs" id="tab_4_time2"/>
+                                                        <span class="input-group-btn"><button type="submit" class="btn btn-primary" onclick="getData(4,1)"> 搜 索 </button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="clear: both"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper wrapper-content" style="padding: 0;">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content" style="padding-left: 0; padding-right: 0;">
+                                                <div style="text-align: right; padding-right: 15px;">
+                                                    <span><a id="tab_4_down" class="btn btn-xs btn-primary" href="/plat.statistics/exportStatisticsToExcel/?type=4">导出表格</a></span>
+                                                </div>
+                                                <!--列表开始-->
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th style="width:30%">日期</th>
+                                                            <th style="width:23%">新增访问经销商数（移动端）</th>
+                                                            <th style="width:23%">新增访问经销商店铺数（PC web端）</th>
+                                                            <th style="width:23%">新增来电数（移动端）</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tab_4_show" style="text-align: center"></tbody>
+                                                    </table>
+                                                </div>
+                                                <script id="tab_4_model" type="text/html">
+
+                                                    {{# if(d.massageCode == 'success') { }}
+                                                    {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                                                    <tr>
+                                                        <td>
+                                                            <span>{{ list[i].time }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].num2 }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].num1 }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].num3 }}</span>
+                                                        </td>
+                                                    </tr>
+
+                                                    {{# } }}
+                                                    {{# }else{ }}
+                                                    <td colspan="4">
+                                                        <span>{{ d.massage }}</span>
+                                                    </td>
+                                                    {{# } }}
+                                                </script>
+                                                <!--列表结束-->
+                                                <!--页码开始-->
+                                                <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                                    <input hidden="hidden" value="1" id="tab_4_page"/>
+                                                    <span>每页显示
+                                                        <select id="tab_4_pageSize" onchange="getData(4,1)">
+                                                            <option value="10"  selected="selected">10</option>
+                                        <option value="30" >30</option>
+                                        <option value="50" >50</option>
+                                        <option value="100">100</option>
+                                        <option value="300">300</option>
+                                        <option value="500">500</option>
+                                        <option value="1000">1000</option>
+                                        <option value="3000">3000</option>
+                                        <option value="5000">5000</option>
+                                                        </select>&nbsp;
+                                                    </span>
+                                                    <span id="tab_4_pageInfo" style="margin-right: 10px;"></span>
+                                                    <div class="btn-group" id="tab_4_pager"></div>
+                                                </div>
+                                                <!--页码结束-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--圈子统计-->
+                    <div id="tab-5" class="tab-pane">
+                        <div class="panel-body" style="padding-left: 25px;">
+                            <div class="wrapper wrapper-content" style="padding-left: 0; padding-right: 0;">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12">
+                                        <div class="col-xs-6 col-sm-6 total" style="border-right: 0;">
+                                            <p>累计发布动态数</p>
+                                            <span id="tab_5_num1"></span>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 total">
+                                            <p>累计评论数</p>
+                                            <span id="tab_5_num2"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="mail-box-header" style="padding-top: 15px; padding-bottom: 5px;">
+                                        <div class="form-group">
+                                            <div class="col-xs-12 col-sm-12 col-lg-12">
+                                                <label class="col-xs-2 col-sm-2 control-label time_label">时间段</label>
+                                                <div class="col-xs-3 col-sm-3" style="padding-left: 0; width: 165px;">
+                                                    <input type="text" class="form-control input-xs" id="tab_5_time1"/>
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3" style="padding-left: 0; width: 222px;">
+                                                    <div class="col-xs-12 col-sm-12 input-group">
+                                                        <input type="text" class="form-control input-xs" id="tab_5_time2"/>
+                                                        <span class="input-group-btn"><button type="submit" class="btn btn-primary" onclick="getData(5,1)"> 搜 索 </button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="clear: both"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper wrapper-content" style="padding: 0;">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content" style="padding-left: 0; padding-right: 0;">
+                                                <div style="text-align: right; padding-right: 15px;">
+                                                    <span><a id="tab_5_down" class="btn btn-xs btn-primary" href="/plat.statistics/exportStatisticsToExcel/?type=5">导出表格</a></span>
+                                                </div>
+                                                <!--列表开始-->
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th style="width:40%">日期</th>
+                                                            <th style="width:30%">新增动态数</th>
+                                                            <th style="width:30%">新增评论数</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tab_5_show" style="text-align: center"></tbody>
+                                                    </table>
+                                                </div>
+                                                <script id="tab_5_model" type="text/html">
+
+                                                    {{# if(d.massageCode == 'success') { }}
+                                                    {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                                                    <tr>
+                                                        <td>
+                                                            <span>{{ list[i].time }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].num1 }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].num2 }}</span>
+                                                        </td>
+                                                    </tr>
+
+                                                    {{# } }}
+                                                    {{# }else{ }}
+                                                    <td colspan="4">
+                                                        <span>{{ d.massage }}</span>
+                                                    </td>
+                                                    {{# } }}
+                                                </script>
+                                                <!--列表结束-->
+                                                <!--页码开始-->
+                                                <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                                    <input hidden="hidden" value="1" id="tab_5_page"/>
+                                                    <span>每页显示
+                                                        <select id="tab_5_pageSize" onchange="getData(5,1)">
+                                                            <option value="10"  selected="selected">10</option>
+                                        <option value="30" >30</option>
+                                        <option value="50" >50</option>
+                                        <option value="100">100</option>
+                                        <option value="300">300</option>
+                                        <option value="500">500</option>
+                                        <option value="1000">1000</option>
+                                        <option value="3000">3000</option>
+                                        <option value="5000">5000</option>
+                                                        </select>&nbsp;
+                                                    </span>
+                                                    <span id="tab_5_pageInfo" style="margin-right: 10px;"></span>
+                                                    <div class="btn-group" id="tab_5_pager"></div>
+                                                </div>
+                                                <!--页码结束-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--访问统计详情-->
+                    <div id="tab-6" class="tab-pane">
+                        <div class="panel-body" style="padding-left: 25px;padding-top: 5px;">
+                            <div class="wrapper wrapper-content" style="padding: 0;">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content" style="padding-top: 0;border-top: 0;">
+                                                <h3 style="margin-right: 10px;margin-bottom: 0;">
+                                                    <span style="cursor: pointer; font-size: 13px;" onclick="goBack()"> &lt;&lt; 返回 </span>
+                                                </h3>
+                                                <h3 style="margin-bottom: 20px;text-align: center;"> <span id="u_name">访问经销商记录明细（移动端）</span></h3>
+
+                                                <div class="form-group" style="margin-bottom: 10px;">
+                                                    <div class="col-xs-6 col-sm-6 col-lg-6 mt5" style="">
+                                                        <label class="col-xs-4 col-sm-4 col-lg-4 control-label">类型</label>
+                                                        <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="">
+                                                            <div class="col-xs-6 col-sm-6 col-lg-6 lr">
+                                                                <select id="tab_6_f_type" class="form-control" onchange="ChangType(this)">
+                                                                    <option value=''>全部</option>
+                                                                    <option value='1'>经销商</option>
+                                                                    <option value='2'>汽修厂</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-xs-6 col-sm-6 col-lg-6 lr">
+                                                                <select id="classes" class="form-control">
+                                                                    <option value=''>全部</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6 col-sm-6 col-lg-6 mt5" style="">
+                                                        <label class="col-xs-4 col-sm-4 col-lg-4 control-label">区域</label>
+                                                        <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="">
+                                                            <div class="col-xs-4 col-sm-4" style="padding-left: 0;padding-right: 0;">
+                                                                <select id="province" class="form-control" style="padding-left: 5px;">
+                                                                    <option value=''>全部</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-xs-4 col-sm-4" style="padding-left: 0;padding-right: 0;">
+                                                                <select id="city" class="form-control" style="padding-left: 5px;">
+                                                                    <option value=''>全部</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-xs-4 col-sm-4" style="padding-left: 0;padding-right: 0;">
+                                                                <select id="county" class="form-control" style="padding-left: 5px;">
+                                                                    <option value=''>全部</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6 col-sm-6 col-lg-6 mt5" style="">
+                                                        <label class="col-xs-4 col-sm-4 col-lg-4 control-label">时间段</label>
+                                                        <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="">
+                                                            <div class="col-xs-6 col-sm-6" style="padding-left: 0; padding-right: 0;">
+                                                                <input type="text" class="form-control input-xs" id="tab_6_time1"/>
+                                                            </div>
+                                                            <div class="col-xs-6 col-sm-6" style="padding-left: 0; padding-right: 0;">
+                                                                <input type="text" class="form-control input-xs" id="tab_6_time2"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6 col-sm-6 col-lg-6 mt5 hidden" id="visit">
+                                                        <label class="col-xs-4 col-sm-4 col-lg-4 control-label">访问方式</label>
+                                                        <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="">
+                                                            <select id="tab_6_visit" class="form-control">
+                                                                <option value=''>全部</option>
+                                                                <option value='1'>QQ</option>
+                                                                <option value='2'>电话</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-6 col-sm-6 col-lg-6 mt5" style="">
+                                                        <label class="col-xs-4 col-sm-4 col-lg-4 control-label">关键字</label>
+                                                        <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="padding-left: 0;">
+                                                            <div class="col-xs-12 col-sm-12 input-group">
+                                                                <input type="text" class="form-control input-xs" id="tab_6_keywords" placeholder="企业ID/昵称/手机号"/>
+                                                                <span class="input-group-btn">
+                                                                    <button type="submit" class="btn btn-primary" id="tab_6_find"> 搜 索 </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="clear: both"></div>
+                                                </div>
+
+                                                <div style="text-align: right; padding-right: 15px;">
+                                                    <span><a class="btn btn-xs btn-primary" id="tab_6_download" href="javascript:void(0)">导出表格</a></span>
+                                                    <!--<span><a class="btn btn-xs btn-primary" id="download" href="#">导出表格</a></span>-->
+                                                </div>
+                                                <!--列表开始-->
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <!--<th style="text-align: center;width:150px">企业ID</th>-->
+                                                            <!--<th style="text-align: center;width:150px">昵称</th>-->
+                                                            <th style="text-align: center;width:150px">企业名称</th>
+                                                            <th style="text-align: center;width:150px">手机号</th>
+                                                            <th style="text-align: center;width:150px">所属区域</th>
+                                                            <th style="text-align: center;width:150px">企业类型</th>
+                                                            <th style="text-align: center;width:150px">企业分类</th>
+
+                                                            <!--<th style="text-align: center;width:150px">被访问经销商ID</th>-->
+                                                            <th style="text-align: center;width:150px">被访问经销商名称</th>
+                                                            <th style="text-align: center;width:150px">所属区域</th>
+
+                                                            <th style="text-align: center;width:240px">访问时间</th>
+                                                            <th style="text-align: center;width:150px" class="_visit">访问方式</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tab_6_show" style="text-align: center"></tbody>
+                                                    </table>
+                                                </div>
+                                                <script id="tab_6_model" type="text/html">
+                                                    {{# if(d.massageCode == 'success') { }}
+                                                    {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                                                    <tr>
+                                                        <!--<td>
+                                                            <span>{{ list[i].EnterpriseID1 }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].uname }}</span>
+                                                        </td>-->
+                                                        <td>
+                                                            <span>{{ list[i].companyname1 }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].phone }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].area1 }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].type1 }}</span>
+                                                        </td>
+
+                                                        <td>
+                                                            <span>{{ list[i].class }}</span>
+                                                        </td>
+
+                                                        <!--<td>
+                                                            <span>{{ list[i].EnterpriseID2 }}</span>
+                                                        </td>-->
+                                                        <td>
+                                                            <span>{{ list[i].companyname2 }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].area2 }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].create_time }}</span>
+                                                        </td>
+                                                        {{# if(list[i].call){ }}
+                                                        <td>
+                                                            <span>{{ list[i].call }}</span>
+                                                        </td>
+                                                        {{# } }}
+                                                    </tr>
+
+                                                    {{# } }}
+                                                    {{# }else{ }}
+                                                    <td colspan="14">
+                                                        <span>{{ d.massage }}</span>
+                                                    </td>
+                                                    {{# } }}
+                                                </script>
+                                                <!--列表结束-->
+                                                <!--页码开始-->
+                                                <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                                    <input hidden="hidden" value="1" id="tab_6_page"/>
+                                                    <span>每页显示
+                                                        <select id="tab_6_pageSize">
+                                                            <option value="10"  selected="selected">10</option>
+                                                            <option value="30" >30</option>
+                                                            <option value="50" >50</option>
+                                                            <option value="100">100</option>
+                                                            <option value="300">300</option>
+                                                            <option value="500">500</option>
+                                                            <option value="1000">1000</option>
+                                                            <option value="3000">3000</option>
+                                                            <option value="5000">5000</option>
+                                                        </select>&nbsp;
+                                                    </span>
+                                                    <span id="tab_6_pageInfo" style="margin-right: 10px;"></span>
+                                                    <div class="btn-group" id="tab_6_pager"></div>
+                                                </div>
+                                                <!--页码结束-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/js/laytpl/laytpl.js"></script>
+
+<!--弹窗js-->
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+<!--分页插件-->
+<script src="/js/jquery.page.js"></script>
+<!--日期选择组件-->
+<script src="/js/layer/laydate/laydate.js"></script>
+
+<!--自定义js-->
+<script src="/js/area.js"></script>
+<!--自定义js-->
+<script src="/js/global.js"></script>
+<script>
+    //===============工资配置 开始======================
+    $(function(){
+        getTotalData('#tab_1');
+        getData(1,1);
+        dateIni('tab_1_time1','tab_1_time2');
+        dateIni('tab_2_time1','tab_2_time2');
+        dateIni('tab_3_time1','tab_3_time2');
+        dateIni('tab_4_time1','tab_4_time2');
+        dateIni('tab_5_time1','tab_5_time2');
+        dateIni('tab_6_time1','tab_6_time2');
+        $(".tab").click(function(){
+            var type = $(this).attr('data-type');
+            if(type != 3){
+                getTotalData(this);
+            }
+            getData(type,1);
+        });
+        setProvince('province','','city','county');
+        $("#province") .change(function () {
+            setCity($('#province').val(),'city','county');
+            setCounty('','','county');
+        });
+        $("#city") .change(function () {
+            setCounty($('#province').val(),$('#city').val(),'county');
+        });
+
+    });
+    /**
+     * 获取数据
+     */
+    function getData(type,page) {
+        var data      = {} ;
+        data.type     = type ? type : 1 ;
+        data.page     = page ? page : 1 ;
+        data.pageSize = $("#tab_"+type+"_pageSize").val() ;
+        data.time1    = $("#tab_"+type+"_time1").val() ;
+        data.time2    = $("#tab_"+type+"_time2").val() ;
+        var url = '/plat.statistics/getLists';
+        var index = layer.load(2);
+        //console.log(data);return;
+        $.post(url,{data:data},function(rv){
+            layer.close(index);
+            var pageObj   = $("#tab_"+type+"_page") ;
+            var pagerObj  = $("#tab_"+type+"_pager") ;
+            var modelObj  = $("#tab_"+type+"_model") ;
+            var bannerObj = $("#tab_"+type+"_show") ;
+            var pInfoObj  = $("#tab_"+type+"_pageInfo") ;
+            var downObj   = $("#tab_"+type+"_down") ;
+
+            var p        = rv.page;
+            var pageSize = rv.pageSize;
+            var count    = rv.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            pInfoObj.text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+
+            pagerObj.createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getData(type,p);
+                }
+            });
+            var tpl = modelObj.html();
+            laytpl(tpl).render(rv, function(html){
+                bannerObj.html(html);
+            });
+            pageObj.val(p);
+            downObj.attr('href',('/plat.statistics/exportStatisticsToExcel/?type='+data.type+'&time1='+data.time1+'&time2='+data.time2+'&page='+data.page+'&pageSize='+data.pageSize));
+        },'json');
+    }
+
+    function dateIni(id_start,id_end) {
+        var start = {
+            elem: '#'+id_start,//需显示日期的元素选择器
+            event: 'click', //触发事件
+            format: 'YYYY-MM-DD', //日期格式
+            //istime: false, //是否开启时间选择
+            isclear: true, //是否显示清空
+            istoday: true, //是否显示今天
+            //issure: true, //是否显示确认
+            festival: true, //是否显示节日
+            min: '2016-01-01', //最小日期
+            max: laydate.now('+1'), //最大日期
+            start: laydate.now(),  //开始日期,今天
+            fixed: false, //是否固定在可视区域
+            zIndex: 99999999, //css z-index
+            choose: function(datas){
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas; //将结束日的初始值设定为开始日
+            }
+        };
+        var end = {
+            elem: '#'+id_end,//需显示日期的元素选择器
+            event: 'click', //触发事件
+            format: 'YYYY-MM-DD', //日期格式
+            //istime: false, //是否开启时间选择
+            isclear: true, //是否显示清空
+            istoday: true, //是否显示今天
+            //issure: true, //是否显示确认
+            festival: true, //是否显示节日
+            min: '2016-01-01', //最小日期
+            max: laydate.now('+365'), //最大日期
+            start: laydate.now(),  //开始日期,今天
+            fixed: false, //是否固定在可视区域
+            zIndex: 99999999, //css z-index
+            choose: function(datas){
+                //start.max = datas; //结束日选好后，重置开始日的最大日期
+            }
+        };
+        laydate.skin('yd');//加载皮肤
+        laydate(start);
+        laydate(end);
+    }
+    function getTotalData(obj) {
+        var data      = {} ;
+        data.type     = $(obj).attr('data-type');
+        var url = '/plat.statistics/getTotalData';
+        $.post(url,{data:data},function(rv){
+            for (var i=1;i<12;i++){
+                var _object = $("#tab_"+data.type+"_num"+i);
+                var j = 'num'+i ;
+                if(_object){
+                    if(rv[j]){
+                        _object.text(rv[j]) ;
+                    }else {
+                        _object.text(0) ;
+                    }
+                }
+            }
+        },'json');
+
+    }
+    function ChangType(obj) {
+        var op = '<option value="">全部</option>';
+        if($(obj).val() == 1){
+            op     += '<option value="1">轿车商家</option>' ;
+            op     += '<option value="2">货车商家</option>' ;
+            op     += '<option value="3">用品商家</option>' ;
+        }else if($(obj).val() == 2){
+            op     += '<option value="4">修理厂</option>' ;
+            op     += '<option value="5">快修保养</option>' ;
+            op     += '<option value="6">美容店</option>' ;
+        }else {
+
+        }
+        $("#classes").html(op);
+    }
+    /**
+     * 返回
+     */
+    function goBack() {
+        $("#tab-6").removeClass('active');
+        $("#tab-4").addClass('active');
+        $("#tab_6_down").attr('href','javascript:void(0)');
+    }
+    function showInfo(obj) {
+        var type  = $(obj).attr('data-type') ,
+            title = '' ;
+        if (type == 1){
+            title = '访问经销商记录明细（PC web端）' ;
+            $("#visit").addClass('hidden');
+            $("._visit").addClass('hidden');
+        }else if(type == 2){
+            title = '访问经销商记录明细（移动端）' ;
+            $("#visit").addClass('hidden');
+            $("._visit").addClass('hidden');
+        }else if (type == 3){
+            title = '来电数据明细（移动端）' ;
+            $("#visit").removeClass('hidden');
+            $("._visit").removeClass('hidden');
+        }
+        $("#u_name").text(title) ;
+        $("#tab-4").removeClass('active');
+        $("#tab-6").addClass('active');
+        getStatisticsInfo(type,1) ;
+    }
+    
+    function getStatisticsInfo(type,page) {
+        var data      = {};
+        data.type     = type;
+        data.fType    = $("#tab_6_f_type").val();
+        data.classes  = $("#classes").val();
+        data.province = $("#province").val();
+        data.city     = $("#city").val();
+        data.county   = $("#county").val();
+        data.time1    = $("#tab_6_time1").val();
+        data.time2    = $("#tab_6_time2").val();
+        data.visit    = $("#tab_6_visit").val();
+        data.keywords = $("#tab_6_keywords").val();//关键字
+        data.page     = page ? page : 1;
+        data.pageSize = $('#tab_6_pageSize').val();
+        var url       = '/plat.statistics/getStatisticsInfo';
+        var index     = layer.load(2);
+        $.post(url,{data:data},function(rdata){
+            $("#tab_6_download").attr('href','/plat.statistics/exportStatisticsInfoToExcel/?type='+type);
+            layer.close(index);
+            var pageInfo = '';
+            var p     = rdata.page;
+            var pageSize = rdata.pageSize;
+            var count = rdata.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            $("#tab_6_pageInfo").text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+            $("#tab_6_pager").createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getStatisticsInfo(type,p);
+                }
+            });
+
+            var tpl = $('#tab_6_model').html();
+            laytpl(tpl).render(rdata, function(html){
+                $('#tab_6_show').html(html);
+            });
+            $("#tab_6_page").val(p);
+            $("#tab_6_pageSize").change(function () {
+                getStatisticsInfo(type,1) ;
+            });
+            $("#tab_6_find").unbind('click').click(function () {
+                getStatisticsInfo(type,1) ;
+            });
+        },'json');
+
+
+
+    }
+</script>
+</body>
+</html>

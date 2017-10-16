@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的工资</title>
+    <link href="../../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+.padding1620{padding: 16px 20px;}
+.floRight{color: #FB6157;float: right;}
+.mui-table-view-cell:after{right: 15px;}
+.companyColor{color: #767676;}
+</style>
+<body style="background: #F5F5F5;">
+	
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">汽修厂关联提成</h1> 
+	</header>   
+	<div class="mui-content" style="background: #F5F5F5;">
+		<ul class="mui-table-view" style="font-size: 15px;" id="List">
+			<!--<li class="mui-table-view-cell padding1620">
+				<span class="companyColor">汽修厂企业名称</span> 
+				<span class="floRight">1234</span>
+			</li>
+			<li class="mui-table-view-cell padding1620">
+				<span class="companyColor">汽修厂企业名称</span>
+				<span class="floRight">1234</span>
+			</li>
+			<li class="mui-table-view-cell padding1620">
+				<span class="companyColor">汽修厂企业名称</span> 
+				<span class="floRight">1234</span> 
+			</li>--> 
+		</ul> 
+	</div>
+	
+	<div id="loadList"><input value="1" hidden="hidden" id="page"/></div>    
+	<script id="pay-list-tpl" type="text/html">
+		{{# var len = d.length }} 
+		{{# if(len>0){ }} 
+		{{# for(var i = 0;i < len; i++){ }}  
+			<li class="mui-table-view-cell padding1620"> 
+				<div class="companyColor" style="max-width: 80%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;float: left;">{{ d[i].companyName }}</div>
+				<span class="floRight">{{ d[i].num }}次</span>
+			</li>
+		{{# } }}
+		{{# } }}	
+	</script>	
+</body>
+ <script src="../../../../js/jquery.min.js"></script> 
+ <script src="../../../../js/mui.min.js"></script>
+ <script src="../../../../js/laytpl/laytpl.js"></script>
+ <script src="../../../../js/global.js"></script> 
+ <script type="text/javascript" charset="utf-8">
+	 	 //mui初始化  
+ mui.init({        
+  pullRefresh : {
+    container:'#loadList',//待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
+	up : {
+	  height:50,//可选.默认50.触发上拉加载拖动距离
+	  auto:true,//可选,默认false.自动上拉加载一次
+	  contentrefresh : "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+	  contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+	  callback :function(){	
+	  	showLoda();
+	  } //必选，刷新函数   
+	}  
+  }
+ });
+ 
+ //初始化 
+	mui.plusReady(function() {})	
+	
+function showLoda(){  
+	if(UserInfo.has_login()){
+		var userType= JsonStorage.getItem('userType');	//2为业务员
+		var token   = plus.storage.getItem('token');
+		var self = plus.webview.currentWebview();		//获取传递的参数
+		var	id 	 = self.wageId;							//业务员工资表ID
+		if(!id){ 
+			id = '';   
+		}
+		if(userType != 2){
+			sw.toast('请使用业务员账号登录');  
+			return false; 
+		}   
+		if(!token){  
+			sw.toast('您还没有登录，请登录后重试');  
+			return false;  
+		}
+		var page = mui("#page")[0].value;//获取页数 
+	  	var data = {};     
+	  	var postData = {};    
+	  	//请求的数据  
+  		postData.page     = page;//请求的页码
+  		postData.pageSize = 15;  //每页显示数量 
+  		postData.id       = id;  //
+  		postData.token    = token;  
+  		data.postData     = postData;    
+  		 
+  		//页面相关数据
+  		data.mod      = 'api.sev.salesman';//模型   
+  		data.fun      = 'boDaTiCheng';     //方法  
+  		data.tpl      = 'pay-list-tpl';	   //列表模板 
+  		data.listId   = 'List';			   //列表容器
+		//请求并处理数据  
+		loadInfo(data,true); 
+  	}else{//未登录显示未登录界面	 		  
+		//无网络提示
+		sw.toast('您还未登录,请登录后重试');  
+	}	
+}  	
+ 	 
+ </script>
+</html>
+
+
+
+
+
+
+

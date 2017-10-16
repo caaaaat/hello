@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>信息管理</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">   
+    </script>
+</head>
+<style>
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	
+	.sw-after-no:after{
+		height: 0;
+	}
+	.sw-list-title{
+		font-size: 14px;color: #666;
+	}
+	.sw-list-title1{
+		line-height:60px;font-size: 14px;color: #666;
+	}
+	.sw-list-title3{
+		line-height:40px;font-size: 14px;color: #666;
+	}
+	.sw-list-title2{
+		font-size: 14px;color: #666;display: inline-block;width: 56px;line-height: 21px;height: 21px;
+	}
+	.sw-list-title4{
+		font-size: 14px;color: #666;display: inline-block;width: 100px;
+	}
+	.sw-list-text2{
+		margin-left:56px ;margin-top: -21px;
+	}
+	.sw-list-text3{
+		float: right;font-size: 14px;color: #666;
+	}
+	.sw-list-text4{
+		margin-left:100px ;margin-top: -21px;
+	}
+	.sw-img{
+		width: 60px;height: 60px;float: right;margin-left: 4px;
+	}
+	.sw-img1{
+		width: 40px;height: 40px;float: right;margin-left: 4px;
+	}
+	.sw-icon-ca{
+		position: absolute;right: 16px;top: 12px;width: 14px;height: 14px;background: url(../../../image/person/purchase/icon_zp_cha.png) no-repeat;background-size: contain;
+	}
+	.sw-map-box{
+		width: 220px;height: 120px;float: right;margin-top: 12px;border: 1px solid #EFEFEF;font-size: 12px;color: #999999;text-align: center;line-height: 120px;border-radius: 2px;
+	}
+</style>
+<body style="background: #EFEFEF;">
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">信息管理</h1>
+	    <button class="mui-btn mui-btn-link mui-pull-right" id="editInfo">
+			编辑
+		</button>
+	</header>
+	
+	<div class="mui-content" style="background: #EFEFEF;" >   
+		 <ul class="mui-table-view" style="margin-top:10px;">
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title1">封面</span>
+				<img src="../../../image/person/purchase/tianjiazp.png" id="face_img" class="sw-img"/>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active" >		
+				<span class="sw-list-title1">banner</span>
+				<span id="bannerList"></span>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">主营</span>
+				<p class="sw-list-text2" id="major">&nbsp;</p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">联系人</span>
+				<p class="sw-list-text2" id="linkMan">&nbsp;</p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">手机</span>
+				<p class="sw-list-text2" id="linkPhone">&nbsp;</p>
+				
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">座机</span>
+				<p class="sw-list-text2" id="linkTel">&nbsp;</p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">QQ</span>
+				<p class="sw-list-text2" id="qq">&nbsp;</p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title3">微信</span>
+				<img id="wechat_pic" src="../../../image/person/purchase/tianjiazp.png" class="sw-img1"/>
+			</li>
+		</ul>    
+		
+		
+		<ul class="mui-table-view" style="margin-top:10px;">
+			<li class="mui-table-view-cell sw-after-no sw-no-active">
+				
+				<span class="sw-list-title">企业坐标：</span>
+				<span class="sw-list-text3" id="coordinate">&nbsp;</span>
+				<div style="clear: both;"></div>
+				<input type="text" name="longitude" id="longitude" value=""  hidden="hidden"/>
+				<input type="text" name="latitude"  id="latitude"  value=""  hidden="hidden"/>					
+				<div id="allmap" class="sw-map-box">地图加载中...</div>
+			</li>
+			
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title4">详细地址：</span>
+				<p class="sw-list-text4" id="address">&nbsp;</p>
+			</li>
+			 
+		</ul>  
+		
+		
+		<ul class="mui-table-view" style="margin-top:10px;margin-bottom: 20px;">
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title4">企业介绍：</span>
+				<p style="margin-top: 8px;" id="info">&nbsp;</p>
+			</li>
+			
+		</ul> 
+		
+	</div>
+	
+</body> 
+ <script type="text/javascript" src="../../../js/mui.min.js"></script>
+ <script type="text/javascript" src="../../../js/global.js"></script>
+ <script type="text/javascript" src="../../../js/jquery.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZBcSIHdvwjfx105K8jvQCj5W"></script> 
+ <script type="text/javascript">
+ 	//mui初始化
+	mui.init();
+
+	//mui plusReady
+	mui.plusReady(function() {	
+		//获取店铺基础信息
+		var token  = plus.storage.getItem('token');
+		//加载弹窗
+		loading('加载中...'); 
+		//获取数据
+		http.load('api.sev.user','getStoreInfo',{'token':token},function(rData){
+			//关闭加载框
+ 		sw.jcon(rData)
+			$("#companyname").text(rData.companyname);
+			if(rData.face_pic){
+				$("#face_img").attr('src',imgUrl+rData.face_pic);			
+			}
+			if(rData.wechat_pic){ 
+				$("#wechat_pic").attr('src',imgUrl+rData.wechat_pic);			
+			}
+			$("#major").text(rData.major); 
+			
+			rData.linkMan = rData.linkMan?rData.linkMan:'&nbsp;';
+			rData.linkPhone = rData.linkPhone?rData.linkPhone:'&nbsp;';
+			rData.linkTel = rData.linkTel?rData.linkTel:'&nbsp;';
+			rData.qq = rData.qq?rData.qq:'&nbsp;'; 
+			$("#linkMan").html(rData.linkMan);
+			$("#linkPhone").html(rData.linkPhone); 
+			$("#linkTel").html(rData.linkTel);
+			$("#qq").html(rData.qq); 
+			
+			$("#address").text(rData.address); 
+			$("#info").text(rData.info);     
+			$("#coordinate").text(rData.coordinate);     
+			//banner
+			var banners    = rData.banners;
+			var bannerLen  = banners.length;
+			var bannerHtml = '';
+			if(bannerLen>0){
+				for(var i=0;i<bannerLen;i++){
+					bannerHtml += '<img src="'+imgUrl+banners[i].banner_url+'" class="sw-img"/>';
+				}
+			} 
+			$("#bannerList").html(bannerHtml);
+			//初始化地图
+			setTimeout(function(){							
+				closeLoading();	
+				var point = new BMap.Point(rData.longitude, rData.latitude);	
+				setMap(point); 
+			},500)
+	
+		},function(xhr,type,errorThrown){
+		 		//关闭加载框
+				closeLoading();		
+				//无网络提示
+				//sw.toast('获取数据失败，服务器或网络异常');
+		}) 
+
+	})
+ 	
+ 	//百度地图调用
+	function setMap(point){      	 	 	
+			// 百度地图API功能
+			var map = new BMap.Map("allmap"); 
+				map.centerAndZoom(point, 15);
+			
+			var marker = new BMap.Marker(point);// 创建标注 
+				map.addOverlay(marker); 								 
+	} 
+ 	
+	mui("#editInfo")[0].addEventListener('tap',function(){
+		openView('../../../view/person/store/editInfo.html','person_store_editInfo','pop-in');
+	})
+</script>
+</html>

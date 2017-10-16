@@ -1,0 +1,268 @@
+﻿<link rel="stylesheet" href="/css/pc/index/newMarket.css" crossorigin="anonymous">
+<style>
+    .erTypeTwo{overflow: hidden;height: 40px;}
+    #xuanType{height: auto;line-height: 30px;}
+    .twoTypeL{height: 40px;line-height: 40px;}
+    .bigTypeDiv{line-height: 40px;}
+    .oneType{height: 40px;}
+</style>
+<!--选择分类-->
+<div id="xuanType">
+  <span>全部</span>
+  <span class="xRight"> >> </span>
+  <span id="xiangguantianjian">
+    <span class="typeMarketRed">
+    新品促销 <!--<img class="typeImg" src="/images/qpxm/pc/newMarket/x.png" alt="">-->
+    </span>
+  </span>
+    <span id="cate_1_search">
+
+    </span>
+
+  <span id="cate_2_search">
+
+  </span>
+  <span class="allNum">共计<span id="count008"></span>件产品</span>
+</div>
+<!--类型、类别、分类-->
+<div id="classify" style="min-height: 240px">
+  <div class="bigTypeDiv">
+    <div class="bigType">类型：</div>
+    <div class="oneType">
+      <div class="twoType">
+        <a href="/def/newMarket" style="color: #A0A0A0;">新品促销</a>
+      </div>
+      <div class="twoTypeL">
+        <a href="/def/clearance" style="color: #333;">库存清仓</a>
+      </div>
+    </div>
+  </div>
+  <div class="bigTypeDiv">
+    <div class="bigType">类别：</div>
+    <div class="oneType oneTypeToken cate_1_tt">
+      <!--<div class="twoType"><a href="javascript:;" class="twoTypeA">保养配件</a></div>-->
+      <?php foreach($proCate['cate_1'] as $v){?>
+      <div class="twoTypeL"><a href="javascript:;" data-bs="justUC1" class="twoTypeLA" data-c="1" data-id="<?php echo $v['id'];?>" data-name="<?php echo $v['name'];?>" onclick="choseCate008(this)"><?php echo $v['name'];?></a></div>
+      <?php }?>
+    </div>
+    <div style="float: right;padding-right: 15px">
+      <a href="javascript:;" onclick="moreType(this)"><span>更多</span><img src="/images/qpxm/pc/newMarket/down.png" alt=""></a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+  <div class="erType" style="min-height: 100px">
+    <div class="erTypeText">分类：</div>
+    <div class="erTypeDiv cate_2_tt">
+      <!--<div class="erTypeOne"><a href="javascript:;" class="twoTypeA">空气滤清济</a></div>-->
+      <?php foreach($proCate['cate_2'] as $v){?>
+      <div class="erTypeTwo pro_cate" style="display: none">
+        <a href="javascript:;" data-bs="justUC2" class="twoTypeLA" data-pid="<?php echo $v['pid'];?>" data-c="1" data-id="<?php echo $v['id'];?>" data-name="<?php echo $v['name'];?>" onclick="choseCate009(this)"><?php echo $v['name'];?></a>
+      </div>
+      <?php }?>
+    </div>
+    <div class="erTypeShou">
+      <a href="javascript:" onclick="fenLeiLittle(this)"><span>收起</span> <img src="/images/qpxm/pc/newMarket/up.png" alt=""></a>
+    </div>
+  </div>
+  <div style="clear: both;"></div>
+</div>
+<!--商品列表-->
+<div id="commodity">
+  <!--<div class="jingXS">
+
+  </div>-->
+  <!--<a href="/def/product?ID=">
+    <span class="commodity">
+      <img class="commodityImg" src="/images/qpxm/pc/newMarket/xinPingImg.png" alt="">
+      <div class="commodityInfo">
+        <div class="commodityText">产品名称：<span>轿车商家</span></div>
+        <div class="commodityText">类别：<span>一级分类/二级分类</span></div>
+        <div class="commodityText">车系：<span>欧系/宝马/进口宝马/x9</span></div>
+        <div class="commodityText" style="font-size: 15px">价格：<span style="color: #FF504B">￥:300.00</span></div>
+      </div>
+    </span>
+  </a>-->
+
+
+</div>
+<div style="clear: both"></div>
+<!--加载中-->
+<div id="jiaZai">加载中...</div>
+<script src="/js/global.js"></script>
+<script>
+    var page = 1;
+  $(function () {
+      dosomething();
+  });
+
+  //瀑布流开始
+  var loading = false;
+  $(window).scroll(function(){
+    var scrollTop = $(this).scrollTop();
+    var scrollHeight = $(document).height();
+    var windowHeight = $(this).height();
+    if(loading) return;
+    if(scrollTop + windowHeight == scrollHeight){
+      $('#jiaZai').show();
+      loading = true;
+        setTimeout(function() {
+            jiaZaiData();
+            $('#jiaZai').hide();
+        }, 600);
+    }
+  });
+
+    function dosomething() {
+        page=1;
+        setTimeout(function () {
+            $('.buxuyaozaixianshile').remove();
+            $('#commodity').html('');
+            jiaZaiData();
+        },100);
+
+    }
+
+  function jiaZaiData(){
+      var keywords = $('#keywords007').val();
+      var cate_1 = [];
+      $('#cate_1_search').find('span').each(function (i,v) {
+          cate_1.push($(v).attr('data-id'));
+      });
+      var cate_2 = [];
+      $('#cate_2_search').find('span').each(function (i,v) {
+          cate_2.push($(v).attr('data-id'));
+      });
+      api.load('pc.product','getProductList',{
+          type:'新品促销',
+          cate_1:cate_1,
+          cate_2:cate_2,
+          keywords:keywords,
+          page:page
+      },function (data) {
+          $('#count008').html(data.count);
+          var len = data.list.length;
+          if(len > 0){
+              for(var i=0; i<len; ++i){
+                  var str = datas(data.list[i]);
+                  if($('.jingXS').length<1){
+                      $('#commodity').append(str);
+                  }else{
+                      $('#commodity a:last').after(str);
+                  }
+              }
+              page += 1;
+              loading = false;
+          }else{
+              loading = true;
+              var s = '<div class="buxuyaozaixianshile" style="width: 1200px;margin: 0 auto;text-align: center;font-size: 20px;font-weight: bold;">没有更多产品信息了</div>';
+              $('#jiaZai').after(s);
+
+          }
+      });
+  }
+
+
+  function datas(i){
+    var str = '<a href="/def/product?ID='+i.proId+'"><span class="commodity">';
+        str += '<div style="width: 266px;height: 245px">';
+        str += '<img class="commodityImg" src="'+i.pro_pic+'" alt=""></div>';
+        str += '<div class="commodityInfo">';
+        str += '<div class="commodityText" style="width: 240px;overflow: hidden;white-space: nowrap;-o-text-overflow: ellipsis;text-overflow:ellipsis;">产品名称：<span>'+i.proName+'</span></div>';
+        str += '<div class="commodityText">类别：<span>'+i.cate_1_name+'/'+i.cate_2_name+'</span></div>';
+        str += '<div class="commodityText" style="width: 240px;overflow: hidden;white-space: nowrap;-o-text-overflow: ellipsis;text-overflow:ellipsis;">车系：<span>'+i.car_group+'</span></div>';
+        str += '<div class="commodityText" style="font-size: 15px">价格： <span style="color: #FF504B">'+i.pro_price+'</span></div>';
+        str += '</div></span></a>';
+        return str;
+  }
+
+  /*类别点击更多*/
+  function moreType(obj){
+    $('.oneTypeToken').css('overflow','auto');
+    $('.oneTypeToken').css('height','auto');
+    $(obj).find('span').text('收起');
+    $(obj).find('img').attr('src','/images/qpxm/pc/newMarket/up.png');
+    $(obj).attr('onclick','littleType(this)');
+  }
+  /*类别点击收起*/
+  function littleType(obj){
+    $('.oneTypeToken').css('overflow','hidden');
+    $('.oneTypeToken').css('height','40px');
+    $(obj).find('span').text('更多');
+    $(obj).find('img').attr('src','/images/qpxm/pc/newMarket/down.png');
+    $(obj).attr('onclick','moreType(this)');
+  }
+  /*分类点击收起*/
+  function fenLeiLittle(obj){
+    $('.erTypeDiv').css('height','60px');
+    $('.erTypeDiv').css('overflow','hidden');
+    $(obj).attr('onclick','fenLeiMore(this)');
+    $(obj).find('span').text('展开');
+    $(obj).find('img').attr('src','/images/qpxm/pc/newMarket/down.png');
+  }
+  /*分类点击展开*/
+  function fenLeiMore(obj){
+    $('.erTypeDiv').css('height','auto');
+    $('.erTypeDiv').css('overflow','auto');
+    $(obj).attr('onclick','fenLeiLittle(this)');
+    $(obj).find('span').text('收起');
+    $(obj).find('img').attr('src','/images/qpxm/pc/newMarket/up.png');
+  }
+  //选中一级分类
+  function choseCate008(i){
+      $('.pro_cate').find('a').parent('div').hide();
+      $('#cate_1_search').html('');
+      $('a[data-bs="justUC1"]').attr('class','twoTypeLA').attr('data-c',1);
+      $('#cate_2_search').html('');
+      $('a[data-bs="justUC2"]').attr('class','twoTypeLA').attr('data-c',1);
+      var pid = $(i).attr('data-id');
+      if($(i).attr('data-c')==1){
+          $(i).attr('class','twoTypeLA').attr('data-c',0);
+          if($(i).attr('class')=='twoTypeA'){
+
+          }else {
+              $(i).attr('class','twoTypeA');
+              addTagForSearch(1,pid,$(i).attr('data-name'));
+          }
+      }else {
+          setTimeout(function () {
+              $(i).attr('class','twoTypeLA').attr('data-c',1);
+              $('.typeMarketRed[data-id="'+pid+'"]').remove();
+          },1);
+      }
+      $('.pro_cate').find('a[data-pid="'+pid+'"]').parent('div').show();
+
+      dosomething();
+  }
+
+  function choseCate009(i) {
+      $('#cate_2_search').html('');
+      $('a[data-bs="justUC2"]').attr('class','twoTypeLA').attr('data-c',1);
+      var pid = $(i).attr('data-id');
+      if($(i).attr('data-c')==1) {
+          if ($(i).attr('class') == 'twoTypeA') {
+              return;
+          }
+          $(i).attr('class', 'twoTypeA').attr('data-c',0);
+          addTagForSearch(2, $(i).attr('data-id'), $(i).attr('data-name'));
+      }else {
+          setTimeout(function () {
+              $(i).removeClass('twoTypeA').attr('data-c', 1);
+              $('.typeMarketRed[data-id="'+pid+'"]').remove();
+          },1)
+      }
+      dosomething();
+  }
+
+  function addTagForSearch(t,i,n) {
+      var html008 = $('#cate_'+t+'_search').html();
+      var str008  = '<span class="typeMarketRed" data-id="'+i+'"> '+n+' <img class="typeImg" src="/images/qpxm/pc/newMarket/x.png" alt="" onclick="removeTagForSearch(this,'+t+')" style="cursor: pointer"></span>';
+      $('#cate_'+t+'_search').html(html008+str008);
+  }
+  function removeTagForSearch(i,n) {
+      $(i).parent('span').remove();
+      //console.log([i,n]);
+      $('.cate_'+n+'_tt').find('div').find('a[data-id="'+$(i).parent('span').attr('data-id')+'"]').attr('class','twoTypeLA');
+      dosomething();
+  }
+
+</script>

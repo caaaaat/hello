@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>产品筛选</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <link href="../../../css/swiper.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="utf-8">
+      
+    </script>
+</head>
+<style>
+	html{
+		
+	}
+	.sw-payList:after{
+		height: 0;
+	}
+	.sw-after-l:after{
+		left: 0;
+	}
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.sw-title-1{
+		width: 33.3%;float: left;text-align: center;line-height: 42px;font-size: 13px;color: #666666;
+	}
+	.sw-table-text3{
+		font-size: 12px!important;color: #666666!important;
+	}
+	.sw-title-box{
+		width: 100%;height: 42px;border-bottom: 1px solid #DDDDDD;background: #FFFFFF;
+	}
+	.sw-no-img:after,.sw-no-img:before{
+		height: 0;
+	}
+	
+	.sw-header {
+		width: 100%;
+		height: 48px;
+		overflow: hidden;
+		font-size: 12px;
+		line-height: 48px;
+		background: #FFFFFF;
+		border-bottom: 1px solid #ccc;
+	}
+	.sw-header .swiper-slide {
+	    padding: 0 10px;
+	    margin: 0 4px;
+	    width: auto;
+	}
+	
+	.sw-header .swiper-slide.active{
+	  border-bottom: 1px solid #FF534C;
+	  color: #FF534C;
+	}
+	.sw-input-search{
+		text-align: left;
+		height: 32px!important;
+		padding-left: 18px!important;
+		font-size: 14px;
+		border-color:#FFFFFF!important;
+		border-radius: 24px!important;
+		color: #333333;
+		font-weight: normal;
+	}
+	.sw-header-search{
+		display: inline-block;background: url(../../../image/person/collect/icon_sousuo.png) no-repeat;width: 21px;height: 21px;background-size:contain ;margin-bottom: 0;background-position: center;
+	}
+	.sw-scope-box{
+		background: #EFEFEF;
+	}
+	.sw-scope-box:after{
+		height: 0;
+	}
+	.mui-content{
+		background: #EEEEEE;
+	}
+	.mui-control-item{
+		font-size: 12px;color: #666666!important;
+	}
+	/*左侧选项卡*/
+	/*左侧选项卡*/
+	.mui-row.mui-fullscreen>[class*="mui-col-"] {
+		height: 100%;
+	}
+	.mui-col-xs-3,
+	.mui-control-content {
+		overflow-y: auto;
+		height: 100%;
+	}
+	.mui-segmented-control .mui-control-item {
+		line-height: 50px;
+		width: 100%;
+		background-color: #FFFFFF;
+	}
+	.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+		background-color: #EEEEEE;
+		color: #333333;
+		border-right: #EEEEEE 1px solid!important; 
+	}
+	.sw-p-list{
+		margin-right:0!important;border-right:1px solid #DDDDDD!important;border-bottom: 1px solid #DDDDDD!important;
+	}
+	.sw-search-p{
+		    background: url(../../../image/index/icon_wz_sousuo@3x.png)no-repeat;
+		    width: 45px;
+		    height: 36px;
+		    margin: 0!important;
+		    background-size: 17px;
+		    position: absolute;
+		    top: 13px;
+		    background-position: center;
+		    margin-top: -50px;
+		    right: 25px; 
+	}			
+	.sw-icon-gou{
+		position: absolute;right: 2px;top: 12px;width: 18px;height: 18px;background: url(../../../image/login/icon_gou.png) no-repeat;background-size: contain;
+	}
+	.cat-img{
+		border: 1px solid #DDDDDD;
+	}
+</style>
+<body style="background: #EEEEEE;">
+	
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">
+	    	<p style="margin-bottom: 0;">
+	   		   <input type="text" id="keyword" placeholder="输入公司名称、主营产品查询" class="sw-input-search">	
+	   		</p>
+	    </h1>
+	    <a class="mui-icon mui-pull-right">
+	    	<p class="sw-header-search" onclick="search()"></p>  
+	    </a>
+	</header>
+	
+	<div class="mui-content">  
+		<div class="mui-row mui-content mui-fullscreen">
+			<input type="text" value="" hidden="hidden" id="group">
+			<input type="number" value="0" hidden="hidden" id="productType">
+				
+			<div class="sw-title-box" style="position: fixed;top: 44px;z-index: 99;">
+		   		<div class="sw-title-1 sw-ctheme" onclick="productType(this,0)">全部</div>
+		   		<div class="sw-title-1" onclick="productType(this,1)">新品促销</div>
+		   		<div class="sw-title-1" onclick="productType(this,2)">库存清仓</div>
+		   		<input type="number" name="productType" id="productType" value="1" hidden="hidden"/>
+	  		</div>
+			
+			<div class="mui-row mui-content mui-fullscreen" style="display: none;" id="typeCon">
+				<div class="mui-col-xs-3" style="padding-top: 84px;"> 
+					<div id="segmentedControls" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical" style="height: 100%;background: #FFFFFF;">
+					</div>			
+				</div>
+			
+				<div id="segmentedControlContents" class="mui-col-xs-9" style="padding-top: 80px;background: #EEEEEE;">
+				</div>
+			
+			</div>
+			
+			<div id="segmentedControlContentsAll" class="mui-col-xs-12" style="padding-top: 80px;background: #EEEEEE;"></div>
+		</div>
+	</div>
+	<!--父级内容-->
+	<script id="p-list-tpl" type="text/html">
+		{{# var len = d.length }} 
+		<a class="mui-control-item sw-p-list mui-active" href="#content{{ d[0].id }}">{{ d[0].name }}</a> 
+		{{# for(var i = 1;i < len; i++){ }}		
+		<a class="mui-control-item sw-p-list" href="#content{{ d[i].id }}">{{ d[i].name }}</a>
+		{{# } }}
+	</script>
+
+	<!--子级内容-->
+	<script id="c-list-tpl" type="text/html">
+	
+		{{# var list = d.list; var len = list.length; var pid = d.pid; }} 
+		
+		{{# for(var i = 0;i < len; i++){ }}	
+			
+		{{# if(pid==list[i].pid){ }}
+		
+		<div id="content{{ list[i].pid }}" class="mui-control-content mui-active">					
+			<ul class="mui-table-view mui-grid-view sw-scope-box">
+				
+				{{# var clist = list[i].data; var clen = clist.length; }} 
+				{{# for(var j = 0;j < clen; j++){ }}	
+			        <li class="mui-table-view-cell mui-media mui-col-xs-4" onclick="selectChild(this,'{{ clist[j].id }}')">
+		            	<p  class="sw-icon"></p>
+		            	<img class="mui-media-object" src="{{ imgUrl+clist[j].img }}" style="border: 1px solid #DDDDDD;height: {{ imgH }}px;">
+		                <span class="mui-media-body sw-table-text3">{{ clist[j].name }}</span>
+			        </li> 
+		        {{# } }}	        
+			</ul> 	 
+		</div> 
+		{{# }else{ }}
+		
+		<div id="content{{ list[i].pid }}" class="mui-control-content">	 				
+			<ul class="mui-table-view mui-grid-view sw-scope-box">
+				
+				{{# var clist = list[i].data; var clen = clist.length; }} 
+				{{# for(var m = 0;m < clen; m++){ }}	
+			        <li class="mui-table-view-cell mui-media mui-col-xs-4" onclick="selectChild(this,'{{ clist[m].id }}')">
+		            	<p  class="sw-icon"></p>
+		            	<img class="mui-media-object" src="{{ imgUrl+clist[m].img }}" style="border: 1px solid #DDDDDD;height: {{ imgH }}px;">
+		                <span class="mui-media-body sw-table-text3">{{ clist[m].name }}</span>
+			        </li> 
+		        {{# } }}	        
+			</ul> 	 
+		</div> 
+				
+		{{# } }}
+		
+		{{# } }}
+	</script>
+	
+	
+	<!--全部子级内容-->
+	<script id="c-list-tpl-all" type="text/html">
+		{{# var list = d.list; var len = list.length; var pid = d.pid; }} 
+		<div class="tplAll">					
+			<ul class="mui-table-view mui-grid-view sw-scope-box">
+		{{# for(var i = 0;i < len; i++){ }}	
+		
+				{{# var clist = list[i].data; var clen = clist.length; }} 
+				{{# for(var j = 0;j < clen; j++){ }}	
+			        <li class="mui-table-view-cell mui-media mui-col-xs-3" onclick="selectChild(this,'{{ clist[j].id }}')">
+		            	<p  class="sw-icon"></p>
+		            	<img class="mui-media-object" src="{{ imgUrl+clist[j].img }}" style="border: 1px solid #DDDDDD;height: {{ imgH }}px;">
+		                <span class="mui-media-body sw-table-text3">{{ clist[j].name }}</span>
+			        </li> 
+		        {{# } }}	        
+			
+		{{# } }}
+		
+	</script>
+</body>
+<script type="text/javascript" src="../../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../../js/global.js"></script>
+<script type="text/javascript" src="../../../js/jquery.min.js"></script> 
+<script type="text/javascript" src="../../../js/swiper.js"></script>
+<script type="text/javascript" src="../../../js/laytpl/laytpl.js"></script>
+<script type="text/javascript" charset="utf-8">
+	//获取筛选数据
+	//mui初始化
+	mui.init({  
+	    beforeback: function() {  
+	    //获得列表界面的webview  
+	    var info = plus.webview.currentWebview().opener();  
+	    //触发列表界面的自定义事件（refresh）,从而进行数据刷新  
+	    mui.fire(info, 'searchProduct');  
+	    //返回true，继续页面关闭逻辑   
+	    return true;  
+	    }  
+	});
+	var imgH = parseInt((document.body.clientWidth-70)/4);  
+	//mui plusReady
+	mui.plusReady(function() {
+		loading('加载中...');
+		//如果已经登陆 获取登录后的数据
+		http.load('api.sev.index','getProductGroup',{},function(rData){//请求成功
+			closeLoading();
+ 			if(rData.status==200){    	 
+	 				//父级将数据输出到页面     
+					var cate_1 = rData.cat_1;	 	 				
+				 	var pTpl   = $('#p-list-tpl').html();	 		
+			        laytpl(pTpl).render(cate_1,function(render){           
+			            $('#segmentedControls').html(render);    
+			        });	 
+ 			 		
+ 			 		//子级数据页面输出 
+	 				var cate2 = {};
+	 					cate2.pid  = cate_1[0].id;
+	 					cate2.list = rData.cat_2;
+	 					sw.jcon(cate2)
+	 				 var cTpl   = $('#c-list-tpl').html();	 
+			        laytpl(cTpl).render(cate2,function(render){  
+			            $('#segmentedControlContents').html(render);      
+			        });
+ 			 		
+ 			 		//全部子级数据输出到页面
+ 			 		var cate2 = {};
+	 					cate2.pid  = 0;
+	 					cate2.list = rData.cat_2;
+	 				 var cTpl      = $('#c-list-tpl-all').html();	 
+			        laytpl(cTpl).render(cate2,function(render){  
+			            $('#segmentedControlContentsAll').html(render);      
+			        });
+ 			}else{
+ 				sw.toast(rData.msg); 	
+ 			}
+	
+ 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+ 			closeLoading();
+			//无网络提示
+			sw.toast('请求失败，请检查网络'); 
+ 		})				
+	})
+	
+	
+	
+	
+	//切换选项
+	function productType(j,type){
+		$("#productType").val(type);
+		if($(j).hasClass('sw-ctheme')==false){
+			//子级已选项
+			$("#group").val('');
+	 		$(".sw-title-1").removeClass('sw-ctheme');	
+	 		$(j).addClass('sw-ctheme');	
+	 		//清除所有已选
+			$(".sw-icon").removeClass('sw-icon-gou');	 	
+	 		var conId = "#typeCon"; 
+	 		if(type==0){
+	 			$(conId).hide();	
+	 			$('#segmentedControlContentsAll').show();
+	 		}else{
+	 			$(conId).show();
+	 			$('#segmentedControlContentsAll').hide();
+	 		}	 				 			
+ 		}			
+	}
+	
+	
+	//选择子级
+	function selectChild(j,cid){
+		var status = $(j).find('.sw-icon').hasClass('sw-icon-gou');	
+		//子级已选项
+		$("#group").val('');
+		//清除所有已选
+		$(".sw-icon").removeClass('sw-icon-gou');
+		if(status==false){
+			//选中自己
+			$(j).find('.sw-icon').addClass('sw-icon-gou');
+			//选中自己的id  
+			$("#group").val(cid);
+		}
+		setTimeout(function(){
+			searchxcm()
+		},300)
+	}
+	
+	/**
+	 * 搜索
+	 */
+	function search(){	 	
+				
+		var	keyword = $.trim($("#keyword").val());				
+		var	groupId = $("#group").val();
+		var	productType = $("#productType").val();
+		
+		var postData = {'productType':productType,'keyword':keyword,'groupId':groupId};
+			plus.storage.setItem('searchProduct',JSON.stringify(postData));
+			mui.back();
+	}
+	/**
+	 * 搜索
+	 */
+	function searchxcm(){	 	
+				
+		var	keyword = '';				
+		var	groupId = $("#group").val();
+		var	productType = $("#productType").val();
+		
+		var postData = {'productType':productType,'keyword':keyword,'groupId':groupId};
+			plus.storage.setItem('searchProduct',JSON.stringify(postData));
+			mui.back();
+	}
+</script>
+</html>

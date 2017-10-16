@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="/css/pc/index/newBie.css">
+<div id="newBie">
+    <div class="newBieText">新手上路</div>
+    <div class="souSuoNewDiv">
+        <input type="text" placeholder="输入关键词搜索" class="newInput" value="<?php echo $keywords07;?>">
+        <button class="newButton" onclick="newSeek()">
+            <img src="/images/qpxm/pc/VIN/sou.png" class="verAliSub" alt="">
+        </button>
+    </div>
+    <?php if($keywords07){?>
+    <div class="newSouSuoResult souSuoResult">搜索"<span class="newSouSuoText"><?php echo $keywords07;?></span>",共<?php echo $count;?>条结果</div>
+    <?php }else{ ?>
+    <div class="newSouSuoResult souSuoZhanWei">&nbsp;</div>
+    <?php } ?>
+    <div id="newList">
+        <?php foreach($news as $v){?>
+        <div class="newList">
+            <a href="/def/newbie&ID=<?php echo $v['art_ID'];?>">
+                <div class="newTitle">
+                    <?php echo $v['title'];?>
+                </div>
+                <div class="floRight">
+                    <img src="/images/qpxm/pc/person/invite/right.png" class="verAliSub" alt="">
+                </div>
+                <div style="clear: both"></div>
+            </a>
+        </div>
+        <?php }?>
+    </div>
+    <!--分页开始-->
+    <div class="text-right" style="margin-bottom: 20px;margin-right: 25px;margin-top: 110px;">
+        <span style="color: #999"></span>
+        <span id="pageInfo" style="margin-right: 10px;"><?php echo $pageHtml['countStr'];?></span>
+        <div class="btn-group" id="pager"><?php if($news){ ?><?php echo $pageHtml['key'];?><?php } ?></div>
+    </div>
+</div>
+
+
+
+<script>
+    function newSeek(){
+        var str = $('.newInput').val();
+        window.location.href="/def/newbie?keywords07="+str;
+    }
+</script>

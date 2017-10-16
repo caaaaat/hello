@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>商家筛选</title>
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="../../../css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="../../../css/common.css" />
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="../../../css/swiper.css" />
+</head>
+<style>
+	.sw-payList:after{
+		height: 0;
+	}
+	.sw-after-l:after{
+		left: 0;
+	}
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.sw-title-1{
+		width: 25%;float: left;text-align: center;line-height: 42px;font-size: 13px;color: #666666;
+	}
+	.sw-title-box{
+		width: 100%;height: 42px;border-bottom: 1px solid #DDDDDD;background: #FFFFFF;
+	}
+	.sw-no-img:after,.sw-no-img:before{
+		height: 0;
+	}
+	
+	.sw-header {
+		width: 100%;
+		height: 48px;
+		overflow: hidden;
+		font-size: 12px;
+		line-height: 48px;
+		background: #FFFFFF;
+		border-bottom: 1px solid #ccc;
+	}
+	.sw-header .swiper-slide {
+	    padding: 0 10px;
+	    margin: 0 4px;
+	    width: auto;
+	}
+	
+	.sw-header .swiper-slide.active{
+	  border-bottom: 1px solid #FF534C;
+	  color: #FF534C;
+	}
+	
+	.sw-scope-box{
+		background: none;
+	}
+	.sw-scope-box:after{
+		height: 0;
+	}
+	.sw-table-text3{
+		margin-top: 0!important;font-size: 12px!important;
+	}
+	.sw-icon-gou{
+		position: absolute;right: 2px;top: 12px;width: 14px;height: 14px;background: url(../../../image/login/icon_gou.png) no-repeat;background-size: contain;
+	}
+	.sw-icon-quan{
+		position: absolute;right: 2px;top: 12px;width: 14px;height: 14px;background: url(../../../image/login/icon_quan.png) no-repeat;background-size: contain;
+	}
+	.sw-input-search{
+		text-align: left;
+		height: 32px!important;
+		padding-left: 18px!important;
+		font-size: 14px;
+		border-color:#FFFFFF!important;
+		border-radius: 24px!important;
+	}
+	.sw-header-search{
+		display: inline-block;background: url(../../../image/person/collect/icon_sousuo.png) no-repeat;width: 21px;height: 21px;background-size:contain ;margin-bottom: 0;background-position: center;
+	}
+	.sw-icon-gou{
+		position: absolute;right: 2px;top: 12px;width: 18px;height: 18px;background: url(../../../image/login/icon_gou.png) no-repeat;background-size: contain;
+	}
+	.cat-img{
+		border: 1px solid #DDDDDD;
+	}
+</style>
+<body style="background: #F5F5F5;">
+	
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">
+	    	<p style="margin-bottom: 0;">
+	   		   <input type="text" id="keyword" placeholder="输入公司名称、主营产品查询" class="sw-input-search">	
+	   		</p>
+	    </h1>
+	    <a class="mui-icon mui-pull-right">
+	    	<p class="sw-header-search" onclick="search()"></p>
+	    </a>
+	</header>
+	
+	<div class="mui-content" style="background: #F5F5F5;">
+		<input type="text" value="0" hidden="hidden" id="storeType">
+		<input type="text" value="0" hidden="hidden" id="cate_1">
+		<input type="text" value="0" hidden="hidden" id="cate_2">
+	   <div class="sw-title-box" style="position: fixed;z-index: 2;top: 44px;">
+	   		<div class="sw-title-1 sw-ctheme" onclick="storeType(this,0)">全部商家</div>
+	   		<div class="sw-title-1" onclick="storeType(this,1)">轿车商家</div>
+	   		<div class="sw-title-1" onclick="storeType(this,2)">货车商家</div>
+	   		<div class="sw-title-1" onclick="storeType(this,3)">用品商家</div>
+	   		<!--//滚动容器-->
+			<div class="sw-header" id="header1" style="display: none;">
+			 
+			</div>
+
+			<div class="sw-header" id="header2" style="display: none;">
+			  
+			</div>
+ 
+			<div class="sw-header" id="header3" style="display: none;">
+			  
+			</div>
+	   </div>
+
+			<!--全部子类-->
+			<ul class="mui-table-view mui-grid-view sw-scope-box sw-catcon" id="catconAll" style="padding-top: 40px;display: block;">
+						
+			</ul>
+			<!--//子级容器-->
+			<ul class="mui-table-view mui-grid-view sw-scope-box sw-catcon" id="catcon1" style="display: none;padding-top: 90px;">
+						
+			</ul>
+			<ul class="mui-table-view mui-grid-view sw-scope-box sw-catcon" id="catcon2" style="display: none;padding-top: 90px;">
+						
+			</ul>
+			<ul class="mui-table-view mui-grid-view sw-scope-box sw-catcon" id="catcon3" style="display: none;padding-top: 90px;">
+						
+			</ul>
+			
+	</div>
+	<!--父级内容-->
+	<script id="p-list-tpl" type="text/html">
+		<div class="swiper-wrapper">
+		{{# var len = d.length }} 			
+		<div class="swiper-slide active sw-parent" onclick="selectGroup(this,'{{ d[0].id }}')" data-id="{{ d[0].id }}">{{ d[0].name }}</div>		
+		{{# for(var i = 1;i < len; i++){ }}			
+		<div class="swiper-slide sw-parent" onclick="selectGroup(this,'{{ d[i].id }}')" data-id="{{ d[i].id }}">{{ d[i].name }}</div>		
+		{{# } }}
+		</div>
+	</script>
+	
+	<!--子级内容-->
+	<script id="c-list-tpl" type="text/html">
+		{{# var list = d.list; var len = list.length; var pid = d.pid; }} 
+		
+		{{# for(var i = 0;i < len; i++){ }}	
+			{{# if(pid==list[i].pid){ }}	
+			<li class="mui-table-view-cell mui-media mui-col-xs-3 sw-child cpid{{ list[i].pid }}" onclick="selectChild(this,'{{ list[i].id }}','{{ list[i].name }}')" data-pid="{{ list[i].pid }}">
+
+            	<p  class="sw-icon"></p>	
+                <img class="mui-media-object" src="{{ imgUrl+list[i].img }}" style="border: 1px solid #DDDDDD;height: {{ imgH }}px;">  
+                <span class="mui-media-body sw-table-text3">{{ list[i].name }}</span>
+	          
+	        </li> 
+        	{{# }else{ }}
+        	<li class="mui-table-view-cell mui-media mui-col-xs-3 sw-child cpid{{ list[i].pid }}" onclick="selectChild(this,'{{ list[i].id }}','{{ list[i].name }}')" style="display: none;" data-pid="{{ list[i].pid }}">
+	           
+            	<p   class="sw-icon"></p>	
+                <img class="mui-media-object" src="{{ imgUrl+list[i].img }}" style="border: 1px solid #DDDDDD;height: {{ imgH }}px;">  
+                <span class="mui-media-body sw-table-text3">{{ list[i].name }}</span>
+	           
+	        </li> 
+	        
+        	{{# } }}	
+		{{# } }}	
+	</script>
+	
+	<!--子级内容-->
+	<script id="c-list-tpl-all" type="text/html">
+		{{# var list = d.list; var len = list.length; var pid = d.pid; }} 
+		
+		{{# for(var i = 0;i < len; i++){ }}	
+			<li class="mui-table-view-cell mui-media mui-col-xs-3 sw-child cpid{{ list[i].pid }}" onclick="selectChild(this,'{{ list[i].id }}','{{ list[i].name }}')" data-pid="{{ list[i].pid }}">
+
+            	<p  class="sw-icon"></p>	
+                <img class="mui-media-object" src="{{ imgUrl+list[i].img }}" style="border: 1px solid #DDDDDD;height: {{ imgH }}px;">  
+                <span class="mui-media-body sw-table-text3">{{ list[i].name }}</span>
+	          
+	        </li> 
+		{{# } }}	
+	</script>
+</body>
+<script type="text/javascript" src="../../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../../js/global.js"></script>
+<script type="text/javascript" src="../../../js/jquery.min.js"></script> 
+<script type="text/javascript" src="../../../js/swiper.js"></script>
+<script type="text/javascript" src="../../../js/laytpl/laytpl.js"></script>
+<script type="text/javascript" charset="utf-8">
+ //mui初始化
+	mui.init({  
+	    beforeback: function() {  
+	    //获得列表界面的webview  
+	    var info = plus.webview.currentWebview().opener();  
+	    //触发列表界面的自定义事件（refresh）,从而进行数据刷新  
+	    mui.fire(info, 'searchStore');  
+	    //返回true，继续页面关闭逻辑   
+	    return true;  
+	    }  
+	});
+	var imgH = parseInt((document.body.clientWidth-70)/4);  
+	//mui plusReady
+	mui.plusReady(function() { 
+		
+			loading('加载中...');
+			var token   = plus.storage.getItem('token');			
+			var postData = {};
+				postData.token = token;
+				
+			//如果已经登陆 获取登录后的数据
+			http.load('api.sev.index','getStoreGroup',postData,function(rData){//请求成功
+				closeLoading();
+				sw.jcon(rData)
+	 			if(rData.status==200){   
+	 				var allCatcon = new Array();
+	 				var k = 0;
+	 				if(rData.data.car.cate_2.length > 0){
+	 					for(var i=0; i<rData.data.car.cate_2.length; ++i){
+	 						allCatcon[k] = rData.data.car.cate_2[i];
+	 						k += 1;
+	 					}
+	 				}
+	 				if(rData.data.track.cate_2.length > 0){
+	 					for(var i=0; i<rData.data.track.cate_2.length; ++i){
+	 						allCatcon[k] = rData.data.car.cate_2[i];
+	 						k += 1;
+	 					}
+	 				}
+	 				if(rData.data.wuLiu.cate_2.length > 0){
+	 					for(var i=0; i<rData.data.wuLiu.cate_2.length; ++i){
+	 						allCatcon[k] = rData.data.wuLiu.cate_2[i];
+	 						k += 1;
+	 					}
+	 				}
+	 				var allCatconData = {};
+	 				allCatconData.list = allCatcon;
+	 				allCatconData.pid = 0;
+	 				//全部子类数据输出到页面 
+	 				var pCarTpl   = $('#c-list-tpl-all').html();	  		
+			        laytpl(pCarTpl).render(allCatconData,function(render){           
+			            $('#catconAll').html(render);      
+			        });	 
+	 				
+		 			//父级将数据输出到页面       
+					var carCate_1 = rData.data.car.cate_1;	 	 				
+				 	var pCarTpl   = $('#p-list-tpl').html();	 		
+			        laytpl(pCarTpl).render(carCate_1,function(render){           
+			            $('#header1').html(render);     
+			        });	  
+	 				//子级数据页面输出 
+	 				var carcate2 = {};
+	 					carcate2.pid  = carCate_1[0].id;
+	 					carcate2.list = rData.data.car.cate_2; 
+	 				 var carTpl   = $('#c-list-tpl').html();	
+			        laytpl(carTpl).render(carcate2,function(render){  
+			            $('#catcon1').html(render);      
+			        });	
+	 				     
+	 				//父级将数据输出到页面       
+					var trackCate_1 = rData.data.track.cate_1;	 	 				
+				 	var ptrackTpl   = $('#p-list-tpl').html();	 		
+			        laytpl(ptrackTpl).render(trackCate_1,function(render){           
+			            $('#header2').html(render);    
+			        });	  
+	 				//子级数据页面输出
+	 				var trackcate2 = {};
+	 					trackcate2.pid  = trackCate_1[0].id;
+	 					trackcate2.list = rData.data.track.cate_2;
+	 				 var trackTpl   = $('#c-list-tpl').html();	
+			        laytpl(trackTpl).render(trackcate2,function(render){  
+			            $('#catcon2').html(render);      
+			        });
+			        
+			        //父级将数据输出到页面       
+					var wuLiuCate_1 = rData.data.wuLiu.cate_1;	 	 				
+				 	var pwuLiuTpl   = $('#p-list-tpl').html();	 		
+			        laytpl(pwuLiuTpl).render(wuLiuCate_1,function(render){           
+			            $('#header3').html(render);    
+			        });	  
+	 				//子级数据页面输出
+	 				var wuLiucate2 = {};
+	 					wuLiucate2.pid  = wuLiuCate_1[0].id;
+	 					wuLiucate2.list = rData.data.wuLiu.cate_2;
+	 				 var wuLiuTpl   = $('#c-list-tpl').html();	
+			        laytpl(wuLiuTpl).render(wuLiucate2,function(render){  
+			            $('#catcon3').html(render);      
+			        });
+			        
+	 				 //父级滚动
+	 				 mySwiper();
+	 			 				  
+	 			}else{
+	 				sw.toast(rData.msg); 	
+	 			}
+		
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+	 			closeLoading();
+ 				//无网络提示
+ 				sw.toast('请求失败，请检查网络'); 
+	 		})				
+	})
+ 
+ 	//滚动初始化
+ 	function mySwiper(){
+ 		
+	 	var mySwiper1 = new Swiper('#header1',{ 
+			  freeMode : true,
+			  slidesPerView : 'auto',
+			  freeModeSticky : true ,
+		  });	
+		  
+		var mySwiper2 = new Swiper('#header2',{ 
+			  freeMode : true,
+			  slidesPerView : 'auto',
+			  freeModeSticky : true ,
+		  });	
+		  
+		var mySwiper3 = new Swiper('#header3',{ 
+			  freeMode : true,
+			  slidesPerView : 'auto',
+			  freeModeSticky : true ,
+		  });
+		  
+		$(".sw-header").hide();
+ 	}
+ 	
+	
+	
+	//切换选项
+	function storeType(j,type){
+		if($(j).hasClass('sw-ctheme')==false){
+			//
+			$("#storeType").val(0);
+			$("#cate_1").val(0);
+			$("#cate_2").val(0);
+			
+	 		$(".sw-title-1").removeClass('sw-ctheme');	
+	 		$(j).addClass('sw-ctheme');	
+	 		//清除所有已选
+			$(".sw-icon").removeClass('sw-icon-gou');	 		
+	 		//内容显隐
+	 		$(".sw-header").hide();	 		
+	 		$(".sw-catcon").hide();	 
+	 		
+	 		$('#catconAll').hide();
+	 		
+	 		var headerId = "#header"+type;
+	 		var catconId = "#catcon"+type; 		
+	 			$(headerId).show();	 			
+	 			$(catconId).show();	 
+	 			//隐藏全部子级
+				$(".sw-child").hide();
+	 			$('.sw-parent').removeClass('active');
+		 		//子级显示
+			if(type!=0){	
+				$(headerId).find('.sw-parent').first().addClass('active');
+		 		var pid = $(headerId).find('.sw-parent').first().attr('data-id');
+				//显示对应子级
+				$(".cpid"+pid).show();	
+				
+				$("#storeType").val(type);
+				$("#cate_1").val(pid);
+			}else{
+				$('#catconAll').show();
+				$('#catconAll li').show();
+			}
+ 		}			
+	}  
+	
+	//选择子级
+	function selectChild(j,cid,name){		
+		var status = $(j).find('.sw-icon').hasClass('sw-icon-gou');	
+		//子级已选项
+		$("#cate_2").val('');
+		//清除所有已选
+		$(".sw-icon").removeClass('sw-icon-gou');
+		if(status==false){
+			//选中自己
+			$(j).find('.sw-icon').addClass('sw-icon-gou');
+			//选中自己的id
+			$("#cate_2").val(cid);
+		}
+		setTimeout(function(){
+			searchxcm()
+		},300)
+	}
+	
+	//切换父级选项子级变化
+	function selectGroup(j,pid){
+		$("#cate_1").val(pid);
+		$("#cate_2").val(0);
+		//清除父级选择项
+		$(".sw-parent").removeClass('active');
+		//选中当前父级
+		$(j).addClass('active');
+		//隐藏全部子级
+		$(".sw-child").hide();
+		//显示对应子级
+		$(".cpid"+pid).show();
+	}
+	
+	
+	/**
+	 * 搜索
+	 */
+	function search(){	 					
+		var	keyword = $.trim($("#keyword").val());				
+		var	cate_1  = $("#cate_1").val();
+		var	cate_2  = $("#cate_2").val();
+		var	storeType = $("#storeType").val();
+		var postData = {'type':storeType,'keyword':keyword,'cate_1':cate_1,'cate_2':cate_2};
+			plus.storage.setItem('searchStore',JSON.stringify(postData));
+			mui.back(); 
+	}
+	/**
+	 * 搜索
+	 */
+	function searchxcm(){	 					
+		var	keyword = '';				
+		var	cate_1  = $("#cate_1").val();
+		var	cate_2  = $("#cate_2").val();
+		var	storeType = $("#storeType").val();
+		var postData = {'type':storeType,'keyword':keyword,'cate_1':cate_1,'cate_2':cate_2};
+			plus.storage.setItem('searchStore',JSON.stringify(postData));
+			mui.back(); 
+	}
+</script>
+</html>

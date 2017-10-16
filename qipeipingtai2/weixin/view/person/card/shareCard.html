@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>企业名片</title>
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="../../../css/mui.min.css" />
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="../../../css/common.css" />
+</head>
+<style>
+	.sw-input{
+		text-align: left;
+		height: 48px!important;
+		font-size: 14px!important;
+		text-align: center;
+		border: none!important;
+	}
+	.sw-title-1{
+		width: 50%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+	}
+	.card-box{
+		width: 100%;height: 160px;max-width:300px;background: #FFFFFF;border-radius: 4px;margin: auto;text-align: center;line-height:160px;
+	}
+	.card-box1{
+		width: 100%;border-radius: 2px;margin: auto;
+	}
+</style>
+<body style="background: #efefef;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">企业名片</h1>
+	</header>
+	<div class="mui-content" style="padding: 0 20px;background: #efefef;" id="cardCon"></div>
+	<div id="popover" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;">
+		<div style="width: 100%;padding: 20px 0;">
+		
+		<p style="text-align: center;padding: 0 15px;">
+			<span style="color: #333;font-weight: 700;">分享</span>
+			<span style="float: right;" id="closePopover">
+			<img src="../../../image/person/purchase/icon_qg_c.png" height="12px">
+			</span>
+		</p>
+		
+		 <ul class="mui-table-view mui-grid-view mui-grid-5 sw-no-img sw-payList" style="padding:0 0 20px;">
+		
+		<li class="mui-table-view-cell mui-media mui-col-sm-20" onclick="shareAction('weixin', 'WXSceneSession');">
+			<img class="mui-media-object" src="../../../image/person/more/icon_more_wechat.png">
+			<span style="font-size: 12px;color: #666666;" class="sw-word-one">微信</span>
+		</li>
+		
+		<li class="mui-table-view-cell mui-media mui-col-sm-20" onclick="shareAction('weixin', 'WXSceneTimeline');">
+			<img class="mui-media-object" src="../../../image/person/more/icon_more_fri.png">
+			<span style="font-size: 12px;color: #666666;" class="sw-word-one">朋友圈</span>
+		</li>
+		
+		<li class="mui-table-view-cell mui-media mui-col-sm-20" onclick="shareAction('qq', '');">
+			<img class="mui-media-object" src="../../../image/person/more/icon_more_qq.png">
+			<span style="font-size: 12px;color: #666666;" class="sw-word-one">QQ好友</span>
+		</li>
+		
+		<li class="mui-table-view-cell mui-media mui-col-sm-20" onclick="sharesQQZ()">
+			<img class="mui-media-object" src="../../../image/person/more/icon_more_qqkj.png">	
+			<span style="font-size: 12px;color: #666666;" class="sw-word-one">QQ空间</span>
+		</li>
+		
+		<li class="mui-table-view-cell mui-media mui-col-sm-20" onclick="sharePublish()">
+			<img class="mui-media-object" src="../../../image/person/more/icon_chenggong_mrtx.png">	
+			<span style="font-size: 12px;color: #666666;" class="sw-word-one">圈子</span>
+		</li>
+		
+		</ul>
+		
+		</div>    	
+	</div>
+ <script id="card-list-tpl" type="text/html">
+	{{# if(d&&d!=''){ }} 
+		<input type="number" name="cardId" id="cardId" value="{{ d.id }}" style="display: none;"/>
+		<input type="text" name="shareCard" id="shareCard" value="{{ d.path }}" style="display: none;" />
+		<div class="mui-input-row" style="margin-bottom: 30px;padding-top: 80px;padding-bottom: 0;">        
+		 <div class="card-box1">
+			<img id="cardUrl" src="{{ imgUrl+d.path }}" data-preview-src="{{ imgUrl+d.path }}" data-preview-group="1" width="100%" height="100%" style="border-radius: 4px;"/>
+		</div>	
+	</div>	    
+	<div class="sw-list-box">
+		<div class="sw-title-1" style="padding-right: 10px;">   
+			<button type="button" onclick="createDownload('{{ imgUrl+d.path }}')" class="mui-btn mui-btn-tangerine mui-btn-block" style="font-size: 12px;;">保存到相册</button>		
+		</div>
+		<div class="sw-title-1" style="padding-right: 5px;padding-left: 5px;">
+		<button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" style="font-size: 12px;" id="share">分享</button>
+		</div>		
+		</div>
+	</div>
+	
+	{{# }else{ }} 
+		 <div class="mui-input-row" style="margin-bottom: 30px;padding-top: 80px;">	        
+	        <div class="card-box">
+	        	<span style="color: #999999;">未设置名片</span>
+	        </div>	        
+	   </div>	    	  		  
+	{{# } }}	
+</script>
+</body>
+<script src="../../../js/mui.min.js"></script>
+<script src="../../../js/global.js"></script>
+<script type="text/javascript" src="../../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/laytpl/laytpl.js"></script>
+<script src="../../../js/mui.previewimage.js?v=1.0.6"></script>   
+<script src="../../../js/mui.zoom.js"></script> 
+<script type="text/javascript">
+	//mui初始化
+	mui.init(); 
+	
+	var Intent = null,
+        File = null,
+        Uri = null,
+        main = null;
+    var shares = null;
+    var shareImageUrl = '';
+	//mui plusReady
+	$(function() {
+		
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+		
+			var self = sw.getQueryVariable();
+			var postData = {};
+				postData.EnterpriseID = self.EnterpriseID;	    			
+			//如果已经登陆 获取登录后的数据
+			http.load('api.sev.user','getCardInfoByEnterpriseID',postData,function(rData){//请求成功
+	 			sw.jcon(rData)
+	 			if(rData.status==200){
+	 				var data = rData.data;
+	 					data = data?data:[];
+				 		//数据读取
+				 		var rangeTpl = $('#card-list-tpl').html();			
+				        laytpl(rangeTpl).render(data,function(render){           
+				            $("#cardCon").append(render); 
+				        });
+	 				
+	 				 if(data!=''){//已有名片 		 				 	
+	 				 	mui.previewImage();  	 				 	 
+	 				 	mui("#share")[0].addEventListener('tap',function(){
+							mui('#popover').popover('show');
+						})
+					  	mui("#closePopover")[0].addEventListener('tap',function(){
+							mui('#popover').popover('hide');
+						})					  	
+	 				 } 
+	 				  
+	 			}else{ 
+	 				sw.toast(rData.msg); 	
+	 			}
+		
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+	 				//无网络提示
+	 				sw.toast('获取数据失败，请检查网络链接'); 
+	 		})
+		
+		}
+		
+		//获取分享
+		updateSerivces();
+		if(plus.os.name=="Android"){
+			main = plus.android.runtimeMainActivity();
+			Intent = plus.android.importClass("android.content.Intent");
+			File = plus.android.importClass("java.io.File");
+			Uri = plus.android.importClass("android.net.Uri");
+		}
+ 	})
+	
+	// 创建下载任务
+	function createDownload(srcUrl) {
+		var timestamp = Date.parse(new Date());
+		timestamp = timestamp / 1000;
+		var suffix = cutImageSuffix(srcUrl); 
+		var fileName = '_downloads/card'+timestamp+ suffix ; 
+		var dtask = plus.downloader.createDownload( srcUrl, {
+                        method: 'GET',
+                        filename: fileName
+                    }, 
+                    function ( d, status ) {                  	
+                    	// 下载完成
+						if ( status == 200 ) { 													
+							plus.gallery.save( fileName, function () {
+								sw.toast('名片已成功保存到相册'); 
+							} );							
+						} else {
+							sw.toast('名片保存失败'); 
+						} 
+                    });
+		//dtask.addEventListener( "statechanged", onStateChanged, false );
+		dtask.start(); 
+	}
+	
+	// 截取图片后缀用于重命名图片，防止%E5%85%89%E6%98%8E%E8%A1%8C编码的文件不被系统相册识别；
+	function cutImageSuffix(imageUrl) {
+	    var index = imageUrl.lastIndexOf('.');
+	    return imageUrl.substring(index);
+	}	
+	
+	
+		/**
+         * 更新分享服务
+         */
+        function updateSerivces() {
+            plus.share.getServices(function(s) {
+                shares = {};
+                for (var i in s) {
+                    var t = s[i];
+                    shares[t.id] = t;
+                }
+//              outSet("获取分享服务列表成功");
+            }, function(e) {
+//              outSet("获取分享服务列表失败：" + e.message);  
+            });
+        }
+        /**
+         * 分享操作
+         */
+        function shareAction(id, ex) {
+        	        	
+        	var shareUrl = (id=='qq')?apkUrl:'';  
+            var s = null;
+            if (!id || !(s = shares[id])) {
+                sw.toast("无效的分享服务！");
+                return;
+            }
+            if (s.authenticated) {
+//              sw.toast("---已授权---");
+                shareMessage(s, ex,shareUrl);
+            } else {
+//              sw.toast("---未授权---");
+                s.authorize(function() {
+                    shareMessage(s, ex,shareUrl);
+                }, function(e) {
+//                  sw.toast("认证授权失败");
+                });
+            }
+        }
+        /**
+         * 发送分享消息
+         */
+        function shareMessage(s, ex,shareUrl) {
+      		var cardUrl = $("#cardUrl").attr('src');
+            var msg = {
+                href: shareUrl,//分享链接 apk 下载地址                         
+                title: '名片分享',        
+                content: '这是我的名片',
+                thumbs: [logBg],   
+                pictures: [cardUrl],    
+                extra: {
+                    scene: ex
+                }
+            };
+            s.send(msg, function() {
+				sw.toast('分享成功！')
+            }, function(e) {
+                sw.toast("取消分享");
+            });
+        }
+	
+	//分享到qq空间
+	function sharesQQZ(){
+		
+		var cardUrl = $("#cardUrl").attr('src');
+		var shareUrl = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=';
+			shareUrl += encodeURIComponent(document.location.href);
+			shareUrl += '&title=这是我的企业名片&pics='+cardUrl; 	
+			openBrowser(shareUrl); 
+			return false;
+	}
+
+	/**
+ * 分享发布到圈子
+ */
+function sharePublish(){
+	var cardUrl = $("#shareCard").val();
+	var cardId  = $("#cardId").val();
+	
+	var postData = {'publishType':4,'cardUrl':cardUrl,'cardId':cardId};  
+	
+		openView('../../../view/person/share/publish.html','person_share_publish','pop-in',postData);
+	
+}
+</script>
+</html>

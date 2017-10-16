@@ -1,0 +1,30 @@
+</div>
+<div style="clear: both"></div>
+</div>
+<script>
+    $(function(){
+        oneCaiDan();        //选中状态
+    });
+    /*展开一级菜单，默认选中第一个二级菜单*/
+    function showMenu(obj){
+//        清除先去选中属性
+        var src = $('.smallTitleDivActiveDiv').prev().find('.tuBiaoImg').attr('data_img');
+        $('.smallTitleDivActiveDiv').prev().find('.tuBiaoImg').attr('src',src);
+        $('.smallTitleDivActiveDiv').prev().find('.bigTitle').css('color','#676A6C');
+//        重新赋予选中状态
+        $('.smallTitleDiv').removeClass('smallTitleDivActiveDiv');
+        $(obj).parent().find('.smallTitleDiv').addClass('smallTitleDivActiveDiv');
+        oneCaiDan()
+    }
+    /*选中二级菜单*/
+    function showChildMenu(obj){
+        $('.smallTitle').removeClass('activeDIv');
+        $(obj).parent().addClass('activeDIv');
+    }
+    //    选中状态
+    function oneCaiDan(){
+        var src = $('.smallTitleDivActiveDiv').prev().find('.tuBiaoImg').attr('data_img_on');
+        $('.smallTitleDivActiveDiv').prev().find('.tuBiaoImg').attr('src',src);
+        $('.smallTitleDivActiveDiv').prev().find('.bigTitle').css('color','#FF625D')
+    }
+</script>

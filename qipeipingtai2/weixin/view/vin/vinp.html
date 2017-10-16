@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>VIN照片</title>
+    <link href="../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">   
+    </script>
+</head>
+<style>
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.sw-list-title1{
+		line-height:80px;font-size: 14px;color: #999;
+	}
+	.sw-img{
+		width: 80px;height: 80px;float: right;
+	}
+	.sw-icon-ca{
+		position: absolute;right: 16px;top: 12px;width: 14px;height: 14px;background: url(../../image/person/purchase/icon_zp_cha.png) no-repeat;background-size: contain;
+	}
+</style>
+<body style="background: #EFEFEF;">
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">VIN照片</h1>
+	</header>
+	
+	<div class="mui-content" style="background: #EFEFEF;">   
+		 <ul class="mui-table-view" style="margin-top:10px;">
+			 <li class="mui-table-view-cell sw-after-no sw-no-active" id="showCon" style="display: none;">		
+				<span class="sw-list-title1">VIN照片</span>
+				<img src="../../image/person/purchase/tianjiazp.png" class="sw-img" id="showImg"/>
+				<p class="sw-icon-ca" onclick="delImg()"></p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no" id="uploadCon">		
+				<span class="sw-list-title1">VIN照片</span>
+				<img src="../../image/person/purchase/tianjiazp.png" class="sw-img" id="F_CKJLB" onclick="showActionSheet(this);"/>
+			</li>
+		</ul>    
+	</div>
+	
+</body>
+ <script src="../../js/mui.min.js"></script>
+ <script src="../../js/global.js"></script>
+ <script src="../../js/jquery.min.js"></script>
+ <script type="text/javascript">
+ 	//mui初始化
+	mui.init({  
+	    beforeback: function() {  
+	    //获得列表界面的webview  
+	    var info = plus.webview.currentWebview().opener();  
+	    //触发列表界面的自定义事件（refresh）,从而进行数据刷新  
+	    mui.fire(info, 'vinBase64');  
+	    //返回true，继续页面关闭逻辑  
+	    return true;  
+	    }  
+	});
+	
+	
+//拍照 www.bcty365.com 
+function getImage() { 
+    var cmr = plus.camera.getCamera(); 
+    cmr.captureImage(function(p) { 
+        plus.io.resolveLocalFileSystemURL(p, function(entry) { 
+            var localurl = entry.toLocalURL(); //
+            showImg(localurl);
+        }); 
+    }); 
+} 
+//相册选取 
+function galleryImgs() { 
+    plus.gallery.pick(function(e) { 
+        //alert(e); 
+        showImg(e);
+    }, function(e) { 
+        sw.toast( "您已取消选择图片" ); 
+    }, { 
+        filter: "image" 
+    }); 
+} 
+
+/**
+ * 取消上传的图片
+ */
+function delImg(){
+	$("#showCon").hide();
+	$("#uploadCon").show();
+	
+	$("#showImg").attr('src','../../../image/person/purchase/tianjiazp.png');
+
+}
+
+function showActionSheet() { 
+    var bts = [{ 
+        title: "拍照" 
+    }, { 
+        title: "从相册选择" 
+    }]; 
+    plus.nativeUI.actionSheet({ 
+            cancel: "取消", 
+            buttons: bts 
+        }, 
+        function(e) { 
+            if (e.index == 1) { 
+                getImage(); 
+            } else if (e.index == 2) { 
+                galleryImgs(); 
+            } 
+            //outLine( "选择了\""+((e.index>0)?bts[e.index-1].title:"取消")+"\""); 
+        } 
+    ); 
+}   
+  
+  function showImg(srcImg){
+  	$("#showImg").attr('src',srcImg);
+    $("#showCon").show();
+    $("#uploadCon").hide();
+    //将图片写到画布
+    getBase64(srcImg); 
+  }
+  
+  
+  function getBase64(path) {
+			var img = new Image();
+			img.src = path; // 传过来的图片路径在这里用。
+
+			img.onload = function() {  
+
+				var that = this;
+				//生成比例 
+				var w = that.width,
+					h = that.height;
+				//	scale = w / h;
+				//w = 480 || w; //480  你想压缩到多大，改这里
+				//h = w / scale;
+				//生成canvas
+				var canvas = document.createElement('canvas');
+				var ctx = canvas.getContext('2d');
+				$(canvas).attr({
+					width: w,
+					height: h
+				});
+				ctx.drawImage(that, 0, 0, w, h);
+				var base64 = canvas.toDataURL('image/jpeg', 1 || 1); //1最清晰，越低越模糊。
+					//图片返回
+					mui.back();
+					//  
+					JsonStorage.setItem('base64',base64);
+					
+			}
+		}
+  
+ </script>
+</html>

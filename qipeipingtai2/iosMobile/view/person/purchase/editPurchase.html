@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>发布求购</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">
+      
+    </script>
+</head>
+<style>
+	.sw-list1{
+		padding-top: 8px;padding-bottom: 0;height: 25px;line-height: 16px;
+	}
+	.sw-list1:after{
+		height: 0; 
+	}
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important; 
+	}
+	.sw-pur-title{
+		font-size: 14px;color: #666;display: inline-block;width: 56px;
+	}
+	.sw-pur-title1{
+		font-size: 14px;color: #FF534C;display: inline-block;width: 56px;
+	}
+	.sw-pur-text{
+		font-size: 14px;color: #333!important;
+	}
+	.sw-date{
+		font-size: 12px;display:inline-block;color: #999;width: 50%;text-align: left;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	.sw-text-day{
+		float: right;font-size: 12px;color: #666;width: 40%;text-align: right;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	
+	.sw-payList p{
+		height: 21px;line-height: 24px;
+	}
+	.sw-payList:after{
+		height: 0;
+	}
+	.sw-no-img:after,.sw-no-img:before{
+		height: 0;
+	}
+	.sw-name{
+		font-size: 14px;display:inline-block;color: #333;font-weight:700;width: 100%;text-align: left;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	
+	.sw-table-box{
+		padding: 10px 15px 15px;
+	}
+	.sw-table{
+		text-align: center;width: 100%;
+	}
+	.sw-table-title{
+		color: #999999;font-size: 14px;font-weight: normal;line-height: 24px;
+	}
+	.sw-table-text{
+		color: #333333;font-size: 14px;line-height: 24px;
+	}
+	
+	.text-1{
+		width: 64px;
+	}
+	.text-3{
+		width: 78px;
+	}
+	.text-4{
+		width: 36px;
+	}
+	
+	.sw-list-title{
+		font-size: 14px!important;color: #999999;
+	}
+	.sw-list-text2{
+		float: right;margin-right:16px;font-size: 14px;color: #999;
+	}
+	
+	.sw-gou{
+		height:12px;width:12px;background: url(../../../image/person/purchase/xuanze.png) no-repeat;background-size: contain;display: inline-block;vertical-align: sub;margin-right: 4px;
+	}
+	.sw-quan{
+		height:12px;width:12px;background: url(../../../image/person/purchase/weixuanze.png) no-repeat;background-size: contain;display: inline-block;vertical-align: sub;margin-right: 4px;
+	}
+	.sw-list-title1{
+		font-size: 14px;
+	}
+	.sw-list-text1{
+		font-size: 12px;margin-left: 12px;color: #666;
+	}
+	.sw-memo{
+		font-size: 14px;overflow-y: scroll;padding: 0;margin-bottom: 0;color: #666666;border-radius: 0;
+	}
+
+.mui-popup-button:after {
+    width: 0px;
+}
+.mui-popup-inner:after {
+    height: 0px;
+}
+.mui-popup-button:first-child:last-child {
+    border-radius: 4px;
+}
+.sw-popu-btn{
+	width:70%;height:36px;line-height:14px;border-radius: 1px;margin: auto;font-size: 16px;
+}
+</style>
+<body style="background: #F5F5F5;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">发布求购</h1>
+	     <button class="mui-btn mui-btn-link mui-pull-right" onclick="savePurchase()">保存</button>
+	</header>
+	<div class="mui-content" style="background: #F5F5F5;">
+		<div id="infoList">
+			<ul class="mui-table-view" style="margin-top: 0;padding-bottom: 10px;">
+			 <li class="mui-table-view-cell sw-list1 sw-no-active">
+			 	<span class="sw-pur-title1">*商&nbsp;&nbsp;家：</span><span class="sw-pur-text" id="typeName"></span>
+			 </li>
+			 <li class="mui-table-view-cell sw-list1 sw-no-active" id="type">
+			 	<span class="sw-pur-title1">*车&nbsp;&nbsp;系：</span><span class="sw-pur-text" id="cat1234"></span>
+			 </li>
+			 <input type="text" name="carGroupId" id="carGroupId" value="" hidden="hidden"/>
+			 <input type="text" name="frameNumber" id="frameNumber" value="" hidden="hidden"/>
+			 <input type="text" name="publishStatus" id="publishStatus" value="1" hidden="hidden"/>
+			 
+			  <li class="mui-table-view-cell sw-list1 sw-no-active">
+			 	<span class="sw-pur-title">车架号：</span><span class="sw-pur-text" id="vinCode"></span>
+			 </li>
+	 	</ul>
+	 
+	 
+		<ul class="mui-table-view" style="margin-top: 10px;">
+			<li class="mui-table-view-cell sw-no-active">
+			 	<span class="sw-ctheme sw-list-title1">* 时效：</span>
+			 	<span class="sw-list-text1" onclick="limitTime(1,this)">
+			 		<p class="sw-gou sw-icon" ></p>1天
+			 	</span>
+			 	<span class="sw-list-text1" onclick="limitTime(2,this)">
+			 		<p class="sw-quan sw-icon" ></p>2天
+			 	</span>
+			 	<span class="sw-list-text1" onclick="limitTime(3,this)">
+			 		<p class="sw-quan sw-icon" ></p>3天
+			 	</span>
+			 	<input value="1" name="limitTime" id="limitTime" hidden="hidden"/>
+			</li>
+		</ul>
+	 
+		<ul class="mui-table-view" style="margin-top: 10px;">
+		    	
+			 <li class="mui-table-view-cell sw-payList sw-no-active" style="padding-bottom: 0;height: 32px;">
+			 	<span class="sw-name" >基本信息</span>		
+			 </li>	
+			 
+			<li class="mui-table-view-cell sw-after-r" id="vinp">
+				<a class="mui-navigate-right">
+					<span class="sw-list-title">VIN照片：</span>
+					<span class="sw-list-text2" id="vinNum">选择上传VIN照片</span>
+				</a>
+			</li>
+			
+			<li class="mui-table-view-cell sw-after-r" id="otherp">
+				<a class="mui-navigate-right">
+					<span class="sw-list-title">相关照片：</span>
+					<span class="sw-list-text2" id="otherpNum">选择上传相关照片</span>
+				</a>
+			</li>
+			
+			<div style="padding: 10px 15px 15px;">
+				<span style="font-size: 14px;color: #333;">备注：</span>
+				<div style="margin-left: 40px;margin-top: -20px;font-size: 12px;color: #999999;">
+			 		<textarea class="sw-memo" name="memo" id="memo" rows="3" maxlength="200" placeholder="请输入求购备注"></textarea>
+			 	</div>
+			</div>
+		</ul>  	 	
+	</div>  
+	    
+	 	
+ 	<ul class="mui-table-view" style="margin-top: 10px;margin-bottom: 40px;">
+	    	
+		 <li class="mui-table-view-cell sw-payList sw-no-active" style="padding-bottom: 0;height: 40px;">
+		 	<span class="sw-name" >采购清单</span><button type="button" id="peijian" class="mui-btn mui-btn-tangerine" style="padding: 4px 12px;font-size: 12px!important;border-radius: 6px;margin-top: 4px;">添加</button>		
+		 </li>		
+		<div class="sw-table-box">
+			<table class="sw-table" >
+				<thead>
+					<tr>						
+					<th class="sw-table-title text-2">配件类别</th>
+					<th class="sw-table-title text-3">数量</th>
+					<th class="sw-table-title text-4">备注</th>
+					<th class="sw-table-title text-1">操作</th>
+					</tr>
+				</thead>
+				<tbody id="purchaseList">
+					
+				</tbody>
+			</table>
+	    </div>
+    
+	</ul>
+	 	
+		<div id="popover" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;">
+		  
+		  <div style="width: 100%;padding: 20px 15px;">
+		  		<p><span style="color: #333;font-weight: 700;">添加配件</span><span style="float: right;" id="closePopover"><img src="../../../image/person/purchase/icon_qg_c.png" height="12px"></span></p>
+		  		<p>
+		  			<span style="font-size: 12px;" class="sw-ctheme">* 配件类别：</span>
+		  			<span>
+		  				<select id="categoryOne" onchange="setCategoryTwo(this.value)" style="width: 86px;height: 32px;border-radius:6px;margin-bottom: 0;padding:4px 14px 4px 6px;font-size: 12px;background: url(../../../image/person/purchase/icon_qg_xiala.png) no-repeat;background-position:70px;background-size: 8px;border: 1px solid #DDDDDD!important;">
+		  				 	<option>一级分类</option>
+		  				</select>
+		  			</span>
+		  			<span>
+		  				<select id="categoryTwo" style="width: 86px;height: 32px;border-radius:6px;margin-bottom: 0;padding:4px 14px 4px 6px;font-size: 12px;background: url(../../../image/person/purchase/icon_qg_xiala.png) no-repeat;background-position:70px;background-size: 8px;border: 1px solid #DDDDDD!important;">
+		  				 	<option>分类名称</option>
+		  				</select>
+		  			</span>
+		  		</p>
+		  		
+		  		<div>
+		  			<span style="font-size: 12px;width: 68px;display: inline-block;" class="sw-ctheme">* 数量：</span>
+		  			<div class="mui-numbox" data-numbox-min='1' style="width: 136px;">
+					<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+					<input class="mui-input-numbox" type="number" value="1" id="productNum"  style="" />
+					<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+					</div>
+		  		</div>
+		  		
+		  		<div style="padding-top: 10px;">
+		  			<span style="font-size: 12px;width: 68px;display: inline-block;" class="sw-ctheme">* 备注：</span>
+		  			<p style="margin-left: 72px;width: 100%;margin-top: -20px;">
+		  				<textarea id="productMemo" rows="4" placeholder="产品要区分左右、颜色时请标注清楚，方便经销商精准的和你报价" style="width:76%;font-size: 12px;margin-bottom: 0;"></textarea>					
+		  			</p>					
+		  		</div>
+		  		
+		  		
+		  		<div>					
+					<div style="width: 50%;float: left;text-align: center;">
+						<button onclick="delProduct(0)" id="delBtn" type="button" class="mui-btn mui-btn-tangerine" style="padding: 8px 28px;font-size: 14px!important;border-radius: 4px;margin-top: 4px;" id="type1">删除</button>
+					</div> 
+					<div style="width: 50%;float: left;text-align: center;">
+						<button onclick="saveProduct(0)" id="saveBtn" type="button" class="mui-btn mui-btn-blue" style="padding: 8px 28px;font-size: 14px!important;border-radius: 4px;margin-top: 4px;">保存</button>
+					</div>
+		  		</div>
+		  		
+		  		<div style="clear: both;"></div>
+		  </div>
+		  
+		</div>
+	 	
+	 	<div id="memoPopover" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;">
+		  
+		  <div style="width: 100%;padding: 20px 15px;">
+		  		<p><span style="color: #333;font-weight: 700;">备注</span><span style="float: right;" id="closeMemoPopover"><img src="../../../image/person/purchase/icon_qg_c.png" height="12px"></span></p>
+		  		<p id="qgMemo"></p>		  			
+		  </div>
+		  
+		</div>
+	 	
+	</div>
+	<!--配件列表模板-->
+<script id="product-list-tpl" type="text/html">
+	<tr class="sw-buy-list" id="product{{ d.listId }}" data-categoryTwoName="{{ d.categoryTwoName }}" data-productNum = "{{ d.productNum }}" data-categoryOne = "{{ d.categoryOne }}" data-categoryTwo = "{{ d.categoryTwo }}" data-productMemo = "{{ d.productMemo }}" >
+		<td class="sw-table-text">{{ d.categoryOneName }}/{{ d.categoryTwoName }}</td>
+		<td class="sw-table-text">{{ d.productNum }}</td>	
+		<td class="sw-table-text">
+			{{# if(d.productMemo){ }}
+			<img src="../../../image/person/purchase/icon_zhifu_shibai.png" width="14px" style="vertical-align: sub;"  onclick="popoverShow(this)">
+			<span style="display: none;">{{ d.productMemo }}</span>
+			{{# } }}
+		</td>		
+		<td class="sw-table-text" style="color:#00B2EA ;" onclick="editProduct('{{ d.listId }}')">编辑</td>
+	</tr>
+</script>	
+	<!--一级分类模板-->
+<script id="cateOne-list-tpl" type="text/html">
+	{{# var data = d.data;  var len =data.length;  }} 
+	{{# for(var i=0;i<len;i++){ }}
+	{{# if(data[i].id==d.id){ }}	
+	<option value="{{ data[i].id }}" selected="selected">{{ data[i].name }}</option>
+	{{# }else{ }}
+	<option value="{{ data[i].id }}">{{ data[i].name }}</option>
+	{{# } }}	
+	{{# } }}
+</script>
+	<!--二级分类模板-->
+<script id="cateTwo-list-tpl" type="text/html">
+	<option value="0">分类名称</option>
+	{{# var data = d.data;  var len =data.length;  }} 
+	{{# for(var i=0;i<len;i++){ }}
+	{{# if(data[i].id==d.id){ }}	
+	<option value="{{ data[i].id }}" selected="selected">{{ data[i].name }}</option>
+	{{# }else{ }}
+	<option value="{{ data[i].id }}">{{ data[i].name }}</option>
+	{{# } }}	
+	{{# } }}
+</script>
+<!--求购详情模板-->
+<script id="info-list-tpl" type="text/html">
+	<input type="number" name="purchaseId" id="purchaseId" value="{{ d.id }}" style="display: none;"/>
+	<ul class="mui-table-view" style="margin-top: 0;padding-bottom: 10px;">
+		 <li class="mui-table-view-cell sw-list1 sw-no-active">
+		 	<span class="sw-pur-title1">*商&nbsp;&nbsp;家：</span><span class="sw-pur-text" id="typeName">{{ d.carType }}</span>
+		 </li>
+		 <li class="mui-table-view-cell sw-list1 sw-no-active" id="type">
+		 	{{# var groups = d.groups; }}
+		 	<span class="sw-pur-title1">*车&nbsp;&nbsp;系：</span><span class="sw-pur-text" id="cat1234">{{ groups.oneName }}/{{ groups.twoName }}/{{ groups.threeName }}/{{ groups.fourName }}</span>
+		 </li>
+		 <input type="text" name="carGroupId" id="carGroupId" value="{{ d.car_group_id }}" hidden="hidden"/>
+		 <input type="text" name="frameNumber" id="frameNumber" value="{{ d.frame_number }}" hidden="hidden"/>
+		 <input type="text" name="publishStatus" id="publishStatus" value="1" hidden="hidden"/>
+		 
+		  <li class="mui-table-view-cell sw-list1 sw-no-active">
+		 	<span class="sw-pur-title">车架号：</span><span class="sw-pur-text" id="vinCode">{{ d.frame_number }}</span>
+		 </li>
+ 	</ul>
+	 
+	 
+	<ul class="mui-table-view" style="margin-top: 10px;">
+		<li class="mui-table-view-cell sw-no-active">
+		 	<span class="sw-ctheme sw-list-title1">* 时效：</span>
+		 	
+		 	<span class="sw-list-text1" onclick="limitTime(1,this)">
+		 		{{# if(d.limitation==1){ }}
+		 		<p class="sw-gou sw-icon" ></p>1天
+		 		{{# }else{ }}
+		 		<p class="sw-quan sw-icon" ></p>1天
+		 		{{# } }}
+		 	</span>
+		 	<span class="sw-list-text1" onclick="limitTime(2,this)">
+		 		{{# if(d.limitation==2){ }}
+		 		<p class="sw-gou sw-icon" ></p>2天
+		 		{{# }else{ }}
+		 		<p class="sw-quan sw-icon" ></p>2天
+		 		{{# } }}
+		 	</span>
+		 	<span class="sw-list-text1" onclick="limitTime(3,this)">
+		 		{{# if(d.limitation==3){ }}
+		 		<p class="sw-gou sw-icon" ></p>3天
+		 		{{# }else{ }}
+		 		<p class="sw-quan sw-icon" ></p>3天
+		 		{{# } }}
+		 	</span>
+		 	<input value="{{ d.limitation }}" name="limitTime" id="limitTime" hidden="hidden"/>
+		</li>
+	</ul>
+	 
+	<ul class="mui-table-view" style="margin-top: 10px;">
+	    	
+		 <li class="mui-table-view-cell sw-payList sw-no-active" style="padding-bottom: 0;height: 32px;">
+		 	<span class="sw-name" >基本信息</span>		
+		 </li>	
+		 
+		<li class="mui-table-view-cell sw-after-r" id="vinp">
+			<a class="mui-navigate-right">
+				<span class="sw-list-title">VIN照片：</span>
+				{{# if(d.vin_pic){ }}
+				<span class="sw-list-text2" id="vinNum">1张</span>
+				{{# }else{ }}
+				<span class="sw-list-text2" id="vinNum">选择上传VIN照片</span>
+				{{# } }}
+			</a>
+		</li>
+		
+		<li class="mui-table-view-cell sw-after-r" id="otherp">
+			<a class="mui-navigate-right">
+				<span class="sw-list-title">相关照片：</span>
+				{{# var aboutPic = d.wantPic; var aboutLen = aboutPic.length; }}
+				{{# if(aboutLen>0){ }}
+				<span class="sw-list-text2" id="otherpNum">{{ aboutLen }}张</span>
+				{{# }else{ }}
+				<span class="sw-list-text2" id="otherpNum">选择上传相关照片</span>
+				{{# } }}
+			</a>
+		</li>
+		
+		<div style="padding: 10px 15px 15px;">
+			<span style="font-size: 14px;color: #333;">备注：</span>
+			<div style="margin-left: 40px;margin-top: -20px;font-size: 12px;color: #999999;">
+		 		<textarea class="sw-memo" name="memo" id="memo" rows="3" maxlength="200" placeholder="请输入求购备注">{{ d.memo }}</textarea>
+		 	</div>
+		</div>
+	</ul> 
+</script>
+<!--配件列表模板-->
+<script id="product1-list-tpl" type="text/html">
+	{{# var len = d.length; for(var i=0;i<len;i++){ }}
+	<tr class="sw-buy-list" id="product{{ i }}" data-categoryTwoName="{{ d[i].cate_2_name }}" data-productNum = "{{ d[i].amount }}" data-categoryOne = "{{ d[i].pro_cate1 }}" data-categoryTwo = "{{ d[i].pro_cate2 }}" data-productMemo = "{{ d[i].list_memo }}" >
+		<td class="sw-table-text">{{ d[i].cate_1_name }}/{{ d[i].cate_2_name }}</td>
+		<td class="sw-table-text">{{ d[i].amount }}</td>	
+		<td class="sw-table-text">
+			{{# if(d[i].list_memo){ }}
+			<img src="../../../image/person/purchase/icon_zhifu_shibai.png" width="14px" style="vertical-align: sub;"  onclick="popoverShow(this)">
+			<span style="display: none;">{{ d[i].list_memo }}</span>
+			{{# } }}
+		</td>		
+		<td class="sw-table-text" style="color:#00B2EA ;" onclick="editProduct('{{ i }}')">编辑</td> 
+	</tr>
+	{{# } }}
+</script>
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/laytpl/laytpl.js"></script> 
+  <script type="text/javascript" charset="utf-8">
+  //mui初始化
+	mui.init();
+	
+	//mui plusReady
+	mui.plusReady(function() { 
+		//数据初始化
+		plus.storage.removeItem('series');
+		plus.storage.removeItem('vinp_pic');
+		plus.storage.removeItem('otherp');	
+		//初始化配件类别
+		setCategory();
+		//获取vin查询页面		
+		var self   = plus.webview.currentWebview();	
+		var purchaseId = self.purchaseId;
+		//获取求购详情
+			getPurchaseInfo(purchaseId);
+		
+	})
+  	//监听车系选择返回事件
+ 	 window.addEventListener('refreshSeries',function(){ 	 	
+ 	 	var series = JSON.parse(plus.storage.getItem('series'));
+ 	 	var carGroupId = series?series.carGroupId:'';
+ 	 	var cat_1234_name = series?series.cat_1234_name:'';
+ 	 	var typeName = series?series.typeName:'';
+	 	
+ 	 	$("#typeName").text(typeName);
+ 	 	$("#cat1234").text(cat_1234_name);
+ 	 	$("#carGroupId").val(carGroupId);
+		
+	});
+  
+  	//监听vinp上传返回事件
+ 	 window.addEventListener('vinpUpload',function(){ 	 	
+ 	 	var vinp_pic = plus.storage.getItem('vinp_pic');
+ 	 	if(vinp_pic!=undefined){
+ 	 		$("#vinNum").text('1张');
+ 	 	}else{
+ 	 		$("#vinNum").text('选择上传VIN照片');
+ 	 	}
+	});
+  
+  	//监听otherp上传返回事件
+ 	 window.addEventListener('otherpUpload',function(){ 	 	
+ 	 	var otherp = plus.storage.getItem('otherp');
+ 	 	if(otherp!=undefined){
+ 	 		otherp = JSON.parse(otherp);
+ 	 		var len = otherp.length;
+ 	 		if(len>0){
+ 	 			$("#otherpNum").text(len+'张');
+ 	 		}else{
+ 	 			$("#otherpNum").text('选择上传相关照片');
+ 	 		}
+ 	 	}else{
+ 	 		$("#otherpNum").text('选择上传相关照片');
+ 	 	}
+	});
+	
+  var listId = 1;
+  //获取求购详细信息
+  function getPurchaseInfo(purchaseId){
+  		
+  	var self   = plus.webview.currentWebview();		
+	var token  = plus.storage.getItem('token');
+    //请求经销商数据
+	//加载弹窗
+	loading('加载中...'); 
+	//获取数据
+	http.load('api.sev.purchase','getWantDetail',{'wantId':purchaseId,'token':token},function(rData){
+		//关闭加载框
+		closeLoading(300);
+		if(rData.status==200){				
+			var info = rData.data;		
+			dy(info)
+			//初始化公司信息					 	 				
+		 	var infoTpl   = $('#info-list-tpl').html();	 		
+	        laytpl(infoTpl).render(info,function(render){            
+	            $('#infoList').html(render);    
+	        });
+	        
+	        //将数据保存到本地 
+			plus.storage.setItem('vinp_pic',info.vin_pic);
+			
+			//将图片保存
+			var imgList = [];	
+			var aboutPic = info.wantPic;
+			
+			var aboutLen = aboutPic.length;
+	        for(var j = 0;j < aboutLen; j++){	
+				imgList.push(aboutPic[j].pic_url);
+			}
+			//其他相关条件
+			plus.storage.setItem('otherp',JSON.stringify(imgList));
+			var groups = info.groups;
+			 
+			var cat_1234_name = groups.oneName+'/'+groups.twoName+'/'+groups.threeName+'/'+groups.fourName;
+			var series = {'carGroupId':groups.fourId,'cat_1234_name':cat_1234_name,'typeName':info.carType};
+			plus.storage.setItem('series',JSON.stringify(series));		
+			
+	        /**
+			 * 上传vin照片  
+			 */
+			mui("#vinp")[0].addEventListener('tap',function(){
+				openView('../../../view/person/purchase/vinp.html','person_purchase_vinp','pop-in');
+			})
+			
+			/**
+			 * 上传相关照片
+			 */
+			mui("#otherp")[0].addEventListener('tap',function(){
+				openView('../../../view/person/purchase/otherp.html','person_purchase_vinp','pop-in');
+			})
+	        //配件列表
+	        var wantList = info.wantList;
+	      
+	        var wantLen = wantList.length;
+	        	listId  = wantLen;
+        	
+	        var pTpl = $('#product1-list-tpl').html();	 				
+
+		        laytpl(pTpl).render(wantList,function(render){            
+		            $('#purchaseList').append(render);    
+		        });	
+	        
+	       
+	        		
+	        
+		}else{
+			sw.toast(rData.msg); 
+		}
+		   	 
+	},function(xhr,type,errorThrown){			
+	 		//关闭加载框
+			closeLoading();		
+			//无网络提示
+			sw.toast('获取数据失败，请检查网络'); 	
+	}) 
+  	
+  	
+  }
+  
+	//根据车架页面传递的数据 获取车系相关
+	function getCarGroupByVin(brand,salesVersion,typeName,vinCode){
+  		var token   = plus.storage.getItem('token');	
+  		var postdata = {};
+  			postdata.brand = brand;
+  			postdata.salesVersion = salesVersion; 
+  			postdata.typeName = typeName; 
+  			postdata.token = token; 
+//		dy(postdata)
+  		loading('加载中...');
+		//如果已经登陆 获取登录后的数据
+		http.load('api.sev.purchase','getCarGroupByVin',postdata,function(rData){//请求成功
+			closeLoading();	      			
+			if(rData.status==200){
+				var data = rData.data;
+				var carGroupId = data.fourId;
+		 	 	var cat_1234_name = data.oneName+'/'+data.twoName+'/'+data.threeName+'/'+data.fourName;
+			 	
+		 	 	$("#typeName").text(typeName);
+		 	 	$("#cat1234").text(cat_1234_name);
+		 	 	$("#carGroupId").val(carGroupId);
+		 	 	$("#vinCode").text(vinCode);
+			}else{
+				sw.toast(rData.msg); 
+			}
+		},function(){
+			closeLoading();	
+			//无网络提示
+ 			//sw.toast('请求失败，服务器或网络异常');
+		});
+
+  	}
+  
+  
+  	//初始化配件类别
+  	function setCategory(id){
+  		 //保存材料信息
+        http.load('api.sev.purchase','getCategoryOne',{},function(rData){//请求成功    	
+        	sw.toast(rData.msg);          	
+        	if(rData.status==200){  
+        		var res = {}; 
+				 	res.id  = id; 
+				 	res.data = rData.data; 
+//				sw.jcon(res);  
+			 	var pTpl   = $('#cateOne-list-tpl').html();	 		
+		        laytpl(pTpl).render(res,function(render){              
+		            $('#categoryOne').html(render);    
+		        });	
+		        //初始化二级分类
+		        var pid = rData.data[0].id;  
+		        setCategoryTwo(pid,0);
+        	}     	
+        },function(xhr,type,errorThrown){//请求失败 将之前的数据填入		
+				//无网络提示
+				sw.toast('请求失败，请检查网络'); 
+		})
+  	}
+  
+  	//设置二级配件类别
+  	function setCategoryTwo(pid,id){
+  		 //保存材料信息
+        http.load('api.sev.purchase','getCategoryTwo',{'pid':pid},function(rData){//请求成功    	
+        	sw.toast(rData.msg);          	
+        	if(rData.status==200){       		
+				var res = {}; 
+				 	res.id  = id; 
+				 	res.data = rData.data;  
+//				 	sw.jcon(res);
+			 	var pTpl   = $('#cateTwo-list-tpl').html();	 		
+		        laytpl(pTpl).render(res,function(render){            
+		            $('#categoryTwo').html(render);    
+		        });				
+        	}     	
+        },function(xhr,type,errorThrown){//请求失败 将之前的数据填入		
+				//无网络提示
+				sw.toast('请求失败，请检查网络'); 
+		})
+  	}
+  
+  
+  	//选择时间限制
+  	function limitTime(day,j){ 		 
+  		$("#limitTime").val(day);
+  		$(".sw-icon").removeClass('sw-gou').addClass('sw-quan');
+  		$(j).find('p').addClass('sw-gou').removeClass('sw-quan'); 		
+  	}
+  
+  	
+	
+	
+	//添加配件
+	mui("#peijian")[0].addEventListener('tap',function(){
+		$("#productMemo").attr('readonly','true');
+		mui('#popover').popover('show'); 
+		setTimeout(function(){
+			$("#productMemo").removeAttr("readonly");
+			$("#productMemo").blur();
+		},50)
+		//按钮
+		$("#saveBtn").attr('onclick','saveProduct(0)');
+		$("#delBtn").attr('onclick','delProduct(0)');
+		//初始化配件类别
+		setCategory(0);
+		//初始化备注
+		$("#productMemo").val('');  
+		//初始化数量
+		$("#productNum").val(1);
+	})
+	 
+	mui("#closePopover")[0].addEventListener('tap',function(){
+		mui('#popover').popover('hide');
+	})
+	
+	
+	//保存配件列表
+	function saveProduct(ProductId){	
+		
+		var categoryOne = $("#categoryOne").val();
+		var categoryOneName = $("#categoryOne").find("option:selected").text();
+		var categoryTwo = $("#categoryTwo").val();
+		var categoryTwoName = $("#categoryTwo").find("option:selected").text();
+		var productMemo = $.trim($("#productMemo").val());
+		var productNum  = $("#productNum").val();
+		if(categoryTwo==0){
+			sw.toast('请选择二级分类'); 
+			return;
+		}   
+		
+		var data = {};			
+			data.categoryOne = categoryOne;
+			data.categoryOneName = categoryOneName;
+			data.categoryTwo = categoryTwo;
+			data.categoryTwoName = categoryTwoName;
+			data.productMemo = productMemo;
+			data.productNum  = productNum;
+//			sw.jcon(data)			
+		var pTpl = $('#product-list-tpl').html();	 	
+		if(ProductId==0){			
+		 	data.listId = listId;		
+	        laytpl(pTpl).render(data,function(render){            
+	            $('#purchaseList').append(render);    
+	        });	
+	        
+	        listId++;
+        }else{
+        	data.listId = ProductId;
+        	laytpl(pTpl).render(data,function(render){ 
+        		$("#product"+ProductId).after(render);
+        		$("#product"+ProductId).remove();   
+	        });        	
+        }		
+		mui('#popover').popover('hide');
+	}
+	
+	//显示弹窗
+	function popoverShow(j){
+		var qgMemo = $(j).next().text();
+//		sw.jcon(qgMemo);
+		$("#qgMemo").text(qgMemo);		
+		mui('#memoPopover').popover('show');
+	}
+	//关闭弹窗	
+	mui("#closeMemoPopover")[0].addEventListener('tap',function(){
+		mui('#memoPopover').popover('hide');
+	})
+	
+	//编辑配件
+	function editProduct(productId){ 
+		var con = $("#product"+productId);
+		var categoryOne = con.attr('data-categoryOne');
+		var categoryTwo = con.attr('data-categoryTwo');
+		var productMemo = con.attr('data-productMemo');
+		var productNum  = con.attr('data-productNum');
+		var categoryTwoName  = con.attr('data-categoryTwoName');
+		
+		var data = [{"id":categoryTwo,"name":categoryTwoName}];
+		var res = {}; 
+		 	res.id   = categoryTwo; 
+		 	res.data = data; 
+	 	var pTpl   = $('#cateTwo-list-tpl').html();	 		
+	        laytpl(pTpl).render(res,function(render){  
+	            $('#categoryTwo').html(render);    
+	        });	
+		//初始化配件选择
+		$("#categoryOne").val(categoryOne);
+		setCategoryTwo(categoryOne,categoryTwo);
+		
+		$("#productMemo").val(productMemo);
+		$("#productNum").val(productNum);
+		
+		//按钮
+		$("#saveBtn").attr('onclick','saveProduct('+productId+')');
+		$("#delBtn").attr('onclick','delProduct('+productId+')');
+		//打开弹窗
+		$("#productMemo").attr('readonly','true');
+		mui('#popover').popover('show'); 
+		setTimeout(function(){
+			$("#productMemo").removeAttr("readonly");
+			$("#productMemo").blur();
+		},50)			
+	}
+	
+	/**
+	 * 删除配件
+	 */
+	function delProduct(productId){		 
+		if(productId!=0){
+			$("#product"+productId).remove();
+		}	
+		mui('#popover').popover('hide');
+	}
+	
+	/**
+	 * 发布求购
+	 */
+	function savePurchase(){
+		var buyId = $("#purchaseId").val();//求购Id
+		
+		var carGroupId = $("#carGroupId").val();//车系
+		var frameNumber= $("#frameNumber").val();//车架号
+		var limitation = $("#limitTime").val();//时效
+		
+		var vin_pic    = plus.storage.getItem('vinp_pic'); //vin照片
+			vin_pic    = vin_pic!=undefined?vin_pic:'';
+			
+		var otherp     = plus.storage.getItem('otherp');//其他相关照片
+		var otherpList = [];
+			if(otherp!=undefined){
+	 	 		otherp = JSON.parse(otherp);
+	 	 		var len = otherp.length;
+	 	 		if(len>0){
+	 	 			otherpList = otherp;
+	 	 		}
+	 	 	}
+		var memo = 	$.trim($("#memo").val());//备注
+			
+		var buyList = $("#purchaseList").find('tr');
+		
+		var buyArr = [];
+		
+		$.each(buyList,function(){
+			
+			var buyChild  = {};
+			    buyChild.pro_cate1 = $(this).attr('data-categoryOne');
+			    buyChild.pro_cate2 = $(this).attr('data-categoryTwo');
+			    buyChild.amount    = $(this).attr('data-productNum');
+			    buyChild.list_memo = $(this).attr('data-productMemo');
+			
+			buyArr.push(buyChild);		
+		})
+		
+		if(carGroupId==''){
+			sw.toast('请选择您要求购的车系');
+			return;
+		}
+		
+		buyLen = buyArr.length;
+		if(buyLen<1){
+			sw.toast('请添加采购清单');
+			return;
+		}
+		
+		 var token = ''; 
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+			token   = plus.storage.getItem('token');	
+		}else{
+			sw.toast('您还未登录，请先登陆才能发布求购');
+			return;
+		}
+		
+		var postData = {};
+			postData.token = token;
+			postData.buyId = buyId; 
+			
+			postData.car_group_id = carGroupId;
+			postData.frame_number = frameNumber;
+			postData.limitation   = limitation;
+			postData.vin_pic      = vin_pic;
+			postData.memo 		  = memo;
+			
+			postData.otherp       = otherpList;
+			postData.buyArr       = buyArr;
+			
+			mui.confirm('确认保存？', '&nbsp;', ['<span class="mui-popup-button mui-btn sw-popu-btn" style="color:#333">确认</span>','<span class="mui-popup-button mui-btn mui-btn-blue sw-popu-btn">取消</span>' ], function(e) {				
+					var publishStatus = $("#publishStatus").val();
+					if (e.index == 1&&publishStatus==1) {//确认
+						
+						$("#publishStatus").val(0); 
+						loading('保存中...');
+						//如果已经登陆 获取登录后的数据
+						http.load('api.sev.purchase','editPurchase',postData,function(rData){//请求成功
+							closeLoading();	
+							sw.toast(rData.msg); 
+							if(rData.status==200){
+				 				//发布求购成功
+								setTimeout(function(){
+									/*var person = plus.webview.getWebviewById("person_purchase_index");									
+										person.reload(true); */
+									//前往发布列表
+									openView('../../../view/person/purchase/index.html','person_purchase_index','pop-in');
+									
+								},1000)	
+							}
+							
+						},function(){
+							closeLoading();	
+							//无网络提示
+				 			//sw.toast('请求失败，服务器或网络异常');
+						});
+												
+					}				
+				},'div')
+				$('.mui-popup-button').css('font-size','16px');			
+	}
+</script>
+</html>

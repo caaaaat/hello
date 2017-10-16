@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>企业名片模板</title>
+    <link rel="stylesheet" href="../../../../../css/mui.min.css" />
+    <link rel="stylesheet" href="../../../../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	.sw-input{
+		text-align: left;
+		height: 48px!important;
+		font-size: 14px!important;
+		text-align: center;
+		border: none!important;
+	}
+	.sw-title-1{
+		width: 33.3%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+	}
+	.sw-list-title3{
+		line-height:40px;font-size: 12px;color: #666;
+	}
+	.card-box1{
+		width: 100%;height: 160px;max-width:300px;background: #FFFFFF;border-radius: 4px;margin: auto;
+	}
+	.sw-list-title{
+		font-size: 12px;color: #666;width: 70px;display: inline-block;
+	}
+	.sw-list-input1{
+		border: none;height: 21px;font-size:12px;padding-left: 12px;width: 60%;
+	}
+	.sw-after-no:after{
+		height: 0;
+	}
+	.sw-img-r{
+		float: right;width: 20px;
+	}
+	.sw-img{
+		width: 60px;height: 60px;float: right;margin-left: 4px;
+	}
+	.sw-img1{
+		width: 40px;height: 40px;float: right;margin-left: 4px;
+	}
+</style>
+<body style="background: #efefef;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">企业名片模板</h1>
+	</header>
+	<div class="mui-content" style="background: #efefef;">		
+	    <div class="mui-input-row" style="margin-bottom: 30px;padding-top: 20px;" id="tplCon">
+	    	
+			
+	    </div>	
+	</div>
+<script id="tpl-list-tpl" type="text/html">
+	{{# if(d.type==1){ }}
+	<div class="mui-card" onclick="editCard(1)" style="background: url('../../../../../image/card-bg1.jpg') no-repeat;background-size:cover;color: #FFFFFF;">
+		<div class="mui-card-content">
+			<div class="mui-card-content-inner" style="padding-bottom:4px;">
+				<div style="font-size: 18px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;color: #333;">{{ d.companyname }}</div>
+			 	<div style="padding-top: 8px;padding-bottom: 8px;" class="sw-word-one">
+			 		{{# var len = d.icon.length; if(len>0){ }}
+			 		{{#   for(var i=0;i<len;i++){ }}
+			 		<img src="{{ imgUrl+d.icon[i].img }}" class="icoImgs" height="40px" width="40px" style="border-radius:50%;vertical-align: middle;margin-right: 4px;">
+			 		{{# } }}     
+			 		{{# } }}    
+			 		<span style="color: #333;">联系人：{{ d.linkMan }}</span>
+			 	</div>	 
+			 	<div style="padding-right: 90px;position: relative;height: 80px;">
+			 		<p style="color: #333;line-height: 20px;margin-bottom: 0;" class="sw-word-one">手机：{{ d.phoneStr }}</p>
+			 		<p style="color: #333;line-height: 20px;margin-bottom: 0;" class="sw-word-one">电话：{{ d.telStr }}</p>
+			 		<p style="color: #333;line-height: 20px;margin-bottom: 0;" class="sw-word-one">Q&nbsp;&nbsp;Q：{{ d.qqStr }}</p>
+			 		<p style="color: #333;line-height: 20px;margin-bottom: 0;" class="sw-word-two">地址：{{ d.address }}</p>
+			 		<img src="{{ imgUrl+d.QR_pic }}" class="erWeiMaImg" width="80px" height="80px" style="position: absolute;top: 0;right: 0;"/>
+			 	</div>
+			 	<div style="text-align: center;line-height: 24px;font-size: 12px;color: black;">本名片由《汽配群》生成</div> 
+			</div>
+		</div>    
+	</div>   
+			
+	<div class="mui-card" onclick="editCard(2)" style="background: url('../../../../../image/card-bg2.jpg') no-repeat;background-size:cover;color: #FFFFFF;">
+		<div class="mui-card-content">
+			<div class="mui-card-content-inner" style="padding-bottom:4px;">
+				<div style="font-size: 18px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;color: #333;">{{ d.companyname }}</div>
+			 	<div style="padding-top: 8px;padding-bottom: 8px;" class="sw-word-one">
+			 		<span style="margin-right: 4px;color: #333;">联系人：{{ d.linkMan }}</span>
+			 		{{# var len = d.icon.length; if(len>0){ }}
+			 		{{#   for(var i=0;i<len;i++){ }}
+			 		<img src="{{ imgUrl+d.icon[i].img }}" class="icoImgs" width="40px" height="40px" style="border-radius:50%;vertical-align: middle;margin-right: 4px;">
+			 		{{# } }}    
+			 		{{# } }}        		
+			 	</div>	 
+			 	<div style="padding-left: 90px;position: relative;height: 80px;overflow: hidden;">
+			 		<p style="color: #333;line-height: 20px;margin-bottom: 0;" class="sw-word-one">手机：{{ d.phoneStr }}</p>
+			 		<p style="color: #333;line-height: 20px;margin-bottom: 0;" class="sw-word-one">电话：{{ d.telStr }}</p>
+			 		<p style="color: #333;line-height: 20px;margin-bottom: 0;" class="sw-word-one">Q&nbsp;&nbsp;Q：{{ d.qqStr }}</p>
+			 		<p style="color: #333;line-height: 20px;margin-bottom: 0;" class="sw-word-two">地址：{{ d.address }}</p>
+			 		<img src="{{ imgUrl+d.QR_pic }}" class="erWeiMaImg" width="80px" height="80px" style="position: absolute;top: 0;left: 0;"/>
+			 	</div> 
+			 	<div style="text-align: center;line-height: 24px;font-size: 12px;color: black;">本名片由《汽配群》生成</div> 
+			</div>
+		</div>  
+	</div> 
+	
+	{{# }else{ }}
+	
+	<div class="mui-card" onclick="editCard(1)" style="background: url('../../../../../image/card-bg3.jpg') no-repeat;background-size:cover;color: #FFFFFF;">
+		<div class="mui-card-content">
+			<div class="mui-card-content-inner" style="padding-bottom:4px;">
+				<div style="font-size: 18px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">{{ d.companyname }}</div>
+			 	<div style="padding-top: 0;padding-bottom: 4px;">
+			 		<p style="color: #FFFFFF;line-height: 20px;margin-bottom: 0;" class="sw-word-one">联系人：{{ d.linkMan }}</span>
+			 		<p style="color: #FFFFFF;line-height: 20px;margin-bottom: 0;" class="sw-word-two">{{ d.major }}</p>  
+			 	</div>	 
+			 	<div style="padding-right: 90px;position: relative;height: 80px;">
+			 		<p style="color: #FFFFFF;line-height: 20px;margin-bottom: 0;" class="sw-word-one">手机：{{ d.phoneStr }}</p>
+			 		<p style="color: #FFFFFF;line-height: 20px;margin-bottom: 0;" class="sw-word-one">电话：{{ d.telStr }}</p>
+			 		<p style="color: #FFFFFF;line-height: 20px;margin-bottom: 0;" class="sw-word-one">Q&nbsp;&nbsp;Q：{{ d.qqStr }}</p>
+			 		<p style="color: #FFFFFF;line-height: 20px;margin-bottom: 0;" class="sw-word-two">地址：{{ d.address }}</p>
+			 		<img src="{{ imgUrl+d.QR_pic }}" width="80px" class="erWeiMaImg" height="80px" style="position: absolute;top: 2px;right: 0;"/>
+			 	</div>
+			 	<div style="text-align: center;line-height: 24px;font-size: 12px;color: white;">本名片由《汽配群》生成</div> 
+			</div>
+		</div> 
+	</div> 
+		
+	<div class="mui-card" onclick="editCard(2)" style="background: url('../../../../../image/card-bg4.jpg') no-repeat;background-size:cover;color: #FFFFFF;">
+		<div class="mui-card-content">
+			<div class="mui-card-content-inner" style="padding-bottom:4px;">
+				<div style="font-size: 18px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;color: #333;">{{ d.companyname }}</div>
+			 	<div style="padding-top: 0;padding-bottom: 4px;">
+			 		<p style="color: #333;line-height: 24px;margin-bottom: 0;" class="sw-word-one">联系人：{{ d.linkMan }}</span>
+			 		<p style="color: #333;line-height: 20px;margin-bottom: 0;" class="sw-word-two">{{ d.major }}</p>  				 		
+			 	</div>	 
+			 	<div style="padding-left: 90px;position: relative;height: 80px;overflow: hidden;">
+			 		<p style="color: #333;line-height: 20px;margin-bottom: 0;" class="sw-word-one">手机：{{ d.phoneStr }}</p>
+			 		<p style="color: #333;line-height: 20px;margin-bottom: 0;" class="sw-word-one">电话：{{ d.telStr }}</p>
+			 		<p style="color: #333;line-height: 20px;margin-bottom: 0;" class="sw-word-one">Q&nbsp;&nbsp;Q：{{ d.qqStr }}</p>
+			 		<p style="color: #333;line-height: 20px;margin-bottom: 0;" class="sw-word-two">地址：{{ d.address }}</p>
+			 		<img src="{{ imgUrl+d.QR_pic }}" width="80px" class="erWeiMaImg" height="80px" style="position: absolute;top: 2px;left: 0;"/>
+		 		</div> 
+			 	<div style="text-align: center;line-height: 24px;font-size: 12px;color: black;">本名片由《汽配群》生成</div> 
+			</div>
+		</div>  
+	</div>
+	{{# } }}
+</script>	
+</body> 
+<script src="../../../../../js/mui.min.js"></script>
+<script src="../../../../../js/global.js"></script>
+<script src="../../../../../js/jquery.min.js"></script>
+<script src="../../../../../js/laytpl/laytpl.js"></script>
+ <script type="text/javascript">
+ 		//mui初始化
+	mui.init(); 	
+	//mui plusReady
+	mui.plusReady(function() { 
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+			//加载弹窗
+			loading('加载中...'); 
+			var self = plus.webview.currentWebview();		//获取传递的参数
+			var	tokenId = self.tokenId;						//业务员工资表ID	
+			var postData = {};
+				postData.token = tokenId;				
+			//如果已经登陆 获取登录后的数据  
+			http.load('api.sev.salesmanSouCang','getCardTplInfo',postData,function(rData){//请求成功
+	 			sw.jcon(rData)  
+	 			if(rData.status==200){  
+	 				var data = rData.data; 0
+			 		//数据读取
+			 		var tplTpl = $('#tpl-list-tpl').html();			
+			        laytpl(tplTpl).render(data,function(render){           
+			            $("#tplCon").append(render); 
+			        });
+			       
+	 			}else{  
+	 				sw.toast(rData.msg); 	 
+	 			}
+		 		//关闭加载框
+				closeLoading();	 
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+	 				//关闭加载框
+					closeLoading();	
+	 				//无网络提示
+	 				sw.toast('获取数据失败，请检查网络链接'); 
+	 		}) 		  
+		}
+ 	}) 
+	
+	/**
+	 * 编辑名片页面
+	 * @param {Object} tplId
+	 */
+	function editCard(tplId){		
+		var erWeiMaImg = $('.erWeiMaImg').attr('src');
+		var leng = $('.icoImgs').length;
+		var ico1 = '';
+		var ico2 = '';
+		var ico3 = '';
+		if(leng>0){
+			for(var i=0; i<leng; ++i){
+				if(i==0){
+					ico1 = $('.icoImgs').eq(i).attr('src');
+				}else if(i==1){
+					ico2 = $('.icoImgs').eq(i).attr('src');
+				}else if(i==2){
+					ico3 = $('.icoImgs').eq(i).attr('src');
+				}
+			}
+		}
+		var self = plus.webview.currentWebview();		//获取传递的参数
+		var	tokenId = self.tokenId;						//业务员工资表ID	
+		openView('../../../../../view/person/salesman/store/info/editCard.html','person_salesman_store_info_editCard','pop-in',{'tplId':tplId,'tokenId':tokenId,'erImg':erWeiMaImg,'ico1':ico1,'ico2':ico2,'ico3':ico3});	
+	}
+	
+ </script> 
+</html>

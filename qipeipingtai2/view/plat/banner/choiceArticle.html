@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>咨询列表</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.32x32.ico">
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <!--<link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">-->
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .wrapper-content{padding-top: 2px;}
+        .yh_span{  width: 350px;  display: inline-block;  overflow:hidden;  text-overflow:ellipsis;  white-space:nowrap;}
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content" style="padding-bottom: 0">
+    <div class="row" style="padding-left: 0;">
+        <div class="col-xs-6 col-sm-6 input-group">
+            <input type="text" class="form-control input-xs" id="searchKey" placeholder="<?php echo $placeholder ;?>"/>
+            <span class="input-group-btn"><button type="submit" class="btn btn-primary" id="found"> 搜 索 </button></span>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+</div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <!--列表开始-->
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th style="text-align: center;width:110px"><?php echo $dh ;?></th>
+                    <th style="text-align: center;">标题</th>
+                    <th style="text-align: center;width:75px">操作</th>
+                </tr>
+                </thead>
+                <tbody id="show_article" style="text-align: center"></tbody>
+            </table>
+        </div>
+        <script id="article_model" type="text/html">
+            {{# if(d.massageCode == 'success') { }}
+            {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+            <tr style="cursor: pointer;" onclick="choice(this)">
+                <td>
+                    <span>{{ list[i].art_ID }}</span>
+                </td>
+                <td>
+                    <span class="yh_span">{{ list[i].title }}</span>
+                </td>
+                <td>
+                    <span><input data-title="{{ list[i].title }}" value="{{ list[i].art_ID }}" type="radio" name="article"/></span>
+                </td>
+            </tr>
+            {{# } }}
+            {{# }else{ }}
+            <td colspan="3">
+                <span>{{ d.massage }}</span>
+            </td>
+            {{# } }}
+        </script>
+        <!--列表结束-->
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-xs-12" style="text-align: center;">
+        <button class="btn btn-def" type="submit" onclick="parent.layer.closeAll()">取消</button>
+        <button class="btn btn-primary" type="submit" onclick="choice_ok()">确认</button>
+    </div>
+</div>
+<input type="hidden" id="art_type" value="<?php echo $art_type ?>"/>
+</body>
+<script  type="text/javascript" src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+
+<script src="/js/laytpl/laytpl.js"></script>
+
+<!--分页插件-->
+<!--<script src="/js/jquery.page.js"></script>-->
+
+<script>
+    $(function(){
+        getArticle();
+        $("#found").click(function(){
+            getArticle();
+        });
+    });
+    /**
+     * 获取数据
+     */
+    function getArticle(){
+        var art_type = $("#art_type").val();
+        var keywords = $("#searchKey").val();//关键字
+        var url = '/plat.banner/getArticle';
+        $.post(url,{keywords:keywords,art_type:art_type},function(rv){
+            var tpl = $("#article_model").html();
+            laytpl(tpl).render(rv, function(html){
+                $("#show_article").html(html);
+            });
+        },'json');
+    }
+    /**
+     * 选中
+     * @param obj
+     */
+    function choice(obj) {
+        var radio = $(obj).find('input[type=radio]');
+        $(radio).prop('checked',true);
+    }
+
+    function choice_ok() {
+        var checkedObj = $('input[type=radio]:checked');
+        if(checkedObj.length == 0){
+            layer.msg('请选择一条咨询')
+        }else {
+            var art_type = $("#art_type").val();
+            var art_id = checkedObj.val() ;
+            var title  = checkedObj.attr('data-title') ;
+            var span   = '【ID:'+art_id+'】'+title ;
+            if(art_type == 1){
+                $(parent.document.getElementById('activity_span')).text(span);
+                $(parent.document.getElementById('news_span')).text('');
+                $(parent.document.getElementById('newbie_span')).text('');
+
+            }else if(art_type == 2){
+                $(parent.document.getElementById('news_span')).text(span);
+                $(parent.document.getElementById('activity_span')).text('');
+                $(parent.document.getElementById('newbie_span')).text('');
+            }else {
+                $(parent.document.getElementById('newbie_span')).text(span);
+                $(parent.document.getElementById('activity_span')).text('');
+                $(parent.document.getElementById('news_span')).text('');
+            }
+            $(parent.document.getElementById('art_id')).val(art_id);
+            parent.layer.closeAll();
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>首页</title>
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" href="css/mui.min.css">
+<link rel="stylesheet" href="css/common.css">
+<style>
+	html,
+	body {
+		background-color: #efeff4; 
+	}
+	.nav-border-top{
+		height: 1px;border-top:#DDDDDD 1px solid;position: fixed;bottom: 50px;width: 100%;z-index: 999;
+	}
+</style>
+</head>      
+<body>
+	<!--<div class="nav-border-top"></div>-->
+	<nav class="mui-bar mui-bar-tab" style="background: #FFFFFF;box-shadow: none;">
+		
+		<a id="tabNav0" class="mui-tab-item" href="view/index/index.html">
+			<span class="mui-icon sw-home">
+			</span>
+			<span class="mui-tab-label">首页</span>
+		</a>    
+		<a id="tabNav1" class="mui-tab-item" href="view/vin/index.html">
+			<span class="mui-icon sw-vin">
+			</span>
+			<span class="mui-tab-label">VIN查询</span>
+		</a>
+		<a id="tabNav2" class="mui-tab-item" href="view/coterie/list.html">
+			<span class="mui-icon sw-quanzi">
+			</span>
+			<span class="mui-tab-label">圈子</span>
+		</a>
+		<a id="tabNav3" class="mui-tab-item" href="view/gonggao/notice.html">
+			<span class="mui-icon sw-gonggao">
+			</span>
+			<span class="mui-tab-label">通知公告</span>
+		</a>
+		<a id="tabNav4" class="mui-tab-item" href="view/person/index.html">
+			<span class="mui-icon sw-geren">
+			</span>
+			<span class="mui-tab-label">个人中心</span>
+		</a>
+
+	</nav>
+	<script src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/global.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		 //mui初始化
+		mui.init();
+		var subpages = ['view/index/index.html', 'view/vin/index.html', 'view/coterie/list.html', 'view/gonggao/notice.html','view/person/index.html'];
+		var subpage_style = {
+			top: '0',
+			bottom: '51px'
+		};
+				
+		var aniShow = {};		
+		 //创建子页面，首个选项卡页面显示，其它均隐藏；
+		mui.plusReady(function() {
+			var self   = plus.webview.currentWebview();
+			var tabNav = (self.tabNav&&self.tabNav<5)?self.tabNav:0;
+			for (var i = 0; i < 5; i++) { 
+				var temp = {};
+				var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
+				if (i != tabNav) {
+					sub.hide(); 
+				}else{
+					var pop = document.getElementById("tabNav"+tabNav);
+						pop.classList.add('mui-active');
+
+					temp[subpages[i]] = "true";
+					mui.extend(aniShow,temp);
+				}
+				self.append(sub); 
+			}
+		});
+		 //当前激活选项
+		var activeTab = subpages[0];
+		var title = document.getElementById("title");
+		 //选项卡点击事件
+		mui('.mui-bar-tab').on('tap', 'a', function(e) {
+			var self = plus.webview.currentWebview();
+			var targetTab = this.getAttribute('href');
+			if (targetTab == activeTab) {
+				return;
+			}
+			
+			var temp = {};
+			temp[targetTab] = "true";
+			mui.extend(aniShow,temp);
+			plus.webview.show(targetTab,"fade-in",300);
+			//隐藏当前;
+			plus.webview.hide(activeTab);
+			//更改当前活跃的选项卡
+			activeTab = targetTab;
+		});
+		
+	</script>
+</body>
+
+</html>

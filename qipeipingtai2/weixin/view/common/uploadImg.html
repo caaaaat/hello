@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>VIN照片</title>
+    <link href="../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	.sw-no-active,.sw-no-active:active{ 
+		background: #FFFFFF;
+	}
+	.sw-icon-ca{
+		position: absolute;right: 2px;top: 12px;width: 14px;height: 14px;background: url(../../../image/person/purchase/icon_zp_cha.png) no-repeat;background-size: contain;
+	}
+	.sw-scope-box{
+		background: none;
+	}
+	.sw-scope-box:after,.sw-scope-box:before{
+		height: 0;
+	}
+</style>
+<body style="background: #EFEFEF;">
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title"></h1>
+	</header>
+	
+	<div class="mui-content" style="background: #EFEFEF;"> 
+		<input type="hidden" id="ckjl.id" name="ckjl.id" value="429">  
+		<div style="width: 100%;background: #FFFFFF;margin-top: 10px;">		
+			<p style="line-height: 24px;margin-bottom: 0;padding: 6px 15px 0;font-size: 16px;color: #333333;">图片</p>
+			<ul class="mui-table-view mui-grid-view sw-scope-box" style="">
+				<form>  
+				<li class="mui-table-view-cell mui-media mui-col-sm-31" id="F_CKJLB" onclick="showActionSheet(this);">		            
+	                <img class="mui-media-object" id="imgSrc" src="../../image/person/purchase/tianjiazp.png">       	
+		        </li>
+		        </form>  
+			</ul>
+		</div>	 
+	</div>
+	
+</body>
+ <script src="../../js/mui.min.js"></script>
+ <script src="../../js/global.js"></script>
+  <script src="../../js/jquery.min.js"></script>
+ <script src="../../js/uploadImg.js"></script>
+ <script type="text/javascript">
+ 	//mui初始化
+	mui.init({  
+	    beforeback: function() {  
+	    //获得列表界面的webview  
+	    var info = plus.webview.currentWebview().opener();  
+	    //触发列表界面的自定义事件（refresh）,从而进行数据刷新  
+	    mui.fire(info, 'refreshImg');  
+	    //返回true，继续页面关闭逻辑  
+	    return true;  
+	    }  
+	});
+	
+ 	 var procinstid = 0;  
+    //初始化页面执行操作  
+    function plusReady() {  
+        //Android返回键监听事件  
+        plus.key.addEventListener('backbutton',function(){  
+           
+        },false);  
+    }  
+    if (window.plus) {  
+        plusReady();  
+    } else {  
+        document.addEventListener('plusready', plusReady, false);  
+    } 
+ </script>
+</html>

@@ -1,0 +1,105 @@
+<!--<link rel="stylesheet" href="/css/pc/person/shopInfo.css">-->
+<link rel="stylesheet" href="/css/pc/person/track.css">
+<div class="titles" style="position: relative">
+    <div class="goBackDiv"><a href="javascript:history.back(-1)"><img src="/images/qpxm/pc/person/shopInfo/left.png" style="vertical-align: baseline" alt=""> 返回</a></div>
+    <span style="font-size: 24px;font-weight: 500;">搜索</span>
+</div>
+
+<div class="padLeft30PadBottom62">
+    <div class="relaTiveFloLeft">
+        <input type="text" placeholder="输入汽修厂名称查询" class="souSuoInputSeek">
+        <img src="/images/qpxm/pc/index/souSuo.png" class="souSuoImg" alt="">
+    </div>
+    <button class="souSuoBtn" onclick="location.href='/person/trackSeek'">搜索</button>
+</div>
+<div class="padLeft20PadRight20">
+    <!--VIP轿车商家-->
+    <div class="shangJiaListDiv">
+        <div class="shangJiaImgDiv">
+            <img src="/images/qpxm/pc/index/tuiJianS.png" class="shangJiaImg" alt="">
+        </div>
+        <div class="shangJiaInfoDiv">
+            <div class="CompanyDiv">
+                <div class="companyNameHidden">经销商企业名称</div>
+                <div style="float: left;"><img src="/images/qpxm/pc/person/shopInfo/v.png" alt=""></div>
+                <div style="clear: both"></div>
+            </div>
+            <div class="companyTag">轿车商家</div>
+            <div>
+                <img src="/images/qpxm/pc/person/shopInfo/qqRed.png" alt="">
+                <span class="touSu">投诉</span>
+                <img src="/images/qpxm/pc/person/shopInfo/dingWeiRed.png" alt="">
+                <span class="marLeft5">成都/武侯区</span>
+            </div>
+        </div>
+        <div class="floRightPadTop29">
+            <a href="javascript:;"><div class="goShop">进入店铺</div></a>
+        </div>
+    </div>
+    <!--认证快修保养-->
+    <div class="shangJiaListDiv">
+        <div class="shangJiaImgDiv">
+            <img src="/images/qpxm/pc/index/tuiJianS.png" class="shangJiaImg" alt="">
+        </div>
+        <div class="shangJiaInfoDiv">
+            <div class="CompanyDiv">
+                <div class="companyNameHidden">经销商企业名称</div>
+                <div style="float: left;"><img src="/images/qpxm/pc/person/shopInfo/renZ.png" alt=""></div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="companyTag">快修保养</div>
+            <div>
+                <img src="/images/qpxm/pc/person/shopInfo/qqRed.png" alt="">
+                <span class="touSu">投诉</span>
+                <img src="/images/qpxm/pc/person/shopInfo/dingWeiRed.png" alt="">
+                <span class="marLeft5">成都/武侯区</span>
+            </div>
+        </div>
+        <div class="floRightPadTop29">
+            <a href="javascript:;"><div class="goShop goShopRed">进入店铺</div></a>
+        </div>
+    </div>
+    <!--VIP货车商家-->
+    <div class="shangJiaListDiv">
+        <div class="shangJiaImgDiv">
+            <img src="/images/qpxm/pc/index/tuiJianS.png" class="shangJiaImg" alt="">
+        </div>
+        <div class="shangJiaInfoDiv">
+            <div class="CompanyDiv">
+                <div class="companyNameHidden">经销商企业名称</div>
+                <div style="float: left;"><img src="/images/qpxm/pc/person/shopInfo/v.png" alt=""></div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="companyTag comPanyTagGree">货车商家</div>
+            <div>
+                <img src="/images/qpxm/pc/person/shopInfo/qqRed.png" alt="">
+                <span class="touSu">投诉</span>
+                <img src="/images/qpxm/pc/person/shopInfo/dingWeiRed.png" alt="">
+                <span class="marLeft5">成都/武侯区</span>
+            </div>
+        </div>
+        <div class="floRightPadTop29">
+            <a href="javascript:;"><div class="goShop">进入店铺</div></a>
+        </div>
+    </div>
+</div>
+
+<!--分页开始-->
+<div class="text-right" style="margin-right: 25px;margin-top: 65px;margin-bottom: 20px;">
+    <span style="color: #999">第<span>1</span>~<span>10</span>条/共<span>18</span>条</span>
+    <span id="pageInfo" style="margin-right: 10px;"></span>
+    <div class="btn-group" id="pager"></div>
+</div>
+
+<!--分页插件-->
+<script src="/js/pc/jquery.page.js"></script>
+<script>
+    //    分页插件
+    $("#pager").createPage({
+        pageCount:5,
+        current:1,
+        backFn:function(){
+
+        }
+    });
+</script>

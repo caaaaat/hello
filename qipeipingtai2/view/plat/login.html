@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>汽配业务交易系统</title>
+	<script src="/js/jquery.min.js"></script>
+	<link href="/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/plat/login.css" rel="stylesheet">
+	<link rel="shortcut icon" href="favicon.ico">
+</head>
+<body style="background-image: url('/images/login/bg.jpg');">
+<!--[if lte IE 9]>
+<style type="text/css">
+	#errorie {position: fixed; top: 0; z-index: 100000; height: 30px; background: #FCF8E3;}
+	#errorie div {width: 900px; margin: 0 auto; line-height: 30px; color: orange; font-size: 14px; text-align: center;}
+	#errorie div a {color: #459f79;font-size: 14px;}
+	#errorie div a:hover {text-decoration: underline;}
+</style>
+<div id="errorie"><div>系统检测到您的IE版本过低，请升级您的浏览器到IE10或以上版本 <a target="_blank" href="http://windows.microsoft.com/zh-cn/internet-explorer/ie-8-worldwide-languages">点击升级</a>&nbsp;&nbsp;强烈建议您更改换浏览器：<a href="http://down.tech.sina.com.cn/content/40975.html" target="_blank">谷歌 Chrome</a></div></div>
+<![endif]-->
+
+<div class="main_box" style="padding-bottom: 10px;padding-top: 10px;">
+    <!--<div class="setting"><a href="javascript:void (0);" onclick="choose_bg();" title="更换背景"><span class="glyphicon glyphicon-th-large"></span></a></div>-->
+	<div class="login_box">
+		<div class="login_logo">
+			<span><h1 style="color: white;">汽配业务交易系统</h1></span>
+		</div>
+        <div class="login_form">
+    		<form id="login_form" method="post">
+				<div style="margin: 0 auto; text-align: center;margin-bottom: 5px;height: 22px;">
+					<span id="tip" style="color: red;padding-left: 0; text-align: center; font-size: 14px;"> </span>
+				</div>
+
+    			<div class="form-group" style="margin-bottom: 0;">
+    				<label for="j_username" class="t">用户名：</label> <input id="j_username" value="<?php echo $accounts ;?>" name="username" type="text" class="form-control x319 in" autocomplete="off">
+					<span></span>
+    			</div>
+    			<div class="form-group" style="margin-bottom: 0;">
+    				<label for="j_password" class="t">密　码：</label> <input id="j_password" value="" name="passwordhash" type="password" class="form-control x319 in">
+					<span></span>
+				</div>
+    			<div class="form-group" style="margin-bottom: 0;">
+    				<label for="j_captcha" class="t">验证码：</label> <input id="j_captcha" maxlength="4" name="j_captcha" type="text" class="form-control x164 in">
+    				<img id="captcha_img" alt="验证码" title="点击更换" src="/?m=tools&a=imgCode" onclick="changeCode()" class="m"> <span></span>
+    			</div>
+				<div class="form-group">
+					<label class="t"></label>
+					<label for="j_remember" class="m"><input id="j_remember" type="checkbox">&nbsp;记住登陆账号</label>
+				</div>
+    			<div class="form-group space">
+                    <label class="t"></label>　　　
+    				<input type="submit" id="login_ok" value=" 登 录 " class="btn btn-primary btn-lg">&nbsp;&nbsp;&nbsp;&nbsp;
+    				<input type="reset" value=" 重 置 " class="btn btn-default btn-lg">
+    			</div>
+    		</form>
+        </div>
+	</div>
+	<div class="bottom">Copyright © 2016 - 2019 <a href="javascript:;">业务交易系统</a></div>
+</div>
+
+</body>
+<script src="/js/suAdmin/login.js"></script>
+</html>

@@ -1,0 +1,96 @@
+<link rel="stylesheet" href="/css/pc/person/shoping.css">
+<style>
+    .jiBenXinXiShowImg img:hover{cursor: pointer;}
+</style>
+<?php if($data){?>
+<div class="titles" style="position: relative">
+    <div class="goBackDiv"><a href="javascript:history.back(-1)"><img src="/images/qpxm/pc/person/shopInfo/left.png" style="vertical-align: baseline" alt=""> 返回</a></div>
+    <span style="font-size: 24px;font-weight: 500;">求购详情</span>
+</div>
+<!--经销商信息-->
+<div id="shangJia">
+    <div class="hei25LineH25">
+        <?php $type=array('','轿车商家','货车商家','用品商家')?>
+        <span class="jiaCu">经销商 ：</span><span class="color777"><?php echo $type[$data['cheXi']['type']]?></span>
+    </div>
+    <div class="hei25LineH25">
+        <span class="jiaCu">车&nbsp;&nbsp;&nbsp;系 ：</span><span class="color777"><?php echo $data['cheXi']['oneName'].'/'.$data['cheXi']['twoName'].'/'.$data['cheXi']['threeName'].'/'.$data['cheXi']['fourName']?></span>
+    </div>
+    <div class="hei25LineH25">
+        <span class="jiaCu">车架号 ：</span><span class="color777"><?php echo $data['frame_number'];?></span>
+    </div>
+    <div class="marTop15Size10">
+        <?php echo $data['create_time'];?> <span class="marLeft120">有效期：<?php echo $data['limitation'].'天';?></span>
+    </div>
+</div>
+<!--基本信息-->
+<div id="jiBenInfo">
+    <div class="jiBenXinDiv">
+        <div class="jiBneInfo">基本信息</div>
+    </div>
+    <div class="marLeft30 jiBenXinXiShowImg">
+        <?php if(isset($data['pic']) && $data['pic']){?>
+        <?php foreach($data['pic'] as $v){?>
+        <div class="floLeftMarRight">
+            <div class="jiBenImgDiv">
+                <img src="<?php echo $v['pic_url'];?>" class="jiBenImg" alt="">
+            </div>
+        </div>
+        <?php }}?>
+        <div style="clear: both;"></div>
+    </div>
+    <div class="beiZhuDiv">
+        <div class="w50floLeft">备注 ：</div>
+        <div class="w710floLeft">
+            <?php echo str_replace(array("\r\n", "\r", "\n"), "<br>", $data['memo']);?>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+<!--采购清单-->
+<div id="qingDan">
+    <div class="qingDanDiv">
+        <div class="floLeftPadLeft20">采购清单</div>
+        <div class="floRight">
+            <button class="daoChuExcel" onclick="downExcel()">导出excel</button>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td class="xuHao">序号</td>
+                <td class="peiJianType">配件类型</td>
+                <td class="xuHao">数量</td>
+                <td>备注</td>
+            </tr>
+            <?php if(isset($data['list']) && $data['list']){?>
+            <?php foreach($data['list'] as $k=>$v){?>
+            <tr>
+                <td><?php echo $k+1;?></td>
+                <td><?php echo $v['pro_cate1Name'].'/'.$v['pro_cate2Name'];?></td>
+                <td><?php echo $v['amount'];?></td>
+                <td class="beiZhuInfo">
+                    <?php echo $v['list_memo'];?>
+                </td>
+            </tr>
+            <?php }}?>
+        </table>
+    </div>
+</div>
+<input type="hidden" value="<?php echo $data['id']?>" id="id">
+<?php }else{?>
+<div style="margin-top: 200px;font-size: 24px;text-align: center;font-weight: bold;color: green;margin-bottom: 200px;">没有查询到相关求购信息</div>
+<?php }?>
+<script src="/js/pc/layer/layer.js"></script>
+<script>
+    layer.photos({
+        photos: '.jiBenXinXiShowImg'
+        ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+    });
+
+    function downExcel(){
+        var id = $('#id').val();
+        location.href='/pc.product/downExcel?id='+id;
+    }
+</script>

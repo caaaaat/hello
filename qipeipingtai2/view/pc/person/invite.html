@@ -1,0 +1,102 @@
+<link rel="stylesheet" href="/css/pc/person/invite.css">
+<style>
+    .w65maxH65{height: 65px;}
+</style>
+<div class="titles">
+    <span style="font-size: 24px;font-weight: 500;">分享邀请</span>
+</div>
+<!--邀请码-->
+<div id="yaoQingMaDiv">
+    <div class="yaoQingRenDiv">
+        <div class="yaoQingRen">我的邀请人</div>
+        <?php if($inviteMe){?>
+        <!--已有邀请人-->
+        <div class="marTop15">
+            <img src="/images/qpxm/pc/person/invite/touXiang.png" class="w65maxH65" alt="">
+            <div class="niChengText"><?php echo $inviteMe['uname']?$inviteMe['uname']:$inviteMe['companyname'];?></div>
+            <a href="/def/store?ID=<?php echo $inviteMe['EnterpriseID'];?>"><button class="bangDingBtn">进入店铺</button></a>
+        </div>
+        <?php }else{?>
+        <!--没有邀请人-->
+        <div class="marBottom40"><input type="text" placeholder="输入邀请码绑定分享人" name="yaoqingcode" class="yaoQingInput"></div>
+        <div><button class="bangDingBtn" onclick="bangDing()">绑定</button></div>
+        <?php }?>
+    </div>
+    <div class="yaoQingMaDiv">
+        <div class="meYaoQingMa">我的邀请码</div>
+        <div class="posRelative">
+            <img src="/images/qpxm/pc/person/invite/fenXiangMa.png" alt="">
+            <div class="yaoQingText"><?php echo $userInfo['invite_code']?></div>
+        </div>
+        <div class="yaoQingInfo">成功绑定邀请码，邀请人及被邀请人都将获得刷新点</div>
+        <div class="fenXiangDiv">
+            <div class="floLeftMarRight50">
+                <a href="javascript:void(0);" onclick="window.open('http://connect.qq.com/widget/shareqq/index.html?url='+encodeURIComponent(document.location.href)+'&desc=&title=我的邀请码是<?php echo $userInfo['invite_code']?>快来注册吧&summary=我的邀请码是<?php echo $userInfo['invite_code']?>快来注册吧&pics=&flash=&site=&style=101&width=112&height=24&showcount=');return false;">
+                    <img src="/images/qpxm/pc/person/invite/qq.png" class="width45" alt="">
+                    <div>QQ好友</div>
+                </a>
+            </div>
+            <div class="floLeftMarRight50">
+                <a href="javascript:void(0);" onclick="window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+encodeURIComponent(document.location.href)+'&title=我的邀请码是<?php echo $userInfo['invite_code']?>快来注册吧&summary=我的邀请码是<?php echo $userInfo['invite_code']?>快来注册吧');return false;" title="分享到QQ空间">
+                    <img src="/images/qpxm/pc/person/invite/kongJian.png" class="width45" alt="">
+                    <div>QQ空间</div>
+                </a>
+            </div>
+            <div class="floLeft">
+                <a href="/person/inviteCode" target="_blank">
+                    <img src="/images/qpxm/pc/person/invite/quanZi.png" class="width45" alt="">
+                    <div>圈子</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--成功邀请人-->
+<div id="yaoQingRen">
+    <div class="yaoQingSuccess">成功邀请</div>
+    <?php foreach($inviteLog as $v){?>
+    <div class="yaoQingRenList">
+        <div class="h65PadTop22">
+            <a href="/def/store?ID=<?php echo $v['EnterpriseID'];?>">
+                <div class="touXiangDiv">
+                    <img src="<?php echo $v['face_pic']?$v['face_pic']:$v['head_pic'];?>" class="w65maxH65" alt="">
+                </div>
+                <div class="niChengDiv">
+                    <div class="niCheng"><?php echo $v['uname']?$v['uname']:$v['companyname'];?></div>
+                    <div class="time"><?php echo $v['invitime']?></div>
+                </div>
+                <div class="rightDiv">
+                    <img src="/images/qpxm/pc/person/invite/right.png" alt="">
+                </div>
+            </a>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <?php }?>
+</div>
+<!--分页开始-->
+<div class="text-right" style="margin-right: 25px;margin-top: 37px;margin-bottom: 27px;">
+    <span style="color: #999"></span>
+    <span id="pageInfo" style="margin-right: 10px;"><?php echo $pageHtml['countStr'];?></span>
+    <div class="btn-group" id="pager"><?php if($inviteLog){ ?><?php echo $pageHtml['key'];?><?php } ?></div>
+</div>
+<script src="/js/pc/layer/layer.js" type="text/javascript"></script>
+<script src="/js/global.js" type="text/javascript"></script>
+<script>
+    function bangDing() {
+        var coder = $('input[name="yaoqingcode"]').val();
+        if(coder){
+            api.load('pc.firm','bingInvite',{coder:coder},function (data) {
+                layer.alert(data['msg'],{icon: data['status'],skin: 'layui-layer-rim'},function(){
+                    if(data['status']===1){
+                        location.reload();
+                    }
+                    layer.closeAll();
+                });
+            })
+        }else {
+            layer.alert('请输入邀请码',{icon: 0,skin: 'layui-layer-rim'});
+        }
+
+    }
+</script>

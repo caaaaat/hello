@@ -1,0 +1,387 @@
+<link rel="stylesheet" href="/css/pc/person/shopInfo.css">
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZBcSIHdvwjfx105K8jvQCj5W"></script>
+<style>
+    .buttonXcmToken{left: auto!important;}
+    #upImgToken1 div:last-child input{display: none;}
+    #upImgToken2 div:last-child input{display: none;}
+    #upImgToken3 div:last-child input{display: none;}
+</style>
+<div class="titles" style="position: relative">
+    <div class="goBackDiv"><a href="javascript:history.back(-1)"><img src="/images/qpxm/pc/person/shopInfo/left.png" style="vertical-align: baseline" alt=""> 返回</a></div>
+    <span style="font-size: 24px;font-weight: 500;">编辑店铺信息</span>
+</div>
+<!--详细信息-->
+<div>
+    <!--封面-->
+    <div class="shopCoverDiv">
+        <div class="shopCoverText">封面 ：</div>
+        <div class="floatLeft cover" style="margin-left: 15px;">
+            <img src="<?php echo $shopInfo['face_pic'];?>" class="shopCoverImg" alt="">
+        </div>
+        <div class="upBtnDiv">
+            <div class="btnMe" id="upImgToken1" imgToken="cover">上传</div>
+            <span class="upBntText">建议200*200px</span>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--banner-->
+    <div class="bannerDiv">
+        <div class="bannerText">banner ：</div>
+        <div class="floatLeft banner" style="margin-left: 15px;">
+            <?php if($shopInfo['banners'] && count($shopInfo['banners']>0)){?>
+            <?php foreach($shopInfo['banners'] as $v){?>
+            <div class="positingLeft">
+                <img src="<?php echo $v['banner_url'];?>" class="bannerShopImg" alt="">
+                <a href="javascript:;" onclick="delBanner(this)">
+                    <img src="/images/qpxm/pc/person/shopInfo/x.png" class="xBtn" alt="">
+                </a>
+            </div>
+            <?php }}?>
+        </div>
+        <div class="floatLeft" style="line-height: 70px;margin-left: 15px;">
+            <div class="btnMe" id="upImgToken2" imgToken="banner">上传</div>
+            <span class="upBntText">建议750*310px</span>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--主营-->
+    <div class="zhuYinDiv" style="padding-top: 0;">
+        <div class="zhuYinText">主营 ：</div>
+        <div class="floLeft20" style="margin-left: 15px;">
+            <textarea name="major" class="zhuYinTextarea" placeholder=""><?php echo $shopInfo['major'];?></textarea>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    <!--联系人-->
+    <div class="zhuYinDiv padTop0marTop10">
+        <div class="lianXiRen">联系人 ：</div>
+        <div class="floLeft20 marginLeft25">
+            <input type="text" name="linkMan" value="<?php echo $shopInfo['linkMan'];?>" class="shopEditInput">
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    <!--手机-->
+    <div class="phoneDiv padTop0marTop20">
+        <div class="phone">手机 ：</div>
+        <div class="floLeft20 marginLeft15">
+            <?php if($shopInfo['linkPhone']){?>
+            <?php foreach($shopInfo['linkPhone'] as $k=>$v){?>
+            <div class="linePhone">
+                <input type="text" value="<?php echo $v;?>" class="shopEditInput">
+                <span>
+                    <?php if($k==0){?>
+                    <a href="javascript:;" addToken="linePhone" onclick="addPhone(this)">
+                        <img src="/images/qpxm/pc/person/shopInfo/jia.png" alt="">
+                    </a>
+                    <?php }else{?>
+                    <a href="javascript:;" addToken="linePhone" onclick="delPhone(this)">
+                        <img src="/images/qpxm/pc/person/shopInfo/jian.png" alt="">
+                    </a>
+                    <?php }?>
+                </span>
+            </div>
+            <?php }?>
+            <?php }else{?>
+            <div class="linePhone">
+                <input type="text" value="" class="shopEditInput">
+                <span>
+                    <a href="javascript:;" addToken="linePhone" onclick="addPhone(this)">
+                        <img src="/images/qpxm/pc/person/shopInfo/jia.png" alt="">
+                    </a>
+                </span>
+            </div>
+            <?php }?>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    <!--座机-->
+    <div class="phoneDiv padTop0marTop20">
+        <div class="phone">座机 ：</div>
+        <div class="floLeft20 marginLeft15">
+            <?php if($shopInfo['linkTel']){?>
+            <?php foreach($shopInfo['linkTel'] as $k=>$v){?>
+            <div class="zuoJi">
+                <input type="text" value="<?php echo $v;?>" class="shopEditInput">
+                <span>
+                    <?php if($k==0){?>
+                    <a href="javascript:;" addToken="zuoJi" onclick="addPhone(this)">
+                        <img src="/images/qpxm/pc/person/shopInfo/jia.png" alt="">
+                    </a>
+                    <?php }else{?>
+                    <a href="javascript:;" addToken="zuoJi" onclick="delPhone(this)">
+                        <img src="/images/qpxm/pc/person/shopInfo/jian.png" alt="">
+                    </a>
+                    <?php }?>
+                </span>
+            </div>
+            <?php }?>
+            <?php }else{?>
+            <div class="zuoJi">
+                <input type="text" value="" class="shopEditInput">
+                <span>
+                    <a href="javascript:;" addToken="zuoJi" onclick="addPhone(this)">
+                        <img src="/images/qpxm/pc/person/shopInfo/jia.png" alt="">
+                    </a>
+                </span>
+            </div>
+            <?php }?>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    <!--QQ-->
+    <div class="phoneDiv padTop0marTop20">
+        <div class="phone">QQ ：</div>
+        <div class="floLeft20 marginLeft15">
+            <?php if($shopInfo['qq']){?>
+            <?php foreach($shopInfo['qq'] as $k=>$v){?>
+            <div class="qq">
+                <input type="text" value="<?php echo $v;?>" class="shopEditInput">
+                <span>
+                    <?php if($k==0){?>
+                    <a href="javascript:;" addToken="qq" onclick="addPhone(this)">
+                        <img src="/images/qpxm/pc/person/shopInfo/jia.png" alt="">
+                    </a>
+                    <?php }else{?>
+                    <a href="javascript:;" addToken="qq" onclick="delPhone(this)">
+                        <img src="/images/qpxm/pc/person/shopInfo/jian.png" alt="">
+                    </a>
+                    <?php }?>
+                </span>
+            </div>
+            <?php }?>
+            <?php }else{?>
+            <div class="qq">
+                <input type="text" value="" class="shopEditInput">
+                <span>
+                    <a href="javascript:;" addToken="qq" onclick="addPhone(this)">
+                        <img src="/images/qpxm/pc/person/shopInfo/jia.png" alt="">
+                    </a>
+                </span>
+            </div>
+            <?php }?>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    <!--微信-->
+    <div class="phoneDiv padTop0marTop20">
+        <div class="phone">微信 ：</div>
+        <div class="floLeft20 marginLeft15">
+            <?php if($shopInfo['wechat_pic']){?>
+            <div class="w70h70 wechat_pic">
+                <img src="<?php echo $shopInfo['wechat_pic'];?>" class="w70h70" alt="">
+            </div>
+            <?php }else{?>
+            <div class="w70h70 wechat_pic"></div>
+            <?php }?>
+            <div class="btnMe" style="float: left;margin-left: 15px;margin-top: 20px;" imgToken="wechat_pic" id="upImgToken3">上传</div>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    <!--企业坐标-->
+    <div class="phoneDiv padTop0marTop20">
+        <div class="phone">企业坐标 ：</div>
+        <div class="floLeft20 marginLeft15">
+            <input type="text" value="" class="zuoBiaoInput" style="width: 350px;" latitude="<?php echo $shopInfo['latitude'];?>" longitude="<?php echo $shopInfo['longitude'];?>" id="suggestId">
+            <button class="zuoBiaoBtn" onclick="keyword()">获取位置</button>
+            <div class="marTop10" id="allmap" style="width: 700px;height: 300px;">
+
+            </div>
+            <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+        </div>
+
+    </div>
+    <div style="clear: both"></div>
+    <!--详细地址-->
+    <div class="phoneDiv padTop0marTop20">
+        <div class="phone">详细地址 ：</div>
+        <div class="floLeft20 positionRelative">
+            <textarea name="" id="" class="diZiTextarea"><?php echo $shopInfo['address'];?></textarea>
+            <div class="ziShu">字数 <span class="textareaCount">0</span>/500</div>
+        </div>
+    </div>
+    <div style="clear: both"></div>
+    <!--企业介绍-->
+    <div class="phoneDiv padTop0marTop20">
+        <div class="phone">企业介绍 ：</div>
+        <div class="jieShaoShop positionRelative" style="position: relative">
+            <textarea name="" placeholder="" class="jieShaoTexarea"><?php echo $shopInfo['info'];?></textarea>
+            <div class="ziShu" style="top: 85px;right: 150px;">字数 <span class="jieShaoAreaCount">0</span>/500</div>
+        </div>
+    </div>
+    <div style="clear: both"></div>
+    <div class="bianJiShop">
+        <a href="javascript:;" id="save" onclick="save()">
+            <div class="jianJiShopBtn">保存</div>
+        </a>
+    </div>
+</div>
+<!--<div id="upImg" style="display: none;">上传</div>-->
+<input type="hidden" id="upImgToken" value="cover">
+<!--<script type="text/javascript" src="/js/webuploader/webuploader.custom.min.xcm.js"></script>-->
+<script type="text/javascript" src="/js/webuploader-0.1.5/webuploader.js"></script>
+<script src="/js/pc/shopEidt.js" type="text/javascript"></script>
+<script src="/js/pc/layer/layer.js"></script>
+<script>
+    $(function(){
+        for(var i=1; i<4; ++i){
+            upImg(i);        //图片上传
+        }
+        var x  = "<?php echo $shopInfo['longitude'];?>";
+        var y  = "<?php echo $shopInfo['latitude'];?>";
+        theLocation(x,y);   //百度地图根据坐标默认选中
+        addressNumber();    //字数
+    });
+
+    /*详细地址字数*/
+    function addressNumber(){
+        /*详细地址*/
+        var maxLength = 500;
+        var len = $('.diZiTextarea').val().length;
+        $('.textareaCount').html(maxLength - len);
+        /*企业介绍*/
+        var l = $('.jieShaoTexarea').val().length;
+        $('.jieShaoAreaCount').html(maxLength - l);
+    }
+    /*动态限制文本域字数*/
+    $('.jieShaoTexarea').keyup(function(event) {
+        /* Act on the event */
+        var maxLength = 500;
+        var len = $('.jieShaoTexarea').val().length;
+        $('.jieShaoAreaCount').html(maxLength - len);
+        if(parseInt($('.jieShaoAreaCount').text()) < 0){
+            $('.jieShaoAreaCount').html('0');
+            var res = $(this).val().substring(0,500);
+            $(this).val(res);
+        }
+    });
+    /*详细地址动态限制文本域字数*/
+    $('.diZiTextarea').keyup(function(event) {
+        /* Act on the event */
+        var maxLength = 500;
+        var len = $('.diZiTextarea').val().length;
+        $('.textareaCount').html(maxLength - len);
+        if(parseInt($('.textareaCount').text()) < 0){
+            $('.textareaCount').html('0');
+            var res = $(this).val().substring(0,500);
+            $(this).val(res);
+        }
+    });
+
+    /*点击保存*/
+    function save(){
+        var data = {};
+        data.face_pic = $('.shopCoverImg').attr('src');     //封面图片
+        var banner = '';
+        var len = $('.positingLeft').length;
+        if(len > 3){
+            layer.msg('banner图片最多上传三张');
+            return false;
+        }
+        if(len > 0){
+            for(var i=0; i<len; ++i){
+                var src = $('.positingLeft').eq(i).find('.bannerShopImg').attr('src');
+                banner += src;
+                if(i <len-1){
+                    banner += ',';
+                }
+            }
+        }
+        data.firms_banner = banner;                               //banner图片
+        data.major         = $('.zhuYinTextarea').val();         //主营
+        data.linkMan       = $('input[name="linkMan"]').val();   //联系人
+        var lenPhone = $('.linePhone').length;
+        var linkPhone= new Array();
+        for(var i=0; i<lenPhone; ++i){
+            var phone = $('.linePhone').eq(i).find('input').val();
+            if(phone){
+                if(!/^1[34578]\d{9}$/.test(phone)){
+                    layer.msg('请正确填写手机号码');
+                    return false;
+                }
+                linkPhone.push(phone);
+            }
+        }
+        linkPhone = linkPhone.join(',');
+        data.linkPhone = linkPhone;                                 //联系人手机号码
+        var lenLinkTel  = $('.zuoJi').length;
+        var linkTel = [];
+        if(lenLinkTel > 0){
+            for(var i=0; i<lenLinkTel; ++i){
+                var tel = $('.zuoJi').eq(i).find('input').val();
+                if(tel){
+                    if(!/^$|(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/.test(tel)){
+                        layer.msg('请正确填写座机号码');
+                        return false;
+                    }
+                    linkTel.push(tel);
+                }
+            }
+        }
+        linkTel = linkTel.join(',');
+        data.linkTel = linkTel;                                     //联系人座机号码
+        var lenQq = $('.qq').length;
+        var qq = [];
+        for(var i=0; i<lenQq; ++i){
+            var qqNum = $('.qq').eq(i).find('input').val();
+            if(qqNum){
+                if(!/^[1-9]\d{4,9}$/.test(qqNum)){
+                    layer.msg('请正确填写qq号码');
+                    return false;
+                }
+                qq.push(qqNum);
+            }
+        }
+        qq = qq.join(',');
+        data.qq = qq;                                                 //联系人qq
+        var wechat_pic   = $('.wechat_pic').find('img').attr('src');//微信图片
+        if(!wechat_pic){
+            wechat_pic = '';
+        }
+        data.wechat_pic = wechat_pic;
+        data.longitude  = $('#suggestId').attr('longitude');       //经度
+        data.latitude   = $('#suggestId').attr('latitude');        //纬度
+        data.address    = $('.diZiTextarea').val();                 //详细地址
+        data.info       = $('.jieShaoTexarea').val();               //企业介绍
+        if(!data.face_pic){
+            layer.msg('请上传封面图片');
+            return false;
+        }
+        if(!data.firms_banner){
+            layer.msg('请上传banner图片');
+            return false;
+        }
+        if(!data.linkPhone){
+            layer.msg('请填写联系人手机号码');
+            return false;
+        }
+        if(!data.longitude || !data.latitude){
+            layer.msg('企业坐标位置获取失败，请重新获取');
+            return false;
+        }
+        if(!data.address){
+            layer.msg('请填写详细地址信息');
+            return false;
+        }
+        if(!data.info){
+            layer.msg('请填写企业介绍');
+            return false;
+        }
+        $.ajax({
+            url: "/pc.firm/editFirm",    //请求的url地址
+            dataType: "json",   //返回格式为json
+            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+            data: {"data": data},    //参数值
+            type: "POST",   //请求方式
+            success: function (req) {
+                if(req.status==1){
+                    layer.msg('编辑成功');
+                    setTimeout(function(){
+                        location.href = '/person/shopInfo';
+                    },1000);
+                }else{
+                    layer.msg(req.msg);
+                }
+            }
+        })
+    }
+</script>

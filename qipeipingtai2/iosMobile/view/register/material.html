@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>完善基本资料</title>
+    <link href="../../css/mui.min.css" rel="stylesheet"/>
+    <link href="../../css/mui.picker.all.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	.sw-gou{
+		height:12px;width:12px;background: url(../../image/login/icon_gou.png) no-repeat;background-size: contain;display: inline-block;vertical-align: middle;margin-right: 4px;
+	}
+	.sw-quan{
+		height:12px;width:12px;background: url(../../image/login/icon_quan.png) no-repeat;background-size: contain;display: inline-block;vertical-align: middle;margin-right: 4px;
+	}
+	.sw-list-title{
+		font-size: 14px;
+	}
+	.sw-list-title1{
+		font-size: 14px;width: 70px;display: inline-block;color: #333;
+	}
+	.sw-list-text1{
+		font-size: 12px;margin-left: 12px;color: #666;
+	}
+	.sw-list-text2{		
+		margin-right: 16px;
+	    font-size: 14px;
+	    color: #666;
+	    position: relative;
+	    text-align: right;
+	    display: block;
+	    margin-top: -21px; 
+	    overflow: hidden;
+	    margin-left: 78px; 
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	}
+	.sw-list-text3{
+		padding-right:16px;font-size: 12px;color: #666;
+	}
+	.sw-list-input1{
+		border: none;height: 24px;font-size:14px;padding-left: 12px;width: 60%;
+	}
+	.sw-list-input2{
+		border: none;height: 24px;font-size:14px;width: 60%;  
+	}
+	
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	} 
+	.sw-after-r:after{
+		margin-right: 15px;
+	}
+	.sw-after-no:after{
+		height: 0;
+	}
+	.sw-map-box{
+		width: 220px;height: 120px;float: right;margin-top: 12px;border: 1px solid #EFEFEF;font-size: 12px;color: #999999;text-align: center;line-height: 120px;border-radius: 2px;
+	}
+	.sw-major{
+		border: none;font-size: 14px;overflow-y: hidden;padding: 0;margin-bottom: 0;
+	}
+	.sw-address{
+		border: none;font-size: 14px;overflow-y: hidden;padding: 0;margin-bottom: 0;
+	}
+</style>
+<body style="background: #F5f5f5;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">完善基本资料</h1>
+	</header>
+	
+	<div style="width: 100%;margin-top: 45px;margin-bottom: 55px;">
+		
+		<ul class="mui-table-view" style="margin-top: -1px;">
+			
+			<li class="mui-table-view-cell sw-no-active">
+			 	<span class="sw-ctheme sw-list-title">企业类型：</span>
+			 	<span class="sw-list-text1" onclick="selectFirmType(this)">
+			 		<label for="firmType1">
+			 			<p class="sw-gou firmType"></p>经销商
+			 			<input type="radio" name="firmType" checked="checked" id="firmType1" value="1" hidden="hidden" />
+			 		</label>			 		
+			 	</span>
+			 	<span class="sw-list-text1" onclick="selectFirmType(this)">
+			 		<label for="firmType2">
+			 			<p class="sw-quan firmType"></p>汽修厂
+			 			<input type="radio" name="firmType" id="firmType2" value="2" hidden="hidden" />
+			 		</label>
+			 		
+			 	</span>
+			 </li>
+			
+			<li class="mui-table-view-cell  sw-no-active sw-after-r sw-fenlei sw-fenlei1" style="display: block;">
+			 	<span class="sw-ctheme sw-list-title">企业分类：</span>
+			 	<span class="sw-list-text1" onclick="selectClass(this)">
+			 		<label for="jx1">
+				 		<p class="sw-gou firmClass firmClassDef"></p>轿车商家
+				 		<input type="radio" name="jxType" id="jx1" value="1" checked="checked" hidden="hidden"/>
+			 		</label>	
+			 	</span>
+			 	<span class="sw-list-text1" onclick="selectClass(this)">
+			 		<label for="jx2">
+				 		<p class="sw-quan firmClass"></p>货车商家
+				 		<input type="radio" name="jxType" id="jx2" value="2" hidden="hidden"/>
+				 	</label>
+			 	</span>
+			 	<span class="sw-list-text1" onclick="selectClass(this)">
+			 		<label for="jx3">
+				 		<p class="sw-quan firmClass"></p>用品商家
+				 		<input type="radio" name="jxType" id="jx3" value="3" hidden="hidden"/>
+				 	</label>
+			 	</span>
+			 </li>
+			
+			 <li class="mui-table-view-cell  sw-no-active sw-after-r sw-fenlei sw-fenlei2" style="display: none;">
+			 	<span class="sw-ctheme sw-list-title">企业分类：</span> 
+			 	<span class="sw-list-text1" onclick="selectClass(this)">
+			 		<label for="qx4">
+				 		<p class="sw-gou firmClass firmClassDef"></p>修理厂
+				 		<input type="radio" name="qxType" id="qx4" checked="checked" value="4" hidden="hidden"/>
+				 	</label>	
+			 	</span>
+			 	<span class="sw-list-text1" onclick="selectClass(this)">
+			 		<label for="qx5">
+				 		<p class="sw-quan firmClass"></p>快修保养
+				 		<input type="radio" name="qxType" id="qx5" value="5" hidden="hidden"/>
+			 		</label>	
+			 	</span>
+			 	<span class="sw-list-text1" onclick="selectClass(this)">
+			 		<label for="qx6">
+				 		<p class="sw-quan firmClass"></p>美容店
+				 		<input type="radio" name="qxType" id="qx6" value="6" hidden="hidden"/> 
+			 		</label>	
+			 	</span>
+			 </li>
+			
+			
+			
+			<li class="mui-table-view-cell sw-after-r" id="scope">
+				<a class="mui-navigate-right">
+					<span class="sw-ctheme sw-list-title">经营范围：</span>
+					<span class="sw-list-text2" id="scopeText">请选择经营范围</span>
+					<input type="text" name="business" id="business" value="" hidden="hidden"/>
+				</a>
+			</li>
+			
+			 <li class="mui-table-view-cell  sw-no-active sw-after-r">
+			 	<span class="sw-ctheme sw-list-title">企业名称：</span>
+			 	<input class="sw-list-input1" name="companyname" id="companyname" placeholder="请输入企业名称"/>
+			 </li>
+			
+			<li class="mui-table-view-cell sw-after-r" id="showCityPicker">
+				<a class="mui-navigate-right">
+					<span class="sw-ctheme sw-list-title">所属地区：</span>
+					<span class="sw-list-text2" id="cityStr">请选择所属地区</span>
+					<input type="text" name="province"  id="province" value="" hidden="hidden"/>
+					<input type="text" name="city" 		id="city" value="" hidden="hidden"/>
+					<input type="text" name="district"  id="district" value="" hidden="hidden"/>					
+				</a>
+			</li>
+			 
+			 <li class="mui-table-view-cell sw-no-active sw-after-r"> 
+					<a class="mui-navigate-right sw-no-active">
+						<span class="sw-ctheme sw-list-title">企业坐标：</span>
+						<span class="sw-list-text2" id="mapText">&nbsp;</span> 
+					</a>
+					<input type="text" name="longitude" id="longitude" value=""  hidden="hidden"/>
+					<input type="text" name="latitude"  id="latitude"  value=""  hidden="hidden"/>					
+					<div id="allmap" class="sw-map-box">地图加载中...</div>
+			</li>
+			 
+			 <li class="mui-table-view-cell sw-no-active sw-after-r"> 
+				<span class="sw-ctheme sw-list-title">详细地址：</span>
+			 	<div style="margin-left: 87px;margin-top: -22px;font-size: 12px;color: #999999;">
+			 		<textarea class="sw-address" name="address" id="address" placeholder="坐标地址不计入详细地址中，需再手动填写"></textarea>
+			 	</div>
+			</li>
+			 
+		</ul> 
+		
+		
+		<ul class="mui-table-view" style="margin-top:10px;">
+			
+			 <li class="mui-table-view-cell sw-after-no">
+					<a class="mui-navigate-right" id="uploadImg">
+						<span class="sw-list-title1" style="line-height: 60px;">封面</span>
+						<img src="../../image/person/purchase/tianjiazp.png" id="faceImg" style="width: 60px;height: 60px;float: right;margin-right: 20px;"/>
+						<input id="face_img" name="face_img" value="" hidden="hidden"/>
+					</a>
+			</li>
+			
+			 <li class="mui-table-view-cell sw-no-active sw-after-no">
+			 	<span class="sw-list-title1">主营</span>
+			 	<div style="margin-left: 75px;margin-top: -22px;font-size: 14px;color: #999999;">
+			 		<textarea class="sw-major" id="major" name="major" placeholder="请输入主营描述"></textarea>
+			 	</div>
+			 </li>
+			
+			 <li class="mui-table-view-cell  sw-no-active sw-after-no">
+			 	<span class="sw-list-title1">联系人</span>
+			 	<input class="sw-list-input2" id="linkMan" name="linkMan" placeholder="请输入联系人名称"/>
+			 </li>
+			
+			<li class="mui-table-view-cell  sw-no-active sw-after-no"> 
+			 	<span class="sw-list-title1" style="">手机</span>
+			 	<input class="sw-list-input2" id="linkPhone" name="linkPhone" placeholder="请输入联系人手机号"/>
+			 </li>
+			
+			 <li class="mui-table-view-cell  sw-no-active sw-after-no">
+			 	<span class="sw-list-title1" style="">座机</span>
+			 	<input class="sw-list-input2" id="linkTel" name="linkTel" placeholder="请输入座机号码"/>  
+			 </li>
+			
+			  <li class="mui-table-view-cell  sw-no-active sw-after-no">
+			 	<span class="sw-list-title1" style="">QQ</span>
+			 	<input class="sw-list-input2" id="linkQQ" name="linkQQ" placeholder="请输入QQ号码"/>
+			 </li>
+		</ul>
+		
+		
+		 <div style="width: 100%;padding: 0 8%;margin-top: 55px;">
+		 	<button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" onclick="saveMaterial()">提交</button>
+		 </div>
+		
+	</div>
+	
+</body>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/global.js"></script>
+<script src="../../js/mui.picker.js"></script>
+<script src="../../js/mui.poppicker.js"></script>
+<script src="../../js/city.data-3.js"></script>
+ <script src="../../js/jquery.min.js"></script>
+ <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZBcSIHdvwjfx105K8jvQCj5W"></script> 
+<script>
+	//监听自定义事件
+	window.addEventListener('refreshScope', function(e) {  
+		var pIIIs = plus.storage.getItem('pIIIs');
+		if(pIIIs==1){
+			var firmClasses = JSON.parse(plus.storage.getItem('firmClasses'));
+			var classLen = firmClasses.length;
+			var str   = '';
+			var business = ',';
+			for(var i=0;i<classLen;i++){
+				var firm = firmClasses[i].split(",");
+				    str += " "+firm[1];
+				    business += firm[0]+',';
+			}
+
+			$("#scopeText").text(str);
+			$("#business").val(business);			
+			//刷新后清除刷新标记
+			plus.storage.removeItem('pIIIs');
+		}
+    })
+	
+	//监听自定义事件
+	window.addEventListener('refreshImg', function(e) { 
+		var pIImg = plus.storage.getItem('pIImg');
+		if(pIImg==1){
+			var face_pic = plus.storage.getItem('face_pic');
+			var faceImg  =	imgUrl + face_pic;
+			    $("#faceImg").attr('src',faceImg);
+			    $("#face_img").val(faceImg);
+			    
+			//刷新后清除刷新标记
+			plus.storage.removeItem('pIImg');
+		}
+    })
+	
+	//mui初始化
+	mui.init();
+	var	firmsId = '';	
+	//mui plusReady
+	var provinceToken = '';
+	mui.plusReady(function() {	
+		getMyPCA();
+		var self  = plus.webview.currentWebview();	
+		    firmsId = self.firmsId;	
+			sw.jcon(firmsId); 
+			
+			//延时加载地图
+			setTimeout(function(){
+					//获取当前位置
+				plus.geolocation.getCurrentPosition( function ( p ) {
+				var point = new BMap.Point(p.coords.longitude, p.coords.latitude);					
+				var coordsType = p.coordsType;
+				if(coordsType==='gcj02'){
+	//				console.log(coordsType) 
+					var convertor = new BMap.Convertor();
+			        var pointArr = [];
+			        pointArr.push(point);
+			        convertor.translate(pointArr, 1, 5, function(data){
+			        	 if(data.status==0){
+			        	 	point = data.points[0];
+			        	 } 
+			        })
+				}
+				//初始化地图坐标  
+				setMap(point);  			  
+			}, function ( e ) {
+				sw.toast(e.message);
+		        switch(e.code) {
+		          case e.PERMISSION_DENIED:
+		              alert("User denied the request for Geolocation.");
+		              break;
+		          case e.POSITION_UNAVAILABLE:
+		              alert("Location information is unavailable.");
+		              break;
+		          case e.TIMEOUT:
+		              alert("The request to get user location timed out.");
+		              break;
+		          case e.UNKNOWN_ERROR:
+		              alert("An unknown error occurred.");
+		              break;
+		          }
+			} );
+			
+			//初始化城市选择
+			var cityPicker = new mui.PopPicker({
+					layer: 3,
+					title:'选择城市'
+			});
+			cityPicker.setData(cityData3);
+			
+			var showCityPickerButton = document.getElementById('showCityPicker');
+			
+			document.getElementById('showCityPicker').addEventListener('tap', function(event) {
+				if(provinceToken){
+					cityPicker.pickers[0].setSelectedIndex(provinceToken, 300);
+					if(cityToken || cityToken==0){
+						setTimeout(function(){ 
+							cityPicker.pickers[1].setSelectedIndex(cityToken, 200);
+							if(areaToken || areaToken==0){  
+								setTimeout(function(){
+									cityPicker.pickers[2].setSelectedIndex(areaToken, 200);
+								},300)	
+							}
+						},300)
+					}
+					
+					
+				} 
+				
+				cityPicker.show(function(items) {
+					var province = (items[0] || {}).text;
+					var city     = (items[1] || {}).text;
+					var district = (items[2] || {}).text;
+					
+					province = province?province:'';
+					city     = city?city:'';
+					district = district?district:'';
+					
+					$("#province").val(province); 
+					$("#city").val(city);			
+					$("#district").val(district);
+								
+					var cityStr = province+ " " + city+ " " + district;
+					$("#cityStr").text(cityStr);
+				});
+			}, false);
+					
+		},300)
+				
+	})
+	
+	function getMyPCA(){ 
+		
+		var geolocation = new BMap.Geolocation();  
+        var gc = new BMap.Geocoder();  
+  
+        geolocation.getCurrentPosition(function (r) {  
+            if (this.getStatus() == BMAP_STATUS_SUCCESS) {  
+                var pt = r.point;  
+                gc.getLocation(pt, function (rs) {  
+                    var addComp = rs.addressComponents;   
+                    var province = addComp.province;  
+                    var city = addComp.city;  
+                    var area = addComp.district;  
+					var cityStr = province+ " " + city+ " " + area;
+					if(province && city && area){
+						$("#province").val(province);
+						$("#city").val(city);			 
+						$("#district").val(area); 
+						$("#cityStr").text(cityStr);
+						for(var i=0; i<cityData3.length; ++i){
+							if(cityData3[i].text == province){
+								provinceToken = i;
+								for(var j=0; j<cityData3[i].children.length; ++j){
+									if(cityData3[i].children[j].text == city){
+										cityToken = j;
+										for(var k=0; k<cityData3[i].children[j].children.length; ++k){
+											if(cityData3[i].children[j].children[k].text == area){ 
+												areaToken = k;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					
+                });  
+            }  
+            else {  
+                layer.open({ content: "定位失败，请重试!", time: 2 });  
+            }  
+        }, { enableHighAccuracy: true }); 
+	}
+	
+	
+	//百度地图调用
+	function setMap(point){      	 	 	
+			// 百度地图API功能
+			var map = new BMap.Map("allmap"); 
+				map.centerAndZoom(point, 15);
+			
+			var marker = new BMap.Marker(point);// 创建标注 
+				map.addOverlay(marker); 				
+				marker.enableDragging();//允许拖拽
+				
+				var geoc = new BMap.Geocoder();//获取定位信息			
+				getLatLngAdd(geoc,point);	 							
+				//拖拽结束事件
+				marker.addEventListener("dragend", function(e){
+					var o_Point_now =  marker.getPosition();
+						getLatLngAdd(geoc,o_Point_now); 
+				})	 
+	}
+	
+	/**
+	 * 根据地址获取中文
+	 */
+	function getLatLngAdd(geoc,point){		
+		geoc.getLocation(point, function(rs){
+						var addComp = rs.addressComponents;
+						var address = addComp.district+	addComp.street+addComp.streetNumber;
+						$("#mapText").text(address);
+						//将坐标保存
+						$("#latitude").val(point.lat);
+						$("#longitude").val(point.lng);
+				}); 					
+	}
+		
+	/**
+	 *选择经销商类型 
+	 */
+	function selectFirmType(j){
+		//移除样式
+		$(".firmType").removeClass('sw-gou').addClass('sw-quan');
+		//对应下面增加样式
+		$(j).find('.firmType').addClass('sw-gou').removeClass('sw-quan');
+		//获取选择的经销商类型
+		var typeName = $('input[name="firmType"]:checked').val();
+		//修改企业分类
+		var fenleiClass = ".sw-fenlei"+typeName;
+		$(".sw-fenlei").hide();
+		$(fenleiClass).show();
+		//初始化分类选项
+		$(".firmClass").removeClass('sw-gou').addClass('sw-quan');
+		$(".firmClassDef").removeClass('sw-quan').addClass('sw-gou');
+		if(typeName==1){
+			$("#scope").show();
+		}else{
+			$("#scope").hide();
+		}
+	}
+	
+	/**
+	 * 选择经销商分类
+	 * @param {Object} j
+	 */
+	function selectClass(j){
+		var buss = $(j).find('input').val();
+		if($(j).find('.firmClass').hasClass('sw-gou')==false){
+			$("#scopeText").text('请选择经营范围');
+			$("#business").val('');	
+		}
+		//移除样式
+		$(".firmClass").removeClass('sw-gou').addClass('sw-quan');
+		//对应下面增加样式
+		$(j).find('.firmClass').addClass('sw-gou').removeClass('sw-quan');		
+	}
+	
+	
+	/**
+	 * 保存提交数据
+	 */
+	function saveMaterial(){ 		
+
+        var companyType = $('input[name="firmType"]:checked').val();
+        //console.log(companyType);
+        if(companyType==1){
+            var classification = $('input[name="jxType"]:checked').val();
+        }else {
+            var classification = $('input[name="qxType"]:checked').val(); 
+        }
+        //console.log(classification);
+        var business    = $('input[name="business"]').val();   //经营范围
+        var companyname = $('input[name="companyname"]').val();//企业名称
+        var province    = $('#province').val();
+        var city        = $('#city').val();
+        var district    = $('#district').val();
+        var address     = $('textarea[name="address"]').val();
+        var coordinate  = $('#mapText').text();
+        //经纬度
+        var longitude   = $('input[name="longitude"]').val();
+        var latitude    = $('input[name="latitude"]').val();
+        var face_pic    = $('input[name="face_img"]').val();//封面
+        var major       = $('textarea[name="major"]').val();//主营
+        var linkMan     = $('input[name="linkMan"]').val(); //联系人
+        var linkPhone   = $('input[name="linkPhone"]').val();//手机
+        var linkTel     = $('input[name="linkTel"]').val();//座机
+        var qq          = $('input[name="linkQQ"]').val();//QQ
+        //console.log(business);
+
+        var postData = {
+        		   'firmsId':firmsId,
+               'companyType':companyType,
+            'classification':classification,
+                  'business':business,
+               'companyname':companyname,
+                  'province':province,
+                      'city':city,
+                  'district':district,
+                   'address':address,
+                'coordinate':coordinate,
+                 'longitude':longitude,
+                  'latitude':latitude,
+                  'face_pic':face_pic,
+                     'major':major,
+                   'linkMan':linkMan,
+                 'linkPhone':linkPhone,
+                   'linkTel':linkTel,
+                        'qq':qq
+        };
+        
+        //保存材料信息
+        http.load('api.sev.register','saveMaterial',postData,function(rData){//请求成功
+        	
+        	sw.toast(rData.msg);          	
+        	if(rData.status==200){  		      		
+				onSuccess(rData);
+				var person = plus.webview.getWebviewById("view/person/index.html");
+					person.reload(true);	
+				setTimeout(function(){	
+					//关闭父级
+					plus.webview.close( 'setSys', 'slide-out-bottom');
+					plus.webview.close( 'login', 'slide-out-bottom');
+					plus.webview.close( 'register', 'slide-out-bottom');
+					plus.webview.close( 'register_setPwd', 'slide-out-bottom');
+					plus.webview.close( 'register_material', 'slide-out-bottom');
+				},1000)				
+        }     	
+        },function(xhr,type,errorThrown){//请求失败 将之前的数据填入		
+				//无网络提示
+				sw.toast('请求失败，请检查网络'); 
+		})
+          
+	}
+	
+	//经营范围  根据轿车 货车 物流 分别获取 
+	mui("#scope")[0].addEventListener('tap',function(){		
+		var firmClass = $("input[name='jxType']:checked").val();
+		var data = {'firmClass':firmClass};
+		openView('../../view/register/scope.html','scope','pop-in',data);
+	})
+	
+	//选择图片
+	mui("#uploadImg")[0].addEventListener('tap',function(){		
+		openView('../../view/common/uploadImg.html','uploadImg','pop-in');
+	})
+ </script>
+
+</html>

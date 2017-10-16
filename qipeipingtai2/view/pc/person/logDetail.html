@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="/css/pc/person/shopInfo.css">
+<link href="/js/hplus/css/font-awesome.min.css" rel="stylesheet">
+<link href="/js/hplus/css/animate.min.css" rel="stylesheet">
+<div class="titles" style="position: relative">
+    <div class="goBackDiv"><a href="/person/<?php echo $funArr['to'];?>"><img src="/images/qpxm/pc/person/shopInfo/left.png" style="vertical-align: baseline" alt=""> 返回</a></div>
+    <span style="font-size: 24px;font-weight: 500;"><?php echo $funArr['title'];?></span>
+</div>
+<div class="col-sm-12">
+    <table class="table table-bordered">
+        <?php foreach($logslist as $v){?>
+        <tr>
+            <td><?php echo $v['invitime'];?></td>
+        </tr>
+        <?php } ?>
+    </table>
+</div>

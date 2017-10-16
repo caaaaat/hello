@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+        th{text-align: center;}
+        #tab-1 .mail-box-header label{ height: 34px; line-height: 34px;width: 60px; margin-bottom: 0; padding-left: 0;padding-right: 0;}
+        #tab-2 .mail-box-header label{ height: 34px; line-height: 34px;width: 60px; margin-bottom: 0; padding-left: 0;padding-right: 0;}
+        .content {  width: 220px;  display: inline-block;  overflow:hidden;  text-overflow:ellipsis;  white-space:nowrap;  padding-left: 10px;  }
+        .l a{ color: #0066ff;}
+    </style>
+</head>
+<body>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true" id="tab_1">动态管理</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false" id="tab_2">评论管理</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+                            <h3 style="margin-right: 10px;">动态管理</h3>
+                            <!--搜索-->
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="mail-box-header" style="padding-top: 5px;padding-bottom: 0; border: 0;">
+                                        <div class="form-group">
+                                            <div class="col-xs-6 col-sm-4 col-lg-3" style="width: 225px;">
+                                                <label class="col-xs-4 col-sm-4 col-lg-4 control-label">用户类型</label>
+                                                <div class="col-xs-8 col-sm-8 col-lg-8" style="width: 115px;">
+                                                    <select id="tab_1_type" class="form-control">
+                                                        <option value=''>全部</option>
+                                                        <option value='1'>企业</option>
+                                                        <option value='2'>业务员</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-7 col-lg-7" style="">
+                                                <label class="col-xs-4 col-sm-4 col-lg-4 control-label">关键字</label>
+                                                <div class="col-xs-8 col-sm-8 col-lg-8" style="padding-left: 0;">
+                                                    <div class="col-xs-12 col-sm-12 input-group">
+                                                        <input type="text" class="form-control input-xs" id="tab_1_keywords" placeholder="动态ID/企业ID/企业昵称/业务员ID/业务员昵称"/>
+                                                        <span class="input-group-btn">
+                                                            <button type="submit" class="btn btn-primary" id="tab_1_find"> 搜 索 </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="clear: both"></div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right; padding-right: 15px;margin-bottom: -15px;">
+                                        <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" id="tab_1_refresh">刷新列表</button></span>
+                                        <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" data-id="0" data-type="1" onclick="editContent(this)">添加</button></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper wrapper-content">
+                                <div class="ibox-content">
+                                    <!--列表开始-->
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 75px;">动态ID</th>
+                                                <th style="width: 75px;">企业ID/业务员ID</th>
+                                                <th style="width: 75px;">用户类型</th>
+                                                <th style="width: 100px;">昵称</th>
+                                                <th style="width: 75px;">发布城市</th>
+                                                <th>正文</th>
+                                                <th style="width: 75px;">评论数</th>
+                                                <th style="width: 100px;">发布时间</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="tab_1_show" style="text-align: center"></tbody>
+                                        </table>
+                                    </div>
+                                    <script id="tab_1_model" type="text/html">
+                                        {{# if(d.massageCode == 'success') { }}
+                                        {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+                                        <tr>
+                                            <td>
+                                                <span>{{ list[i].vid }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].exID }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].type == 1 ? '企业' : '业务员' }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].uname == null ? (list[i].exName == null ? '' : list[i].exName) : list[i].uname }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].area == null ? '' : list[i].area }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="content" title="{{ list[i].content }}">{{ list[i].content }}</span>
+                                            </td>
+
+                                            <td>
+                                                <span>{{ list[i].comments }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].create_time }}</span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span class="l">
+                                                    <a data-id="{{ list[i]['id'] }}" data-type="1" onclick="getOneCircle(this)">[ 详情 ]</a> <br/>
+                                                    <a data-id="{{ list[i]['vid'] }}" data-type="1" onclick="comment(this)">[ 评论 ]</a> <br/>
+                                                    <a data-id="{{ list[i].id }}" data-type="1" onclick="delContent(this)" style="margin-left: -2px;">[ 删除 ]</a>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        {{# } }}
+                                        {{# }else{ }}
+                                        <td colspan="10">
+                                            <span>{{ d.massage }}</span>
+                                        </td>
+                                        {{# } }}
+                                    </script>
+                                    <!--table end-->
+                                    <!--page-->
+                                    <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                        <input hidden="hidden" value="1" id="tab_1_page"/>
+                                        <span>每页显示
+                                    <select id="tab_1_pageSize" onchange="getLists(1,1)">
+                                        <option value="10"  selected="selected">10</option>
+                                        <option value="30" >30</option>
+                                        <option value="50" >50</option>
+                                        <option value="100">100</option>
+                                        <option value="300">300</option>
+                                        <option value="500">500</option>
+                                        <option value="1000">1000</option>
+                                        <option value="3000">3000</option>
+                                        <option value="5000">5000</option>
+                                    </select>&nbsp;
+                                </span>
+                                        <span id="tab_1_pageInfo" style="margin-right: 10px;"></span>
+                                        <div class="btn-group" id="tab_1_pager"></div>
+                                    </div>
+                                    <!--页码结束-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                        <div class="panel-body">
+                            <h3 style="margin-right: 10px;">评论管理</h3>
+                            <!--搜索-->
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="mail-box-header" style="padding-top: 5px;padding-bottom: 0; border: 0;">
+                                        <div class="form-group">
+                                            <div class="col-xs-6 col-sm-4 col-lg-3" style="width: 225px;">
+                                                <label class="col-xs-4 col-sm-4 col-lg-4 control-label">认证结果</label>
+                                                <div class="col-xs-8 col-sm-8 col-lg-8" style="width: 115px;">
+                                                    <select id="tab_2_type" class="form-control">
+                                                        <option value=''>全部</option>
+                                                        <option value='1'>企业</option>
+                                                        <option value='2'>业务员</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-7 col-lg-7" style="">
+                                                <label class="col-xs-4 col-sm-4 col-lg-4 control-label">关键字</label>
+                                                <div class="col-xs-8 col-sm-8 col-lg-8" style="padding-left: 0;">
+                                                    <div class="col-xs-12 col-sm-12 input-group">
+                                                        <input type="text" class="form-control input-xs" id="tab_2_keywords" placeholder="企业ID/业务员ID/动态ID/昵称"/>
+                                                        <span class="input-group-btn">
+                                                            <button type="submit" class="btn btn-primary" id="tab_2_find"> 搜 索 </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="clear: both"></div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right; padding-right: 15px;margin-bottom: -15px;">
+                                        <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" id="tab_2_refresh">刷新列表</button></span>
+                                        <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" data-id="0" data-type="2" onclick="editContent(this)">添加</button></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper wrapper-content">
+                                <div class="ibox-content">
+                                    <!--列表开始-->
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 70px;">企业ID/业务员ID</th>
+                                                <th style="width: 75px;">用户类型</th>
+                                                <th style="width: 100px;">昵称</th>
+                                                <th>评论</th>
+                                                <th style="width: 75px;">动态ID</th>
+                                                <th style="width: 100px;">评论时间</th>
+                                                <th style="width: 55px;">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="tab_2_show" style="text-align: center"></tbody>
+                                        </table>
+                                    </div>
+                                    <script id="tab_2_model" type="text/html">
+
+                                        {{# if(d.massageCode == 'success') { }}
+                                        {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+                                        <tr>
+                                            <td>
+                                                <span>{{ list[i].exID }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].type == 1 ? '企业' : '业务员' }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].uname == null ? (list[i].exName == null ? '' : list[i].exName) : list[i].uname }}</span>
+                                            </td>
+                                            <td style="text-align: left;padding-left: 1em;word-break: break-all">
+                                                <span>{{ list[i].content }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].vid }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].create_time }}</span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span class="l">
+                                                    <a data-id="{{ list[i].id }}" data-val="{{ list[i].parent_id }}" onclick="delComment(this)" style="margin-left: -4px;">[ 删除 ]</a>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        {{# } }}
+                                        {{# }else{ }}
+                                        <td colspan="10">
+                                            <span>{{ d.massage }}</span>
+                                        </td>
+                                        {{# } }}
+                                    </script>
+                                    <!--table end-->
+                                    <!--page-->
+                                    <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                        <input hidden="hidden" value="1" id="tab_2_page"/>
+                                        <span>每页显示
+                                    <select id="tab_2_pageSize" onchange="getLists(2,1)">
+                                        <option value="10"  selected="selected">10</option>
+                                        <option value="30" >30</option>
+                                        <option value="50" >50</option>
+                                        <option value="100">100</option>
+                                        <option value="300">300</option>
+                                        <option value="500">500</option>
+                                        <option value="1000">1000</option>
+                                        <option value="3000">3000</option>
+                                        <option value="5000">5000</option>
+                                    </select>&nbsp;
+                                </span>
+                                        <span id="tab_2_pageInfo" style="margin-right: 10px;"></span>
+                                        <div class="btn-group" id="tab_2_pager"></div>
+                                    </div>
+                                    <!--页码结束-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/js/laytpl/laytpl.js"></script>
+<!--弹窗js-->
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+<!--分页插件-->
+<script src="/js/jquery.page.js"></script>
+
+<!--自定义JS-->
+<script src="/js/global.js"></script>
+<script>
+    $(function(){
+        getLists(1,1);
+        $('#tab_1,#tab_1_find,#tab_1_refresh').click(function () {
+            getLists(1,1);
+        });
+        $('#tab_2,#tab_2_find,#tab_2_refresh').click(function () {
+            getLists(2,1);
+        });
+
+    });
+
+    //===============开始======================
+    function getLists(type,page) {
+        var data    = {} ;
+        data.type   = type ? type : 1 ;
+        data.page   = page ? page : 1 ;
+        data.status   = type == 1 ?  $("#tab_1_type").val() : $("#tab_2_type").val() ;
+        data.pageSize = type == 1 ?  $("#tab_1_pageSize").val() : $("#tab_2_pageSize").val() ;
+        data.keywords = type == 1 ?  $("#tab_1_keywords").val() : $("#tab_2_keywords").val() ;
+        var url = '/plat.circle/getLists';
+        //var index = layer.load(2);
+        $.post(url,{data:data},function(rv){
+            var pageObj   = $("#tab_1_page") ;
+            var pagerObj  = $("#tab_1_pager") ;
+            var modelObj  = $("#tab_1_model") ;
+            var bannerObj = $("#tab_1_show") ;
+            var pInfoObj  = $("#tab_1_pageInfo") ;
+            if(type == 2){
+                pageObj   = $("#tab_2_page") ;
+                pagerObj  = $("#tab_2_pager") ;
+                modelObj  = $("#tab_2_model") ;
+                bannerObj = $("#tab_2_show") ;
+                pInfoObj  = $("#tab_2_pageInfo") ;
+            }
+            var p        = rv.page;
+            var pageSize = rv.pageSize;
+            var count    = rv.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            pInfoObj.text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+
+            pagerObj.createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getLists(type,p);
+                }
+            });
+            var tpl = modelObj.html();
+            laytpl(tpl).render(rv, function(html){
+                bannerObj.html(html);
+            });
+            pageObj.val(p);
+        },'json');
+    }
+    /**
+     * 删除新闻咨询/删除新手上路
+     * @param obj
+     */
+    function delContent(obj) {
+        var tip = '是否删除 ? 删除之后无法恢复!' ;
+        var data = {} ;
+        data.id  = $(obj).attr('data-id');
+        data.type= $(obj).attr('data-type');
+        layer.confirm(tip,{shadeClose: true, title:'重要提示'},function (index) {
+
+            var url = '/plat.circle/delContent';
+            $.post(url,{data:data},function(rv){
+                if(rv.massageCode == 'success'){
+                    layer.close(index);
+                    layer.msg(rv.massage) ;
+                    getLists(data.type,1);
+                }else {
+                    layer.msg(rv.massage) ;
+                }
+            },'json')
+        });
+    }
+    function getOneCircle(obj) {
+        var id  = $(obj).attr('data-id');
+        var title = "动态详情";
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['600px', '420px'],
+            content: '/plat.circle/getOneCircle?cid='+id
+        });
+    }
+    function comment(obj) {
+        var id  = $(obj).attr('data-id');
+        var title = "评论列表";
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['80%', '80%'],
+            content: '/plat.circle/comment?vid='+id,
+            end:function () {
+                getLists(1);
+            }
+        });
+    }
+    /**
+     * 删除评论
+     * @param obj
+     */
+    function delComment(obj){
+        var id  = $(obj).attr('data-id');
+        var pid = $(obj).attr('data-val');
+        layer.confirm('是否删除该评论? 删除后不可恢复',{area: ['300px', '160px'],shadeClose: true,title:'重要提示'},function () {
+            api.load('plat.circle','delComment',{id:id,pid:pid},function(rData){
+                if(rData.massageCode == 'success'){
+                    layer.msg(rData.massage);
+                    getList(1);
+                }else {
+                    layer.msg(rData.massage);
+                }
+            });
+        });
+    }
+
+
+</script>
+</body>
+</html>

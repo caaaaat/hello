@@ -1,0 +1,32 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2.0&ak=ZBcSIHdvwjfx105K8jvQCj5W"></script>
+    <title>导航</title>
+</head>
+<body>
+<div id="allmap"></div>
+</body>
+</html>
+<script>
+    var x1='<?php echo $x1;?>';
+    var y1='<?php echo $y1;?>';
+    var x2='<?php echo $x2;?>';
+    var y2='<?php echo $y2;?>';
+</script>
+<script type="text/javascript">
+
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
+
+    var p1 = new BMap.Point(x1,y1);
+    var p2 = new BMap.Point(x2,y2);
+
+    var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+    driving.search(p1, p2);
+</script>

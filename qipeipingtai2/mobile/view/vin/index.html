@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>VIN查询</title>
+    <link href="../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">
+      
+    </script>
+</head>
+<style>
+	.sw-link{
+		color: #666;
+		border: 1px solid #efefef;
+		height: 48px;
+		line-height: 48px;
+		text-align: left;
+		width: 240px;
+		margin: auto;
+		border-radius: 24px;
+		font-size: 14px;
+		padding-left: 24px;
+	}
+	.sw-input-box{
+		width: 100%;background: #efefef;padding-top: 10px;margin-bottom: 10px;text-align: center;position: fixed;top:44px;z-index: 2;
+	}
+	.sw-input-phone{
+		text-align: left;
+		height: 48px!important;
+		background: url(../../image/index/icon_wz_sousuo@3x.png)no-repeat;
+		background-position: 24px;
+		background-size: 16px;
+		padding-left: 42px!important;
+		padding-right: 42px!important;
+		width:92%!important;
+		margin-bottom: 0px;
+		border-radius: 24px!important;
+	}
+	.sw-input-zx{
+		position: absolute;right: 42px;top: 22px;width: 24px;height: 24px;
+	}
+	.sw-table-box{
+		width: 94%;margin: auto;background: #FFFFFF;height: auto;margin-bottom: 20px;
+	}
+	.sw-table{
+		text-align: center;border: 1px solid #DDDDDD;width: 100%;
+	}
+	.sw-table-title{
+		color: #666666;border: 1px solid #DDDDDD;width: 120px;
+	}
+	.sw-table-text{
+		color: #333333;border: 1px solid #DDDDDD;
+	}
+	.sw-table tr{
+		height: 48px;
+	}
+	.sw-btn-box{
+		width: 100%;text-align: center;padding-bottom: 20px;
+	}
+	.mui-popup-inner{
+		border-radius: 13px;
+	}
+</style>
+<script type="text/javascript" charset="utf-8">
+//取消浏览器的所有事件，使得active的样式在手机上正常生效
+document.addEventListener('touchstart',function(){
+    return false;
+},true);
+// 禁止选择
+document.oncontextmenu=function(){
+	return false;
+};
+// H5 plus事件处理
+var as='pop-in';// 默认窗口动画
+// DOMContentLoaded事件处理
+var _domReady=false;
+document.addEventListener('DOMContentLoaded',function(){
+	_domReady=true;
+	compatibleAdjust();
+},false);
+// 兼容性样式调整
+var _adjust=false;
+function compatibleAdjust(){
+	if(_adjust||!window.plus||!_domReady){
+		return;
+	}
+	_adjust=true;
+	// iOS平台特效
+	if('iOS'==plus.os.name){
+		document.getElementById('content').className='scontent';	// 使用div的滚动条
+		if(navigator.userAgent.indexOf('StreamApp')>=0){	// 在流应用模式下显示返回按钮
+			document.getElementById('back').style.visibility='visible';
+		}
+	}
+	// 关闭启动界面
+		plus.navigator.setStatusBarBackground('#FF534C');
+		if(plus.navigator.isImmersedStatusbar()){
+			plus.navigator.setStatusBarStyle('UIStatusBarStyleBlackOpaque');
+		}
+	setTimeout(function(){
+		plus.navigator.closeSplashscreen();
+	},200);
+}
+</script>	
+<body style="background: #EFEFEF;">
+	<header class="mui-bar mui-bar-nav">	   
+	    <h1 class="mui-title">VIN查询</h1>
+	</header>
+	<div class="mui-content" style="background: #EFEFEF;">  
+		 <div class="mui-input-row sw-input-box">
+		 	<input type="text" name="oldVinCode" id="oldVinCode" value="" hidden="hidden"/>
+	        <input type="text" id="vinCode" placeholder="输入17位车架号" maxlength="17" onkeyup="searchVin()" class="sw-input-phone">
+	        <img src="../../image/vin/xiangji.png" class="sw-input-zx" onclick="goBase64()"/>
+	    </div>
+	    
+	    <div id="infoList" style="margin-top: 94px;">
+	    	
+	    </div>
+	    
+	   <!-- <div class="sw-table-box">
+			<table class="sw-table">
+			  <tr>
+				<td class="sw-table-title">厂家</td>
+				<td class="sw-table-text">上海通用</td>
+			  </tr>
+			  <tr>
+				<td class="sw-table-title">品牌</td>
+				<td class="sw-table-text">凯迪拉克XLR</td>
+			  </tr>
+			  <tr>
+				<td class="sw-table-title">车系</td>
+				<td class="sw-table-text">精英型（XTS LTG 四门五座）</td>
+			  </tr>
+			   <tr>
+				<td class="sw-table-title">车型</td>
+				<td class="sw-table-text">三厢</td>
+			  </tr>
+			  <tr>
+				<td class="sw-table-title">年款</td>
+				<td class="sw-table-text">2017年</td>
+			  </tr>
+			  <tr>
+				<td class="sw-table-title">排量</td>
+				<td class="sw-table-text">2.0T</td>
+			  </tr>
+			  <tr>
+				<td class="sw-table-title">变速类型</td>
+				<td class="sw-table-text">手自一体</td>
+			  </tr>
+			  <tr>
+				<td class="sw-table-title">变速箱</td>
+				<td class="sw-table-text">28T</td>
+			  </tr>
+			</table>
+	    </div>
+	    <div class="sw-btn-box">
+	    	 <button type="button" class="mui-btn mui-btn-tangerine" id="alertBtn">求购此车配件</button>
+	    </div>-->
+
+	</div> 
+<script id="vin-list-tpl" type="text/html">
+	{{# var len = d['info'].length; var list = d['info']; }}
+	{{# for(var i = 0;i < len; i++){ }}
+	<div class="sw-table-box">
+		<table class="sw-table">
+		  <tr>
+			<td class="sw-table-title">厂家</td>
+			<td class="sw-table-text">{{ list[i].Manufacturers }}</td>
+		  </tr>
+		  <tr>
+			<td class="sw-table-title">品牌</td>
+			<td class="sw-table-text">{{ list[i].Brand }}</td>
+		  </tr>
+		   <tr>
+			<td class="sw-table-title">车型</td> 
+			<td class="sw-table-text">{{ list[i].Models }}</td>    
+		  </tr>
+		  <tr>
+			<td class="sw-table-title">销售版本</td> 
+			<td class="sw-table-text">{{ list[i].SalesVersion }}</td>    
+		  </tr>
+
+		   <tr>
+			<td class="sw-table-title">厂商指导价</td> 
+			<td class="sw-table-text">{{ list[i].GuidingPrice }}（万元）</td>    
+		  </tr>
+
+		   <tr>
+			<td class="sw-table-title">生成年份</td> 
+			<td class="sw-table-text">{{ list[i].ProducedYear }}年</td>    
+		  </tr>
+
+		   <tr>
+			<td class="sw-table-title">停产年份</td> 
+			<td class="sw-table-text">{{ list[i].IdlingYear }}年</td>    
+		  </tr>
+
+		   <tr>
+			<td class="sw-table-title">排放标准</td> 
+			<td class="sw-table-text">{{ list[i].EmissionStandard }}</td>    
+		  </tr>
+
+		   <tr>
+			<td class="sw-table-title">车型代码</td> 
+			<td class="sw-table-text">{{ list[i].ModelCode }}</td>    
+		  </tr>
+
+		   <tr>
+			<td class="sw-table-title">底盘号</td> 
+			<td class="sw-table-text">{{ list[i].ChassisCode }}</td>    
+		  </tr>
+
+		   <tr>
+			<td class="sw-table-title">国产合资进口类型</td> 
+			<td class="sw-table-text">{{ list[i].VehicleAttributes }}</td>    
+		  </tr>
+
+		   <tr>
+			<td class="sw-table-title">发动机型号</td> 
+			<td class="sw-table-text">{{ list[i].EngineModel }}</td>    
+		  </tr>
+
+		   <tr>
+			<td class="sw-table-title">进气形式</td> 
+			<td class="sw-table-text">{{ list[i].Induction }}</td>    
+		  </tr>
+
+		   <tr>
+			<td class="sw-table-title">排量</td> 
+			<td class="sw-table-text">{{ list[i].Displacement }}L</td>    
+		  </tr>
+
+		   <tr>
+			<td class="sw-table-title">最大功率</td> 
+			<td class="sw-table-text">{{ list[i].PowerKw }}kW</td>    
+		  </tr>
+
+
+		  <tr>
+			<td class="sw-table-title">最大马力</td>
+			<td class="sw-table-text">{{ list[i].Horsepower }}PS</td>
+		  </tr>
+		  <tr>
+			<td class="sw-table-title">驱动形式</td>
+			<td class="sw-table-text">{{ list[i].DriveModel }}</td>
+		  </tr>
+		  <tr>
+			<td class="sw-table-title">变速器类型</td>
+			<td class="sw-table-text">{{ list[i].TransmissionType }}</td>
+		  </tr>
+		  <tr>
+			<td class="sw-table-title">变速器描述</td>
+			<td class="sw-table-text">{{ list[i].TransmissionDescription }}</td>
+		  </tr>
+		  <tr>
+			<td class="sw-table-title">档位数</td>
+			<td class="sw-table-text">{{ list[i].GearNumber }}</td>
+		  </tr>
+		  <tr>
+			<td class="sw-table-title">车身型式</td>
+			<td class="sw-table-text">{{ list[i].BodyType }}</td>
+		  </tr>
+		  <tr>
+			<td class="sw-table-title">车门数</td>
+			<td class="sw-table-text">{{ list[i].Doors }}</td>
+		  </tr>
+		  <tr>
+			<td class="sw-table-title">气缸排列形式</td>
+			<td class="sw-table-text">{{ list[i].CylinderArrangement }}</td>
+		  </tr>
+		  <tr>
+			<td class="sw-table-title">气缸数</td>
+			<td class="sw-table-text">{{ list[i].Cylinders }}个</td>
+		  </tr>
+		  <tr>
+			<td class="sw-table-title">前制动类型</td>
+			<td class="sw-table-text">{{ list[i].FrontBrake }}</td>
+		  </tr>
+		  <tr>
+			<td class="sw-table-title">后制动类型</td>
+			<td class="sw-table-text">{{ list[i].RearBrake }}</td>
+		  </tr>
+		</table> 
+    </div>
+    
+    {{# if(d['userType']==2){ }}
+    <div class="sw-btn-box">
+    	 <button type="button" class="mui-btn mui-btn-tangerine" onclick="alertBtn('{{ list[i].Brand }}','{{ list[i].SalesVersion }}')">求购此车配件</button>
+    </div>
+    {{# } }}
+    
+    {{# } }}
+</script>
+</body>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/global.js"></script>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/laytpl/laytpl.js"></script>  
+ <script>
+ 	//监听vinp上传返回事件
+ 	 window.addEventListener('vinBase64',function(){ 	 	
+ 	 	var base64 = plus.storage.getItem('base64');
+ 	 	if(base64!=undefined){ 
+ 	 		searchVinByBase64(base64);
+ 	 		plus.storage.removeItem('base64');
+ 	 	}
+	});
+ 	//初始化配置
+ 	mui.init();
+ 	//初始化加载数据
+ 	mui.plusReady(function() {});
+ 	//vin 搜索
+ 	var isSearch = true;
+ 	//车架搜索
+ 	function searchVin(){
+ 		//监控页面是否登录
+		if(UserInfo.has_login()){//已经登陆 前往对应页面
+			var oldVinCode = $.trim($("#oldVinCode").val());
+	 		var vinCode = $.trim($("#vinCode").val());
+	 		var len = vinCode.length;
+			
+	 		if(len==17&&isSearch==true&&vinCode!=oldVinCode){ //判断输入的车架号为17位  可以搜索  和之前的输入不同
+	 			$("#vinCode").blur();
+	 			$("#oldVinCode").val(vinCode);
+	 			isSearch = null;
+	 			//加载弹窗  
+				loading('查询中...'); 
+				http.load('api.sev.index','getVin',{'key':vinCode},function(rData){	 	            
+					closeLoading();
+					dy(rData)
+					if(rData.status==200){//获取成功读取列表  
+						var info = rData.list;
+						showData(info);  
+					}else{
+						sw.toast(rData.msg);                                                    
+					}
+					isSearch = true;
+					
+				},function(xhr,type,errorThrown){ 
+					isSearch = true;
+			 		//关闭加载框
+					closeLoading();		
+					//无网络提示
+					sw.toast('网络或服务器异常，请稍候重试'); 	    
+				})  
+	 		}
+	 		
+	 		if(len>17){
+	 			sw.toast('车架号输入有误')
+	 		}
+ 		
+		}else{//未登录		
+			sw.toast('登录后可使用Vin查询')
+			openView('../../view/login/login.html','login','slide-in-bottom'); 
+		}
+
+ 	}
+ 	
+ 	//base64搜索
+ 	function searchVinByBase64(base64){	
+ 		
+ 		if(base64){//判断输入的车架号为17位  可以搜索  和之前的输入不同		
+ 			//加载弹窗  
+			loading('查询中...'); 
+			http.load('api.sev.index','getVin',{'key':base64,'type':2},function(rData){	 	            
+				closeLoading();
+				if(rData.status==200){//获取成功读取列表
+					var info = rData.list;
+						showData(info);   					  
+				}else{
+					sw.toast(rData.msg);                                                    
+				}
+				
+			},function(xhr,type,errorThrown){ 
+		 		//关闭加载框
+				closeLoading();		
+				//无网络提示
+				sw.toast('vin图片识别出错，输入车架号试试'); 	    
+			})   
+ 		}
+ 		
+ 			
+ 	}
+ 	
+ 	/**
+ 	 * 显示数据
+ 	 */
+ 	function showData(info){
+ 		var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
+ 			
+ 		var userType = userInfo.type;
+ 		var data = {};
+ 			data.info = info;
+ 			data.userType = userType;
+ 		 //初始化信息					 	 				
+	 	var vinTpl   = $('#vin-list-tpl').html();	 		
+        laytpl(vinTpl).render(data,function(render){           
+            $('#infoList').html(render);    
+        });
+ 	}
+ 	
+ 	
+ 	function goBase64(){
+ 		//监控页面是否登录
+		if(UserInfo.has_login()){//已经登陆 前往对应页面
+			openView('../../view/vin/vinp.html','vin_vinp','pop-in');
+		}else{//未登录		
+			sw.toast('登录后可使用Vin查询')
+			openView('../../view/login/login.html','login','slide-in-bottom'); 
+		}
+ 	}
+ 	
+ 	/**
+ 	 * 求购配件
+ 	 */
+ 	function alertBtn(brand,salesVersion,vinCode){
+ 		var btnArray = [{title:"轿车商家"},{title:"货车商家"}];
+			plus.nativeUI.actionSheet( {
+				buttons:btnArray
+			}, function(e){
+				var index = e.index;
+				var text = "";
+				switch (index){
+					case 0:
+						text = "";
+						break;
+					case 1:
+						text = "轿车商家";
+						break;
+					case 2:
+						text = "货车商家";
+						break; 
+				}
+				
+				if(text!=''){
+					var vinCode = $("#oldVinCode").val();
+					var postData = {'typeName':text,'brand':brand,'salesVersion':salesVersion,'vinCode':vinCode};
+					//清空搜索条件
+					$('#infoList').html('');
+					$("#oldVinCode").val('');
+ 					$("#vinCode").val('');
+					
+					openView('../../view/person/purchase/publish.html','person_purchase_publish','pop-in',postData);
+				}
+
+			} );
+ 		
+ 	}
+
+ </script>
+</html>

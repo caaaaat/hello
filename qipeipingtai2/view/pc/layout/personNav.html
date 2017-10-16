@@ -1,0 +1,160 @@
+<style>
+    .refreshAlert{width: 300px;height: 170px;border: 1px solid #CCC;border-radius: 7px;background: #FFF;}
+    .refreshAlertText{text-align: center;font-size: 16px;margin-top: 50px;margin-bottom: 15px;padding: 0 25px;color: #333;}
+    .refreshAlertLeft{margin-left: 20px;background: #FFF;border: 1px solid #CCC;width: 120px;height: 40px;line-height: 40px;text-align: center;float: left;border-radius: 7px;color: #333;}
+    .refreshAlertRight{background: #169BD5;border-radius: 7px;height: 40px;line-height: 40px;width: 120px;text-align: center;color: #FFF;float: right;margin-right: 20px;}
+    .caoZuoCaiDan{margin-right: 4px;margin-left: 4px;line-height: 22px;}
+    .refreshAlertLeft:hover{background: #F3F3F3;cursor: pointer}
+    .refreshAlertRight:hover{background: #1386B7;cursor: pointer}
+</style>
+<script>
+    function trackView(){
+        $('#quanXian').modal('show');
+    }
+
+    function goKeFu(obj){
+        var qq = $(obj).attr('data_qq');
+        if(qq){
+            window.open('http://wpa.qq.com/msgrd?v=3&uin=&site='+qq+'&menu=yes');
+        }else{
+            layer.msg('没有预留客服QQ');
+        }
+    }
+</script>
+<!--模态框-->
+<div class="modal fade" id="quanXian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="margin-top: 250px;">
+        <div class="modal-content" style="width: 300px;!important;border-radius: 7px;margin: 0 auto;">
+            <div class="refreshAlert">
+                <div class="refreshAlertText">您无访问权限，可咨询客服了解详情</div>
+                <div>
+                    <div class="refreshAlertLeft" onclick="$('#quanXian').modal('hide')">关闭</div>
+                    <div class="refreshAlertRight" onclick="goKeFu(this)" data_qq="<?php echo $keFuQQ;?>">客服</div>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="width: 1200px;margin: 0 auto;">
+    <div style="height: 130px;padding-top: 40px;">
+        <a href="/def/index">
+            <img src="/images/qpxm/pc/index/logo.png" width="145px" alt="">
+        </a>
+    </div>
+    <!--左侧菜单-->
+    <div class="leftMenu">
+        <!--基本资料-->
+        <div>
+            <div style="text-align: center;font-size: 25px;margin-bottom: 25px;">
+                个人中心
+            </div>
+            <div style="padding-left: 15px;padding-right: 15px;margin-bottom: 25px;">
+                <div style="border-bottom: 1px solid #DDD;"></div>
+            </div>
+            <a href="javascript:;" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/me.png" data_img="/images/qpxm/pc/person/me.png" data_img_on="/images/qpxm/pc/person/me_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">个人资料</span></a>
+            <div class="smallTitleDiv <?php if(in_array($fun,array('index','changePWD','bindPhone','bindPhoneTwo'))){ echo 'smallTitleDivActiveDiv'; } ?>">
+                <div class="<?php if(in_array($fun,array('index'))){ echo 'activeDIv'; }?> smallTitle"><a class="lists" href="/person/index" onclick="showChildMenu(this)">基本资料</a></div>
+                <div class="<?php if(in_array($fun,array('changePWD'))){ echo 'activeDIv'; }?> smallTitle"><a href="/person/changePWD" class="lists" onclick="showChildMenu(this)">密码修改</a></div>
+                <div class="<?php if(in_array($fun,array('bindPhone','bindPhoneTwo'))){ echo 'activeDIv'; }?> smallTitle"><a href="/person/bindPhone" class="lists" onclick="showChildMenu(this)">绑定手机</a></div>
+            </div>
+        </div>
+        <!--店铺管理-->
+        <div class="martop20">
+            <a href="javascript:;" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/shop.png" data_img="/images/qpxm/pc/person/shop.png" data_img_on="/images/qpxm/pc/person/shop_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">店铺管理</span></a>
+            <div class="smallTitleDiv <?php if(in_array($fun,array('shopInfo','shopEidt','shopControl','productEdit','shopCareful','approveInfo','scope','card','cardSave','selectCard'))){ echo 'smallTitleDivActiveDiv'; } ?>">
+                <div class="smallTitle <?php if(in_array($fun,array('shopInfo','shopEidt','shopCareful'))){ echo 'activeDIv'; }?>"><a class="lists" href="/person/shopInfo" onclick="showChildMenu(this)">店铺信息</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('shopControl','productEdit'))){ echo 'activeDIv'; }?>"><a href="/person/shopControl" class="lists" onclick="showChildMenu(this)">产品管理</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('approveInfo'))){ echo 'activeDIv'; }?>"><a href="/person/approveInfo" class="lists" onclick="showChildMenu(this)">认证信息</a></div>
+                <?php if($userInfo['type']==1){?>
+                <div class="smallTitle <?php if(in_array($fun,array('scope'))){ echo 'activeDIv'; }?>"><a href="/person/scope" class="lists" onclick="showChildMenu(this)">经营范围</a></div>
+                <?php } ?>
+                <div class="smallTitle <?php if(in_array($fun,array('card','cardSave','selectCard'))){ echo 'activeDIv'; }?>"><a href="/person/card" class="lists" onclick="showChildMenu(this)">企业名片</a></div>
+            </div>
+        </div>
+        <?php if($userInfo['type']==1 && $userInfo['is_showfactry']==1){?>
+        <!--汽修厂轨迹-->
+        <div class="martop20">
+            <a href="/person/track" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/tool.png" data_img_on="/images/qpxm/pc/person/tool_on.png" data_img="/images/qpxm/pc/person/tool.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">汽修厂轨迹</span></a>
+            <div class="<?php if(in_array($fun,array('track','trackSeek'))){ echo 'smallTitleDivActiveDiv'; } ?>"></div>
+        </div>
+        <?php }elseif($userInfo['type']==1){ ?>
+        <div class="martop20">
+            <a href="javascript:;" onclick="showMenu(this);trackView()"><span><img src="/images/qpxm/pc/person/tool.png" data_img_on="/images/qpxm/pc/person/tool_on.png" data_img="/images/qpxm/pc/person/tool.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">汽修厂轨迹</span></a>
+            <div class="<?php if(in_array($fun,array('track','trackSeek'))){ echo 'smallTitleDivActiveDiv'; } ?>"></div>
+        </div>
+        <?php }?>
+        <!--我的轨迹-->
+        <div class="martop20">
+            <a href="javascript:;" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/time.png" data_img="/images/qpxm/pc/person/time.png" data_img_on="/images/qpxm/pc/person/time_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">我的轨迹</span></a>
+            <div class="smallTitleDiv <?php if(in_array($fun,array('visit','call'))){ echo 'smallTitleDivActiveDiv'; } ?>">
+                <div class="smallTitle <?php if(in_array($fun,array('visit'))){ echo 'activeDIv'; }?>"><a class="lists" href="/person/visit" onclick="showChildMenu(this)">访问记录</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('call'))){ echo 'activeDIv'; }?>"><a href="/person/call" class="lists" onclick="showChildMenu(this)">拨打记录</a></div>
+            </div>
+        </div>
+        <?php if($userInfo['type']==1){?>
+        <!--vip会员-->
+        <div class="martop20">
+            <a href="javascript:;" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/vip.png" data_img="/images/qpxm/pc/person/vip.png" data_img_on="/images/qpxm/pc/person/vip_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">VIP会员</span></a>
+            <div class="smallTitleDiv <?php if(in_array($fun,array('vip','vipRecharge','payRecord'))){
+            echo 'smallTitleDivActiveDiv';
+            }else{
+            if(isset($paytypefornav)){ echo $paytypefornav==1?'smallTitleDivActiveDiv':''; }
+            }
+             ?>">
+                <div class="smallTitle <?php if(in_array($fun,array('vip','vipRecharge','payResult'))){ echo 'activeDIv'; }else{
+            if(isset($paytypefornav)){ echo $paytypefornav==1?'activeDIv':''; }
+            } ?>"><a class="lists" href="/person/vip" onclick="showChildMenu(this)">VIP会员</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('payRecord'))){ echo 'activeDIv'; }?>"><a href="/person/payRecord" class="lists" onclick="showChildMenu(this)">充值记录</a></div>
+            </div>
+        </div>
+        <?php } ?>
+        <!--我的刷新点-->
+        <div class="martop20">
+            <a href="javascript:;" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/shuaXin.png" data_img="/images/qpxm/pc/person/shuaXin.png" data_img_on="/images/qpxm/pc/person/shuaXin_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">我的刷新点</span></a>
+            <div class="smallTitleDiv <?php if(in_array($fun,array('myRefresh','refreshPay','refreshRecord'))){ echo 'smallTitleDivActiveDiv'; }else{
+            if(isset($paytypefornav)){ echo $paytypefornav==2?'smallTitleDivActiveDiv':''; }
+            } ?>">
+                <div class="smallTitle <?php if(in_array($fun,array('myRefresh','refreshPay'))){ echo 'activeDIv'; }else{
+            if(isset($paytypefornav)){ echo $paytypefornav==2?'activeDIv':''; }
+            } ?>"><a class="lists" href="/person/myRefresh" onclick="showChildMenu(this)">我的刷新点</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('refreshRecord'))){ echo 'activeDIv'; }?>"><a href="/person/refreshRecord" class="lists" onclick="showChildMenu(this)">刷新点记录</a></div>
+            </div>
+        </div>
+        <!--认证-->
+        <div class="martop20">
+            <a href="/person/approveResult" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/renZheng.png" data_img="/images/qpxm/pc/person/renZheng.png" data_img_on="/images/qpxm/pc/person/renZheng_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">认证</span></a>
+            <div class="<?php if(in_array($fun,array('approve','approveResult'))){ echo 'smallTitleDivActiveDiv'; } ?>"></div>
+        </div>
+        <!--我的圈子-->
+        <!--<div class="martop20">-->
+            <!--<a href="/def/circle"><span><img src="/images/qpxm/pc/person/quanZi.png" data_img="/images/qpxm/pc/person/quanZi.png" data_img_on="/images/qpxm/pc/person/quanZi_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">我的圈子</span></a>-->
+        <!--</div>-->
+        <!--我的求购-->
+        <?php if(isset($userInfo) && $userInfo['type']==2){?>
+        <div class="martop20">
+            <a href="javascript:;" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/qiuGou.png" data_img="/images/qpxm/pc/person/qiuGou.png" data_img_on="/images/qpxm/pc/person/qiuGou_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">我的求购</span></a>
+            <div class="smallTitleDiv <?php if(in_array($fun,array('shoping','shopingHistory','shopingEidt','sendShop','shopBianJi'))){ echo 'smallTitleDivActiveDiv'; } ?>">
+                <div class="smallTitle <?php if(in_array($fun,array('shoping'))){ echo 'activeDIv'; }?>"><a class="lists" href="/person/shoping" onclick="showChildMenu(this)">求购中</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('shopingEidt','shopingHistory','shopBianJi'))){ echo 'activeDIv'; }?>"><a href="/person/shopingHistory" class="lists" onclick="showChildMenu(this)">求购历史</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('sendShop'))){ echo 'activeDIv'; }?>"><a href="/person/sendShop" class="lists" onclick="showChildMenu(this)">发布求购</a></div>
+            </div>
+        </div>
+        <?php }?>
+        <!--收藏记录-->
+        <div class="martop20">
+            <a href="javascript:;" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/shouCang.png" data_img="/images/qpxm/pc/person/shouCang.png" data_img_on="/images/qpxm/pc/person/shouCang_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">收藏记录</span></a>
+            <div class="smallTitleDiv <?php if(in_array($fun,array('collectShop','collectProduct'))){ echo 'smallTitleDivActiveDiv'; } ?>">
+                <div class="smallTitle <?php if(in_array($fun,array('collectShop'))){ echo 'activeDIv'; }?>"><a class="lists" href="/person/collectShop" onclick="showChildMenu(this)">收藏店铺</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('collectProduct'))){ echo 'activeDIv'; }?>"><a href="/person/collectProduct" class="lists" onclick="showChildMenu(this)">收藏产品</a></div>
+            </div>
+        </div>
+        <!--分享邀请-->
+        <div class="martop20">
+            <a href="/person/invite"><span><img src="/images/qpxm/pc/person/fengXiang.png" data_img="/images/qpxm/pc/person/fengXiang.png" data_img_on="/images/qpxm/pc/person/fengXiang_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">分享邀请</span></a>
+            <div class="<?php if(in_array($fun,array('invite'))){ echo 'smallTitleDivActiveDiv'; } ?>"></div>
+        </div>
+    </div>
+    <!--右侧菜单-->
+    <div style="float: right;border: 1px solid #DDD;width:970px;background: #FFF;">

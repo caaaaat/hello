@@ -1,0 +1,17 @@
+<link rel="stylesheet" href="/css/pc/person/vip.css">
+<div class="payResult">充值结果</div>
+<!--充值成功-->
+<?php if(isset($result)){?>
+<div class="resultImgDiv">
+    <img src="/images/qpxm/pc/person/vip/success.png" alt="">
+</div>
+<div class="resultSuccess">充值成功</div>
+<div class="yuE">金额 : <?php echo $result['money'];?>元</div>
+<div class="payTypeText">支付方式 : <?php echo $result['payway'];?></div>
+<?php }else{?>
+<!--充值失败-->
+<div class="resultImgDiv">
+    <img src="/images/qpxm/pc/person/vip/loser.png" alt="">
+</div>
+<div class="resultLoser">充值失败</div>
+<?php }?>

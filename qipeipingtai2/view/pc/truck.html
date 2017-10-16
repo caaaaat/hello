@@ -1,0 +1,336 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>货车商家</title>
+</head>
+<link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/bootstrap/style.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/pc/style.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/pc/index/supperList.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/swiper2/idangerous.swiper.css" crossorigin="anonymous">
+<script src="/js/jquery1.12.4.min.js"></script>
+<style>
+  *{font-family: '微软雅黑 Regular', '微软雅黑';}
+  a{color: inherit}
+</style>
+<body>
+<!--顶部导航条开始-->
+<div class="row" id="hederTop">
+  <div style="width: 1200px;margin: 0 auto;font-family: '微软雅黑 Regular', '微软雅黑';position: relative">
+    <div class="col-md-1 dest" style="float: left;width: 8%">成都<img style="margin-left: 20px" src="/images/qpxm/pc/index/u8.png" alt="">
+      <div class="destList">
+        <div style="padding: 15px">
+          <div><a href="javascript:;">成都</a></div>
+          <div><a href="javascript:;">广州</a></div>
+          <div><a href="javascript:;">上海</a></div>
+        </div>
+      </div>
+    </div>
+    <div style="float: right;">
+      <div class="row headerTiao">
+        <div class="caiDanL" id="login" style="padding-right: 13px;position: relative">
+          <!--登陆信息-->
+          <div class="login">
+            <!--已经登陆-->
+            <?php if(isset($isLoging) && $isLoging){?>
+            <div class="isLoginDiv">
+              <a href="javascript:;">
+                <img src="/images/qpxm/pc/index/noLogin.png" class="isLoginImg" alt="">
+                <div class="isLoginInfo">
+                  <div class="height20">昵称</div>
+                  <div class="height20">经销商</div>
+                  <div class="height20">公司名称</div>
+                </div>
+              </a>
+              <div style="clear: both"></div>
+              <div class="VIPTime">
+                <span>VIP ：2017-03-14</span>
+                <span style="float: right"><a href="javascript:;">退出</a></span>
+              </div>
+            </div>
+            <div class="borBottom"></div>
+            <div class="bottomDiv">
+              <div class="aList"><a href="javascript:;">店铺管理</a></div>
+              <div class="aList"><a href="javascript:;">汽修厂轨迹</a></div>
+              <div class="aList"><a href="javascript:;">我的轨迹</a></div>
+              <div class="aList"><a href="javascript:;">VIP会员</a></div>
+              <div class="aList"><a href="javascript:;">我的刷新点</a></div>
+              <div class="aList"><a href="javascript:;">认证</a></div>
+              <div class="aList"><a href="javascript:;">我的圈子</a></div>
+              <div class="aList"><a href="javascript:;">我的求购</a></div>
+              <div class="aList"><a href="javascript:;">收藏记录</a></div>
+              <div class="aList"><a href="javascript:;">绑定业务员</a></div>
+              <div class="aList"><a href="javascript:;">分享邀请</a></div>
+            </div>
+            <?php }else{?>
+            <!--未登录-->
+            <a href="/login">
+              <div class="noLogin">
+                <img src="/images/qpxm/pc/index/noLogin.png" class="noLoginImg" alt="">
+                &nbsp;&nbsp;[请登录]
+              </div>
+              <div class="noLoginBottom"></div>
+              <div class="bottomDiv">
+                <div class="aList">店铺管理</div>
+                <div class="aList">汽修厂轨迹</div>
+                <div class="aList">我的轨迹</div>
+                <div class="aList">VIP会员</div>
+                <div class="aList">我的刷新点</div>
+                <div class="aList">认证</div>
+                <div class="aList">我的圈子</div>
+                <div class="aList">我的求购</div>
+                <div class="aList">收藏记录</div>
+                <div class="aList">绑定业务员</div>
+                <div class="aList">分享邀请</div>
+              </div>
+            </a>
+            <?php }?>
+          </div>
+          <a href="" style="color: #FF0103;">请登录</a><img style="" src="/images/qpxm/pc/index/u7.png" alt="">
+
+        </div>
+        <div class="caiDanL" style="padding-right: 12px">|</div>
+        <div class="caiDanL"><a href="" class="caiDA">注册</a></div>
+        <div class="caiDanL"><a href="" class="caiDA">我的收藏</a></div>
+        <div class="caiDanL"><a href="" class="caiDA">我的圈子</a></div>
+        <div class="caiDanL"><a href="" class="caiDA">我的刷新点(0)</a></div>
+        <div class="caiDanL"><a href="" class="caiDA">消息(0)</a></div>
+        <div class="caiDanL moreShowS">
+          <a href="" class="caiDA">更多<img style="" src="/images/qpxm/pc/index/u8.png" alt=""></a>
+          <div class="moreShow">
+            <div class="moreShowList">
+              <div><a href="javascript:;">新闻咨询</a></div>
+              <div><a href="javascript:;">促销活动</a></div>
+              <div><a href="javascript:;">新手上路</a></div>
+              <div><a href="javascript:;">公司简介</a></div>
+              <div><a href="javascript:;">服务协议</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--右侧固定定位QQ、电话-->
+<div class="fixedDinWei">
+  <div class="fixedDiv">
+    <a href="javascript:;" onclick="showF(this)">
+      <div class="fixedYuan"><img src="/images/qpxm/pc/index/phone.png" alt=""></div>
+    </a>
+    <div class="fixedQQ">123456</div>
+  </div>
+  <div class="fixedDiv">
+    <a href="javascript:;" onclick="showF(this)">
+      <div style="float: right;"><img src="/images/qpxm/pc/index/rQQ.png" alt=""></div>
+    </a>
+    <div class="fixedQQ">123456</div>
+  </div>
+  <div class="fixedDiv">
+    <a href="javascript:;" onclick="goTop()">
+      <div style="float: right;"><img src="/images/qpxm/pc/index/rUp.png" alt=""></div>
+    </a>
+  </div>
+</div>
+<!--搜索及logo-->
+<div class="row mideLogo">
+  <!--logo-->
+  <div class="col-md-3 mideLogoDiv">
+    <div class="logoImg">
+      <img src="/images/qpxm/pc/index/logo.png" alt="">
+    </div>
+  </div>
+  <!--搜索-->
+  <div class="col-md-6 souSuoDiv">
+    <div style="padding-top: 55px">
+      <div class="souSuoList">
+        <a href="javascript:;"><span class="shangJ">轿车商家</span></a>
+        <a href="javascript:;"><span class="shangJia">货车商家</span></a>
+        <a href="javascript:;"><span class="shangJia">新品促销</span></a>
+        <a href="javascript:;"><span class="shangJia">库存清仓</span></a>
+      </div>
+      <div>
+        <div class="sousuoIm"><img src="/images/qpxm/pc/index/souSuo.png" alt=""></div>
+        <div style="float: left;width: 450px">
+          <input placeholder="输入公司名称、主营产品查询" class="form-control souSuoInput" type="text">
+        </div>
+        <div style="float: left">
+          <button type="button" class="btn btn-primary souSuo">搜索</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--二维码-->
+  <div class="col-md-1"></div>
+  <div class="col-md-2 erWeiMDiv">
+    <div style="">
+      <div class="row" style="">
+        <div style="float: left">
+          <div class="erWeiM" style="margin: 0 auto">
+            <img src="/images/qpxm/pc/index/erWeiM.png" width="70px" alt="">
+          </div>
+          <div class="downEr">手机下载版</div>
+        </div>
+        <div class="" style="float: right">
+          <div class="erWeiM" style="margin: 0 auto">
+            <img src="/images/qpxm/pc/index/erWeiM.png" width="70px" alt="">
+          </div>
+          <div class="downEr">微信版</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--菜单导航栏-->
+<div id="navigationLan">
+  <div class="row navigationLan">
+    <a href="/pc.index/index"><div class="navigation">首页</div></a>
+    <a href="/pc.index/limousine"><div class="navigation">轿车商家</div></a>
+    <a href="javascript:;"><div class="navigation navigationActive">货车商家</div></a>
+    <a href="/pc.index/newMarket"><div class="navigation">新品促销</div></a>
+    <a href="/pc.index/clearance"><div class="navigation">库存清仓</div></a>
+    <a href="/pc.index/mountings"><div class="navigation">配件求购</div></a>
+    <a href="/pc.index/vinQuery"><div class="navigation">vin查询</div></a>
+    <a href="/pc.index/circle"><div class="navigation">圈子</div></a>
+  </div>
+</div>
+<!--分类标签-->
+<div id="typeTag">
+  <span>轿车商家</span>
+  <span style="color: #FE6F67"> >> </span>
+  <span>德国车系</span>
+  <span style="color: #FE6F67"> >> </span>
+  <span>全部</span>
+</div>
+<!--分类列表-->
+<div id="typeDiv">
+  <div class="typeDiv" style="overflow: hidden;">
+    <div class="swiper-container" style="margin: 0">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide typeDivListActive typeDivList"><span>一级分类</span></div>
+        <?php for($i=0; $i<12; ++$i){?>
+        <div class="swiper-slide typeDivList"><span>一级分类</span></div>
+        <?php }?>
+        <!--<div class="bottmActive" style="left: 14px"></div>-->
+      </div>
+    </div>
+    <!--向左向右-->
+    <div class="typeDivLR">
+      <span class="typeDivLRImg"><img src="/images/qpxm/pc/index/left.png" onclick="leftBtn()" alt=""></span>
+      <span class="typeDivLRImg"><img src="/images/qpxm/pc/index/right.png" onclick="rightBtn()" alt=""></span>
+    </div>
+  </div>
+  <div class="typeImgDiv">
+    <?php for($i=0; $i<22;++$i){?>
+    <div class="typeImgList">
+      <div class="typeImgListDiv">
+        <img class="typeImg" src="/images/qpxm/pc/index/qiuGChe.png" alt="">
+      </div>
+      <div class="typeImgListText">
+        <span>英菲尼迪</span>
+      </div>
+    </div>
+    <?php }?>
+  </div>
+</div>
+<!--经销商企业列表-->
+<?php for($i=0; $i<4; ++$i){?>
+<div class="jingXS">
+  <div class="jingXSCoverDiv">
+    <img class="jingXSCoverImg" src="/images/qpxm/pc/index/tuiJianS.png" alt="">
+  </div>
+  <div class="jingXSInfoDiv">
+      <div class="jingXSInfoDivD">
+        <div class="jingXSName">经销商企业名称</div>
+        <div class="jingXSInfo">[主营]一汽丰田：卡罗拉 锐志 皇冠 RAV4 威驰 花冠 普拉多 兰德酷路泽 广汽丰田 威驰 花冠 普拉多 兰德酷路泽 广汽丰田 卡罗拉 锐志 皇冠 RAV4 威驰 花冠 普拉多 兰德酷路泽 皇冠 RAV4 威驰 花冠 普拉多 兰德酷路泽 广汽丰田 威驰 花冠 普拉多 兰德酷路泽 广汽丰田 卡罗拉 锐志 皇冠 RAV4 威驰 花冠 普拉多 普拉多 兰德酷路泽</div>
+      </div>
+  </div>
+  <div class="dianPDiv">
+    <a href="javascript:;" onclick="showEr(this)"><img class="dianBanImg" src="/images/qpxm/pc/supperList/banErWeiM.png" alt=""></a>
+    <button type="button" class="btn btn-danger dianPButton">进入店铺</button>
+    <div class="dianErImgDiv">
+      <img class="dianErImg" src="/images/qpxm/pc/supperList/erWeiMa.png" alt="">
+    </div>
+  </div>
+</div>
+<?php }?>
+<!--加载中-->
+<div id="jiaZai">加载中...</div>
+<!--底部链接-->
+<div id="bottomBiv" style="margin-top: 0">
+  <div class="bottomBiv">
+    <div class="bottomList">
+      <div class="bottomListDiv"><a href="javascript:;" class="bottomText">首页</a></div>
+      <div class="bottomDivT"><a href="javascript:;" class="bottomText">轿车商家</a></div>
+      <div class="bottomDivT"><a href="javascript:;" class="bottomText">货车商家</a></div>
+      <div class="bottomDivT"><a href="javascript:;" class="bottomText">新品促销</a></div>
+      <div class="bottomDivT"><a href="javascript:;" class="bottomText">库存清仓</a></div>
+      <div class="bottomDivT"><a href="javascript:;" class="bottomText">VIN查询</a></div>
+      <div style="float: left;width: 14%;text-align: left"><a href="javascript:;" class="bottomText">配件求购</a></div>
+    </div>
+    <div class="bottomList">
+      <div class="bottomDivT">&nbsp;</div>
+      <div class="bottomDivT"><a href="javascript:;" class="bottomText">活动促销</a></div>
+      <div class="bottomDivT"><a href="javascript:;" class="bottomText">新闻中心</a></div>
+      <div class="bottomDivT"><a href="javascript:;" class="bottomText">公司简介</a></div>
+      <div class="bottomDivT"><a href="javascript:;" class="bottomText">新手上路</a></div>
+      <div class="bottomDivT"><a href="javascript:;" class="bottomText">服务协议</a></div>
+    </div>
+    <div class="bottomYou">
+      友情链接：
+      <a href="javascript:;" class="bottomA">汽车配件</a>
+      <a href="javascript:;" class="bottomA">专用车</a>
+      <a href="javascript:;" class="bottomA">二手车</a>
+      <a href="javascript:;" class="bottomA">Auto333</a>
+      <a href="javascript:;" class="bottomA">汽配110网</a>
+      <a href="javascript:;" class="bottomA">中国汽车网</a>
+      <a href="javascript:;" class="bottomA">车型大全</a>
+      <a href="javascript:;" class="bottomA">第一车市</a>
+      <a href="javascript:;" class="bottomA">12缸汽车网</a>
+      <a href="javascript:;" class="bottomA">全纳二手车网</a>
+      <a href="javascript:;" class="bottomA">进口车市</a>
+      <a href="javascript:;" class="bottomA">外贸论坛</a>
+      <a href="javascript:;" class="bottomA">仪器交易网</a>
+      <a href="javascript:;" class="bottomA">违章查询</a>
+      <a href="javascript:;" class="bottomA">360汽车网</a>
+      <a href="javascript:;" class="bottomA">汽车人才网</a>
+      <a href="javascript:;" class="bottomA">汽车改装</a>
+      <a href="javascript:;" class="bottomA">中华电动汽车网</a>
+      <a href="javascript:;" class="bottomA">中国汽车商贸网</a>
+      <a href="javascript:;" class="bottomA">用车知识</a>
+      <a href="javascript:;" class="bottomA">卡车新闻</a>
+      <a href="javascript:;" class="bottomA">万得网</a>
+    </div>
+    <div class="bottomBor"></div>
+    <div class="bottomLian">
+        <span class="bottomSpan">
+          <img src="/images/qpxm/pc/index/qq.png" alt=""> 客服QQ ：13412415
+        </span>
+        <span>
+          <img src="/images/qpxm/pc/index/tel.png" alt=""> 客服电话 ：13812345678
+        </span>
+    </div>
+    <div class="bottomDi">
+      <div class="bottomBei">&#169;2015-2016 XXX 版权所有,并保留所有权。ICP备案证书号：蜀ICP备111111111号</div>
+      <div><img src="/images/qpxm/pc/index/jingHui.png" height="15px" alt="">蜀公网安备 42030202000345号</div>
+    </div>
+  </div>
+</div>
+
+<script src="/css/swiper2/idangerous.swiper.min.js"></script>
+<script src="/js/pc/supperList.js"></script>
+<script>
+  var mySwiper = new Swiper('.swiper-container',{
+    autoplay : false,//可选选项，自动滑动
+    loop : true,//可选选项，开启循环
+    slidesPerView : 10//个数
+  });
+  function leftBtn(){
+    mySwiper.swipePrev();
+  }
+  function rightBtn(){
+    mySwiper.swipeNext();
+  }
+</script>
+</body>
+</html>

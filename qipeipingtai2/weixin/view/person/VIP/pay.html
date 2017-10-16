@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>开通续费</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">   
+    </script>
+</head>
+<style>
+	.sw-pay-title:after{
+		background: #F5F5F5;
+	}
+	.sw-payList:after{
+		left: 0;
+		background: #F5F5F5;
+	}
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.pay-list li.active{
+		background: #F5F5F5;
+	}
+	.sw-pay-fan:after{
+		left: 58px;
+	}
+	
+	.sw-check{
+		font-size: 14px;color: #666666;float: right;width: 18px;height: 18px;background: url(../../../image/person/vip/icon_quan@3x.png) no-repeat;background-size: contain;margin-top: 5px;
+	}
+	.sw-check-active{
+		font-size: 14px;color: #666666;float: right;width: 18px;height: 18px;background: url(../../../image/person/vip/icon_choose@3x.png) no-repeat;background-size: contain;margin-top: 5px;
+	}
+</style>
+<body style="background: #EFEFEF;">
+
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">开通续费</h1>
+	</header>
+	
+	<div class="mui-content" style="background: #EFEFEF;">
+		<ul class="mui-table-view pay-list" style="margin-top: 10px;" id="iniList">		 	
+			<li class="mui-table-view-cell sw-payList sw-no-active">
+			 	<span style="font-size: 14px;font-weight: 700" class="sw-ctheme">
+			 		开通/续费月份
+			 	</span>
+			</li>
+		</ul>
+		    
+		<ul class="mui-table-view pay-list" style="margin-top: 10px;">	 	
+			<li class="mui-table-view-cell sw-pay-title sw-no-active">
+				<span style="font-size: 14px;font-weight: 700" class="sw-ctheme">
+				支付方式
+				</span>
+				<input type="text" name="payType" id="payType" value="wxpay" hidden="hidden" />
+			</li>
+			
+			<li class="mui-table-view-cell sw-pay-fan" onclick="changePayType('wxpay',this)">
+				<span style="margin-right: 5px;"><img src="../../../image/person/vip/wechat@3x.png" height="28px" style="vertical-align: middle;"/></span>
+				<span style="font-size: 14px;color: #666666;">
+				微信支付
+				</span>
+				<span class="sw-check sw-check-active sw-payType" style=""></span>
+			</li>		
+			<li class="mui-table-view-cell sw-payList" onclick="changePayType('alipay',this)">
+				<span style="margin-right: 10px;"><img src="../../../image/person/vip/zhifubao@3x.png" height="28px" style="vertical-align: middle;"/></span>
+				<span style="font-size: 14px;color: #666666;">
+				支付宝
+				</span>
+				<span class="sw-check sw-payType"></span>
+			</li>			
+		 </ul>
+	    
+	    <div style="width: 100%;padding: 40px 20px 0;">
+	    	 <button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" onclick="createOrder()">支付</button>
+		</div>
+	    
+	</div>
+
+<script id="ini-list-tpl" type="text/html">
+	{{# var len = d.length }}
+	{{# for(var i = 0;i < len; i++){ }}
+
+	<li class="mui-table-view-cell sw-payList sw-radio" onclick="changeRadio('vipMonth{{ i+1 }}',this)">
+		<input type="radio" name="vipMonth" id="vipMonth{{ i+1 }}" value="{{ d[i].number }}" hidden="hidden" />	
+		<span style="font-size: 14px;color: #666666;">
+ 			{{ d[i].number }}个月     
+	 	</span>
+	 	<span style="font-size: 14px;color: #666666;float: right;" >{{ d[i].money }}元</span>				 						 	
+	</li>
+
+	{{# } }} 
+</script>	
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+ <script src="../../../js/jquery.min.js"></script>
+ <script src="../../../js/laytpl/laytpl.js"></script>
+ <script type="text/javascript">
+ 	var pays={};
+
+	$(function(){
+		plusReady()
+	});
+
+function plusReady(){
+	//获取刷新点配置			
+	if(UserInfo.has_login()){
+		loading('加载中...');
+		var token  = JsonStorage.getItem('token');
+			 
+		var postData = {}; 
+			postData.token = token;		
+		//如果已经登陆 获取登录后的数据
+		http.load('api.sev.index','getVipIni',postData,function(rData){//请求成功 
+			closeLoading();
+			
+ 			if(rData.status==200){
+ 				dy(rData)
+ 				var vipIni = JSON.parse(rData.data.value);						
+				if(vipIni){ 				
+				 	var iniTpl   = $('#ini-list-tpl').html();	 		
+			        laytpl(iniTpl).render(vipIni,function(render){            
+			            $('#iniList').append(render);      
+			        });	
+									
+				}
+			
+ 			}else{
+ 				sw.toast(rData.msg); 	
+ 			}
+	
+ 		},function(xhr,type,errorThrown){//请求失败
+ 			closeLoading();
+			//无网络提示
+			sw.toast('获取数据失败，请检查网络链接');  
+ 		})
+	
+	}
+
+}
+
+//提交订单
+function createOrder(){
+	var token  = JsonStorage.getItem('token');
+	
+	//获取输入的金额
+	var month = $("input[name='vipMonth']:checked").val();	
+
+	if(month==''||month==undefined){  
+		sw.toast('请选择要开通/续费的月份');  
+		return; 
+	}
+	
+	//获取充值方式   
+	var payType = $("#payType").val();
+	//加载弹窗  
+	loading('创建中...'); 
+	dy({'month':month,'payType':payType,'token':token});
+	http.load('api.sev.pay','createVipOrder',{'month':month,'payType':payType,'token':token},function(rData){
+		closeLoading();
+		if(rData.status==200){//创建成功 前往支付  
+			pay(rData.coder,payType);			  	
+		}else{
+			sw.toast(rData.msg);                                                    
+		}
+		
+	},function(xhr,type,errorThrown){     			
+ 		//关闭加载框
+		closeLoading();		
+		//无网络提示
+		sw.toast('网络或服务器异常，请稍候重试'); 	    
+	}) 
+
+}
+
+// 支付  
+function pay(coder,payType){
+var token  = JsonStorage.getItem('token');
+	http.load('api.sev.pay','toPayWapOrder',{'coder':coder,'token':token},function(rData){
+	    console.log(rData)
+
+        setTimeout(function () {//延时一秒进行支付
+
+            if(rData.status==200){
+			//	alert(1);
+				//alert(payType);
+
+                if(payType == 'wxpay'){//微信支付 微信支付使用微信客户端支付
+					//console.log( rData.info)
+					//console.log( rData.info.mweb_url)
+					location.href = rData.info.mweb_url;
+
+                }else{//支付宝支付
+					//alert(1);
+                    $(".mui-content").append(rData.info);
+                }
+            }
+        },1000)
+	});
+}
+
+	/**
+	 * 切换支付方式
+	*/
+	function changePayType(payType,j){
+		
+		//获取当前已选支付方式
+		var oldPayType = $("#payType").val();
+		
+		if(oldPayType != payType){//
+			$("#payType").val(payType);
+			$(".sw-payType").removeClass('sw-check-active');
+			 $(j).find('.sw-payType').addClass('sw-check-active');   
+		}  		
+	}
+	
+	/**
+	 * 切换选择的金额
+	 */
+	function changeRadio(radioId,j){	
+		$(".sw-radio").removeClass('active');
+		$(j).addClass('active');		
+		$("input[name='vipMonth']:checked").prop('checked',false);
+		$(j).find("input[name='vipMonth']").prop('checked',true);
+	}
+</script>
+</html>

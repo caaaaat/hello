@@ -1,0 +1,44 @@
+.titles{height: 90px;line-height: 90px;margin-top: 15px;text-align: center;font-size: 20px;font-weight: bold;color: #5D5D5D}
+.jingYanListDiv{padding-left: 30px;padding-right: 30px;}
+.jingYanList{border-bottom: 2px solid #DDD;height: 145px;padding-top: 52px;}
+.jingYanText{float: left;font-size: 18px;height: 40px;line-height: 40px;}
+.jingYanType{float: left;font-size: 14px;margin-left: 50px;color: #343434;height: 40px;line-height: 40px;}
+.jingYanButton{margin-right: 350px;float: right;border: none;border-radius: 5px;background: #FF524B;color: #FFF;width: 102px;line-height: 40px;text-align: center;font-size: 18px;}
+#alertK{width: 600px;max-height: 500px;border-radius: 10px;margin: 0 auto;border: 1px solid #DDD;padding-bottom: 20px;}
+.alertTitle{height: 25px;line-height: 25px;background: #DDD;text-align: center}
+.padLeft26padRight26{padding-left: 26px;padding-right: 26px;}
+.alertHead{height: 40px;line-height: 40px;font-size: 16px;}
+.floLeft{float: left;}
+.floRight{float: right;}
+.quanXuan{height: 15px;width: 15px;vertical-align: text-top;}
+.alertType{height: 26px;background: #DDD;line-height: 26px;padding-left: 5px;}
+.alertListDiv{margin-top: -1px;height: 30px;line-height: 30px;padding-left: 15px;padding-right: 30px;border: 1px solid #DDD;}
+.alertLabel{width: 100%;font-weight: normal;}
+.alertCheckDiv{float: right;height: 28px;}
+.alertCheck{height: 15px;width: 15px;}
+.alertBottom{padding-left: 30px;padding-right: 30px;margin-top: 25px;}
+.alertQuXiao{font-size: 18px;float: left;border: none;color: #FFF;height: 50px;width: 82px;background: #FF524B;border-radius: 5px;}
+.alertBaoCun{font-size: 18px;float: right;border: none;color: #FFF;height: 50px;width: 82px;background: #FF524B;border-radius: 5px;}
+.rightDivScope{min-height: 640px;padding-bottom: 50px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

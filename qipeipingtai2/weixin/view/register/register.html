@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>注册账号</title>
+    <link href="../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<script type="text/javascript" charset="utf-8">
+//取消浏览器的所有事件，使得active的样式在手机上正常生效
+document.addEventListener('touchstart',function(){
+    return false;
+},true);
+// 禁止选择
+document.oncontextmenu=function(){
+	return false;
+};
+// H5 plus事件处理
+var as='pop-in';// 默认窗口动画
+// DOMContentLoaded事件处理
+var _domReady=false;
+document.addEventListener('DOMContentLoaded',function(){
+	_domReady=true;
+	compatibleAdjust();
+},false);
+// 兼容性样式调整
+var _adjust=false;
+function compatibleAdjust(){
+	if(_adjust||!window.plus||!_domReady){
+		return;
+	}
+	_adjust=true;
+	// iOS平台特效
+	if('iOS'==plus.os.name){
+		document.getElementById('content').className='scontent';	// 使用div的滚动条
+		if(navigator.userAgent.indexOf('StreamApp')>=0){	// 在流应用模式下显示返回按钮
+			document.getElementById('back').style.visibility='visible';
+		}
+	}
+	// 关闭启动界面
+		plus.navigator.setStatusBarBackground('#FF534C');
+		if(plus.navigator.isImmersedStatusbar()){
+			plus.navigator.setStatusBarStyle('UIStatusBarStyleBlackOpaque');
+		}
+	setTimeout(function(){
+		plus.navigator.closeSplashscreen();
+	},200);
+}
+</script>	
+<style>
+	.sw-link{
+		color: #666;
+		border: 1px solid #efefef;
+		height: 48px;
+		line-height: 48px;
+		text-align: left;
+		width: 240px;
+		margin: auto;
+		border-radius: 24px;
+		font-size: 14px;
+		padding-left: 24px;
+	}
+	.sw-input-phone{
+		text-align: left;height: 48px!important;
+		background: url(../../image/login/icon_phone.png)no-repeat;
+		background-position: 8px;
+		background-size: 14px;
+		padding-left: 30px!important;
+		font-size: 14px;
+	}
+	.sw-input-code{
+		text-align: left;height: 48px!important;
+		background: url(../../image/login/icon_tuxing.png)no-repeat;
+		background-position: 8px;
+		background-size: 14px;
+		padding-left: 30px!important;
+		margin-right:20px;
+		float: left;
+		font-size: 14px;
+	}
+	.weui-vcode-img{
+		height: 48px;width: 100px;
+	}
+	.vcode-img-div{
+		padding: 0;height: 48px;position: absolute;right: 0;
+	}
+	.sw-input-code-con{
+		overflow: hidden;padding-right: 120px;position: relative;margin-right: 0;
+	}
+</style>
+<body style="background: #FFFFFF;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">注册账号</h1>
+	</header>
+	<div class="mui-content" style="padding: 0 20px;background: #FFFFFF;">
+	    <div class="mui-input-row" style="padding-top: 80px;">
+	        <input type="text" type="number" id="phone" oninput="if(value.length>11)value=value.slice(0,11)" onkeyup="disBtn();" onchange="disBtn()" onclick="disBtn()" placeholder="请输入手机号" class="sw-input-phone">
+	    </div>
+	    <div class="sw-input-code-con">
+	        <input type="text" id="code" maxlength="4" onkeyup="disBtn();" onchange="disBtn()" onclick="disBtn()" placeholder="请输入图形验证码" class="sw-input-code">
+			<div class="vcode-img-div">
+				<img id="captcha_img" onclick="$('#captcha_img').attr('src',imgUrl+'/tools/imgCode&t='+Math.random())" class="weui-vcode-img" alt="注册验证码" title="点击更换" src="">
+			</div>
+	    </div>
+	    <button type="button" id="subBtn" class="mui-btn mui-btn-tangerine mui-btn-block mui-disabled">下一步</button>
+	</div>
+</body>
+ <script src="../../js/mui.min.js"></script>
+<script src="../../js/global.js"></script>
+<script src="../../js/jquery.min.js"></script>
+<script>
+	//mui初始化
+	mui.init();
+	
+	//mui plusReady
+	$(function() {
+		//设置图片二维码链接地址
+		var codeUrl = imgUrl+"/tools/imgCode";		
+		$("#captcha_img").attr('src',codeUrl);		
+	})
+	
+	//提交数据
+ 	function registerOne(){		
+ 		var phone = $.trim($("#phone").val());
+        var code  = $.trim($("#code").val());	
+ 		//验证手机号码
+ 		if(phone==''){
+ 			sw.toast('请输入要绑定的手机号码');
+ 			return;
+ 		}else{
+ 			
+ 			if(Verification.isTel(phone)==false){//验证手机号码输入是否正确
+ 				sw.toast('您输入的手机号码有误，请检查后重试');
+ 				return; 
+ 			}			
+ 		}
+ 		//验证登录密码
+ 		if(code==''){
+ 			sw.toast('请输入图形验证码');
+ 			return;
+ 		}else{
+ 			if(code.length!=4){
+ 			sw.toast('图形验证码输入有误'); 
+ 			return;
+ 		    }
+ 		}				
+ 		var postData = {};
+            postData.phone = phone;
+            postData.code  = code;	
+			http.load('api.sev.register','registerOne',postData,function(rData){//请求成功
+				sw.jcon(rData);
+	 			sw.toast(rData.msg); 
+	 			if(rData.status==200){//保存成功 进入下一步  
+	 				setTimeout(function(){//延时进入下一步   
+	 					openView('../../view/register/setPwd.html','register_setPwd','pop-in',postData);		
+	 				},1000) 
+	 			}
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+	 			sw.jcon(errorThrown);
+				//无网络提示
+				sw.toast('请求失败，请检查您网络设置'); 
+	 		}) 	
+ 	}
+ 	
+ 	
+ 	 //提交按钮
+    function disBtn() {
+    	var phone = $.trim($("#phone").val());
+    	var code  = $.trim($("#code").val());
+    
+    	var isSubmit = 1;
+    	if(!phone) {
+    		isSubmit = 0;
+    	}
+    	if(!code) {
+    		isSubmit = 0;
+    	}
+  	
+    	if(isSubmit == 1) {
+    		$("#subBtn").attr('onclick', "registerOne()").removeClass('mui-disabled');
+    	} else {
+    		$("#subBtn").attr('onclick', '').addClass('mui-disabled');
+    	}
+    }  
+     
+</script>
+</html>

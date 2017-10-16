@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>权限模块列表</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/js/hplus/css/animate.min.css" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <link href="/js/hplus/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content" style="padding-bottom: 0">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <div class="mail-box-header">
+
+                    <div class="form-group" style="margin-top: 5px; float: left">
+                        <label class="control-label"
+                               style="float: left;margin-left: 15px;line-height: 30px;">显示状态：</label>
+                        <div class="input-group">
+                            <select style="height: 30px;" id="status" name="status" class="form-control">
+                                <option value=''>不限</option>
+                                <option value='1'>显示</option>
+                                <option value='2'>隐藏</option>
+                            </select>
+                        </div>
+                    </div>
+
+                <div class="form-group" style="margin-top: 5px; float: left">
+                        <label class="control-label"
+                               style="float: left;margin-left: 15px;line-height: 30px;">模块名称：</label>
+                        <div class="input-group">
+                            <select style="height: 30px;" id="modName" name="modName" class="form-control">
+                                <option value=''>不限</option>
+                                <?php foreach($modsName as $item){ ?>
+                                <option value="<?php echo $item['modName']; ?>"><?php echo $item['modName']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-6 col-xs-12 col-lg-4" style="margin-top: 5px;">
+                        <label class="control-label"
+                               style="float: left;line-height: 30px;">关&nbsp;&nbsp;键&nbsp;&nbsp;字：</label>
+                        <div class="input-group">
+                            <input type="text" id="searchKey" name="searchKey" value="" class="form-control" placeholder="方法名称"> <span class="input-group-btn"> <button type="submit" class="btn btn-primary" id="search-post">
+                            搜索
+                        </button> </span>
+                        </div>
+                    </div>
+                    <div style="clear: both"></div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <h3 style="margin-right: 10px;">权限模块列表</h3>
+                    <div style="text-align: right; padding-right: 15px;">
+                        <span><button type="submit" class="btn btn-xs btn-primary btn-mod-edit" style="margin-left: 2px;" id="btn-mod-edit">新增模块</button></span>
+                    </div>
+                    <!--列表开始-->
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center;width:150px">序号</th>
+                                <th style="text-align: center;width:150px">模块</th>
+                                <th style="text-align: center;width:150px">权限</th>
+                                <th style="text-align: center;width:150px">权限图标
+                                    <button  type="button"  class="btn btn-primary btn-xs" title="图标库" onclick="top.addTabWin('图标库','/plat.mod/icon')">图标库</button>
+                                </th>
+                                <th style="text-align: center;width:150px">是否菜单显示</th>
+                                <th style="text-align: center;width:150px">排序</th>
+                            </tr>
+                            </thead>
+                            <tbody id="listObj" style="text-align: center">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <script id="showList" type="text/html">
+                        {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                        <tr>
+                            <td class="star2">{{ ((page-1)*pageSize)+i+1 }}</td>
+                            <td class="star2">
+                                <span class="mod-text" onclick="editMod(this)">{{ list[i].modName }}<input value="{{ list[i].modName }}" hidden="hidden"></span>
+                                <input type="text" onBlur="saveModInfo(this,'modName','{{ list[i].id }}')"  class="mod-input" style="width:120px;margin: auto;display: none" value="{{ list[i].modName }}">
+                            </td>
+                            <td class="star2">
+                                <span class="mod-text" onclick="editMod(this)">{{ list[i].funName }}<input value="{{ list[i].funName }}" hidden="hidden"></span>
+                                <input type="text" onBlur="saveModInfo(this,'funName','{{ list[i].id }}')" class="mod-input" style="width:120px;margin: auto;display: none" value="{{ list[i].funName }}">
+                            </td>
+                            <td class="star2">
+                                <span class="mod-text" onclick="editMod(this)"><i class="fa {{ list[i].funIco }}"></i><input value="{{ list[i].funIco }}" hidden="hidden"></span>
+                                <input type="text" onBlur="saveModInfo(this,'funIco','{{ list[i].id }}')" class="mod-input" style="width:120px;margin: auto;display: none" value="{{ list[i].funIco }}">
+                            </td>
+                            <td class="star2">
+                                <label>
+                                    <input type="checkbox" onclick="changeStatus(this,'{{ list[i].id }}')" {{# if(list[i].isMenu==1){ }}checked{{# } }}>
+                                </label>
+                            </td>
+                            <td class="star2">
+                                <span class="mod-text" onclick="editMod(this)">{{ list[i].sort }}<input value="{{ list[i].sort }}" hidden="hidden"></span>
+                                <input type="number" onBlur="saveModInfo(this,'sort','{{ list[i].id }}')" class=" mod-input" style="width:120px;margin: auto;display: none" value="{{ list[i].sort }}">
+                            </td>
+                        </tr>
+
+                        {{# } }}
+                    </script>
+
+                    <script id="showNo" type="text/html">
+                        <tr>
+                            <td colspan="6" style="text-align: center">{{ d.massage }}</td>
+                        </tr>
+                    </script>
+                    <!--列表结束-->
+                    <!--页码开始-->
+                    <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                        <input hidden="hidden" value="1" id="page"/>
+                        <span>每页显示
+                        <select name="pageSize" id="pageSize" onchange="getList(1)">
+                            <option value="5">5</option>
+                            <option value="10"  selected="selected">10</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                            <option value="80">80</option>
+                            <option value="100">100</option>
+                            <option value="300">300</option>
+                        </select>&nbsp;
+                    </span>
+                        <span id="pageInfo" style="margin-right: 10px;"></span>
+                        <div class="btn-group" id="pager"></div>
+                    </div>
+                    <!--页码结束-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script  type="text/javascript" src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script  type="text/javascript" src="/js/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+<script  type="text/javascript" src="/js/hplus/js/content.min.js?v=1.0.0"></script>
+<script  type="text/javascript" src="/js/hplus/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+
+<script src="/js/laytpl/laytpl.js"></script>
+<!--自定义js-->
+<!--分页插件-->
+<script src="/js/jquery.page.js"></script>
+<!--自定义JS-->
+<script src="/js/global.js"></script>
+<script>
+    $(function(){
+        getList(1);
+        $("#search-post").click(function(){
+            getList(1);
+        });
+    });
+
+    //部门新增
+    $(".btn-mod-edit").on('click',function(){
+        var title = "新增模块";
+        if(isPC()) {//判断是否是电脑端
+            layer.open({
+                type: 2,
+                title: title,
+                shadeClose: true,
+                shift:2,
+                maxmin: false, //开启最大化最小化按钮
+                area: ['800px', '480px'],
+                content: '/plat.mod/addMod'
+            });
+        }else{
+            top.layer.open({
+                type: 2,
+                title: title,
+                shadeClose: true,
+                shift:2,
+                maxmin: false, //开启最大化最小化按钮
+                area: ['100%', '100%'],
+                content: '/plat.mod/addMod'
+            });
+        }
+    });
+
+    /**
+     * 获取数据
+     */
+    function getList(page){
+        var status     = $("#status").val();
+        var modName    = $("#modName").val();
+        var keywords = $("#searchKey").val();//关键字
+        page         = page ? page : 1;
+        pageSize     = $('#pageSize').val();
+        var url = '/plat.mod/getModsList';
+        var index = layer.load(2);
+        $.post(url,{
+            status:status,
+            modName:modName,
+            keywords:keywords,
+            page:page,
+            pageSize:pageSize
+        },function(rdata){
+            layer.close(index);
+            var pageInfo = '';
+            var p     = rdata.page;
+            var pageSize = rdata.pageSize;
+            var count = rdata.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            $("#pageInfo").text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+            $("#pager").createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getList(p);
+                }
+            });
+            showData(rdata);
+        },'json');
+        $("#page").val(page);
+    }
+
+    /**
+     * 展示数据
+     */
+    function showData(data) {
+        if(data.massageCode == 'success'){
+            if(data.list.length>0){
+                var tpl2 = $('#showList').html();
+                laytpl(tpl2).render(data, function(html){
+                    $('#listObj').html(html);
+                });
+                return false
+            }
+        }else {
+            var tpl1 = $('#showNo').html();
+            laytpl(tpl1).render(data, function(html){
+                $('#listObj').html(html);
+            });
+        }
+
+    }
+
+    /**
+     * 改变模块状态
+     * @param j
+     * @param funId
+     */
+    function changeStatus(j,funId){
+        //alert(1);
+        var status = 0;
+        var isChecked = $(j).is(':checked');
+        if(isChecked){
+            status = 1;
+        }
+        var postData = {};
+        postData.isMenu = status;
+        postData.funId = funId;
+        api.load('plat.mod','changeStatus',postData,function(rData){
+            layer.msg(rData.msg);
+        });
+    }
+
+    /**
+     * 编辑模型
+     * @param j
+     */
+    function editMod(j) {
+        $(".mod-text").css('display','block');
+        $(".mod-input").css('display','none');
+        $(j).css('display','none');
+        $(j).next().css('display','block');
+        $(j).next().focus();
+        $(j).next().val($(j).next().val());
+    }
+
+    /**
+     * 保存信息
+     */
+    function saveModInfo(j,field,funId){
+
+
+        var key = $.trim($(j).val());
+        var url = '/?m=plat.mod&a=saveModInfo';
+
+        if(field=='funIco'){
+            var oldKey = $.trim($(j).prev().find('input').val());
+        }else{
+            oldKey =  $.trim($(j).prev().text());
+        }
+
+        if(key!=oldKey){
+            $.post(url,{
+                field:field,
+                funId:funId,
+                key:key
+            },function(rData){
+                if(rData.status==1){
+
+                    if(field=='funIco'){
+                        $(j).prev().find('i').attr('class','fa '+key);
+                        $(j).prev().find('input').val(key);
+                    }else{
+                        $(j).prev().text(key);
+                    }
+
+                    layer.msg('保存成功',{time:500},function(){
+                        $(j).css('display','none');
+                        $(j).prev().css('display','block');
+                    });
+
+                }else{
+                    layer.msg('保存失败');
+                    $(j).css('display','none');
+                    $(j).prev().css('display','block');
+                }
+
+            },'json');
+        }else{
+            $(j).css('display','none');
+            $(j).prev().css('display','block');
+        }
+
+    }
+
+</script>
+</html>

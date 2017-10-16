@@ -1,0 +1,59 @@
+.titles{height: 90px;line-height: 90px;margin-top: 15px;text-align: center;font-size: 20px;font-weight: bold;color: #5D5D5D}
+.collectSouSuo{width: 66px;height: 32px;background: #FF524B;color: #FFF;line-height: normal;border: none;}
+.collectSouSuo:hover{background: #FF766F;}
+.collectSouSuo:active{opacity: .5;}
+#header{width: 920px;margin: 0 auto;}
+.header{height: 44px;border: 1px solid #DDD;line-height: 44px;padding-left: 12px;padding-right: 5px;font-size: 16px;}
+.marLeft50{margin-left: 50px;}
+.floRight{float: right;}
+.posRelative{position: relative;}
+.souSuoInput{width: 345px;height: 32px;line-height: 32px;margin-right: -6px;padding-left: 28px;background: #FFF;border: 1px solid #DDD;}
+.souSuoImg{position: absolute;top: 2px;left: 5px;}
+#jianSuo{display: none}
+.jianSuoHeader{height: 40px;border: 1px solid #DDD; margin-top: -1px;font-size: 16px;line-height: 40px;padding-left: 12px;}
+.marLeft44{margin-left: 44px;}
+.shopTypeDiv{height: 338px;border: 1px solid #DDD;margin-top: -1px;}
+.shopTypeListDiv{height: 30px;line-height: 25px;font-size: 16px;margin-top: 20px;padding-left: 10px;font-weight: bold;padding-right: 20px;}
+.shopTypeBody{float: left;width: 90%;}
+.floLeftW14{float: left;width: 14%;}
+.leftRightBtn{float: right;width: 10%;text-align: right;}
+.marLeft10{margin-left: 10px;}
+.bottomXian{border-bottom: 3px solid #FF524B;width: 65px;}
+.shopImgListDiv{float: left;margin-right: 10px;margin-top: 30px;}
+.shopImgBody{vertical-align: middle;width: 80px;height: 80px;}
+.w80maxH80{width: 80px;max-height: 80px;}
+.shopNameText{text-align: center;width: 80px;}
+#shopList{margin: 0 auto;margin-top: 52px;width: 920px;}
+.shopList{height: 200px;border: 1px solid #DDD;margin-bottom: 20px;padding: 20px 20px 24px 20px;position: relative;}
+.shopImgDiv{width: 156px;height: 156px;border: 1px solid #DDD;float: left;}
+.height154MaxW154{height: 154px;max-width: 154px;}
+.shopInfoDiv{float: left;margin-left: 20px;width: 445px;height: 156px;}
+.shopInfoName{font-size: 18px;color: #FF6633;font-weight: bold;}
+.verAlignBottom{vertical-align: bottom;}
+.shopTag{font-weight: normal;color: #16B2FC;border: 1px solid #16B2FC;border-radius: 18px;padding: 0 8px;}
+.shopInfoText{font-size: 15px;line-height: 25px;margin-top: 5px;overflow: hidden;height: 105px;}
+.fontSize12{font-size: 12px;}
+.touSuText{color: #A9A9A9;margin-left: 5px;margin-right: 20px;}
+.diZi{color: #A9A9A9;margin-left: 5px;margin-right: 20px;}
+.floRight{float: right;}
+.goShopBtn{width: 110px;height: 52px;border: 2px solid #FF524B;border-radius: 7px;font-size: 17px;color: #FF524B;line-height: 52px;text-align: center;margin-top: 50px;}
+.posAbsoluteT0R0{position: absolute;top: 0;right: 0;}
+.w50h50{width: 50px;height: 50px;}
+.erWeiMa{position: absolute;top: 25px;right: 20px;z-index: 5;display: none;}
+.erWeiMaImg{width: 140px;height: 140px;}
+.colorBack{font-size: 18px;color: #666;font-weight: bold;}
+.swiper-slide-active span{color: #FF524B;border-bottom: 3px solid red;padding-bottom: 3px;}
+
+/*收藏产品*/
+#collectProduct{margin: 0 auto;margin-top: 50px;padding-left: 18px;}
+.collectProduct{float: left;width: 268px;height: 320px;border: 1px solid #DDD;margin-left: 20px;margin-right: 25px;margin-bottom: 25px;}
+.collectProductImg{height: 244px;max-width: 266px;}
+.productInfoDiv{padding: 4px 10px;font-size: 12px;}
+.productInfoText{max-width: 248px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+
+
+
+/*分页*/
+.btn-primary.active{background: #FFF;color: #2E2E2E;border: 1px solid #FE534B;border-top: none;border-bottom: none;box-shadow:none;}
+.btn-white{border: 1px solid #FE534B;color: #FE534B;}
+.btn:hover{border: 1px solid #FE534B;}

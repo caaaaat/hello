@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .number{ text-align: center; width: 25px;}
+        #ini .name{border-right-width:0}
+        #ini .act{ text-align: center; width: 85px; border-left-width:0;}
+        .tr_hover{background-color: #F5F5F6;}
+        tr{height: 62px;}
+        .l a{ color: #0066ff;}
+
+    </style>
+</head>
+<body>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 style="margin-right: 10px; text-align: center;" id="ini_title">基础配置</h3>
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true" onclick="javascript:($('#ini_title').text('基础配置'))"> 基础配置</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false" onclick="javascript:$('#ini_title').text('经销商及车系配置')">经销商及车系配置</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false" onclick="javascript:$('#ini_title').text('产品分类配置')">产品分类配置</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <input type="hidden" id="id" value="<?php echo isset($sale['id']) ? $sale['id'] : '' ;?>"/>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered">
+                                    <?php $ini =  isset($ini) ? $ini : '';?>
+                                    <?php if($ini) {?>
+
+                                    <tbody id="ini">
+                                    <?php foreach ($ini as $k=>$v){?>
+                                    <tr>
+                                        <th class="number"><?php echo ++ $k ;?></th>
+                                        <td class="name"><?php echo $v['name'] ;?></td>
+                                        <td class="act"><button type="submit" class="btn btn-xs btn-primary" onclick="ini(<?php echo $v['id']?>,'<?php echo $v['name']?>')">配置</button></td>
+                                    </tr>
+                                    <?php }?>
+                                    </tbody>
+                                    <?php }else{?>
+                                    <tr>
+                                        <td>获取配置信息失败</td>
+                                    </tr>
+                                    <?php }?>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="tabs-container">
+                                    <ul class="nav nav-tabs" style="padding-left: 100px; font-size: 12px;">
+                                        <li class="active"><a data-toggle="tab" href="#tab-1_a" aria-expanded="true"> 轿车商家</a></li>
+                                        <li class=""><a data-toggle="tab" href="#tab-2_b" aria-expanded="false"> 货车商家</a></li>
+                                        <li class=""><a data-toggle="tab" href="#tab-3_c" aria-expanded="false"> 用品商家</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="tab-1_a" class="tab-pane active" style="padding-top: 5px;">
+                                            <div id="type1_lv1" class="col-xs-3" style="padding-left:0;padding-right: 0;">
+                                                <table class="table table-hover table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th colspan="2" style="border-right: 0;">一级分类</th>
+                                                        <th style="width: 150px;border-left: 0; text-align: right;">
+                                                            <button type="submit" class="btn btn-xs btn-primary" type-id="type1_lv1" onclick="addCarClass(this,1,1,0)">添加</button>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="text-align: center;width: 60px;">序号</th>
+                                                        <th style="text-align: center;width: 130px;">名称</th>
+                                                        <th style="text-align: center;width: 150px;">操作</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <?php $carIni1 = isset($carIni['type1']) ? $carIni['type1'] : ''?>
+                                                    <?php if($carIni1) {?>
+                                                    <?php foreach ($carIni1 as $v){?>
+                                                    <tr>
+                                                        <td style="text-align: center;"><input type="number" value="<?php echo $v['vid'] ;?>" data-type="car" data-id="<?php echo $v['id'] ;?>" style="max-width: 50px;text-align: center;" onchange="setVid(this)"/></td>
+                                                        <td style="text-align: center;cursor: pointer;" onclick="getCarIni(this,'type1_lv1',<?php echo $v['id'] ;?>,1)"><?php echo $v['name'] ;?></td>
+                                                        <td style="text-align: center;" class="l">
+                                                            <a onclick="editCarClass(this,<?php echo $v['id'] ;?>,1)">[ 编辑 ]</a><br/>
+                                                            <a onclick="delCarClass(this,<?php echo $v['id'] ;?>)" type-id="type1_lv1">[ 删除 ]</a>
+                                                        </td>
+                                                    </tr>
+                                                    <?php }?>
+                                                    <?php }?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div id="type1_lv2" class="col-xs-3 hidden lg" style="padding-left:5px;padding-right: 0;">
+                                                <table class="table table-hover table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th colspan="3" style="border-right: 0;" class="lv">二级分类</th>
+                                                        <th style="width: 150px;border-left: 0; text-align: right;">
+                                                            <button type="submit" class="btn btn-xs btn-primary act">添加</button>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="text-align: center;width: 60px;">序号</th>
+                                                        <th style="text-align: center;width: 60px;">图标</th>
+                                                        <th style="text-align: center;width: 130px;">名称</th>
+                                                        <th style="text-align: center;width: 150px;">操作</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="type1_lv2_tb"></tbody>
+                                                </table>
+                                            </div>
+                                            <div id="type1_lv3" class="col-xs-3 hidden lg sm" style="padding-left:5px;padding-right: 0;">
+                                                <table class="table table-hover table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th colspan="2" style="border-right: 0;" class="lv">三级分类</th>
+                                                        <th style="width: 150px;border-left: 0; text-align: right;">
+                                                            <button type="submit" class="btn btn-xs btn-primary act">添加</button>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="text-align: center;width: 60px;">序号</th>
+                                                        <th style="text-align: center;width: 130px;">名称</th>
+                                                        <th style="text-align: center;width: 150px;">操作</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                            <div id="type1_lv4" class="col-xs-3 hidden lg sm xs" style="padding-left:5px;padding-right: 0;">
+                                                <table class="table table-hover table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th colspan="2" style="border-right: 0;" class="lv">四级分类</th>
+                                                        <th style="width: 150px;border-left: 0; text-align: right;">
+                                                            <button type="submit" class="btn btn-xs btn-primary act">添加</button>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="text-align: center;width: 60px;">序号</th>
+                                                        <th style="text-align: center;width: 130px;">名称</th>
+                                                        <th style="text-align: center;width: 150px;">操作</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div id="tab-2_b" class="tab-pane" style="padding-top: 5px;">
+                                            <div id="type2_lv1" class="col-xs-3" style="padding-left:0;padding-right: 0;">
+                                                <table class="table table-hover table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th colspan="2" style="border-right: 0;">一级分类</th>
+                                                        <th style="width: 150px;border-left: 0; text-align: right;">
+                                                            <button type="submit" class="btn btn-xs btn-primary" type-id="type2_lv1" onclick="addCarClass(this,2,1,0)">添加</button>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="text-align: center;width: 60px;">序号</th>
+                                                        <th style="text-align: center;width: 130px;">名称</th>
+                                                        <th style="text-align: center;width: 150px;">操作</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <?php $carIni2 = isset($carIni['type2']) ? $carIni['type2'] : ''?>
+                                                    <?php if($carIni2) {?>
+                                                    <?php foreach ($carIni2 as $v){?>
+                                                    <tr>
+                                                        <td style="text-align: center;"><input type="number" value="<?php echo $v['vid'] ;?>" data-type="car" data-id="<?php echo $v['id'] ;?>" style="max-width: 50px;text-align: center;" onchange="setVid(this)"/></td>
+                                                        <td style="text-align: center;cursor: pointer;" onclick="getCarIni(this,'type2_lv1',<?php echo $v['id'] ;?>,2)"><?php echo $v['name'] ;?></td>
+                                                        <td style="text-align: center;" class="l">
+                                                            <a onclick="editCarClass(this,<?php echo $v['id'] ;?>,1)">[ 编辑 ]</a><br/>
+                                                            <a onclick="delCarClass(this,<?php echo $v['id'] ;?>)" type-id="type2_lv1">[ 删除 ]</a>
+                                                        </td>
+                                                    </tr>
+                                                    <?php }?>
+                                                    <?php }?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div id="type2_lv2" class="col-xs-3 hidden lg" style="padding-left:5px;padding-right: 0;">
+                                                <table class="table table-hover table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th colspan="3" style="border-right: 0;" class="lv">二级分类</th>
+                                                        <th style="width: 150px;border-left: 0; text-align: right;">
+                                                            <button type="submit" class="btn btn-xs btn-primary act">添加</button>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="text-align: center;width: 60px;">序号</th>
+                                                        <th style="text-align: center;width: 60px;">图标</th>
+                                                        <th style="text-align: center;width: 130px;">名称</th>
+                                                        <th style="text-align: center;width: 150px;">操作</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="type2_lv2_tb"></tbody>
+                                                </table>
+                                            </div>
+                                            <div id="type2_lv3" class="col-xs-3 hidden lg sm" style="padding-left:5px;padding-right: 0;">
+                                                <table class="table table-hover table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th colspan="2" style="border-right: 0;" class="lv">三级分类</th>
+                                                        <th style="width: 150px;border-left: 0; text-align: right;">
+                                                            <button type="submit" class="btn btn-xs btn-primary act">添加</button>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="text-align: center;width: 60px;">序号</th>
+                                                        <th style="text-align: center;width: 130px;">名称</th>
+                                                        <th style="text-align: center;width: 150px;">操作</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                            <div id="type2_lv4" class="col-xs-3 hidden lg sm xs" style="padding-left:5px;padding-right: 0;">
+                                                <table class="table table-hover table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th colspan="2" style="border-right: 0;" class="lv">四级分类</th>
+                                                        <th style="width: 150px;border-left: 0; text-align: right;">
+                                                            <button type="submit" class="btn btn-xs btn-primary act">添加</button>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="text-align: center;width: 60px;">序号</th>
+                                                        <th style="text-align: center;width: 130px;">名称</th>
+                                                        <th style="text-align: center;width: 150px;">操作</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div id="tab-3_c" class="tab-pane" style="padding-top: 5px;">
+                                            <div id="type3_lv1" class="col-xs-3" style="padding-left:0;padding-right: 0;">
+                                                <table class="table table-hover table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th colspan="2" style="border-right: 0;">一级分类</th>
+                                                        <th style="width: 150px;border-left: 0; text-align: right;">
+                                                            <button type="submit" class="btn btn-xs btn-primary" type-id="type3_lv1" onclick="addCarClass(this,3,1,0)">添加</button>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="text-align: center;width: 60px;">序号</th>
+                                                        <th style="text-align: center;width: 130px;">名称</th>
+                                                        <th style="text-align: center;width: 150px;">操作</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <?php $carIni3 = isset($carIni['type3']) ? $carIni['type3'] : ''?>
+                                                    <?php if($carIni3) {?>
+                                                    <?php foreach ($carIni3 as $v){?>
+                                                    <tr>
+                                                        <td style="text-align: center;"><input type="number" value="<?php echo $v['vid'] ;?>" data-type="car" data-id="<?php echo $v['id'] ;?>" style="max-width: 50px;text-align: center;" onchange="setVid(this)"/></td>
+                                                        <td style="text-align: center;cursor: pointer;" onclick="getCarIni(this,'type3_lv1',<?php echo $v['id'] ;?>,3)"><?php echo $v['name'] ;?></td>
+                                                        <td style="text-align: center;" class="l">
+                                                            <a onclick="editCarClass(this,<?php echo $v['id'] ;?>,1)">[ 编辑 ]</a><br/>
+                                                            <a onclick="delCarClass(this,<?php echo $v['id'] ;?>)" type-id="type3_lv1">[ 删除 ]</a>
+                                                        </td>
+                                                    </tr>
+                                                    <?php }?>
+                                                    <?php }?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div id="type3_lv2" class="col-xs-3 hidden lg" style="padding-left:5px;padding-right: 0;">
+                                                <table class="table table-hover table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th colspan="3" style="border-right: 0;" class="lv">二级分类</th>
+                                                        <th style="width: 150px;border-left: 0; text-align: right;">
+                                                            <button type="submit" class="btn btn-xs btn-primary act">添加</button>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="text-align: center;width: 60px;">序号</th>
+                                                        <th style="text-align: center;width: 60px;">图标</th>
+                                                        <th style="text-align: center;width: 130px;">名称</th>
+                                                        <th style="text-align: center;width: 150px;">操作</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="type3_lv2_tb"></tbody>
+                                                </table>
+                                            </div>
+                                            <div id="type3_lv3" class="col-xs-3 hidden lg sm" style="padding-left:5px;padding-right: 0;">
+                                                <table class="table table-hover table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th colspan="2" style="border-right: 0;" class="lv">三级分类</th>
+                                                        <th style="width: 150px;border-left: 0; text-align: right;">
+                                                            <button type="submit" class="btn btn-xs btn-primary act">添加</button>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="text-align: center;width: 60px;">序号</th>
+                                                        <th style="text-align: center;width: 130px;">名称</th>
+                                                        <th style="text-align: center;width: 150px;">操作</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                            <div id="type3_lv4" class="col-xs-3 hidden lg sm xs" style="padding-left:5px;padding-right: 0;">
+                                                <table class="table table-hover table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th colspan="2" style="border-right: 0;" class="lv">四级分类</th>
+                                                        <th style="width: 150px;border-left: 0; text-align: right;">
+                                                            <button type="submit" class="btn btn-xs btn-primary act">添加</button>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style="text-align: center;width: 60px;">序号</th>
+                                                        <th style="text-align: center;width: 130px;">名称</th>
+                                                        <th style="text-align: center;width: 150px;">操作</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-3" class="tab-pane">
+                        <div class="panel-body">
+                            <div id="pro_lv1" class="col-xs-5">
+                                <table class="table table-hover table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="2" style="border-right: 0;">一级分类</th>
+                                        <th style="width: 150px;border-left: 0; text-align: right;">
+                                            <button type="submit" class="btn btn-xs btn-primary" tb-id="pro_lv1_tb" onclick="addProClass(this,1,0)">添加</button>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center;width: 60px;">序号</th>
+                                        <th style="text-align: center;width: 130px;">名称</th>
+                                        <th style="text-align: center;width: 150px;">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="pro_lv1_tb">
+                                    <?php $proIni = isset($proIni) ? $proIni : ''?>
+                                    <?php if($proIni) {?>
+                                    <?php foreach ($proIni as $v){?>
+                                    <tr>
+                                        <td style="text-align: center;"><input type="number" value="<?php echo $v['vid'] ;?>" data-type="pro" data-id="<?php echo $v['id'] ;?>" style="max-width: 50px;text-align: center;" onchange="setVid(this)"/></td>
+                                        <td style="text-align: center;cursor: pointer;" onclick="getProIni(this,<?php echo $v['id'] ;?>)"><?php echo $v['name'] ;?></td>
+                                        <td style="text-align: center;" class="l">
+                                            <a onclick="editProClass(this,<?php echo $v['id'] ;?>,1)">[ 编辑 ]</a><br/>
+                                            <a onclick="delProClass(this,<?php echo $v['id'] ;?>,1)">[ 删除 ]</a>
+                                        </td>
+                                    </tr>
+                                    <?php }?>
+                                    <?php }?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="pro_lv2" class="col-xs-7">
+                                <table class="table table-hover table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="3" style="border-right: 0;" id="lv2_head">二级分类</th>
+                                        <th style="width: 150px;border-left: 0; text-align: right;">
+                                            <button type="submit" class="btn btn-xs btn-primary hidden" id="add_lv2_btn">添加</button>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center;width: 60px;">序号</th>
+                                        <th style="text-align: center;width: 60px;">图标</th>
+                                        <th style="text-align: center;width: 130px;">名称</th>
+                                        <th style="text-align: center;width: 150px;">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="pro_lv2_tb"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/js/laytpl/laytpl.js"></script>
+
+<!--弹窗js-->
+<script src="/js/hplus/js/plugins/layer/layer-3.0.3.min.js"></script>
+<!--分页插件-->
+<!--<script src="/js/jquery.page.js"></script>-->
+
+<!--自定义JS-->
+<script src="/js/global.js"></script>
+<script>
+    $(function(){
+        $(".btn-ini").click(function(){
+
+        });
+    });
+    /**
+     * 修改基本配置
+     * @param id
+     * @param title
+     */
+    function ini(id,title) {
+        var areaArr = {
+            1:['650px', '500px'],2:['650px', '500px'],3:['650px', '500px'],4:['650px', '350px'],
+            5:['650px', '500px'],6:['650px', '350px'],7:['650px', '450px'],8:['650px', '550px']
+        } ;
+        var area = areaArr[id] ;
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: area,
+            content: '/plat.ini/ini/?id='+id
+        });
+    }
+
+    function getCarIni(obj,id,pid,t) {
+        trHover(obj);
+        var idArr = {
+            'type1_lv1':'type1_lv2','type1_lv2':'type1_lv3','type1_lv3':'type1_lv4',
+            'type2_lv1':'type2_lv2','type2_lv2':'type2_lv3','type2_lv3':'type2_lv4',
+            'type3_lv1':'type3_lv2','type3_lv2':'type3_lv3','type3_lv3':'type3_lv4'
+        } ;
+
+        if( id == 'type1_lv1' || id == 'type2_lv1' || id == 'type3_lv1' ){
+            $(".sm").addClass('hidden');
+        }else if( id == 'type1_lv2' || id == 'type2_lv2' || id == 'type3_lv2' ){
+            $(".xs").addClass('hidden');
+        }
+
+        $('#'+idArr[id]).removeClass('hidden');
+        $.post('/plat.ini/getCarIni',{id:pid},function (rv) {
+            if(rv){
+                var tr   = '' ;
+                for (var i=0;i<rv.length;i++){
+                    var randomId = getRandomId() ;
+                    var  input   = '<input type="number" value="'+rv[i]['vid']+'" data-type="car" data-id="'+rv[i]['id']+'" style="max-width: 50px;text-align: center;" onchange="setVid(this)"/>' ;//
+
+                    tr  += '<tr id="'+randomId+'">' ;
+                    tr  += '<td style="text-align: center;">'+input+'</td>' ;
+                    if(id == 'type1_lv1' || id == 'type2_lv1' || id == 'type3_lv1' ){
+                        tr  += '<td style="text-align: center;"><img style="width: 45px;height: 45px;" src="'+rv[i]['img']+'"></td>' ;
+                    }
+                    if(id == 'type1_lv3' || id == 'type2_lv3' || id == 'type3_lv3' ){
+                        tr  += '<td style="text-align: center;">'+rv[i]['name']+'</td>' ;
+                    }else {
+                        tr  += '<td style="text-align: center;cursor: pointer;" onclick="getCarIni(this,\''+idArr[id]+'\','+rv[i]['id']+','+t+')">'+rv[i]['name']+'</td>' ;
+                    }
+
+                    tr  += '<td style="text-align: center;" class="l"><a onclick="editCarClass(this,'+rv[i]['id']+','+rv[i]['level']+')">[ 编辑 ]</a><br/><a type-id="'+idArr[id]+'" onclick="delCarClass(this,'+rv[i]['id']+')">[ 删除 ]</a></td>' ;
+
+                    tr  += '</tr>' ;
+                }
+                if(id == 'type1_lv1' || id == 'type2_lv1' || id == 'type3_lv1' ){
+                    $('#'+idArr[id]).find('thead').find('.lv').html('二级分类 <br/><span style="color: red;">'+$(obj).text()+'</span>');
+                    $('#'+idArr[id]).find('thead').find('.act').attr('onclick',"addCarClass(this,"+t+",2,"+pid+")").attr('type-id',idArr[id]);
+
+                }else if(id == 'type1_lv2' || id == 'type2_lv2' || id == 'type3_lv2' ){
+                    $('#'+idArr[id]).find('thead').find('.lv').html('三级分类 <br/><span style="color: red;">'+$(obj).text()+'</span>');
+                    $('#'+idArr[id]).find('thead').find('.act').attr('onclick',"addCarClass(this,"+t+",3,"+pid+")").attr('type-id',idArr[id]);
+                }else if(id == 'type1_lv3' || id == 'type2_lv3' || id == 'type3_lv3' ){
+                    $('#'+idArr[id]).find('thead').find('.lv').html('四级分类 <br/><span style="color: red;">'+$(obj).text()+'</span>');
+                    $('#'+idArr[id]).find('thead').find('.act').attr('onclick',"addCarClass(this,"+t+",4,"+pid+")").attr('type-id',idArr[id]);
+                }
+
+                $('#'+idArr[id]).find('tbody').html(tr);
+            }
+        },'json');
+    }
+    /**
+     *增加车系分类
+     * @param obj
+     * @param t 类型
+     * @param lv 等级
+     * @param pid
+     */
+    function addCarClass(obj,t,lv,pid)
+    {
+        var tr  = $(obj).parent().parent().parent().parent().find('tbody').find('tr');
+        var vid = tr.length +1;
+        var classId = $(obj).attr('type-id');
+        if(lv != 2){
+            layer.prompt({
+                title: '添加分类',
+                formType: 0,
+                //value: name
+                shadeClose: true
+            }, function(text, index){
+                if(!text || text == ''){
+                    layer.msg('请输入分类名称');
+                    return false ;
+                }else {
+                    api.load('plat.ini','saveCarIni',{type:t,lv:lv,pid:pid,name:text,vid:vid},function(rData){
+
+                        if(rData.massageCode == 'success'){
+
+
+                            layer.msg(rData.massage);
+                            var randomId = getRandomId() ;
+
+                            var  input   = '<input type="number" value="'+vid+'" data-type="car" data-id="'+rData.massageId+'" style="max-width: 50px;text-align: center;" onchange="setVid(this)"/>' ;//
+                            var tr = '<tr id="'+randomId+'">' ;
+
+                            tr    += '<td style="text-align: center;">'+input+'</td>' ;
+                            if(lv < 4){
+                                tr+= '<td style="text-align: center;cursor: pointer;" onclick="getCarIni(this,\''+classId+'\','+rData.massageId+','+t+')">'+text+'</td>' ;
+                            }else {
+                                tr+= '<td style="text-align: center;">'+text+'</td>' ;
+                            }
+
+                            tr    += '<td style="text-align: center;" class="l"><a onclick="editCarClass(this,'+rData.massageId+','+lv+')">[ 编辑 ]</a><br/><a type-id="'+classId+'" onclick="delCarClass(this,'+rData.massageId+')">[ 删除 ]</a></td>' ;
+                            tr    += '</tr>' ;
+                            $(obj).parent().parent().parent().parent().find('tbody').append(tr);
+
+                        }else {
+                            layer.msg(rData.massage);
+                        }
+                        layer.close(index);
+                    });
+                }
+            });
+        }else {
+            var title   = "新增分类";
+            var tid     = $(obj).parent().parent().parent().parent().find('tbody').attr('id');
+            layer.open({
+                type: 2,
+                title: title,
+                shadeClose: true,
+                shift:2,
+                maxmin: false, //开启最大化最小化按钮
+                area: ['550px', '450px'],
+                content: '/plat.ini/editCarClass/?type='+t +'&lv='+lv+'&pid='+pid+'&vid='+vid+'&tid='+tid+'&classId='+classId
+            });
+        }
+
+
+    }
+    /**
+     * 编辑 车系分类
+     * @param obj
+     * @param id
+     * @param lv
+     */
+    function editCarClass(obj,id,lv)
+    {
+        if(lv != 2) {
+            layer.prompt({
+                title: '编辑分类',
+                formType: 0,
+                value: $(obj).parent().prev().text(),
+                shadeClose: true
+            }, function (text, index) {
+                api.load('plat.ini','saveCarIni',{id:id,name:text},function(rData){
+                    if(rData.massageCode == 'success'){
+                        layer.msg(rData.massage);
+
+                        $(obj).parent().prev().text(text);
+
+                    }else {
+                        layer.msg(rData.massage);
+                    }
+                    layer.close(index);
+                });
+            })
+        }else {
+            var trId    = $(obj).parent().parent().attr('id');
+            var title = "编辑分类";
+            layer.open({
+                type: 2,
+                title: title,
+                shadeClose: true,
+                shift:2,
+                maxmin: false, //开启最大化最小化按钮
+                area: ['550px', '450px'],
+                content: '/plat.ini/editCarClass/?id='+id +'&trId='+trId
+            });
+        }
+    }
+    function delCarClass(obj,id) {
+        layer.confirm('删除后不可恢复,是否删除 ? ',{area: ['300px', '160px'],shadeClose: true,title:'重要提示'},function () {
+                api.load('plat.ini','delCarClass',{id:id},function(rData){
+                    if(rData.massageCode == 'success'){
+                        layer.msg(rData.massage);
+                        var typeId = $(obj).attr('type-id')  ;
+                        if(typeId == 'type1_lv1' || typeId == 'type2_lv1' || typeId == 'type3_lv1' ){
+                            $(".lg").addClass('hidden');
+                        }else if(typeId == 'type1_lv2' || typeId == 'type2_lv2' || typeId == 'type3_lv2' ){
+                            $(".sm").addClass('hidden');
+                        }else if(typeId == 'type1_lv3' || typeId == 'type2_lv3' || typeId == 'type3_lv3' ){
+                            $(".xs").addClass('hidden');
+                        }
+
+                        $(obj).parent().parent().remove();
+                    }
+
+                });
+            }
+        );
+    }
+
+    function getProIni(obj,pid) {
+        trHover(obj);
+        $.post('/plat.ini/getProIni',{pid:pid},function (rv) {
+            if(rv){
+                var tr   = '' ;
+                for (var i=0;i<rv.length;i++){
+
+                    var  input   = '<input type="number" value="'+rv[i]['vid']+'" data-type="pro" data-id="'+rv[i]['id']+'" style="max-width: 50px;text-align: center;" onchange="setVid(this)"/>' ;//
+
+
+                    var trId = getRandomId() ;
+                    tr  += '<tr id="'+trId+'">' ;
+                    tr  += '<td style="text-align: center;">'+input+'</td>' ;
+                    tr  += '<td style="text-align: center;"><img alt="配图" style="width: 45px;height: 45px;" src="'+rv[i]['img']+'"></td>' ;
+                    tr  += '<td style="text-align: center;">'+rv[i]['name']+'</td>' ;
+                    tr  += '<td style="text-align: center;" class="l"><a tr-id="'+trId+'" onclick="editProClass(this,'+rv[i]['id']+',2)">[ 编辑 ]</a><br/><a onclick="delProClass(this,'+rv[i]['id']+',2)">[ 删除 ]</a></td>' ;
+                    tr  += '</tr>' ;
+                }
+                $('#lv2_head').html('二级分类 <br/><span style="color: red;">'+$(obj).text()+'</span>');
+                $('#add_lv2_btn').removeClass('hidden').attr('onclick',"addProClass(this,2,"+pid+")");
+                $('#pro_lv2_tb').html(tr);
+            }
+        },'json');
+    }
+
+    function addProClass(obj,lv,pid) {
+        var tbId= $(obj).attr('tb-id');
+        var tr  = $('#'+tbId).find('tr');
+        var vid = tr.length +1;
+        if(lv == 1 ){
+            layer.prompt({
+                title: '新增产品分类',
+                formType: 0,
+                shadeClose: true
+            }, function(text, index){
+                api.load('plat.ini','saveProIni',{lv:1,pid:0,name:text,vid:vid},function(rData){
+                    if(rData.massageCode == 'success'){
+                        var  input   = '<input type="number" value="'+vid+'" data-type="pro" data-id="'+rData.massageId+'" style="max-width: 50px;text-align: center;" onchange="setVid(this)"/>' ;//
+
+                        layer.msg(rData.massage);
+                        var trId = getRandomId() ;
+                        var tr = '<tr id="'+trId+'">' ;
+                        tr    += '<td style="text-align: center;">'+input+'</td>' ;
+                        tr    += '<td style="text-align: center;cursor: pointer;" onclick="getProIni(this,'+rData.massageId+')">'+text+'</td>' ;
+                        tr    += '<td style="text-align: center;" class="l"><a tr-id="'+trId+'" onclick="editProClass(this,'+rData.massageId+',1)">[ 编辑 ]</a><br/><a onclick="delProClass(this,'+rData.massageId+',1)">[ 删除 ]</a></td>' ;
+                        tr    += '</tr>' ;
+                        $('#'+tbId).append(tr);
+                    }else {
+                        layer.msg(rData.massage);
+                    }
+                    layer.close(index);
+                });
+            });
+        }else if(lv == 2){
+            var title   = "新增产品分类";
+            layer.open({
+                type: 2,
+                title: title,
+                shadeClose: true,
+                shift:2,
+                maxmin: false, //开启最大化最小化按钮
+                area: ['550px', '450px'],
+                content: '/plat.ini/editProClass/?pid='+pid+'&tbId='+tbId+'&vid='+vid
+            });
+        }
+    }
+    /**
+     * 编辑 车系分类
+     * @param obj
+     * @param id
+     * @param lv
+     */
+    function editProClass(obj,id,lv)
+    {
+        if(lv == 1) {
+            var name = $(obj).parent().prev().text();
+            layer.prompt({
+                title: '编辑产品分类',
+                formType: 0,
+                value: name,
+                shadeClose: true
+            }, function (text, index) {
+                api.load('plat.ini','saveProIni',{id:id,name:text},function(rData){
+                    if(rData.massageCode == 'success'){
+                        layer.msg(rData.massage);
+                        $(obj).parent().prev().text(text);
+                    }else {
+                        layer.msg(rData.massage);
+                    }
+                    layer.close(index);
+                });
+            })
+        }else if(lv == 2) {
+
+            var trId    = $(obj).parent().parent().attr('id');
+            var title = "编辑分类";
+            layer.open({
+                type: 2,
+                title: title,
+                shadeClose: true,
+                shift:2,
+                maxmin: false, //开启最大化最小化按钮
+                area: ['550px', '450px'],
+                content: '/plat.ini/editProClass/?id='+id +'&trId='+trId
+            });
+        }
+    }
+    function delProClass(obj, id, lv) {
+        layer.confirm('删除后不可恢复,是否删除 ? ',{
+            area: ['300px', '160px'],
+            shadeClose: true,
+            title:'重要提示'
+            },
+            function () {
+                api.load('plat.ini','delProClass',{id:id},function(rData){
+                    if(rData.massageCode == 'success'){
+                        layer.msg(rData.massage);
+                        if( lv == 1 ){
+                            $('#lv2_head').html('二级分类');
+                            $('#add_lv2_btn').addClass('hidden');
+                            $("#pro_lv2_tb").html('');
+                        }
+                        $(obj).parent().parent().remove();
+                    }
+
+                });
+            }
+        );
+    }
+
+    function setVid(obj) {
+        var id  = $(obj).attr('data-id')  ;
+        var type= $(obj).attr('data-type')  ;
+        var vid = $(obj).val() ;
+        if( vid > 0 ){
+            $.post('/plat.ini/setVid',{id:id,vid:vid,type:type},function (rv) {
+                if(rv){
+                    layer.msg(rv.massage)
+                }
+            },'json');
+        }
+
+    }
+
+
+    function trHover(obj) {
+        $(obj).parent().parent().find('tr').removeClass('tr_hover') ;
+        $(obj).parent().addClass('tr_hover') ;
+    }
+</script>
+</body>
+</html>

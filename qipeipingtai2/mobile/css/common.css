@@ -1,0 +1,358 @@
+html,body{
+width: 100%;
+height: 100%;
+}
+.mui-bar {
+    background-color: #FF534C;
+}
+.mui-btn{
+	padding-top: 10px;padding-bottom: 10px;
+}
+.mui-title {
+    color: #FFFFFF;
+}
+.mui-pull-right{
+	font-size: 14px!important;
+}
+.mui-bar .mui-btn-link {
+    color: #FFFFFF;
+}
+.mui-icon-left-nav{
+	color: #FFFFFF;
+}
+.mui-bar-nav{
+	box-shadow: none;
+}
+.mui-bar-tab .mui-tab-item.mui-active {
+color: #FF534C!important;
+}
+.mui-bar-tab .sw-home{
+	background: url(../image/index/home.png) no-repeat;background-size:contain;background-position: bottom;
+}
+.mui-bar-tab .mui-tab-item.mui-active .sw-home{
+	background: url(../image/index/home_r.png) no-repeat;background-size:contain;background-position: bottom;
+}
+
+.mui-bar-tab .sw-vin{
+	background: url(../image/index/chaxun.png) no-repeat;background-size:contain;background-position: bottom;
+}
+.mui-bar-tab .mui-tab-item.mui-active .sw-vin{
+	background: url(../image/index/chaxun_r.png) no-repeat;background-size:contain;background-position: bottom;
+}
+
+.mui-bar-tab .sw-quanzi{
+	background: url(../image/index/quanzi.png) no-repeat;background-size:contain;background-position: bottom;
+}
+.mui-bar-tab .mui-tab-item.mui-active .sw-quanzi{
+	background: url(../image/index/quanzi_r.png) no-repeat;background-size:contain;background-position: bottom;
+}
+
+.mui-bar-tab .sw-gonggao{
+	background: url(../image/index/gonggao.png) no-repeat;background-size:contain;background-position: bottom;
+}
+.mui-bar-tab .mui-tab-item.mui-active .sw-gonggao{
+	background: url(../image/index/gonggao_r.png) no-repeat;background-size:contain;background-position: bottom;
+}
+
+.mui-bar-tab .sw-geren{
+	background: url(../image/index/gerenzhongxin.png) no-repeat;background-size:contain;background-position: bottom;
+}
+.mui-bar-tab .mui-tab-item.mui-active .sw-geren{
+	background: url(../image/index/gerenzhongxin_r.png) no-repeat;background-size:contain;background-position: bottom;
+}
+
+.mui-bar-tab .sw-shouji{
+	background:url(../image/index/icon_cp_phone.png) no-repeat;background-size:contain;background-position: bottom;
+}
+
+.mui-bar-tab .sw-QQ{
+	background: url(../image/index/icon_cp_qq.png) no-repeat;background-size:contain;background-position: bottom;
+}
+
+.mui-bar-tab .sw-WX{
+	background: url(../image/index/weixin.png) no-repeat;background-size:contain;background-position: bottom;
+}
+
+.mui-bar-tab .sw-jubao{
+	background: url(../image/index/people.png) no-repeat;background-size:contain;background-position: bottom;
+}
+
+.mui-bar-tab .sw-daohang{
+	background: url(../image/person/repair/icon_dingwei.png) no-repeat;background-size:contain;background-position: bottom;
+}
+
+.mui-bar-tab .sw-fenxiang{
+	background: url(../image/index/share_r.png) no-repeat;background-size:contain;background-position: bottom;
+}
+
+.mui-col-sm-20{
+	width: 20%;
+} 
+.mui-col-sm-31{
+	width: 31%;
+}
+.mui-col-sm-33{
+	width: 33.3%;
+}
+//自定义按钮颜色
+.mui-btn-tangerine{
+	background: #FF534C;
+}
+.mui-btn-tangerine,input[type=submit]{color:#fff;border:0px;background-color:#FF534C;} 
+.mui-btn-tangerine.mui-active:enabled,.mui-btn-tangerine:enabled:active,input[type=submit]
+.mui-active:enabled,input[type=submit]:enabled:active{color:#fff;border:0px;background-color:#FF534C;opacity: .6;}
+ 
+.mui-btn-tangerinec{ 
+	background: #FFFFFF;
+}
+.mui-btn-tangerinec,input[type=submit]{color:#FF534C;border:1px solid #FFFFFF;background-color:#FFFFFF}
+.mui-btn-tangerinec.mui-active:enabled,.mui-btn-tangerinec:enabled:active,input[type=submit]
+.mui-active:enabled,input[type=submit]:enabled:active{color:#fff;border:1px solid #FF534C;background-color:#FF534C;}
+
+.mui-btn-blue{
+	background: #18C3FB;
+}
+.mui-btn-blue,input[type=submit]{color:#fff;border:1px solid #18C3FB;background-color:#18C3FB}
+.mui-btn-blue.mui-active:enabled,.mui-btn-blue:enabled:active,input[type=submit]
+.mui-active:enabled,input[type=submit]:enabled:active{color:#fff;border:1px solid #18C3FB;background-color:#18C3FB;opacity: .6;}
+
+.mui-btn-gray{
+	background: #CCCCCC;
+}
+
+
+.sw-title-badge{
+	padding: 4px;background: rgba(215, 9, 11, 1)!important;position: absolute;left:10px;top:15px!important;width: 0;z-index: 99;
+}
+.sw-title-img1{
+	width: 8px;vertical-align: text-top;position: relative;top: 10px;
+}
+.sw-title-img2{
+	width: 18px;vertical-align: text-top;position: relative;
+}
+
+.sw-ctheme{
+	color: #FF534C!important;
+}
+.sw-btheme{
+	background: #FF534C!important;
+}
+
+.sw-cbtheme{
+	color: #15b1fe!important;
+}
+.sw-bbtheme{
+	background: #15b1fe!important;
+}
+
+.sw-cgtheme{
+	color: #22c971!important;
+}
+.sw-bgtheme{
+	background: #22c971!important;
+}
+
+.sw-btn-cancel{
+	color: #00a2d1;
+	border: none;
+	background: #FFFFFF;
+}
+.sw-btn-cancel:active{
+	color: #00b2ea!important;
+	border: none;
+	background: #FFFFFF!important;
+}
+
+.sw-btn-ok{
+	color: #00a2d1;
+	border: none;
+	background: #FFFFFF;
+}
+.sw-btn-ok:active{
+	color: #00b2ea!important;
+	border: none!important;
+	background: #FFFFFF!important;
+}
+.sw-pick-header{
+	background: #FFFFFF;
+	text-align:center
+}
+.mui-pciker-rule-bg{
+	background: #FFFFFF;
+	border-top:solid #DDDDDD 1px;
+	border-bottom:solid #DDDDDD 1px;
+}
+
+.mui-poppicker-body{
+	background: #efefef!important;
+}
+.mui-pciker-list li{
+	font-size: 12px!important;
+}
+.sw-title{
+	color: #333333;line-height: 28px;
+}
+
+.sw-word-one{
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.sw-word-two{
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+}
+/*图片预览*/
+.mui-preview-image.mui-fullscreen {
+	position: fixed;
+	z-index: 20;
+	background-color: #000;
+}
+.mui-preview-header,
+.mui-preview-footer {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	z-index: 10;
+}
+.mui-preview-header {
+	height: 44px;
+	top: 0;
+	text-align: center;
+}
+.mui-preview-footer {
+	height: 50px;
+	bottom: 0px;
+}
+.mui-preview-header .mui-preview-indicator {
+	display: block;
+	line-height: 25px;
+	color: #fff;
+	text-align: center!important;
+	margin: auto;
+	width: 70px;
+	background-color: rgba(0, 0, 0, 0.4);
+	border-radius: 12px;
+	font-size: 16px;
+}
+.mui-preview-image {
+	display: none;
+	-webkit-animation-duration: 0.5s;
+	animation-duration: 0.5s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+.mui-preview-image.mui-preview-in {
+	-webkit-animation-name: fadeIn;
+	animation-name: fadeIn;
+}
+.mui-preview-image.mui-preview-out {
+	background: none;
+	-webkit-animation-name: fadeOut;
+	animation-name: fadeOut;
+}
+.mui-preview-image.mui-preview-out .mui-preview-header,
+.mui-preview-image.mui-preview-out .mui-preview-footer {
+	display: none;
+}
+.mui-zoom-scroller {
+	position: absolute;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	-webkit-backface-visibility: hidden;
+}
+.mui-zoom {
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+.mui-slider .mui-slider-group .mui-slider-item img {
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+}
+.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+	width: 100%;
+}
+.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+	display: inline-table;
+}
+.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+	display: table-cell;
+	vertical-align: middle;
+}
+.mui-preview-loading {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	display: none;
+}
+.mui-preview-loading.mui-active {
+	display: block;
+}
+.mui-preview-loading .mui-spinner-white {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -25px;
+	margin-top: -25px;
+	height: 50px;
+	width: 50px;
+}
+.mui-preview-image img.mui-transitioning {
+	-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+	transition: transform 0.5s ease, opacity 0.5s ease;
+}
+@-webkit-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@-webkit-keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+ 

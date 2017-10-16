@@ -1,0 +1,19 @@
+/*×ó²à²Ëµ¥À¸*/
+.activeDIv:before{content:url(/images/qpxm/pc/person/dian.png);}
+.activeDIv a{padding-left: 0!important;color: #FF645F;}
+.tuBiaoImg{vertical-align: bottom;}
+.bigTitle{margin-left: 15px;font-size: 18px;}
+.bigTitleActive{color: #FF645F;}
+.smallTitleDiv{margin-top: 15px;padding-left: 30px;display: none;}
+/*.smallTitleDivActiveDiv{display: block!important;}*/
+.smallTitle{height: 25px;line-height: 25px;}
+.lists{padding-left: 15px;}
+.martop20{margin-top: 20px;}
+.leftMenu{width: 215px;border: 1px solid #DDD;padding: 20px;background: #FFF;float: left;}
+.smallTitleDivActiveDiv{display: block!important;}
+
+
+
+
+
+

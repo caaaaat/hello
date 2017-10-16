@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>购买刷新点</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">   
+    </script>
+</head>
+<style>
+	.sw-pay-title:after{
+		background: #F5F5F5;
+	}
+	.sw-payList:after{
+		left: 0;
+		background: #F5F5F5;
+	}
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.pay-list li.active{
+		background: #F5F5F5;
+	}
+	.sw-pay-fan:after{
+		left: 58px;
+	}
+	
+	.sw-check{
+		font-size: 14px;color: #666666;float: right;width: 18px;height: 18px;background: url(../../../image/person/vip/icon_quan@3x.png) no-repeat;background-size: contain;margin-top: 5px;
+	}
+	.sw-check-active{
+		font-size: 14px;color: #666666;float: right;width: 18px;height: 18px;background: url(../../../image/person/vip/icon_choose@3x.png) no-repeat;background-size: contain;margin-top: 5px;
+	}
+	.sw-pay-list:before{
+		height: 0; 
+	}
+	/*修改placeholder颜色*/
+	input::-webkit-input-placeholder { /* WebKit browsers */ 
+	color: #FF534C!important; 
+	} 
+	input:::-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+	color: #FF534C; 
+	} 
+	input::::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+	color: #FF534C; 
+	} 
+	input:::-ms-input-placeholder { /* Internet Explorer 10+ */ 
+	color: #FF534C; 
+	} 
+
+	
+</style>
+<body style="background: #EFEFEF;">
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">购买刷新点</h1>
+	</header>
+	
+	<div class="mui-content" style="background: #EFEFEF;">
+	   
+		<ul class="mui-table-view pay-list" style="margin-top: -1px;display: none;" id="inputBox">
+			
+		 	<li class="mui-table-view-cell sw-payList active">
+			 	<span style="font-size: 14px;color: #999999;" id="inputDis">
+			 		当前比例：
+			 	</span>
+			</li>
+			<li class="mui-table-view-cell sw-payList sw-no-active">
+			 	<input class="swinput sw-ctheme" type="number" id="inputMoney" placeholder="输入充值金额，最低一元" style="font-size: 14px;text-align: center;margin-bottom: 0;border-color:#FF534C;"/>
+			</li>
+				
+		</ul>
+		    
+		<ul class="mui-table-view pay-list" style="margin-top: 10px;">	 	
+			<li class="mui-table-view-cell sw-pay-title sw-no-active">
+				<span style="font-size: 14px;font-weight: 700" class="sw-ctheme">
+				支付方式
+				</span>
+				<input type="text" name="payType" id="payType" value="wxpay" hidden="hidden" />
+			</li>
+			
+			<li class="mui-table-view-cell sw-pay-fan" onclick="changePayType('wxpay',this)">
+				<span style="margin-right: 5px;"><img src="../../../image/person/vip/wechat@3x.png" height="28px" style="vertical-align: middle;"/></span>
+				<span style="font-size: 14px;color: #666666;">
+				微信支付
+				</span>
+				<span class="sw-check sw-check-active sw-payType" style=""></span>
+			</li>		
+			<li class="mui-table-view-cell sw-payList" onclick="changePayType('alipay',this)">
+				<span style="margin-right: 10px;"><img src="../../../image/person/vip/zhifubao@3x.png" height="28px" style="vertical-align: middle;"/></span>
+				<span style="font-size: 14px;color: #666666;">
+				支付宝
+				</span>
+				<span class="sw-check sw-payType"></span>
+			</li>		
+		 </ul>
+	    
+	    <div style="width: 100%;padding: 40px 20px 0;">
+	    	 <button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" id="payResult" onclick="createOrder()">支付</button>
+		</div>
+	    
+	</div>
+
+<script id="ini-list-tpl" type="text/html">
+	{{# var len = d.length }}
+	{{# for(var i = 0;i < len; i++){ }}
+	<label for="radioMoney{{ i+1 }}"> 
+		<li class="mui-table-view-cell sw-payList sw-radio" onclick="changeRadio('radioMoney{{ i+1 }}',this)">
+			<input type="radio" name="radioMoney"  hidden="hidden" id="radioMoney{{ i+1 }}" value="{{ d[i].money }}" />	
+			<span style="font-size: 14px;color: #666666;">
+	 			{{ d[i].number }}个    
+		 	</span>
+		 	<span class="sw-check sw-monType" style="float: right;margin-top: 0;margin-left: 4px;"></span>
+		 	<span style="font-size: 14px;color: #666666;float: right;">{{ d[i].money }}元</span>				 						 	
+		</li>
+	</label>
+	{{# } }}   
+</script>
+</body>
+<script src="../../../js/mui.min.js"></script>
+<script src="../../../js/global.js"></script>
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/laytpl/laytpl.js"></script>
+ <script>
+	/*mui("#payResult")[0].addEventListener('tap',function(){
+		openView('../../../view/person/refresh/payResult.html','payResult','pop-in');
+	})*/
+	
+var pays={};
+function plusReady(){
+	//获取刷新点配置			
+	if(UserInfo.has_login()){
+		loading('加载中...');
+		var token  = plus.storage.getItem('token');
+			 
+		var postData = {}; 
+			postData.token = token;		
+		//如果已经登陆 获取登录后的数据
+		http.load('api.sev.index','getRefreshIni',postData,function(rData){//请求成功 
+			closeLoading();
+			
+
+ 			if(rData.status==200){
+ 				var refreshIni = JSON.parse(rData.data.value);			
+				var proportion = refreshIni.proportion;
+				var selectIni  = refreshIni.select;
+				
+				if(proportion){
+									
+					var inputDis = '当前比例：'+proportion.money+'元='+proportion.ref+'个刷新点';
+					$("#inputBox").show();
+					$("#inputDis").text(inputDis);					
+				}
+				
+				if(selectIni){ 				
+				 	var iniTpl   = $('#ini-list-tpl').html();	 		
+			        laytpl(iniTpl).render(selectIni,function(render){           
+			            $('#inputBox').append(render);      
+			        });	
+									
+				}
+			
+ 			}else{
+ 				sw.toast(rData.msg); 	
+ 			}
+	
+ 		},function(xhr,type,errorThrown){//请求失败
+ 			closeLoading();
+			//无网络提示
+			sw.toast('获取数据失败，请检查网络链接');  
+ 		})
+	
+	}
+
+
+
+    // 获取支付通道
+    plus.payment.getChannels(function(channels){
+    	
+	    var content=document.getElementById('dcontent');
+		var info=document.getElementById('info');
+		var txt='支付通道信息：';
+		for(var i in channels){
+			var channel=channels[i];
+			if(channel.id=='qhpay'||channel.id=='qihoo'){	// 过滤掉不支持的支付通道：暂不支持360相关支付
+				continue;
+			}
+			pays[channel.id]=channel;			
+			checkServices(channel);
+		}
+    },function(e){
+     alert("获取支付通道失败："+e.message);
+    });  
+}
+
+document.addEventListener('plusready', plusReady, false);
+// 检测是否安装支付服务
+function checkServices(pc){    
+	if(!pc.serviceReady){
+		var txt=null;
+		switch(pc.id){
+			case 'alipay':
+			txt='检测到系统未安装“支付宝快捷支付服务”，无法完成支付操作，是否立即安装？';
+			break;
+			default:
+			txt='系统未安装“'+pc.description+'”服务，无法完成支付，是否立即安装？';
+			break;
+		}
+		plus.nativeUI.confirm(txt, function(e){
+			if(e.index==0){
+				pc.installService();
+			}
+		}, pc.description);
+	}
+}
+
+var w=null;
+//var PAYSERVER='http://119.23.215.135/wxpayv3/?';                    
+//var PAYSERVER='http://119.23.215.135/alipayrsa2/?'; 
+
+//提交订单
+function createOrder(){
+	var token  = plus.storage.getItem('token');			
+	//获取输入的金额
+	var moneyType = 'input';
+	var amount = 0;
+	var inputMoney = $.trim($("#inputMoney").val());
+	var radioMoney = $("input[name='radioMoney']:checked").val();
+		
+		radioMoney = radioMoney!=undefined?radioMoney:'';
+
+	if(inputMoney==''&&radioMoney==''){  
+		sw.toast('请输入或选择充值金额');
+		return;
+	}
+	
+	if(inputMoney>0){   
+		//检验输入的值是否正确
+		if(Verification.integer(inputMoney)==false){
+			sw.toast('输入的充值金额有误');
+			$("#inputMoney").focus();
+			return;
+		}else{
+			amount = inputMoney;
+		}
+	}
+	
+	if(radioMoney>0){
+		moneyType = 'radio';
+		amount = radioMoney;
+	}
+	//获取充值方式
+	var payType = $("#payType").val();
+		//加载弹窗  
+		loading('创建中...'); 
+		http.load('api.sev.pay','createRefreshOrder',{'token':token,'moneyType':moneyType,'amount':amount,'payType':payType},function(rData){	
+			closeLoading();
+			if(rData.status==200){//创建成功 前往支付
+				pay(rData.coder,payType);			  	
+			}else{
+				sw.toast(rData.msg);                                                    
+			}
+			
+		},function(xhr,type,errorThrown){     			
+	 		//关闭加载框
+			closeLoading();		
+			//无网络提示
+			sw.toast('网络或服务器异常，请稍候重试'); 	    
+		}) 
+
+}
+
+
+
+                     
+// 支付  
+function pay(coder,payType){
+var id = payType;
+var token  = plus.storage.getItem('token');		
+var url= httpUrl+'/api.sev.pay/toPayOrder/?coder='+coder+'&token='+token;       
+	dy(url)
+	if(w){return;}//检查是否请求订单中       
+	if(id==='appleiap'){
+		dy('应用内支付');
+		clicked('payment_iap.html');
+		return;
+	}
+		
+	dy('----- 请求支付 -----');      
+	if(id=='alipay'||id=='wxpay'){  
+		// url+=id;
+	}else{
+		plus.nativeUI.alert('当前环境不支持此支付方式！', null, '确定');
+		return;
+	}
+	
+	var appid=plus.runtime.appid;
+	if(navigator.userAgent.indexOf('StreamApp')>=0){
+		appid='Stream';
+	}
+	
+	w=plus.nativeUI.showWaiting();
+	
+	// 请求支付订单
+	var xhr=new XMLHttpRequest();
+	xhr.onreadystatechange=function(){
+		switch(xhr.readyState){
+			case 4:
+			w.close();w=null;
+			if(xhr.status==200){
+				dy('----- 请求订单成功 -----');
+				var order=xhr.responseText;
+
+				plus.payment.request(pays[id],order,function(result){
+					dy('----- 支付成功 -----');
+					dy(JSON.stringify(result));	
+					//跳转至刷新点页面
+					var postData = {'status':'success'};
+					openView('../../../view/person/refresh/payResult.html','person_refresh_payResult','pop-in',postData);
+					
+				},function(e){
+					
+					dy('----- 支付失败 -----');
+					dy('['+e.code+']：'+e.message);
+					//跳转至刷新点页面
+					var postData = {'status':'faild'};
+					openView('../../../view/person/refresh/payResult.html','person_refresh_payResult','pop-in',postData);
+				});
+			}else{
+				dy('----- 请求订单失败 -----');
+				dy( xhr.status );
+				plus.nativeUI.alert('获取订单信息失败！', null, '确定');
+			}
+			break;
+			default:
+			break;
+		}
+	}
+	xhr.open('GET',url);
+	dy('请求支付订单：'+url);
+	xhr.send();
+	
+}
+
+	/**
+	 * 切换支付方式
+	*/
+	function changePayType(payType,j){
+		
+		//获取当前已选支付方式
+		var oldPayType = $("#payType").val();
+		
+		if(oldPayType != payType){//
+			$("#payType").val(payType);
+			$(".sw-payType").removeClass('sw-check-active');
+			 $(j).find('.sw-payType').addClass('sw-check-active');   
+		}  		
+	}
+	
+	/**
+	 * 切换选择的金额
+	 */
+	function changeRadio(radioId,j){	
+		$(".sw-radio").removeClass('active');
+		$(j).addClass('active');
+		$("#inputMoney").val('');
+		$("#inputMoney").blur();
+		
+		$("#inputBox").find('.sw-monType').removeClass('sw-check-active');
+		$(j).find('.sw-monType').addClass('sw-check-active');   
+	}
+	
+	/**  
+	 * 输入金额
+	 */
+	$("#inputMoney").focus(function(){		
+		$(".sw-radio").removeClass('active');
+		$("input[name='radioMoney']:checked").prop('checked',false)
+		$("#inputBox").find('.sw-monType').removeClass('sw-check-active');
+	});
+	
+ </script>
+</html>

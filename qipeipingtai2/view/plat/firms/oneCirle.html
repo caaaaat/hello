@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+</head>
+<body>
+<div class="col-xs-1"></div>
+<div class="col-xs-10">
+    <div class="ibox-content" style="border-width:0">
+        <div class="form-horizontal">
+            <?php $circle = isset($circle) ? $circle : ''?>
+            <?php if($circle) {?>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <span style="word-break: break-all;padding-left: 2em"><?php echo $circle['content'] ;?></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <?php if ( $circle['circle_type'] ==1 ){ ?>
+                <div class="col-xs-12">
+                    <?php $imgs = $circle['imgs']?>
+                    <?php if ($imgs) { ?>
+                    <?php $imgs = explode(',',$imgs); ?>
+                    <?php foreach ($imgs as $v) {?>
+
+                    <img src="<?php echo $v?>" id="face" alt="圈子详情配图" style="height: 80px;width: 80px;">
+
+                    <?php }?>
+                    <?php }?>
+                </div>
+                <?php }elseif ( $circle['circle_type'] ==2 ){?>
+                <div class="col-xs-12">
+                    <div style="height: 92px;width:400px;border: 1px solid #DDD;padding: 5px;">
+                        <div style="float: left">
+                            <img src="<?php echo $circle['pic'] ;?>" alt="企业封面" style="width: 80px;height: 80px">
+                        </div>
+                        <div style="float: left;padding: 5px 10px">
+                            <b><?php echo $circle['uname'] ;?></b>
+                        </div>
+                    </div>
+                </div>
+                <?php }elseif ( $circle['circle_type'] ==3 ){?>
+                <div class="col-xs-12">
+                    <div>
+                        <img src="<?php echo $circle['pic'] ;?>" alt="企业名片" style="width: 400px">
+                    </div>
+                </div>
+                <?php }?>
+            </div>
+
+            <?php }else{?>
+            <div class="col-xs-12">
+                <span style="word-break: break-all;padding-left: 2em">获取详情失败</span>
+            </div>
+            <?php }?>
+        </div>
+    </div>
+</div>
+</body>
+</html>

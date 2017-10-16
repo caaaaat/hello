@@ -1,0 +1,76 @@
+#quanZi{width: 1200px;margin: 0 auto;margin-top: 50px}
+#RightDiv{float: right;width: 885px;}
+/*左侧导航*/
+#leftDiv{width: 280px;height: 380px;border: 1px solid #DDD;float: left;background: #FFF;position: relative;}
+.bgImg{width: 278px;height: 90px;}
+.touXiang{border-radius: 50%;position: absolute;top:40px;left:90px;overflow: hidden}
+.touXiangImg{width: 100px;height: 100px;}
+.niChen{width: 250px;border-bottom: 1px solid #F1F1F1;text-align: center;margin: 0 auto;margin-top: 50px;height: 40px;line-height: 40px;font-size: 16px}
+.shouYe{font-size: 16px;background: #FF524B;width: 250px;text-align: center;margin: 0 auto;height: 50px;margin-top: 20px;color: #FFF;line-height: 50px}
+.xuanXiang{font-size: 16px;width: 250px;text-align: center;margin: 0 auto;height: 50px;line-height: 50px}
+::-webkit-input-placeholder {color:#CCC;}
+　　:-moz-placeholder {color:#CCC;}
+　　::-moz-placeholder {color:#CCC;}
+　　:-ms-input-placeholder {color:#CCC;}
+.xuanXiang:hover{background: #FF524B;color: white;}
+/*发表动态*/
+#pushSay{height: 180px;padding: 18px;background: #FFF;padding-top: 15px;border: 1px solid #CCC;position: relative}
+.pushSay{font-size: 16px;}
+.ziShu{font-size: 10px;float: right;color: #DDD}
+.textareaClass{height: 86px;width: 850px;margin-top: 10px;max-height: 86px;max-width: 850px;border-color: #CCC}
+.upImg{padding-top: 5px}
+.floatR{float: right}
+.faBu{border: none;color: #FFF;background: #FF524B;border-radius: 5px;width: 70px}
+.faBu:hover{background: #FF524B}
+#dongTaiContent{margin-top: 15px;margin-bottom: 30px}
+.dongTaiInfo{margin-bottom: 30px;border: 1px solid #DDD}
+.faBuTouXiang{border-radius: 50%;position: absolute;overflow: hidden;top:0;left:0;}
+.faBuTouXiangImg{width: 70px;height: 70px;}
+/*图片上传视图*/
+#send{position: absolute;z-index: 50;left: -5px;display: none}
+.relativeP{position: relative}
+.upKuangImg{ width:760px; height:155px}
+.sendDiv{overflow: hidden;left:20px;height: 120px;position: absolute;top:20px;width: 730px}
+.marTop{margin-top: 15px}
+.fontSize15{font-size: 15px}
+.sendBtn{float: left;margin-right: 10px;margin-bottom: 30px}
+.sengImg{width: 60px}
+.leftMarR{float: left;margin-right: 10px;margin-bottom: 30px}
+.imgSize{max-height: 60px;max-width: 60px;}
+/*加载中*/
+#jiaZai{display: none;font-size: 16px;width: 1200px;text-align: center;height: 50px;line-height: 20px}
+/*发表后的内容*/
+.sayDiv{padding-left: 20px;padding-right: 20px;background: #FFF;padding-top: 10px}
+.souSay{border: 1px solid #DDD;border-bottom:none;height: 75px;line-height: 75px;padding-left: 20px;padding-right: 15px;background: #FFF;}
+.souSayDiv{float: right;width:300px;margin-top: 17px}
+.inputSou{height: 40px;width: 210px;float: left;line-height: 40px;}
+.inputBtn{border-radius: 0px;margin-left: -2px;float: left;height: 40px;width: 90px;background: #FE514A;color: #FFF}
+.bottomX{width: 800px;border-bottom: 3px solid #F1F1F1;margin: 0 auto;}
+/*内容区域*/
+#content{width: 845px;position: relative;}
+.contentName{padding-left: 110px;font-size: 16px}
+.del{float: right;font-size: 10px}
+.contentInfo{padding-left: 90px;margin-top: 15px;padding-bottom: 10px}
+.contentText{padding-left: 20px;margin-top: 8px;line-height: 30px}
+.contentImgDiv{padding-right: 180px}
+.contentImgDivs{float: left;overflow: hidden;width: 150px;height: 150px;margin-right: 30px;margin-bottom: 30px}
+.contentImgs{width: 150px;max-height: 150px;}
+.contentTime{font-size: 12px;color: #CCC}
+.zanDiv{float: right;font-size: 14px}
+.zanSpan{margin-right: 30px}
+.zanNum{margin-left: 10px}
+/*留言*/
+.liuYan{padding: 15px;height: 150px}
+.touXiangListImgD{width: 70px;height: 70px;overflow: hidden;border-radius: 50%;float: left;margin-top: 9px}
+.touXiangListImg{width: 70px;max-height: 70px;}
+.faBuDiv{float: right;width:745px;height: 88px;}
+.faBuTextar{width:745px;height: 88px;max-width: 745px;max-height: 88px}
+.liuYanList{width: 885px;padding: 15px;}
+.liuYanImgDs{width: 70px;height: 70px;overflow: hidden;border-radius: 50%;float: left;margin-top: 9px}
+.liuYanImgs{width: 70px;max-height: 70px;}
+.niChens{float: right;width: 745px;padding-top: 10px;padding-bottom: 20px}
+.huiFuDiv{width: 100%;background: #FFF;margin-top: 10px;padding: 15px;padding-bottom: 10px}
+.huiFuText{background: #E9E9E9;width: 705px;padding: 10px;color: #909090;margin-top: 10px}
+/*#dongTaiContent .dongTaiInfo:first-child{border-top: none;background: red}*/
+/*查看更多*/
+.showMores{width: 885px;height: 60px;text-align: center;background: #CCC;font-size: 16px;line-height: 60px;color: white}

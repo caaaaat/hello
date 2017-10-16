@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>新手上路</title>
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="../../css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="../../css/common.css" />
+    <style>
+		.sw-input-phone{
+			text-align: left;
+			height: 40px!important;
+			background-size: 16px;
+			padding-left: 24px!important;
+			padding-right: 42px!important;
+			width:96%!important;
+			margin-bottom: 10px!important;
+			border-radius: 24px!important;
+		}
+		.sw-search-p{
+			background: url(../../image/index/icon_wz_sousuo@3x.png)no-repeat;
+			width: 45px;
+			height: 36px;
+			margin: 0!important;
+			background-size: 17px;
+			position: absolute;
+			top: 11px;
+			background-position: center;
+			margin-top: -50px;
+			right: 16px;
+
+		}
+	.sw-card-li:after{
+		height: 0;
+	}
+	.sw-card-li{
+		border-bottom: 1px solid #efefef;
+	}
+	.sw-input-box{
+		width: 100%;background: #efefef;padding-top: 10px;text-align: center;position: fixed;
+		top: 44px;z-index: 10;
+	}
+</style>	
+</head>
+<body style="background: #EFEFEF;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">新手上路</h1>
+	</header>
+	<div class="mui-input-row sw-input-box">
+		<input type="text" placeholder="输入关键字搜索"  id="keyword" style="font-size:14px;color: #666;" maxlength="17" class="sw-input-phone">
+		<p class="sw-search-p" onclick="forSearch002()"></p>
+	</div>
+	<!--下拉刷新容器-->
+	<div id="pullrefresh" class="mui-content mui-scroll-wrapper"  style="margin-top:60px;padding-bottom: 50px;">
+
+		<div class="mui-scroll" >
+
+			<!--数据列表-->
+			<ul id="conList" class="mui-table-view mui-table-view-chevron">
+
+			</ul>
+
+			<input value="1" hidden="hidden" id="page"/>
+
+
+		</div>
+
+	</div>
+	
+<!--列表模板-->
+<script id="xs-list-tpl" type="text/html">
+	{{# var len = d.length }} 
+	
+	{{# for(var i = 0;i < len; i++){ }}
+	<li class="mui-table-view-cell" style="display: block" onclick="goDetail('{{ d[i].art_ID }}','newbie')">
+		<a href="javascript:;" class="mui-navigate-right">
+			{{ d[i].title }}
+		</a>
+	</li>
+	{{# } }} 
+</script>			
+</body>
+ <script src="../../js/mui.min.js"></script>
+ <script type="text/javascript" src="../../js/global.js"></script>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/laytpl/laytpl.js"></script>
+<script type="text/javascript" charset="utf-8">
+		//mui初始化
+		mui.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: {
+					callback: pulldownRefresh
+				},
+				up: {
+					auto:true,
+					contentrefresh: '正在加载...',
+					contentnomore:'<div class="sw-footer"><span>我是有底线的</span></div>',
+					callback: pullupRefresh
+				}
+			}
+		});
+
+		/**
+		 * 下拉刷新具体业务实现
+		 */
+		function pulldownRefresh() {
+			location.href = location.href+'?rand'+Math.random;
+		}
+	 
+	 
+	 /**
+	  * 重新开始搜索
+	  */
+	 function forSearch002(){
+		 $('#conList').html('');
+		 mui("#page")[0].value=1;
+		 mui('#pullrefresh').pullRefresh().refresh(true);
+		 mui('#pullrefresh').pullRefresh().pullupLoading();
+	 }
+
+
+	 //从新开始加载数据 
+	 function pullupRefresh(){
+	 	 	
+      	var page = mui("#page")[0].value;//获取页数
+     	var keyword = mui("#keyword")[0].value;//获取关键字
+     	
+      	var data = {};  
+      	var postData = {};
+      		
+      		//请求的数据
+      		postData.page     = page;//请求的页码
+      		postData.pageSize = 20;//每页显示数量
+      		//其他相关数据	      		
+      		postData.keyword = keyword;   
+      		
+      		//页面相关数据 
+      		data.postData = postData;   
+      		data.mod      = 'api.sev.article';//模型
+      		data.fun      = 'getNewbieList';//方法     
+      		data.tpl      = 'xs-list-tpl';//列表模板
+
+			//请求并处理数据
+  			loadInfo(data,false); 
+	 	
+	 }
+	 
+	 /**
+	  * 前往详情
+	  * @param {Object} art_ID
+	  * @param {Object} type
+	  */
+	 function goDetail(art_ID,type){
+	 	var extras = {'art_ID':art_ID,'type':type};
+	 	var url  = '../../view/gonggao/newbieDetail.html';
+	 	var id   = 'gonggao_newbieDetail';
+	 	var aniShow = 'pop-in';
+	 	openView(url,id,aniShow,extras);	 	
+	 }	 
+</script>
+</html>

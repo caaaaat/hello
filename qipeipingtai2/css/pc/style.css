@@ -1,0 +1,74 @@
+body{font-family: '微软雅黑 Regular', '微软雅黑';background: #F3F3F3}
+#hederTop{font-family: '微软雅黑 Regular', '微软雅黑';background: #EEE;height: 40px;line-height: 40px;border-bottom: 1px solid #ccc;font-size: 12px}
+/*.headerTiao{width: 520px;float: right;text-align: left;font-size: 12px;}*/
+.headerTiao{float: right;text-align: left;font-size: 12px;}
+.headerTiao .caiDanL{float: left;padding-right: 25px;}
+.caiDA{color: #666}
+.destList{background: #FFF;width: 160px;position: absolute;z-index: 50;top: 40px;left: 10px;border: 1px solid #DDD;border-top: none;display: none}
+.dest:hover .destList{display: block}
+.moreShow{position: absolute;width: 160px;background: #FFF;z-index: 50;top: 40px;border: 1px solid #DDD;border-top: none;right: 30px;display: none}
+.moreShowList{padding: 15px;text-align: center}
+.moreShowS:hover .moreShow{display: block}
+#login:hover .login{display: block!important;}
+/*�в�����*/
+.mideLogo{width: 1200px;margin: 0 auto}
+.mideLogoDiv{float: left;width: 310px;padding-left: 0}
+.logoImg{width: 140px;height: 80px;font-size: 35px;text-align: center;line-height: 145px}
+.souSuoDiv{height: 120px;width: 570px;float: left;}
+.souSuoList{font-size: 14px;padding-bottom: 5px;}
+.shangJ{background: #FF524B;color: #FFF;padding: 6px 10px;margin-right: -3px;border-top-left-radius: 10px;border-top-right-radius: 10px}
+.shangJia{margin-right: -3px;padding: 8px 10px;color: #666}
+.shangJia:hover{background: #FF524B;color: #FFF;padding: 6px 10px;border-top-left-radius: 10px;border-top-right-radius: 10px}
+.sousuoIm{padding-left: 15px;position: absolute;padding-top: 10px}
+.souSuoInput{width: 100%;height: 40px;border-radius: 0px;border: 1px solid #FF524B;background: #F3F3F3;padding-left: 35px;}
+.souSuo{height: 40px;width: 85px;border-radius: 0px;background: #FF524B;border: #FF524B;font-size: 15px}
+.erWeiMDiv{height: 145px;width: 200px;float: right;}
+.erWeiM{width: 70px;height: 70px;line-height: 145px}
+.downEr{font-size: 10px;width: 80px;text-align: center;margin-top: 45px}
+
+/*�в�������*/
+#navigationLan{background: #FF524B;height: 40px;line-height: 40px;color: #FFF;font-weight: bold}
+.navigationLan{width: 1200px;margin: 0 auto}
+.navigation:hover{background: #AE1E16;cursor:pointer;color: #FFF;}
+.navigation{float: left;width: 12.5%;text-align: center;font-size: 16px;font-weight: 400;font-family: '微软雅黑 Regular', '微软雅黑';}
+.navigationActive{background: #AE1E16;color: #FFF;font-weight: bold}
+
+
+
+
+
+
+/*�ײ���ʼ*/
+#bottomBiv{height: 338px;background: #DDD;margin-top: 42px}
+.bottomBiv{height: 338px;width: 1200px;margin: 0 auto;padding: 35px 150px;}
+.bottomList{width: auto;height: 35px;line-height: 35px}
+.bottomListDiv{float: left;width: 14%;text-align: left;}
+.bottomText{color: #666}
+.bottomDivT{float: left;width: 14%;text-align: left}
+.bottomYou{text-align: center;margin-top: 35px;margin-bottom: 45px}
+.bottomA{color: #666;margin-right: 10px}
+.bottomBor{width: 545px;border-bottom: 1px solid #CCC;margin: 0 auto}
+.bottomLian{text-align: center;margin-top: 15px;}
+.bottomSpan{margin-right: 50px}
+.bottomDi{text-align: center}
+.bottomBei{margin-top: 25px;margin-bottom: 5px}
+
+/*�̶���λQQ���绰*/
+.fixedQQ{display: none;color: #FFF;text-align:center;float: right;height: 40px;margin-top: 10px;width: 150px;border: 2px solid #FAA29E;border-radius: 30px;line-height: 40px;background: #FAA29E}
+.fixedDiv{height: 60px;margin-top: 20px;}
+.fixedDinWei{position: fixed;height: 260px;top: 300px;right: 15px;z-index: 100}
+.fixedYuan{float: right;height: 60px;width: 60px;text-align: center;line-height: 52px}
+
+/*��½��Ϣ*/
+.login{display: none;width: 320px;height: 200px;border: 1px solid #DDD;position: absolute;z-index: 600;top: 40px;background: #FFF;}
+.isLoginDiv{overflow: hidden;height: 85px;padding-left: 10px;padding-top: 5px;padding-right: 10px}
+.isLoginImg{width: 60px;height: 60px;float: left}
+.isLoginInfo{float:left;margin-top: -10px;margin-left: 10px}
+.height20{height: 20px;}
+.VIPTime{color: #FF9900;height: 20px;line-height: 20px;}
+.borBottom{width: 300px;border-bottom: 1px solid #CCC;margin: auto;margin-top: 2px;}
+.bottomDiv{height: 105px;padding-left: 10px;}
+.aList{float: left;width: 33%;height: 25px;line-height: 25px}
+.noLogin{height: 65px;line-height: 65px;padding-left: 10px;padding-top: 5px}
+.noLoginImg{width: 60px;height: 60px}
+.noLoginBottom{width: 300px;border-bottom: 1px solid #CCC;margin: auto;margin-top: 20px;}

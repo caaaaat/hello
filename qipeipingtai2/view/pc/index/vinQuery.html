@@ -1,0 +1,253 @@
+<link rel="stylesheet" href="/css/pc/style.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/pc/index/vinQuery.css">
+
+
+<!--搜索导出excel-->
+<div id="menu">
+    <div class="floatLeft">
+        <input placeholder="输入17位车架号" class="form-control souInput" value="" type="text">
+    </div>
+    <div class="floatLeftRelative">
+        <button type="button" class="btn btn-primary souSuo" onclick="souSuo()"><img class="souImg" src="/images/qpxm/pc/VIN/sou.png" alt=""></button>
+        <div id="upVin"></div>
+        <div class="menuUpImg">
+            <a href="javascript:;"><img src="/images/qpxm/pc/VIN/camera.png" alt=""></a>
+        </div>
+    </div>
+    <div class="excelBtnDiv">
+        <button type="button" class="btn btn-primary excelBtn souSuo" onclick="getExecel()">导出excel</button>
+    </div>
+    <?php if($data && $data['type']==2){?>
+    <div class="floatRight">
+        <div class="btn-group">
+            <button type="button" class="qiuGou btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                求购此配件 <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="javascript:;" onclick="qiuGou(1)">向轿车商家求购</a></li>
+                <li><a href="javascript:;" onclick="qiuGou(2)">向货车商家求购</a></li>
+            </ul>
+        </div>
+    </div>
+    <?php }?>
+</div>
+<!--表格-->
+<div id="tableDiv" style="background: none;min-height: 400px;">
+
+</div>
+<script src="/js/pc/layer/layer.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/webuploader-0.1.5/webuploader.js"></script>
+<script>
+    var excel = '';
+    $(function(){
+        picture();
+    });
+    $('.menuUpImg').click(function(){
+       $('#upVin').find('input[type="file"]').click();
+    });
+    function picture(){
+        var siIe = '#upVin';
+        var wordUploader = WebUploader.create({
+            // 选完文件后，是否自动上传。
+            auto: true,
+            // swf文件路径
+            swf: '/js/webuploader-0.1.5/Uploader.swf',
+            // 文件接收服务端。
+            server: '/tools/baiduUploadForHome',
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: siIe,
+            sendAsBinary: true,
+            // 只允许选择文件类型。
+            accept: {
+                title: 'Applications',
+                extensions: 'jpg,png,jpeg,png',
+                mimeTypes: '.jpg,.png,.jpeg,.png'
+            }
+        });
+
+        //文件上传成功后的处理，在界面上的呈现，显示
+        wordUploader.on('uploadSuccess', function (file, response) {
+            layer.closeAll('loading'); //关闭加载层
+            var image = new Image();
+            image.src = response.httpUrl;
+            image.onload = function(){
+                var base64 = getBase64Image(image);
+                if(base64){
+                    souSuo(base64);
+                }else{
+                    layer.msg('转码失败');
+                }
+            }
+        });
+        //文件上传失败
+        wordUploader.on('uploadError', function (file, response) {
+            layer.closeAll('loading'); //关闭加载层
+            //失败提示
+            layer.msg('上传失败');
+        });
+        //文件上中
+        wordUploader.on('uploadProgress', function (file, percentage) {
+            layer.load(0, {shade: false});
+        });
+    }
+    /*将图片格式转换为base64*/
+    function getBase64Image(img) {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        var ext = img.src.substring(img.src.lastIndexOf(".")+1).toLowerCase();
+        var dataURL = canvas.toDataURL("image/"+ext);
+        return dataURL;
+    }
+    function souSuo(base64){
+        var data = {};
+        if(!base64){
+            var num = $('.souInput').val();
+            if(!num){
+                return;
+            }
+            if(num.length != 17){
+                layer.msg('车架号格式不正确');
+                return;
+            }
+            $('#tableDiv').html('');
+            var index = layer.load(1, {
+                shade: [0.1,'#fff'] //0.1透明度的白色背景
+            });
+            data.data = num;
+            data.type = 1;
+        }else{
+            data.data = base64;
+            data.type = 2;
+        }
+        $.ajax({
+            url: "/pc.product/getVinList",    //请求的url地址
+            dataType: "json",   //返回格式为json
+            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+            data: data,    //参数值
+            type: "POST",   //请求方式
+            success: function (req) {
+                layer.closeAll('loading'); //关闭加载层
+                if(req.status==200){
+                    if(req.list && req.list.length>0){
+                        excel = req.list;
+                        if(!base64){
+                            $('.souInput').attr('data_val',num);
+                        }
+
+                        var str = '';
+                        for(var i=0; i<req.list.length; ++i){
+                            str += htmlData(req.list[i]);
+                        }
+                        $('#tableDiv').append(str);
+                    }
+                }else if(req.status==101){
+                    layer.msg(req.msg);
+                    setTimeout(function(){
+                        location.href = '/login';
+                    },1500);
+                }else{
+                    layer.msg(req.msg);
+                }
+            }
+        });
+    }
+    function htmlData(i){
+        var str = '';
+        str += '<table class="tableDiv" style="margin-bottom: 20px;background: white;">';
+        str += '<tr><td class="titles">厂家</td><td class="titleInfo">'+ i.Manufacturers +'</td></tr>';
+        str += '<tr><td class="titles">品牌</td><td class="titleInfo pingPai">'+ i.Brand +'</td></tr>';
+        str += '<tr><td class="titles">车型</td><td class="titleInfo">'+ i.Models +'</td></tr>';
+        str += '<tr><td class="titles">销售版本</td><td class="titleInfo">'+ i.SalesVersion +'</td></tr>';
+        str += '<tr><td class="titles">厂商指导价</td><td class="titleInfo">'+ i.GuidingPrice +'</td></tr>';
+        str += '<tr><td class="titles">生产年份</td><td class="titleInfo">'+ i.ProducedYear +'</td></tr>';
+        str += '<tr><td class="titles">停产年份</td><td class="titleInfo">'+ i.IdlingYear +'</td></tr>';
+        str += '<tr><td class="titles">排放标准</td><td class="titleInfo">'+ i.EmissionStandard +'</td></tr>';
+        str += '<tr><td class="titles">车型代码</td><td class="titleInfo">'+ i.ModelCode +'</td></tr>';
+        str += '<tr><td class="titles">底盘号</td><td class="titleInfo">'+ i.ChassisCode +'</td></tr>';
+        str += '<tr><td class="titles">国产合资进口类型</td><td class="titleInfo">'+ i.VehicleAttributes +'</td></tr>';
+        str += '<tr><td class="titles">发动机型号</td><td class="titleInfo">'+ i.EngineModel +'</td></tr>';
+        str += '<tr><td class="titles">进气形式</td><td class="titleInfo">'+ i.Induction +'</td></tr>';
+        str += '<tr><td class="titles">排量</td><td class="titleInfo">'+ i.Displacement +'</td></tr>';
+        str += '<tr><td class="titles">最大功率</td><td class="titleInfo">'+ i.PowerKw +'</td></tr>';
+        str += '<tr><td class="titles">最大马力</td><td class="titleInfo">'+ i.Horsepower +'</td></tr>';
+        str += '<tr><td class="titles">驱动形式</td><td class="titleInfo">'+ i.DriveModel +'</td></tr>';
+        str += '<tr><td class="titles">变速器类型</td><td class="titleInfo">'+ i.TransmissionType +'</td></tr>';
+        str += '<tr><td class="titles">变速器描述</td><td class="titleInfo">'+ i.TransmissionDescription +'</td></tr>';
+        str += '<tr><td class="titles">档位数</td><td class="titleInfo">'+ i.GearNumber +'</td></tr>';
+        str += '<tr><td class="titles">车身型式</td><td class="titleInfo">'+ i.BodyType +'</td></tr>';
+        str += '<tr><td class="titles">车门数</td><td class="titleInfo">'+ i.Doors +'</td></tr>';
+        str += '<tr><td class="titles">气缸排列形式</td><td class="titleInfo">'+ i.CylinderArrangement +'</td></tr>';
+        str += '<tr><td class="titles">气缸数</td><td class="titleInfo">'+ i.Cylinders +'</td></tr>';
+        str += '<tr><td class="titles">前制动类型</td><td class="titleInfo">'+ i.FrontBrake +'</td></tr>';
+        str += '<tr><td class="titles">后制动类型</td><td class="titleInfo">'+ i.RearBrake +'</td></tr>';
+        str += '<tr style="display: none;"><td class="titles">车系</td><td class="titleInfo cheXi" datas="'+i.SalesVersion+','+i.Models+','+i.EngineModel+','+i.Doors+'">'+ i.SalesVersion+'( '+ i.Models+' '+ i.EngineModel+' '+ i.Doors+' )</td></tr>';
+        str += '</table>';
+        return str;
+    }
+    /*向商家求购*/
+    function qiuGou(type){
+        var len = $('.tableDiv').length;
+        if(len < 1){
+            layer.msg('您还没有查询到匹配的VIN数据');
+            return;
+        }
+        var l = $('.pingPai').length;
+        var pingPai = '';               //品牌数据
+        if(l > 0){
+            for(var i=0; i<l; ++i){
+                pingPai += $('.pingPai').eq(i).text();
+                if(i < l-1){
+                    pingPai += ',';
+                }
+            }
+        }
+        var leng = $('.cheXi').length;
+        var cheXi= '';
+        if(leng > 0){
+            for(var i=0; i<leng; ++i){
+                cheXi += $('.cheXi').eq(i).attr('datas');
+                if(i < leng-1){
+                    cheXi += ',';
+                }
+            }
+        }
+        if(!cheXi || !pingPai){
+            layer.msg('数据参数不足');
+            return;
+        }
+        var cheXiArr   = cheXi.split(",");
+        var pingPaiArr = pingPai.split(",");
+        var cheXiData  = [];
+        for(var i=0; i<cheXiArr.length; ++i){
+            if($.inArray(cheXiArr[i],cheXiData) == -1){
+                cheXiData.push(cheXiArr[i])
+            }
+        }
+        var pingPaiData = [];
+        for(var i=0; i<pingPaiArr.length; ++i){
+            if($.inArray(pingPaiArr[i],pingPaiData) == -1){
+                pingPaiData.push(pingPaiArr[i])
+            }
+        }
+        cheXiData   = cheXiData.join(",");
+        pingPaiData = pingPaiData.join(",");
+        var cheJiaNum = $('.souInput').attr('data_val');
+        var cheJiaHao = cheJiaNum?cheJiaNum:'';
+        location.href = '/person/sendShop?type='+type+'&series='+cheXiData+'&brand='+pingPaiData+'&num='+cheJiaHao;
+    }
+
+    /*点击打印EXECEL*/
+    function getExecel(){
+        if(!excel){
+            layer.msg('没有可以导出的数据');
+            return;
+        }
+        excel = JSON.stringify(excel);
+        console.log(excel);
+        location.href = "/pc.product/vinExecel?data="+excel;
+    }
+</script>

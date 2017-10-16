@@ -1,0 +1,71 @@
+<link rel="stylesheet" href="/css/pc/person/card.css">
+
+<div class="rightDivScope">
+    <div class="titles">
+        <span style="font-size: 24px;font-weight: 500;">企业名片</span>
+    </div>
+    <?php if(isset($data) && $data){?>
+    <div style="margin: 0 auto;width:520px;height: 320px;margin-top: 20px;overflow: hidden;">
+        <img class="cardImage" src="<?php echo $data['path'];?>" width="520px" height="320px;" alt="">
+    </div>
+    <?php }else{?>
+    <div class="cardImgDiv">
+        <img src="/images/qpxm/pc/person/noCard.png" class="cardImg" alt="">
+    </div>
+    <?php }?>
+
+    <div class="caoZuoDiv">
+        <div>
+            <button class="xiaZai" onclick="downImg()">下载</button>
+            <button class="bianJi" onclick="location.href='/person/selectCard'">编辑名片</button>
+        </div>
+    </div>
+
+</div>
+<script src="/js/pc/layer/layer.js"></script>
+<script src="/js/pc/card.js"></script>
+<script>
+    /*点击下载图片*/
+    function downImg(){
+        var len = $('.cardImage').length;
+        if(len > 0){
+            var url = $('.cardImage').attr('src');
+            var $a = document.createElement('a');
+            $a.setAttribute("href", url);
+            $a.setAttribute("download", "企业名片");
+            var evObj = document.createEvent('MouseEvents');
+            evObj.initMouseEvent( 'click', true, true, window, 0, 0, 0, 0, 0, false, false, true, false, 0, null);
+            $a.dispatchEvent(evObj);
+        }else{
+            layer.confirm('您还没有设置名片？', {
+                btn: ['在等等','去设置'] //按钮
+            }, function(){
+                layer.closeAll();
+            }, function(){
+                location.href = '/person/cardSave';
+            });
+        }
+        console.log(len);
+
+    }
+
+
+
+    window.onload = function () {
+//            "<?php if(isset($data) && $data){?>";
+//            var img1    = '/images/qpxm/pc/person/noCard.png';        //背景图片
+//            var img2    = "<?php echo $data['firms_QR'];?>";        //二维码图片
+//            var name    = "<?php echo $data['firms_name'];?>";      //企业名称
+//            var linkMan = "<?php echo $data['firms_linkMan'];?>";   //联系人
+//            var phone   = "<?php echo $data['firms_phone'];?>";     //联系人手机号码
+//            var tel     = "<?php echo $data['firms_tel'];?>";       //联系人电话
+//            var qq      = "<?php echo $data['firms_QQ'];?>";        //联系人QQ
+//            var address = "<?php echo $data['firms_address'];?>";   //地址
+//            var main_icon_1 = "<?php echo $data['main_icon_1'];?>"; //图标一
+//            var main_icon_2 = "<?php echo $data['main_icon_2'];?>"; //图标二
+//            var main_icon_3 = "<?php echo $data['main_icon_3'];?>"; //图标三
+//            setCard(img1,img2,name,linkMan,phone,tel,qq,address,main_icon_1,main_icon_2,main_icon_3);      //初始化画布
+//            "<?php }?>"
+    };
+
+</script>

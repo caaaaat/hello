@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>新手上路</title>
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="../../css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="../../css/common.css" />
+    <style>
+	.sw-link{
+		color: #666;
+		border: 1px solid #efefef;
+		height: 48px;
+		line-height: 48px;
+		text-align: left;
+		width: 240px;
+		margin: auto;
+		border-radius: 24px;
+		font-size: 14px;
+		padding-left: 24px;
+	}
+	.sw-input-phone{
+		text-align: left;height: 42px!important;
+		background: url(../../image/index/icon_wz_sousuo@3x.png)no-repeat;
+		background-position: 24px;
+		background-size: 16px;
+		padding-left: 42px!important;
+		width:90%!important;
+		margin-bottom: 0px!important;
+		border-radius: 24px!important;
+		font-size: 14px;
+	}
+	.sw-card-li:after{
+		height: 0;
+	}
+	.sw-card-li{
+		border-bottom: 1px solid #efefef;
+	}
+	.sw-input-box{
+		width: 100%;background: #efefef;padding-top: 10px;margin-bottom: 10px;text-align: center;
+	}
+</style>	
+</head>
+<body style="background: #EFEFEF;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">新手上路</h1>
+	</header>
+	
+	<div class="mui-content">
+		<div class="mui-input-row sw-input-box">
+	        <input type="text" placeholder="输入关键词搜索" class="sw-input-phone" id="keyword">
+	    </div>
+		<div class="mui-scroll-wrapper" style="margin-top:104px;background: #EFEFF4;"> 
+			<div class="mui-scroll sw-coterie-box" id="loadList">  
+				<ul class="mui-table-view" style="margin-top: 0;" id="xsList"></ul>
+			</div>
+		</div>
+	</div>
+	<input value="1" hidden="hidden" id="page"/>
+<!--列表模板-->
+<script id="xs-list-tpl" type="text/html">
+	{{# var len = d.length }} 
+	
+	{{# for(var i = 0;i < len; i++){ }}
+	<li class="mui-table-view-cell sw-card-li" onclick="goDetail('{{ d[i].art_ID }}','newbie')">
+		<a class="mui-navigate-right">
+			{{ d[i].title }}
+		</a>
+	</li>
+	{{# } }} 
+</script>			
+</body>
+ <script src="../../js/mui.min.js"></script>
+ <script type="text/javascript" src="../../js/global.js"></script>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/laytpl/laytpl.js"></script> 
+<script type="text/javascript" src="../../js/mui.pullToRefresh.js"></script>
+<script type="text/javascript" src="../../js/mui.pullToRefresh.material.js"></script> 
+<script type="text/javascript" charset="utf-8">
+  	
+  	var showSelf;
+
+	mui.init();
+	
+	
+	mui.plusReady(function() { 
+	
+		(function($) {
+			//阻尼系数
+			var deceleration = mui.os.ios?0.003:0.009;
+			$('.mui-scroll-wrapper').scroll({		
+				bounce: false,   
+				indicators: true, //是否显示滚动条
+				deceleration:deceleration 
+			});
+		})
+		
+		
+		mui("#loadList").pullToRefresh({ 
+			down: {
+				callback: function(){
+					location.href = location.href;
+				}
+			},
+			up: { 
+				auto: true,
+				offset: 50, //距离底部高度(到达该高度即触发)
+				contentnomore:contentnomoreStr,   
+				contentrefresh:contentrefreshStr,
+				callback: function() {  
+						showSelf = this;				
+						
+						getStartList();   
+						
+						}
+					}
+		});
+		
+	
+	});
+  	
+	 /**
+	  * 重新开始搜索
+	  */
+	 document.getElementById("keyword").addEventListener('input',function(){
+			setTimeout(function(){
+				//清空数据
+				$("#xsList").html('');
+				$("#page").val(1);
+			
+				showSelf.refresh(true);  
+				showSelf.pullUpLoading(true);  
+			},300);
+		});
+	 
+	 
+	 //从新开始加载数据 
+	 function getStartList(){
+	 	 	
+      	var page = mui("#page")[0].value;//获取页数
+     	var keyword = mui("#keyword")[0].value;//获取关键字
+     	
+      	var data = {};  
+      	var postData = {};
+      		
+      		//请求的数据
+      		postData.page     = page;//请求的页码
+      		postData.pageSize = 20;//每页显示数量 
+      		//其他相关数据	      		
+      		postData.keyword = keyword;   
+      		
+      		//页面相关数据 
+      		data.postData = postData;   
+      		data.mod      = 'api.sev.article';//模型
+      		data.fun      = 'getNewbieList';//方法     
+      		data.tpl      = 'xs-list-tpl';//列表模板
+      		data.listId   = 'xsList';//列表容器  	
+      		data.pageId   = 'page';//页码Id	
+							
+			//请求并处理数据
+			loadInfoArr(data,false,showSelf);	 
+	 }
+	 
+	 /**
+	  * 前往详情
+	  * @param {Object} art_ID
+	  * @param {Object} type
+	  */
+	 function goDetail(art_ID,type){	 	
+	 	var extras = {'art_ID':art_ID,'type':type};
+	 	var url  = '../../view/gonggao/newbieDetail.html';
+	 	var id   = 'gonggao_newbieDetail';
+	 	var aniShow = 'pop-in';
+	 	openView(url,id,aniShow,extras);	 	
+	 }	 
+</script>
+</html>

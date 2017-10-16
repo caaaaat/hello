@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="../../css/mui.min.css" />
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="../../css/common.css" />
+    <style type="text/css">
+	.sw-link{
+		color: #666;
+		border: 1px solid #efefef;
+		height: 48px;
+		line-height: 48px;
+		text-align: left;
+		width: 240px;
+		margin: auto;
+		border-radius: 24px;
+		font-size: 14px;
+		padding-left: 24px;
+	}
+	</style>
+</head>
+<body style="background: #FFFFFF;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">登录</h1>
+	    <button class="mui-btn mui-btn-link mui-pull-right" onclick="registerView()">注册</button>
+	</header>
+	<div class="mui-content" style="padding: 0 20px;background: #FFFFFF;"> 
+	    <div class="mui-input-row" style="padding-top: 80px;">
+	        <input type="number"   id="userTel" onkeyup="value=sw.trim(value)" oninput="if(value.length>11)value=value.slice(0,11)"  placeholder="请输入手机号" style="text-align: center;height: 48px;font-size: 14px;">
+	    </div> 
+	    <div class="mui-input-row"> 
+	        <input type="password" id="userPwd" placeholder="请输入密码" style="text-align: center;height: 48px;font-size: 14px;">
+	    </div>
+	    <button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" onclick="getToken()">登录</button>
+	    <div><a style="color: #666;font-size: 14px;" onclick="salesmanLogin()">业务员登录</a><a style="float: right;color: #999;font-size: 14px;" onclick="viPhone()">忘记密码</a></div>
+	    
+	    <div class="sw-extra-area">
+	        <div class="sw-link" style="margin-top: 100px;" id="kfQQBox">  
+	        	<img src="../../image/login/icon_qq.png" style="width: 24px;height: 24px;vertical-align: middle;"/> 客服QQ：<span id="kfQQ"></span>
+	        </div>
+			<div class="sw-link" style="margin-top: 10px;" id="kfTelBox">
+				<img src="../../image/login/icon_tel.png" style="width: 24px;height: 24px;vertical-align: middle;"/> 客服电话：<span id="kfTel"></span>
+			</div>
+      </div>
+	</div>
+</body>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/global.js"></script>
+ <script src="../../js/jquery.min.js"></script> 
+<script type="text/javascript" charset="utf-8">	
+	//mui初始化
+	mui.init({  });
+	//mui plusReady
+	mui.plusReady(function() {	
+		//读取qq 电话
+		http.load('api.sev.user','getLinkInfo',{},function(rData){
+			sw.jcon(rData) 
+			var data = rData.data;
+			if(data.QQ){
+				$("#kfQQ").text(data.QQ);
+				
+				var qqStr = "document.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin="+data.QQ+"&version=1&src_type=web&web_src=qq.com;';";
+				$("#kfQQBox").attr('onclick',qqStr);
+			}
+			
+			if(data.Tel){
+				
+				$("#kfTel").text(data.Tel);
+				
+				var telStr = "document.location.href = 'tel:"+data.Tel+"'; ";
+				$("#kfTelBox").attr('onclick',telStr);                  
+			} 
+			
+		},function(xhr,type,errorThrown){	
+				//无网络提示
+				sw.toast('获取数据失败，服务器或网络异常'); 	
+		}) 
+	
+	});
+	
+	
+ 	//获取登录令牌	 
+ 	function getToken(){
+ 		
+ 		var userTel = document.getElementById('userTel').value;
+ 		var userPwd = document.getElementById('userPwd').value;
+ 			
+ 			userTel = sw.trim(userTel);
+ 			userPwd = sw.trim(userPwd);
+ 			
+ 		//验证手机号码
+ 		if(userTel==''){
+ 			sw.toast('请输入登录手机号码');
+ 			return;
+ 		}else{
+ 			
+ 			if(Verification.isTel(userTel)==false){//验证手机号码输入是否正确
+ 				sw.toast('您输入的手机号码有误，请检查后重试');
+ 				return; 
+ 			}
+ 			
+ 		}
+ 		//验证登录密码
+ 		if(userPwd==''){
+ 			sw.toast('请输入登录密码'); 
+ 			return;
+ 		}
+ 				
+ 		var postData = {};
+ 			postData.userTel = userTel;
+ 			postData.userPwd = userPwd;
+ 		
+ 		http.load('api.sev.login','getToken',postData,function(rData){//请求成功		
+// 			console.log(JSON.stringify(rData));
+   			sw.toast( rData.massage);  
+ 			if(rData.status==200){
+ 			   onSuccess(rData);
+ 			   setTimeout(function(){
+ 			   	//刷新个人中心
+ 				var person = plus.webview.getWebviewById("view/person/index.html");
+					person.reload(true); 
+	 			   	//关闭登录界面
+				plus.webview.close( 'setSys', 'slide-out-bottom', '300');
+				plus.webview.close( 'view_login_login', 'slide-out-bottom', '300');
+				
+				//刷新个人中心
+				plus.storage.setItem('pIIs','1');	//父级刷新标记
+				mui.back();
+				
+ 			   },1000)
+ 			}else if(rData.status==102){				
+ 				openView('../../view/register/material.html','register_material','pop-in',{'firmsId':rData.firmId});				
+ 			}  
+ 					
+ 		},function(xhr,type,errorThrown){//请求失败			
+			sw.toast('请求失败');  
+ 		})
+ 		
+ 		
+ 		
+	
+ 	}  
+ 		  
+ 	//注册界面
+	function registerView(){
+		openView('../../view/register/register.html','register','pop-in'); 		
+	}
+ 	
+ 	//忘记密码第一步 验证手机号是否存在
+ 	function viPhone(){
+ 		openView('../../view/login/viPhone.html','login_viPhone','pop-in'); 	
+ 	}
+ 	
+ 	//跳转业务员登录页面
+ 	function salesmanLogin(){
+ 		openView('../../view/person/salesman/login/login.html','salesman_login_login','pop-in'); 	
+ 	}
+</script>
+</html>

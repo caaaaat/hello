@@ -1,0 +1,17 @@
+#rightDiv{margin: 0 auto;text-align: center}
+.touXiangDiv{width: 130px;height: 130px;overflow: hidden;border-radius: 50%;margin: auto;margin-top: 10px;margin-bottom: 10px;}
+.postinRelative{position: relative;}
+.touXiangImg{height: 130px;max-width: 130px;}
+.upImg{position: absolute;top: 45px;left: 45px;width: 40px;height: 40px;}
+.marginAuto{margin: auto;}
+.inputNum{border: 1px solid #DDD;width: 310px;height: 40px;line-height: 40px;text-align: center;font-size: 18px;}
+.bottomDivBtn{margin: auto;width: 310px;margin-top: 20px;}
+.quXiao{width: 60px;height:35px;border-radius: 7px;float: left;background: #FF524B;color: #FFF;border: none;}
+.saves{width: 60px;height:35px;border-radius: 7px;float: right;background: #FF524B;margin-bottom: 35px;color: #FFF;border: none;}
+
+.martop20{margin-top: 20px;}
+.touXiang185Div{overflow: hidden;border-radius: 50%;width: 185px;height: 185px;margin: 0 auto;}
+.touXiang185{height: 185px;max-width: 185px;}
+.phoneNumber{font-size: 18px;font-weight: bold;text-align: center;color: #333;margin-top: 15px;}
+.bianJiBtnDiv{text-align: center;margin-top: 60px;}
+.bianJiBtn{color: #FFF;font-size: 18px;height: 40px;width: 105px;background: #FF524B;border-radius: 7px;border: none;}

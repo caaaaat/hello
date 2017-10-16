@@ -1,0 +1,143 @@
+<link rel="stylesheet" href="/css/pc/person/track.css?v=1">
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZBcSIHdvwjfx105K8jvQCj5W"></script>
+<style>
+    a:hover{color: inherit;}
+</style>
+<div class="rightDivScope">
+    <div class="titles">
+        <span>汽修厂轨迹</span>
+    </div>
+
+    <div id="divBody">
+        <!--上部导航-->
+        <div>
+            <div class="floLeft">
+                <div class="relaTiveFloLeft">
+                    <input type="text" placeholder="输入汽修厂名称查询" class="souSuoInput wordsKey">
+                    <img src="/images/qpxm/pc/index/souSuo.png" class="souSuoImg" alt="">
+                </div>
+                <button class="souSuoBtn" onclick="getList()">搜索</button>
+            </div>
+            <div class="floLeftMarLeft25">
+                <span class="shangText">区域 ：</span>
+                <select id="s_province" class="quYuSelect" style="margin-left: 0" name="s_province"></select>  
+                <select id="s_city" class="quYuSelect" name="s_city" ></select>  
+                <select id="s_county" class="quYuSelect" name="s_county"></select>
+            </div>
+            <div class="floRight">
+                <span class="shangText">类型 ：</span>
+                <select name="" class="selectType" id="selectType">
+                    <option value="">全部汽修厂</option>
+                    <option value="4">维修厂</option>
+                    <option value="5">快修保养</option>
+                    <option value="6">美容店</option>
+                </select>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <!--下部内容-->
+        <div class="marTop62">
+            <!--左部地图-->
+            <div class="mapDiv" id="allmap">
+
+            </div>
+            <!--右部列表-->
+            <!--VIP-->
+            <div id="shoping">
+
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--分页开始-->
+    <div class="text-right" style="margin-bottom: 20px;margin-right: 25px;margin-top: 90px;">
+        <span id="pageText" style="color: #999"></span>
+        <span id="pageInfo" style="margin-right: 10px;"></span>
+        <div class="btn-group" id="pager"></div>
+    </div>
+</div>
+
+
+<!--右侧固定定位QQ、电话-->
+<div class="fixedDinWei">
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="showF(this)">
+            <div class="fixedYuan"><img src="/images/qpxm/pc/index/phone.png" alt=""></div>
+        </a>
+        <div class="fixedQQ">123456</div>
+    </div>
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="showF(this)" target="_blank">
+            <div style="float: right;"><img src="/images/qpxm/pc/index/rQQ.png" style="vertical-align: text-bottom" alt=""></div>
+        </a>
+        <div class="fixedQQ">123456</div>
+    </div>
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="goTop()">
+            <div style="float: right;"><img src="/images/qpxm/pc/index/rUp.png" alt=""></div>
+        </a>
+    </div>
+</div>
+
+
+<input type="hidden" id="pages" value="1">
+<!--三级联动    -->
+<script class="resources library" src="/js/pc/area_track.js" type="text/javascript"></script>
+<!--分页插件-->
+<script src="/js/pc/jquery.page.js"></script>
+<script src="/js/pc/layer/layer.js" type="text/javascript"></script>
+<script src="/js/pc/track.js?v=1" type="text/javascript"></script>
+<script src="/js/global.js" type="text/javascript"></script>
+<script>
+    $(function(){
+        //    初始化三级联动
+        _init_area();
+        getAllZuoBiao();
+//        getList();
+        JsonStorage.setItem('allZuoBiao','');
+    });
+    function showSub(data){
+        var count = data.count;
+        if (count < 1) {
+            var str = '<div style="text-align: center;">对不起，暂时没有数据!!!</div>';
+            $("#shoping").html(str);
+            return false;
+        }
+        var listObj = $("#shoping");
+        if(data){
+            var list = data.list;
+            if(list){
+                var s = '';
+                var arr = ['','轿车商家','货车商家','用品商家','修理厂','快修保养','美容店'];
+                var color = ['#00CC33','#0099FF','#00CC33','#FF6699','#00CC33','#0099FF','#FF6699'];
+                for(var i = 0; i < list.length; i ++ ) {
+                    s += '<div class="floRight450" style="position: relative;cursor: pointer" longitude="'+list[i].longitude+'" latitude="'+list[i].latitude+'">';
+                    s += '<div class="trackDiv"><div class="trackImgDiv">';
+                    s += '<img src="/images/qpxm/pc/index/tuiJianS.png" class="trackImg" alt=""></div>';
+                    s += '<div class="floLeftMarLeft18"><div class="trackName"><div style="float: left;max-width: 240px;overflow: hidden;text-overflow:ellipsis;white-space:nowrap;">'+list[i].companyname+'</div>';
+                    if(list[i].vip==1){
+                        s += ' <div style="float: left;"><img src="/images/qpxm/pc/person/shopInfo/v.png" style="vertical-align: text-top;height: 20px;" alt=""></div>';
+                    }
+                    if(list[i].is_check==1){
+                        s += ' <div style="float: left;"><img src="/images/qpxm/pc/person/shopInfo/renZ.png" style="vertical-align: text-top;height: 20px;" alt=""></div>';
+                    }
+                    s += '</div>';
+                    s += '<div><div class="trackTag" style="color: '+color[list[i].classification]+';border-color:'+color[list[i].classification]+'">'+arr[list[i].classification]+'</div></div>';
+                    s += '<div class="trackInfo">';
+                    s += '<a href="http://wpa.qq.com/msgrd?v=3&uin=&site=<?php echo $qqTel['QQ'];?>&menu=yes"><img src="/images/qpxm/pc/person/shopInfo/qqRed.png" alt=""><span class="touSu">投诉</span></a>';
+                    s += '<a href="javascript:;" onclick="dingWeiThis(this)"><img src="/images/qpxm/pc/person/shopInfo/dingWeiRed.png" alt=""><span class="marLeft5">'+list[i].city+'/'+list[i].district+'</span></a>';
+                    s += '</div></div>';
+                    s += '<div class="floRightPadTop32" style="position:absolute;right: 15px;">';
+                    s += '<a href="/def/store?ID='+list[i].EnterpriseID+'">';
+                    s += '<div class="inShop" style="background: #FF524B;color: #FFF;">进入店铺</div>';
+                    s += '</a></div></div></div>';
+                }
+            }else{
+                listObj.html('');
+            }
+            if(listObj){
+                listObj.html(s);
+            }
+        }
+    }
+</script>

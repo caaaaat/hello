@@ -1,0 +1,275 @@
+<link rel="stylesheet" href="/css/pc/person/collectShop.css">
+<div class="titles">
+    <span style="font-size: 24px;font-weight: 500;">收藏产品</span>
+</div>
+
+<!--头部开始-->
+<div id="header">
+    <div class="header">
+        <a href="javascript:;" onclick="jianSuoShow()">
+            筛选&nbsp;&nbsp;<img src="/images/qpxm/pc/person/shopInfo/xia.png" alt="">
+        </a>
+        <span class="marLeft50">
+            <span id="car_category_type_show" data-value="0">全部产品</span>
+            <span id="car_category_1_show" data-value="0"></span>
+            <span id="car_category_2_show" data-value="0"></span>
+        </span>
+        <div class="floRight">
+            <span class="posRelative">
+                <input class="souSuoInput" type="text" placeholder="输入产品名称，品牌搜索" name="keyword007">
+                <img src="/images/qpxm/pc/index/souSuo.png" class="souSuoImg" alt="">
+            </span>
+            <button class="collectSouSuo" onclick="getData(1)">搜索</button>
+        </div>
+    </div>
+    <!--检索部分-->
+    <div id="jianSuo">
+        <div class="jianSuoHeader">
+            <a href="javascript:void(0)" class="marLeft44" data-name="全部产品" data-type="" onclick="choseType(0,this)">全部产品</a>
+            <a href="javascript:void(0)" class="marLeft44" data-name="新品促销" data-type="新品促销" onclick="choseType(1,this)">新品促销</a>
+            <a href="javascript:void(0)" class="marLeft44" data-name="库存清仓" data-type="库存清仓" onclick="choseType(2,this)">库存清仓</a>
+        </div>
+        <div class="shopTypeDiv">
+            <div class="shopTypeListDiv">
+                <div class="shopTypeBody" style="overflow: hidden;height: 30px;">
+                    <div class="swiper-wrapper"  id="car_category_1">
+                        <!--<div class="floLeftW14 swiper-slide" style="cursor: pointer" onclick="activeType(this)"><span>一级分类</span></div>-->
+                        <?php foreach($proCate['cate_1'] as $v){?>
+                        <div class="floLeftW14 swiper-slide" style="cursor: pointer" data-id="<?php echo $v['id'];?>" data-name="<?php echo $v['name'];?>" onclick="activeType(this);choseCate_1()"><span><?php echo $v['name']?></span></div>
+                        <?php }?>
+                    </div>
+                </div>
+
+                <div class="leftRightBtn">
+                    <a href="javascript:;" class="xiangZuo"><img src="/images/qpxm/pc/person/shopInfo/left.png" alt=""></a>
+                    <a href="javascript:;" class="marLeft10 xiangYou"><img src="/images/qpxm/pc/person/shopInfo/right.png" alt=""></a>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <!--产品图片列表-->
+            <div style="padding-left: 10px;width: 90%;" id="car_category_2">
+                <?php foreach($proCate['cate_2'] as $v){?>
+                <div class="shopImgListDiv car_cate_2" data-pid="<?php echo $v['pid'];?>" data-id="<?php echo $v['id'];?>" data-name="<?php echo $v['name'];?>" style="display: none" onclick="choseCate_2(this)">
+                    <div class="shopImgBody">
+                        <img src="<?php echo $v['img'];?>" class="w80maxH80" alt="">
+                    </div>
+                    <div class="shopNameText"><?php echo $v['name'];?></div>
+                    <div style="clear: both;"></div>
+                </div>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--收藏产品列表-->
+<div class="row" id="collectProduct">
+
+</div>
+
+
+<script id="showList" type="text/html">
+    {{# for(var i = 0, len = d.list.length; i < len; i++){ }}
+    <a href="/def/product?ID={{ d.list[i].proId }}">
+    <div class="collectProduct">
+        <img src="{{ d.list[i].pro_pic }}" class="collectProductImg" alt="  ">
+        <div class="productInfoDiv">
+            <div class="productInfoText">产品名称，{{ d.list[i].proName }}</div>
+            <div class="productInfoText">类别：{{ d.list[i].cate_1_name }}/{{ d.list[i].cate_2_name }}</div>
+            <div class="productInfoText">品牌：{{ d.list[i].pro_brand }}</div>
+            <div class="productInfoText">车系：{{ d.list[i].car_group }}</div>
+        </div>
+    </div>
+    </a>
+    {{# } }}
+</script>
+<script id="showNo" type="text/html">
+    <h3 style="text-align: center">还没有收藏产品</h3>
+</script>
+
+<div class="row">
+    <div class="text-right" style="margin-bottom: 50px;margin-right: 25px;margin-top: 28px;">
+        <span style="color: #999"></span>
+        <span id="pageInfo" style="margin-right: 10px;"></span>
+        <div class="btn-group" id="pager"></div>
+    </div>
+</div>
+<!--分页开始-->
+
+
+
+<!--分页插件-->
+<script src="/js/pc/jquery.page.js"></script>
+<script src="/css/swiper2/idangerous.swiper.min.js"></script>
+<script src="/js/global.js"></script>
+<script src="/js/laytpl/laytpl.js"></script>
+<script>
+    $(function () {
+        getData(1);
+    });
+    /*二维码的显示和隐藏*/
+    function showEWM(obj){
+        $(obj).attr('onclick','hideEWM(this)');
+        $(obj).find('img').attr('src','/images/qpxm/pc/supperList/backEr.png');
+        $(obj).parent().parent().find('.erWeiMa').show();
+    }
+    function hideEWM(obj){
+        $(obj).attr('onclick','showEWM(this)');
+        $(obj).find('img').attr('src','/images/qpxm/pc/person/shopInfo/banEWM.png');
+        $(obj).parent().parent().find('.erWeiMa').hide();
+    }
+
+    /*手动选中类型*/
+    function activeType(obj){
+        $('.swiper-slide').removeClass('swiper-slide-active');
+        $(obj).addClass('swiper-slide-active');
+    }
+    /*获取当前选中的位置*/
+    function activeWZ(){
+        var len = $('.swiper-slide').length;
+        var l   = '';
+        for(var i=0; i<len; ++i){
+            if($('.swiper-slide').eq(i).hasClass('swiper-slide-active')){
+                l = i;
+                break;
+            }
+        }
+        return l;
+    }
+//    检索显示与隐藏
+    function jianSuoShow(){
+        var hidden = $("#jianSuo").is(":hidden"); // 判断是否隐藏
+        if(hidden){
+            $("#jianSuo").show();
+            mySwiper1 = new Swiper('.shopTypeBody',{
+                autoplay : false,//可选选项，自动滑动
+                loop : false,//可选选项，开启循环
+                slidesPerView : 7//个数
+            });
+            $('.xiangYou').click(function(){
+                var oldL = activeWZ();
+                mySwiper1.slideNext();
+                var newL = activeWZ();
+                var len = $('.swiper-slide').length;
+                if(oldL == len-8){
+                    $('.swiper-slide').removeClass('swiper-slide-active');
+                    $('.swiper-slide').eq(oldL+1).addClass('swiper-slide-active');
+                }else if(oldL > newL){
+                    $('.swiper-slide').removeClass('swiper-slide-active');
+                    $('.swiper-slide').eq(oldL).addClass('swiper-slide-active');
+                }
+            });
+            $('.xiangZuo').click(function(){
+                var oldL = activeWZ();
+                mySwiper1.slidePrev();
+                var newL = activeWZ();
+                if(oldL > newL+6){
+                    $('.swiper-slide').removeClass('swiper-slide-active');
+                    $('.swiper-slide').eq(newL+6).addClass('swiper-slide-active');
+                }else if(oldL > newL){
+                    $('.swiper-slide').removeClass('swiper-slide-active');
+                    $('.swiper-slide').eq(oldL).addClass('swiper-slide-active');
+                }
+            });
+            $('.swiper-slide-active').click();
+        }else{
+            $("#jianSuo").hide();
+        }
+    }
+
+    function getData(n) {
+        var type   = $('#car_category_type_show').attr('data-value');
+        var cate_1 = $('#car_category_1_show').attr('data-value');
+        var cate_2 = $('#car_category_2_show').attr('data-value');
+        var keyword= $('input[name="keyword007"]').val();
+        api.load('pc.product','getCollectProduct',{
+            type:type,
+            cate_1:cate_1,
+            cate_2:cate_2,
+            keyword:keyword,
+            page:n
+        },function (rdata) {
+            var pageInfo = '';
+            var p     = rdata.page;
+            thisPage = p;
+            var pageSize = rdata.pageSize;
+            var count = rdata.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                //var endPage  = (p*pageSize);
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            $("#pageInfo").text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+            $("#pager").createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getData(p);
+                }
+            });
+            showDa(rdata);
+        });
+    }
+
+    function showDa(data) {
+        if(data){
+            if(data.list.length>0){
+                var tpl2 = $('#showList').html();
+                laytpl(tpl2).render(data, function(html){
+                    $('#collectProduct').html(html);
+                });
+                return false
+            }
+        }
+        var tpl1 = $('#showNo').html();
+        laytpl(tpl1).render(data, function(html){
+            $('#collectProduct').html(html);
+        });
+    }
+
+    //分级类别
+    function choseType(n,i) {
+        $('#car_category_type_show').html($(i).attr('data-name'));
+        $('#car_category_type_show').attr('data-value',$(i).attr('data-type'));
+        setTimeout(function () {
+            getData(1);
+        },2);
+    }
+
+    //选中一级分类处理
+    function choseCate_1() {
+        $('.car_cate_2').hide();
+        setTimeout(function(){
+            var th007 = $('#car_category_1').find('.swiper-slide-active');
+            var pa007 = th007.attr('data-id');
+            $('#car_category_1_show').html('>> '+th007.attr('data-name'));
+            $('#car_category_1_show').attr('data-value',pa007);
+            $('#car_category_2_show').html('>> 全部');
+            $('#car_category_2_show').attr('data-value',0);
+            $('#car_category_2').find('div[data-pid="'+pa007+'"]').show();
+            setTimeout(function () {
+                getData(1);
+            },2);
+        },5)
+    }
+    //选中二级分类处理
+    function choseCate_2(n) {
+        var cate2 = $(n);
+        $('#car_category_2_show').html('>> '+cate2.attr('data-name'));
+        $('#car_category_2_show').attr('data-value',cate2.attr('data-id'));
+        setTimeout(function () {
+            getData(1);
+        },2);
+        jianSuoShow();
+    }
+
+
+
+</script>

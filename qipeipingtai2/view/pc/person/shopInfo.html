@@ -1,0 +1,193 @@
+<link rel="stylesheet" href="/css/pc/person/shopInfo.css">
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZBcSIHdvwjfx105K8jvQCj5W"></script>
+<style>
+    .fengMianShowImg img:hover,.bannerShowImg img:hover,.weiXinErWeiMaShowImg img:hover{cursor: pointer;}
+</style>
+<div class="titles">
+    <span style="font-size: 24px;font-weight: 500;">店铺信息</span>
+</div>
+<!--基本信息-->
+<div>
+    <div class="infoTextDiv">
+        <span><img src="/images/qpxm/pc/person/shopInfo/redShu.png" class="height32" alt=""></span>
+        <span class="infoText">基本信息</span>
+    </div>
+    <div class="padding25">
+        <div class="shopImgDiv">
+            <img src="<?php echo $shopInfo['face_pic'];?>" class="shopImg" alt="">
+        </div>
+        <div class="shopInfoDiv">
+            <div class="shopName"><?php echo $shopInfo['companyname'];?></div>
+            <div>
+                <div class="floatLeft">企业类型 ：</div>
+                <div class="shopType"><?php echo $shopInfo['type']==1?'经销商':'汽修厂';?></div>
+                <div style="clear: both;"></div>
+            </div>
+            <?php $lxArr = array('','轿车商家','货车商家', '用品商家','修理厂','快修保养','美容店');?>
+            <div><span>企业分类 ：</span><span style="max-width: 320px;"><?php echo $lxArr[$shopInfo['classification']];?></span></div>
+            <div>
+                <div class="floatLeft">企业地址 ：</div>
+                <div class="shopType"><?php echo $shopInfo['province'];?><?php echo $shopInfo['city'];?><?php echo $shopInfo['district'];?><?php echo $shopInfo['address'];?></div>
+            </div>
+            <div>
+                <div class="floatLeft">经营范围 ：</div>
+                <div class="shopType"><?php echo $shopInfo['businessStr'];?></div>
+            </div>
+            <div style="clear: both"></div>
+            <div class="shopTotal">
+                <div class="floatLeft">
+                    <img src="/images/qpxm/pc/person/shopInfo/renNum.png" class="verMiddle" alt="">&nbsp;
+                    <span>访问数&nbsp;</span><span><?php echo $shopInfo['visit_num'];?></span>
+                </div>
+                <div class="shopTelNum">
+                    <img src="/images/qpxm/pc/person/shopInfo/telNum.png" class="verMiddle" alt="">&nbsp;
+                    <span>来电数&nbsp;</span><span><?php echo $shopInfo['call_num'];?></span>
+                </div>
+                <div class="mingXi">
+                    <a href="/person/shopCareful">
+                        <div class="mingXiText">明细</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+</div>
+<!--基本信息-->
+<div>
+    <div class="infoTextDiv">
+        <span><img src="/images/qpxm/pc/person/shopInfo/redShu.png" class="height32" alt=""></span>
+        <span class="infoText">详细信息</span>
+    </div>
+    <!--封面-->
+    <div class="shopCoverDiv">
+        <div class="shopCoverText">封面 ：</div>
+        <div class="floatLeft fengMianShowImg" style="margin-left: 20px;"><img src="<?php echo $shopInfo['face_pic'];?>" class="shopCoverImg" alt=""></div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--banner-->
+    <div class="bannerDiv">
+        <div class="bannerText">banner ：</div>
+        <div class="floatLeft bannerShowImg" style="margin-left: 20px;">
+            <?php foreach($shopInfo['banners'] as $v ){ ?>
+            <img src="<?php echo $v['banner_url'];?>" class="bannerShopImg" alt="">
+            <?php } ?>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--主营-->
+    <div class="zhuYinDiv" style="height: auto;">
+        <div class="zhuYinText">主营 ：</div>
+        <div class="floLeft20" style="max-width: 750px;">
+            <span class="fontSize14"><?php echo $shopInfo['major'];?></span>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--联系人-->
+    <div class="zhuYinDiv">
+        <div class="lianXiRen" style="width: 110px;">联系人 ：</div>
+        <div class="floLeft20">
+            <span style="font-size: 15px"><?php echo $shopInfo['linkMan'];?></span>
+        </div>
+    </div>
+    <!--手机-->
+    <div class="phoneDiv">
+        <div class="phone">手机 ：</div>
+        <div class="floLeft20">
+            <span class="fontSize15"><?php echo $shopInfo['linkPhone'];?></span>
+        </div>
+    </div>
+    <!--座机-->
+    <div class="phoneDiv">
+        <div class="phone">座机 ：</div>
+        <div class="floLeft20">
+            <span class="fontSize15"><?php echo $shopInfo['linkTel'];?></span>
+        </div>
+    </div>
+    <!--QQ-->
+    <div class="phoneDiv">
+        <div class="phone">QQ ：</div>
+        <div class="floLeft20">
+            <span class="fontSize15"><?php echo $shopInfo['qq'];?></span>
+        </div>
+    </div>
+    <!--微信-->
+    <div class="phoneDiv">
+        <div class="phone">微信 ：</div>
+        <div class="floLeft20 weiXinErWeiMaShowImg">
+            <img src="<?php echo $shopInfo['wechat_pic'];?>" class="w35h35" alt="">
+        </div>
+    </div>
+    <!--企业坐标-->
+    <div class="phoneDiv">
+        <div class="phone">企业坐标 ：</div>
+        <div class="floLeft20">
+            <span class="fontSize15"><?php echo $shopInfo['coordinate'];?></span>
+            <div id="allmap" style="height: 200px;width: 500px"></div>
+        </div>
+
+    </div>
+    <div style="clear: both"></div>
+    <!--详细地址-->
+    <div class="phoneDiv">
+        <div class="phone">详细地址 ：</div>
+        <div class="floLeft20">
+            <span class="fontSize15"><?php echo $shopInfo['province'];?><?php echo $shopInfo['city'];?><?php echo $shopInfo['district'];?><?php echo $shopInfo['address'];?></span>
+        </div>
+    </div>
+    <!--详细地址-->
+    <div class="phoneDiv">
+        <div class="phone">企业介绍 ：</div>
+        <div class="jieShaoShop">
+            <span class="fontSize15"><?php echo $shopInfo['info'];?></span>
+        </div>
+    </div>
+    <div style="clear: both"></div>
+    <div class="bianJiShop">
+        <a href="javascript:;" onclick="shopEidt()">
+            <div class="jianJiShopBtn">编辑</div>
+        </a>
+    </div>
+</div>
+<script src="/js/pc/layer/layer.js"></script>
+<script>
+    layer.photos({
+        photos: '.fengMianShowImg'
+        ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+    });
+    layer.photos({
+        photos: '.bannerShowImg'
+        ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+    });
+    layer.photos({
+        photos: '.weiXinErWeiMaShowImg'
+        ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+    });
+
+    function shopEidt(){
+        location.href='/person/shopEidt';
+    }
+</script>
+<script>
+    var x  = <?php echo $shopInfo['longitude'];?>;
+    var y = <?php echo $shopInfo['latitude'];?>;
+</script>
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    map.centerAndZoom(new BMap.Point(116.331398,39.897445),16);
+    map.enableScrollWheelZoom(true);
+
+    // 用经纬度设置地图中心点
+    function theLocation(x,y){
+        map.clearOverlays();
+        var new_point = new BMap.Point(x,y);
+        var marker = new BMap.Marker(new_point);  // 创建标注
+        map.addOverlay(marker);              // 将标注添加到地图中
+        map.panTo(new_point);
+    }
+    $(function () {
+        theLocation(x,y);
+    });
+
+</script>

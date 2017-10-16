@@ -1,0 +1,63 @@
+.titles{height: 90px;line-height: 90px;margin-top: 15px;text-align: center;font-size: 20px;font-weight: bold;color:#5D5D5D}
+.goBackDiv{position: absolute;top: -20px;left: 30px;font-weight: normal}
+#productDiv{padding: 25px;padding-bottom: 50px;}
+.productTitle{font-size: 18px;font-weight: bold;color: #999;float: left;width: 135px;}
+.productRight{font-size: 18px;font-weight: bold;color: #999;float: left;position: relative;}
+.height70MaxW70{height: 70px;max-width: 70px;}
+.productX{position: absolute;top: 2px;right: 2px;display: none;}
+.productUp{float: left;line-height: 70px;margin-left: 20px;}
+.productUpBtn{border-radius: 5px;border: none;background: #FF524B;height: 30px;width: 70px;color: #FFF;line-height: 30px;text-align: center;}
+.marTop20{margin-top: 20px;}
+.productRightDiv{font-size: 16px;float: left;}
+.productInput{padding-left: 10px;width: 270px;height: 35px;border: 1px solid #DDD;margin-right: 10px;color: #666;}
+.marTop17{margin-top: 17px;}
+.rightTitleDiv{float: left;margin-left: 85px;line-height: 35px;}
+.productInputK{float: left;padding-left: 10px;width: 270px;height: 35px;border: 1px solid #DDD;margin-right: 10px;}
+.productText{float: left;width: 270px;margin-right: 10px;}
+.selectDiv{max-width: 120px;overflow: hidden;}
+.productSelectType{max-width: 180px;overflow: hidden;}
+.productTextarea{width: 770px;height: 75px;max-width: 770px;max-height: 75px;border: 1px solid #DDD;}
+.tiJiaoDiv{text-align: center;margin-top: 50px;}
+.tiJiao{margin: 0 auto;border: none;border-radius: 10px;background: #FF524B;width: 440px;height: 65px;line-height: 65px;color: #FFF;text-align: center;font-size: 20px;font-weight: bold;}
+
+
+/*µ¯³ö¿ò*/
+input[name="types"]{display: none;}
+input[name="foru"]{display: none;}
+input[name="oneType"]{display: none;}
+#alertDiv{width: 600px;border: 1px solid #E4E4E4;margin: 0 auto;border-radius: 5px;}
+.titleName{height: 40px;background: #F2F2F2;line-height: 40px;text-align: center;padding-right: 15px;}
+.typeDiv{background: #FFF;padding-bottom: 50px;min-height: 300px;}
+.hei50line50{height: 50px;line-height: 50px;}
+.typeName{float: left;width: 33.3%;text-align: center;}
+.typeNameActive{color: #0099FF}
+.tableDiv{padding: 0 20px;}
+.tableBor{width: 100%;border: 1px solid black}
+.tableTr{width: 100%;border: 1px solid #E4E4E4;height: 40px;}
+.tableTrTd{padding-left: 15px;padding-right: 20px;}
+.tableLabel{width: 100%;line-height: 40px;margin-bottom: 0;}
+.floLeft{float: left;}
+.alertBottom{height: 50px;line-height: 40px;text-align: center;padding-right: 15px;margin-bottom: 15px;}
+.quXiao{border-radius: 7px;width: 80px;height: 50px;margin-left: 50px;font-size: 18px;background: #FF524B;float: left;}
+.nextBu{border-radius: 7px;width: 80px;height: 50px;font-size: 18px;background: #FF524B;float: right;margin-right: 30px;}
+.fenLei{position: relative;padding: 0 25px;}
+.xiangYou{position: absolute;right: 10px;top: 8px;}
+.xiangZuo{position: absolute;left: 10px;top: 8px;}
+.height30{height: 30px;}
+.listType{width: 80px;text-align: center;border: 1px solid #E4E4E4;}
+.listTypeActive{color: #0099FF}
+.pading10{padding: 10px;}
+.upImgsListDiv{float: left;width: 80px;height: 100px;position: relative;margin-right: 14px;margin-bottom: 15px}
+.upImgs{height: 80px;max-width: 80px;}
+.textCenter{text-align: center}
+.xuanZhong{position: absolute;top: 0;left: 3px;}
+.inputs{width: 15px;height: 15px;}
+.alertType{height: 26px;background: #DDD;line-height: 26px;padding-left: 5px;}
+.alertListDiv{margin-top: -1px;height: 30px;line-height: 30px;padding-left: 15px;padding-right: 30px;border: 1px solid #DDD;}
+.alertLabel{width: 100%;font-weight: normal;}
+.alertCheckDiv{float: right;height: 28px;}
+.alertCheck{height: 15px;width: 15px;}
+.layui-layer-page .layui-layer-content{overflow: inherit!important;}
+.swiper-wrapper a:first-child .seekTypes{border-left: 1px solid #CCC;}
+.swiper-slide-active{color: #0099FF}
+.seekTypes{height: 30px;line-height: 30px;border: 1px solid #ccc;text-align: center;border-left: none;}

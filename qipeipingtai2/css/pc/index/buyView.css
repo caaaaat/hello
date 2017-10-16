@@ -1,0 +1,49 @@
+#buyView{width: 1200px;margin: 0 auto;}
+.buyView{width: 360px;height: 494px;border: 1px solid #DDD;background: #FFF;float: left;padding: 15px 10px 0 8px;}
+.storeImgDiv{width: 122px;height: 122px;overflow: hidden;vertical-align: middle;border: 1px solid #DDD;float: left;}
+.storeImg{width: 120px;max-height: 120px;}
+.floLeftMarLeft8{float: left;margin-left: 8px;}
+.storeInfoDiv{font-size: 20px;font-weight: bold;color: #FF6934;}
+.storeName{max-width: 180px;overflow: hidden;float: left;white-space:nowrap;text-overflow: ellipsis;}
+.floRight{float: right;}
+.storeTag{margin-top: 15px;margin-bottom: 30px;font-size: 16px;width: 94px;height: 28px;border-radius: 15px;color: #44CB4B;border: 1px solid #44CB4B;line-height: 25px;text-align: center;}
+.storeAdress{font-size: 12px;color: #8C8C8C}
+.marTop20{margin-top: 20px;}
+.btnGoDiv{margin-right: 20px;float: left;width: 102px;height: 34px;border: 1px solid #FF524B;color: #FF524B;font-size: 16px;line-height: 30px;text-align: center;border-radius: 7px;}
+.verAliSub{vertical-align: sub;}
+.marLeft5{margin-left: 5px;}
+.verAliSub{vertical-align: sub;}
+.floLeftMarleft40{float: left;margin-left: 40px;}
+.verAli{vertical-align: -webkit-baseline-middle}
+.xian{clear: both;width: 325px;margin: 0 auto;border-bottom: 1px solid #F1F1F1;margin-top: 10px;}
+.h40LH40{height: 45px;line-height: 45px;}
+.lianXiTitle{font-size: 14px;font-weight: bold;color: #999;}
+.lianXiText{width: 270px;float: right;font-size: 12px;}
+.xiaXian{width: 325px;margin: 0 auto;border-bottom: 1px solid #F1F1F1;margin-top: 5px;}
+.floLeftMarRight{float: left;margin-right: 40px;}
+.jiBenImgDiv{width: 90px;height: 90px;border: 1px solid #DDD;vertical-align: middle;display: table-cell;}
+/*.renZhengList:nth-child(3n+1){margin-left: 0!important;}*/
+.renZhengList{margin-right: 60px;float: left;height: 35px;line-height: 35px;}
+.renZhengText{font-size: 12px;color: #999;margin-top: 5px;margin-bottom: 5px;}
+.shopXiangQing{height: 150px;background: #FFF;padding: 20px 20px 0 25px;}
+.right{float: right;width: 822px;}
+.shopStoreName{font-size: 15px;font-weight: bold;color: #666;}
+.shopStoreText{margin-left: 5px;color: #888;}
+.h25LH25{height: 25px;line-height: 25px;}
+.shopTimeDiv{margin-top: 20px;font-size: 12px;color: #777;}
+.youXiaoQi{color: #999;margin-left: 140px;}
+/*.jiBenImgDiv{margin-bottom: 20px;float: left;width: 90px;height: 90px;vertical-align: middle;overflow: hidden;border: 1px solid #DDD;margin-left: 40px;}*/
+/*.jiBenImgDiv:nth-child(6n+1){margin-left: 0!important;}*/
+.w88maxH88{width: 88px;max-height: 88px;}
+.jiBenText{font-size: 15px;font-weight: 500;margin-bottom: 10px;}
+.jiBenXinXiDiv{padding: 12px 30px 20px 30px;border: 1px solid #DDD;margin-top: 30px;background: #FFF;}
+.tableDiv{width: 798px;margin: 0 auto;padding-bottom: 18px;}
+.tableDiv table tr td{border: 1px solid #CCC;text-align: center;padding-top: 2px;padding-bottom: 2px;}
+#caiGouQingDan{margin-top: 30px;border: 1px solid #DDD;background: #FFF;}
+.caiGouQingDanHader{height: 42px;line-height: 42px;margin-top: 10px;margin-bottom: 10px;padding-left: 25px;padding-right: 12px;}
+.caiGouText{font-size: 15px;font-weight: 500;}
+.caiGouBtn{height: 40px;width: 100px;background: #FF524B;color: #FFF;border-radius: 7px;float: right;border: none;}
+.width100{width: 100%}
+.width100px{width: 100px;}
+.width228{width: 228px;}
+

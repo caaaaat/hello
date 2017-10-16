@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="/css/pc/person/vip.css">
+<div style="">
+    <div class="titles">
+        <span id="payRecord">刷新点记录</span>
+    </div>
+    <!--充值记录列表-->
+    <div style="min-height: 463px;">
+    <?php
+    if($vipHis){
+    foreach($vipHis as $item){?>
+    <div class="pad1040">
+        <div class="recordList">
+            <div>
+                <div class="floLeft">
+                    <?php echo $item['str1'];?>
+                </div>
+                <div class="floRight"><?php echo $item['refresh_point'];?></div>
+                <div style="clear: both;"></div>
+            </div>
+            <div>
+                <div class="floLeft"><?php echo $item['create_time'];?></div>
+                <div class="floLeft">&emsp;&emsp;<?php echo $item['info']?></div>
+                <div class="floRight"><?php echo $item['payStr']; ?></div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+    <?php }
+    }else{?>
+    <div style="text-align: center">没有记录</div>
+    <?php }?>
+    </div>
+    <!--分页开始-->
+    <div class="text-right" style="margin-right: 25px;margin-top: 37px;margin-bottom: 27px;">
+        <span style="color: #999"></span>
+        <span id="pageInfo" style="margin-right: 10px;"><?php echo $pageHtml['countStr'];?></span>
+        <div class="btn-group" id="pager"><?php if($vipHis){ ?><?php echo $pageHtml['key'];?><?php } ?></div>
+    </div>
+</div>

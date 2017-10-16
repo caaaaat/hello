@@ -1,0 +1,158 @@
+.titles{height: 90px;line-height: 90px;margin-top: 15px;text-align: center;font-size: 20px;font-weight: bold;color: #5D5D5D}
+#shoping{padding-left: 26px;padding-right: 26px;min-height: 462px;}
+.shopingList{background: #DBDBDB;height: 122px;padding: 17px 17px 20px 25px;margin-bottom: 18px;}
+.shopingType{float: left;font-size: 20px;color: #333;font-weight: 500;}
+.youXiaoQi{float: right;font-size: 16px;}
+.numDiv{height: 25px;line-height: 25px;margin-top: 5px;}
+.shopingName{float: left;font-size: 17px;color: #555;}
+.shopingNum{float: right;font-size: 12px;}
+.shopingTime{float: left;font-size: 16px;color: #555;}
+.xiaJiaDiv{float: right;font-size: 12px;}
+/*删除按钮*/
+.xiaJia{width: 70px;background: #FF524B;height: 28px;padding: 0;border: none;border-radius: 5px;color: #FFF;}
+.xiaJia:hover{background: #FF847D;}
+.xiaJia:active{background: #FF847D;opacity: .5}
+/*编辑按钮*/
+.bianJi{background: #3043D0;width: 70px;height: 28px;padding: 0;border: none;color: #FFF;border-radius: 5px;margin-right: 15px;}
+.bianJi:hover{background: #6170DA;}
+.bianJi:active{background: #6170DA;opacity: .5}
+
+/*求购详情*/
+#shangJia{width: 822px;height: 150px;border: 1px solid #DDD;margin: 0 auto;padding: 18px 30px 22px 30px;font-size: 14px;}
+.goBackDiv{position: absolute;top: -20px;left: 30px;font-weight: normal}
+.hei25LineH25{height: 25px;line-height: 25px;}
+.jiaCu{font-weight: bold;}
+.color777{color: #777;}
+.marTop15Size10{margin-top: 15px;font-size: 10px;}
+.marLeft120{margin-left: 120px;}
+#jiBenInfo{width: 822px;margin: 0 auto;margin-top: 30px;border: 1px solid #DDD;padding-bottom: 10px;}
+.jiBenXinDiv{padding: 12px 30px 0 30px;}
+.jiBneInfo{font-size: 16px;color: #333;margin-bottom: 12px;}
+.marLeft30{margin-left: 30px;}
+.floLeftMarRight{float: left;margin-right: 40px;}
+.jiBenImgDiv{width: 90px;height: 90px;border: 1px solid #DDD;vertical-align: middle;display: table-cell;}
+.jiBenImg{width: 88px;max-height: 88px;}
+.beiZhuDiv{padding-left: 30px;margin-top: 10px;padding-right: 30px;}
+.w50floLeft{width: 50px;float: left;}
+.w710floLeft{float: left;width: 710px;}
+.daoChuExcel{width: 100px;height: 42px;border: none;border-radius: 7px;background: #FF524B;color: #FFF;}
+.daoChuExcel:hover{background: #FF8C86;}
+.daoChuExcel:active{background: #FF8C86;opacity: .5;}
+table{width: 100%;}
+table tr td{border: 1px solid #DDD;text-align: center;padding-top: 2px;padding-bottom: 2px;}
+.beiZhuInfo{text-align: left;padding-left: 5px;padding-right: 5px;}
+.xuHao{width: 100px;}
+.peiJianType{width: 228px;}
+#qingDan{padding: 10px 14px 18px 10px;border: 1px solid #DDD;width: 822px;margin: 0 auto;margin-top: 28px;margin-bottom: 30px;}
+.qingDanDiv{font-size: 16px;height: 42px;line-height: 42px;}
+.floLeftPadLeft20{float: left;padding-left: 20px;}
+.floRight{float: right;}
+
+
+/*发布求购*/
+#xuanZeDiv{width: 822px;min-height: 150px;border: 1px solid #DDD;margin: 0 auto;padding: 20px 20px 10px 30px;font-size: 16px;}
+.jiaCuRed{color: #FB5348;font-weight: bold;float: left}
+.xuanZeBtn{border: none;border-radius: 8px;background: #FD524B;height: 30px;color: #FFF;font-size: 14px;font-weight: bold;}
+.xuanZeBtn:hover{background: #FE7C76;}
+.xuanZeBtn:active{background: #FD524B; opacity: .5;}
+.shiXiaoList{float: left;margin-left: 40px;}
+#shiXiao{width: 822px;height: 57px;border: 1px solid #DDD;margin: 0 auto;margin-top: 15px;line-height: 57px;padding-left: 30px;}
+.shiXiao{float: left;color: #FE514A;font-weight: bold;}
+.shiXiaoImg{margin-left: 15px;vertical-align: sub;}
+#jinBenDiv{width: 822px;min-height: 386px;margin: 0 auto;border: 1px solid #DDD;margin-top: 15px;padding: 12px 15px 12px 30px;font-size: 16px;color: #333;}
+.jiBenShangChuan{border: none;border-radius: 5px;width: 40px;height: 20px;background: #2B3FDC;color: #FFF;font-size: 10px;}
+.jiBenShangChuan:hover{background: #596AE3;}
+.jiBenShangChuan:active{opacity: .8}
+.jiBenShanChu{border: none;border-radius: 5px;width: 40px;height: 20px;background: #FF5349;color: #FFF;font-size: 10px;margin-top: 45px;}
+.jiBenShanChu:hover{background: #FF7871;}
+.jiBenShanChu:active{opacity: .8}
+.hei90LineH15{height: 90px;margin-top: 15px;}
+.vinImg{line-height: 80px;float: left;width: 85px;}
+.vinImgDiv{float: left;width: 90px;height: 90px;vertical-align: middle;margin-left: 15px;margin-right: 25px;margin-bottom: 25px;}
+.vinImgDiv img{height: 88px;max-width: 88px;}
+.imgs{height: 88px;max-width: 88px;}
+.marTop10{margin-top: 10px;}
+.marTop10floRight{margin-top: 10px;float: right}
+.beiZhuArea{width: 690px;height: 80px;border: 1px solid #DDD;max-width: 690px;max-height: 80px;padding: 10px;}
+#qingDan{width: 822px;border: 1px solid #DDD;padding: 17px 15px 12px 15px;margin: 0 auto;margin-top: 20px;margin-bottom: 52px;}
+.qingDanText{float: left;font-size: 14px;height: 35px;line-height: 35px;padding-left: 15px;}
+.tianJiaBtn{float: right;vertical-align: middle;height: 35px;padding-right: 10px;padding-top: 7px;}
+.w210{width: 210px;}
+.w75{width: 75px;}
+.w400{width: 400px;}
+.w115{width: 115px;}
+.w95{width: 95px;}
+.padLeft5PadRight5{padding-left: 5px;padding-right: 5px;}
+.w75TextCenter{width: 75px;text-align: center;}
+.w100TextCenter{width: 100%;text-align: center;}
+.seekTypes{height: 30px;line-height: 30px;border: 1px solid #ccc;text-align: center;border-left: none;}
+.swiper-wrapper a:first-child .seekTypes{border-left: 1px solid #CCC;}
+.tiJiao{margin: 0 auto;border: none;border-radius: 10px;background: #FF524B;width: 440px;height: 65px;line-height: 65px;color: #FFF;text-align: center;font-size: 20px;font-weight: bold;}
+input[type=number]{-moz-appearance:textfield!important;}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    -webkit-appearance: none !important;
+    margin: 0;
+}
+
+
+/*弹出框*/
+input[name="types"]{display: none;}
+input[name="oneType"]{display: none;}
+#alertDiv{width: 600px;border: 1px solid #E4E4E4;margin: 0 auto;border-radius: 5px;}
+.titleName{height: 40px;background: #F2F2F2;line-height: 40px;text-align: center;padding-right: 15px;}
+.typeDiv{background: #FFF;padding-bottom: 50px;min-height: 300px;}
+.hei50line50{height: 50px;line-height: 50px;}
+.typeName{float: left;width: 33.3%;text-align: center;}
+.typeNameActive{color: #0099FF}
+.tableDiv{padding: 0 20px;}
+.tableBor{width: 100%;border: 1px solid black}
+.tableTr{width: 100%;border: 1px solid #E4E4E4;height: 40px;}
+.tableTrTd{padding-left: 15px;padding-right: 20px;}
+.tableLabel{width: 100%;line-height: 40px;margin-bottom: 0;}
+.floLeft{float: left;}
+.alertBottom{height: 50px;line-height: 40px;text-align: center;padding-right: 15px;margin-bottom: 15px;}
+.quXiao{border-radius: 7px;width: 80px;height: 50px;margin-left: 50px;font-size: 18px;background: #FF524B;float: left;}
+.nextBu{border-radius: 7px;width: 80px;height: 50px;font-size: 18px;background: #FF524B;float: right;margin-right: 30px;}
+.fenLei{position: relative;padding: 0 25px;}
+.xiangYou{position: absolute;right: 10px;top: 8px;}
+.xiangZuo{position: absolute;left: 10px;top: 8px;}
+.height30{height: 30px;}
+.listType{width: 80px;text-align: center;border: 1px solid #E4E4E4;}
+.listTypeActive{color: #0099FF}
+.pading10{padding: 10px;}
+.upImgsListDiv{float: left;width: 80px;height: 100px;position: relative;margin-right: 14px;margin-bottom: 15px}
+.upImgs{height: 80px;max-width: 80px;}
+.textCenter{text-align: center}
+.xuanZhong{position: absolute;top: 0;left: 3px;}
+.inputs{width: 15px;height: 15px;}
+.alertType{height: 26px;background: #DDD;line-height: 26px;padding-left: 5px;}
+.alertListDiv{margin-top: -1px;height: 30px;line-height: 30px;padding-left: 15px;padding-right: 30px;border: 1px solid #DDD;}
+.alertLabel{width: 100%;font-weight: normal;}
+.alertCheckDiv{float: right;height: 28px;}
+.alertCheck{height: 15px;width: 15px;}
+.layui-layer-page .layui-layer-content{overflow: inherit!important;}
+
+/*分页*/
+.btn-primary.active{background: #FFF;color: #2E2E2E;border: 1px solid #FE534B;border-top: none;border-bottom: none;box-shadow:none;}
+.btn-white{border: 1px solid #FE534B;color: #FE534B;}
+.btn:hover{border: 1px solid #FE534B;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

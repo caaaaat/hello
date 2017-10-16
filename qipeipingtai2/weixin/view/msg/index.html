@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>消息</title>
+    <link rel="stylesheet" href="../../css/mui.min.css" type="text/css" charset="utf-8"/>
+    <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	.sw-link{
+		color: #666;
+		border: 1px solid #efefef;
+		height: 48px;
+		line-height: 48px;
+		text-align: left;
+		width: 240px;
+		margin: auto;
+		border-radius: 24px;
+		font-size: 14px;
+		padding-left: 24px;
+	}
+	.sw-card-header{
+		padding-right: 10%!important;
+	}
+	.sw-card-header:after{
+		background: none!important;
+	}
+	.sw-card-body{
+		background: #f5f5f5;
+		margin-top: 4px;
+		border: 1px solid #DDDDDD;
+		border-radius: 6px;
+		padding: 10px;
+	}
+	.sw-card-a1{
+		word-break: break-all;width: 90%;height: auto;background: #FFFFFF;padding: 8px;margin-top: 4px;border: 1px solid #DDDDDD;
+	}
+	.sw-card-a2{
+		word-break: break-all;
+	}
+	.sw-card-a3{
+		margin-left: 38px;color: #666;word-break:keep-all;white-space:normal;
+	}
+	.sw-card-red{
+		color: #fd524b;
+	}
+	.sw-card-hr{
+		height: 1px;border: none;background: #DDDDDD;
+	}
+	.sw-card-t1{
+		line-height: 18px;font-size: 12px;
+	}
+	
+/****
+下拉加载
+**/
+	.mui-bar~.mui-content .mui-fullscreen {
+		top: 44px;
+		height: auto;
+	}
+	.mui-pull-top-tips {
+		position: absolute;
+		top: -20px;
+		left: 50%;
+		margin-left: -25px;
+		width: 40px;
+		height: 40px;
+		border-radius: 100%;
+		z-index: 1;
+	}
+	.mui-bar~.mui-pull-top-tips {
+		top: 24px;
+	}
+	.mui-pull-top-wrapper {
+		width: 42px;
+		height: 42px;
+		display: block;
+		text-align: center;
+		background-color: #efeff4;
+		border: 1px solid #ddd;
+		border-radius: 25px;
+		background-clip: padding-box;
+		box-shadow: 0 4px 10px #bbb;
+		overflow: hidden; 
+	}
+	.mui-pull-top-tips.mui-transitioning {
+		-webkit-transition-duration: 200ms;
+		transition-duration: 200ms;
+	}
+	.mui-pull-top-tips .mui-pull-loading {
+		/*-webkit-backface-visibility: hidden;
+		-webkit-transition-duration: 400ms;
+		transition-duration: 400ms;*/
+		
+		margin: 0;
+	}
+	.mui-pull-top-wrapper .mui-icon,
+	.mui-pull-top-wrapper .mui-spinner {
+		margin-top: 7px;
+	}
+	.mui-pull-top-wrapper .mui-icon.mui-reverse {
+		/*-webkit-transform: rotate(180deg) translateZ(0);*/
+	}
+	.mui-pull-bottom-tips {
+		text-align: center;
+		background-color: #efeff4;
+		font-size: 15px;
+		line-height: 40px;
+		color: #777;
+	}
+	.mui-pull-top-canvas {
+		overflow: hidden;
+		background-color: #fafafa;
+		border-radius: 40px;
+		box-shadow: 0 4px 10px #bbb;
+		width: 40px;
+		height: 40px;
+		margin: 0 auto;
+	}
+	.mui-pull-top-canvas canvas {
+		width: 40px;
+	}
+	.mui-slider-indicator.mui-segmented-control {
+		background-color: #efeff4;
+	}
+	.mui-popup-button:after {
+		width: 0px;
+	}
+	.mui-popup-inner:after {
+		height: 0px;
+	}
+	.mui-popup-button:first-child:last-child {
+		border-radius: 4px;
+	}
+	.sw-popu-btn{
+		width:70%;height:36px;line-height:14px;border-radius: 1px;margin: auto;font-size: 16px;
+	}
+</style>
+<body style="background: #FFFFFF;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">消息</h1>
+	</header>
+
+	<!--下拉刷新容器-->
+	<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+		<div class="mui-scroll">
+			<!--数据列表-->
+			<ul id="conList" class="mui-table-view mui-table-view-chevron"></ul>
+			<input value="1" hidden="hidden" id="page"/>
+		</div>
+	</div>
+<!--列表模板-->
+<script id="msg-list-tpl" type="text/html">
+	{{# var len = d.length; }} 	
+	{{# for(var i = 0;i < len; i++){ }}
+		
+	{{# if(d[i].msgType==1){ }}	
+	<div class="mui-card-header mui-card-media sw-card-header">
+		<img src="../../image/msg/icon_xiaoxi.png"/>
+		<div class="mui-media-body sw-card-body">			
+			 {{ d[i].msgText }} 
+			<p style="margin-top: 4px;">{{ d[i].createTime }}</p> 
+		</div>
+	</div>
+	{{# }else if(d[i].msgType==3){ }}
+		<div class="mui-card-header mui-card-media sw-card-header" onclick="qiugouDetail('{{ d[i].aboutId }}')">
+			<img src="../../image/msg/icon_xiaoxi.png"/>
+			<div class="mui-media-body sw-card-body">			
+				 {{ d[i].msgText }} 
+				 <div class="sw-card-a1">
+				 	{{ d[i].info.car12Str }}
+				 	<p  style="line-height: 24px;">{{ d[i].info.car34Str }}</p>
+				 	<p class="sw-card-t1">配件数：{{ d[i].info.paiS }}</p>
+				 	<hr class="sw-card-hr">
+				 	<p style="margin-top: 4px;">{{ d[i].info.create_time }}<span class="sw-card-red" style="float: right;">有效期{{ d[i].info.limitation }}天</span></p> 
+				 </div>
+			</div>
+		</div>
+	{{# }else if(d[i].msgType==4){ }}
+		<div class="mui-card-header mui-card-media sw-card-header" onclick="pinglun22('{{ d[i].aboutId }}')">
+			<img src="../../image/msg/icon_xiaoxi.png"/>
+			<div class="mui-media-body sw-card-body">			
+				 {{ d[i].msgText }} 
+				 <div class="sw-card-a1">
+				 	<div class="sw-card-a2"><span class="sw-card-red">{{ d[i].info.uname }}</span>：{{ d[i].info.content }}</div>	 
+				 </div>
+			</div>
+		</div>
+	{{# }else if(d[i].msgType==5){ }}
+		<div class="mui-card-header mui-card-media sw-card-header" onclick="pinglun22('{{ d[i].aboutId }}')">
+			<img src="../../image/msg/icon_xiaoxi.png"/>
+			<div class="mui-media-body sw-card-body">			
+				{{ d[i].msgText }} 
+				 <div class="sw-card-a1">
+				 	<div class="sw-card-a2"><span class="sw-card-red">{{ d[i].info.uname }}</span>：{{ d[i].info.content }}</div>	 
+				 </div>
+			</div>
+		</div>
+	{{# }else if(d[i].msgType==6){ }}
+	
+	{{# if(d[i].info.type==1){ }}
+	<div class="mui-card-header mui-card-media sw-card-header"  onclick="openFirm('{{ d[i].aboutId }}')">
+		<img src="../../image/msg/icon_xiaoxi.png"/>
+		<div class="mui-media-body sw-card-body">			
+			 {{ d[i].msgText }} 
+			 <div class="sw-card-a1">
+			 	<span class="sw-card-red">{{ d[i].info.companyname }}</span>
+			 	<div style="margin-top: 4px;">
+			 		<div style="float: left;">[主营]</div>
+			 		<div class="sw-card-a3" style="word-break: break-all;">{{ d[i].info.major }}</div>
+			 	</div>
+			 </div>
+		</div>
+	</div>
+	{{# }else{ }}
+	<div class="mui-card-header mui-card-media sw-card-header" onclick="openFirm('{{ d[i].aboutId }}')">
+		<img src="../../image/msg/icon_xiaoxi.png"/>
+		<div class="mui-media-body sw-card-body">			
+			 {{ d[i].msgText }} 
+			 <div class="sw-card-a1">
+			 	<span class="sw-card-red">{{ d[i].info.companyname }}</span> 
+			 </div>
+		</div>
+	</div>
+	{{# } }}
+	
+	{{# }else{ }}
+	
+	{{# } }}
+	{{# } }}
+</script>
+</body>
+ <script src="../../js/mui.min.js"></script>
+ <script src="../../js/global.js"></script>
+ <script src="../../js/jquery.min.js"></script>
+<script src="../../js/laytpl/laytpl.js"></script>
+<script src="../../js/mui.pullToRefresh.js"></script>
+<script src="../../js/mui.pullToRefresh.material.js"></script>
+  <script type="text/javascript" charset="utf-8">
+
+	 //mui初始化
+	 mui.init({
+		 pullRefresh: {
+			 container: '#pullrefresh',
+			 down: {
+				 callback: pulldownRefresh
+			 },
+			 up: {
+				 auto:true,
+				 contentrefresh: '正在加载...',
+				 contentnomore:'<div class="sw-footer"><span>我是有底线的</span></div>',
+				 callback: pullupRefresh
+			 }
+		 }
+	 });
+
+	 /**
+	  * 下拉刷新具体业务实现
+	  */
+	 function pulldownRefresh() {
+		 location.href = location.href+'?rand'+Math.random;
+	 }
+
+	//初始化
+	$(function() {
+	
+		//监控页面是否登录
+		if(UserInfo.has_login()){	//如果已经登录将新闻清空	
+			var token   = JsonStorage.getItem('token');
+			var postData = {};
+				postData.token = token;
+				postData.userType = JsonStorage.getItem('userType');	//2为业务员
+			//如果已经登陆 获取登录后的数据 
+			http.load('api.sev.article','clearNotice',postData,function(rData){//请求成功	 
+	 		})
+		}  
+		
+	});
+	
+
+	 //从新开始加载数据 
+	 function pullupRefresh(){
+	 	var token = JsonStorage.getItem('token');
+	 	var page  = mui("#page")[0].value;//获取页数							
+      	var data  = {};  
+      	var postData = {};
+  		     		
+      		//请求的数据
+			postData.page     = page;//请求的页码
+      		postData.pageSize = 10;//每页显示数量 
+     		postData.token    = token;
+			postData.userType = JsonStorage.getItem('userType');	//2为业务员
+			
+      		data.postData = postData;  
+      		//页面相关数据
+      		data.mod      = 'api.sev.index';//模型
+      		data.fun      = 'getMsg';//方法
+      		data.tpl      = 'msg-list-tpl';//列表模板     		      		
+
+			//请求并处理数据
+  			loadInfo(data,true);
+	 }
+
+	 function pinglun22(n){
+		 openView('../../view/coterie/coterieDetail.html','detail','pop-in',{vid:n});
+	 }
+
+	 /**
+	  * 获取求购详情
+	  */
+	 function qiugouDetail(wantId){
+		 console.log(wantId)
+		 loading('加载中...');
+		 //监控页面是否登录
+		 if(UserInfo.has_login()){
+			 var tokenType = JsonStorage.getItem('userType');	//2为业务员
+			 //将请求的数据保存到本地
+			 var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
+
+			 if(tokenType!=2&&userInfo.type==1){
+				 openView('../../view/index/qiugou/detail.html','qiugoudetail','pop-in',{'wantId':wantId});
+			 }else{
+				 sw.toast('您没有查看求购详情的权限');
+				 //关闭加载框
+				 closeLoading();
+			 }
+
+		 }else{//未登录显示未登录界面
+			 //关闭加载框
+			 closeLoading();
+			 //顶部
+			 sw.toast('您还未登录，请登录后重试');
+		 }
+
+	 }
+
+	 //前往厂商详情
+	 function openFirm(EnterpriseID){
+		 loading('加载中...');
+		 //监控页面是否登录
+		 if(UserInfo.has_login()){
+			 //查看对应的厂商信息
+			 http.load('api.sev.article','getFirmInfo',{'EnterpriseID':EnterpriseID},function(rData){
+
+				 dy(rData)
+				 if(rData.status==200){
+
+					 var data = rData.data;
+
+					 var EnterpriseID = data.EnterpriseID;
+					 var firmName     = data.companyname;
+
+					 if(data.type==1){//经销商
+
+						 openJx(EnterpriseID,firmName);
+
+					 }else{//汽修厂
+
+						 openQx(EnterpriseID,firmName)
+					 }
+
+				 }else{
+					 sw.toast(rData.msg);
+				 }
+				 //关闭加载框
+				 closeLoading();
+
+			 },function(xhr,type,errorThrown){
+				 //关闭加载框
+				 closeLoading();
+				 //无网络提示
+				 sw.toast('获取数据失败，请检查网络');
+			 })
+
+		 }else{//未登录显示未登录界面
+			 //关闭加载框
+			 closeLoading();
+			 //顶部
+			 sw.toast('您还未登录，请登录后重试');
+		 }
+
+	 }
+
+
+	 //页面跳转
+	 function openJx(EnterpriseID,jxName){
+
+		 loading('加载中...');
+		 //监控页面是否登录
+		 if(UserInfo.has_login()){
+
+			 var postData = {'EnterpriseID':EnterpriseID,'jxName':jxName};
+			 openView('../../view/index/shangjia/jingxiao.html','index_shangjia_jingxiao','pop-in',postData);
+
+		 }else{//未登录显示未登录界面
+			 //关闭加载框
+			 closeLoading();
+			 //顶部
+			 sw.toast('您还未登录，请登录后重试');
+		 }
+	 }
+
+	 //页面跳转
+	 function openQx(EnterpriseID,qxName){
+		 loading('加载中...');
+		 //监控页面是否登录
+		 if(UserInfo.has_login()){
+
+			 var token   = JsonStorage.getItem('token');
+			 var postData = {};
+			 postData.token = token;
+			 //如果已经登陆 获取登录后的数据
+			 http.load('api.sev.user','getUserInfo',postData,function(rData){//请求成功
+				 //关闭加载框
+				 closeLoading();
+				 if(rData.status==200){
+					 dy(rData);
+					 var data = rData.data;
+					 //前往汽修厂确认
+					 qxConfirm(data.is_showfactry,EnterpriseID,qxName)
+				 }else{
+					 sw.toast(rData.msg);
+				 }
+
+			 },function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+				 //关闭加载框
+				 closeLoading();
+				 //无网络提示
+				 sw.toast('请求失败，服务器或网络异常');
+			 })
+
+		 }else{//未登录显示未登录界面
+			 //关闭加载框
+			 closeLoading();
+			 //顶部
+			 sw.toast('您还未登录，请登录后重试');
+		 }
+
+
+
+	 }
+
+	 //汽修提示
+	 function qxConfirm(is_showfactry,EnterpriseID,qxName){
+		 if(is_showfactry==1){
+			 var postData = {'EnterpriseID':EnterpriseID,'qxName':qxName};
+			 openView('../../view/person/repair/detail.html','person_repair_detail','pop-in',postData);
+		 }else{
+			 mui.confirm('您无访问权限，可咨询客服了解详情', '&nbsp;', ['<span class="mui-popup-button mui-btn sw-popu-btn" style="color:#333">关闭</span>','<span class="mui-popup-button mui-btn mui-btn-blue sw-popu-btn">客服</span>' ], function(e) {
+				 if (e.index == 3&&kefuStatus==1) {//确认
+					 kefuStatus = 0;
+					 setTimeout(function(){
+						 var qqIni = JsonStorage.getItem('qqIni');
+						 window.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin='+qqIni+'&version=1&src_type=web&web_src=qq.com';
+					 },300)
+				 }
+			 },'div')
+			 $('.mui-popup-button').css('font-size','16px');
+			 //关闭加载框
+			 closeLoading();
+		 }
+	 }
+
+
+ </script>
+</html>

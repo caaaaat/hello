@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的刷新点记录</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">   
+    </script>
+</head>
+<style>
+	.sw-payList{
+		border-bottom: 1px solid #EFEFEF;
+	}
+	.sw-payList:after{
+		left: 0;height: 0;
+	}
+	.sw-title{
+		font-size: 14px;color: #666;
+	}
+	.sw-money-box{
+		float: right;font-weight: 700;font-size: 16px;	
+	}
+	.sw-date{
+		font-size: 12px;display:inline-block;color: #999;width: 40%;text-align: left;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	.sw-text{
+		float: right;font-size: 12px;color: #666;width: 50%;text-align: right;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	.sw-payList p{
+		height: 21px;line-height: 24px;
+	}
+	.sw-no-active{
+		background: #FFFFFF!important;
+	}
+</style>
+<body style="background: #EFEFEF;">
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">我的刷新点记录</h1>
+	</header>
+	
+	<div class="mui-content" style="background: #EFEFEF;">
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper"  style="margin-top:44px;padding-bottom: 50px;">
+
+			<div class="mui-scroll">
+
+				<!--数据列表-->
+				<ul id="conList" class="mui-table-view mui-table-view-chevron" style="background: #EFEFEF">
+
+				</ul>
+
+				<input value="1" hidden="hidden" id="page"/>
+
+
+			</div>
+
+		</div>
+
+	</div>
+	
+<!--刷新点记录模板-->
+<script id="pay-list-tpl" type="text/html">
+	{{# var len = d.length }} 
+	
+	{{# for(var i = 0;i < len; i++){ }}
+	<li class="mui-table-view-cell sw-payList sw-no-active" style="padding-right: 15px;">
+	 	<p>
+	 		<span style="font-size: 14px;color: #666;">{{ d[i].title }}</span>  
+	 		<span class="sw-ctheme" style="float: right;font-weight: 700;font-size: 16px;">{{ d[i].pointStr }}</span>
+	 	</p>
+	 	<div style="clear: both;"></div>
+	 	<p><span style="font-size: 12px;color: #999;">{{ d[i].create_time }}</span> <span style="float: right;font-size: 12px;color: #666;">{{ d[i].tips }}</span></p>
+	</li>
+	{{# } }}
+	 
+</script>	
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+ <script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/laytpl/laytpl.js"></script>
+<script type="text/javascript" charset="utf-8">
+
+	//mui初始化
+	mui.init({
+		pullRefresh: {
+			container: '#pullrefresh',
+			up: {
+				auto:true,
+				contentrefresh: '正在加载...',
+				contentnomore:'<div class="sw-footer"><span>我是有底线的</span></div>',
+				callback: pullupRefresh
+			}
+		}
+	});
+
+
+	//从新开始加载数据
+	function pullupRefresh(isDown){
+		var page = mui("#page")[0].value;//获取页数
+
+		var data = {};
+		var postData = {};
+
+		//请求的数据
+		postData.page     = page;//请求的页码
+		postData.pageSize = 20;//每页显示数量
+		postData.token    = JsonStorage.getItem('token');
+
+		data.postData = postData;
+
+		//页面相关数据
+		data.mod      = 'api.sev.user';//模型
+		data.fun      = 'getRefreshHistory';//方法
+		data.tpl      = 'pay-list-tpl';//列表模板
+//		data.listId   = 'payList';//列表容器
+
+		//请求并处理数据
+		loadInfo(data,true,isDown);
+	}
+
+</script>
+</html>

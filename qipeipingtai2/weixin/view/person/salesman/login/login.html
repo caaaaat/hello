@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="../../../../css/mui.min.css" />
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="../../../../css/common.css" />
+    <style type="text/css">
+    
+	</style>
+</head>
+<body style="background: #FFFFFF;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">业务员登录</h1>
+	</header>
+	<div class="mui-content" style="padding: 0 20px;background: #FFFFFF;"> 
+	    <div class="mui-input-row" style="padding-top: 80px;">
+	        <input type="number"   id="userTel" onkeyup="value=sw.trim(value)" oninput="if(value.length>11)value=value.slice(0,11)"  placeholder="请输入业务员ID" style="text-align: center;height: 48px;font-size: 14px;">
+	    </div> 
+	    <div class="mui-input-row"> 
+	        <input type="password" id="userPwd" placeholder="请输入密码" style="text-align: center;height: 48px;font-size: 14px;">
+	    </div>
+	    <button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" onclick="getToken()">登录</button>
+	    
+      </div>
+	</div>
+</body>
+<script src="../../../../js/mui.min.js"></script>
+<script src="../../../../js/global.js"></script>
+<script src="../../../../js/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8">	
+	
+ 	//获取登录令牌	 
+ 	function getToken(){
+ 		
+ 		var userTel = document.getElementById('userTel').value;
+ 		var userPwd = document.getElementById('userPwd').value;
+ 			userTel = $.trim(userTel);
+ 			userPwd = $.trim(userPwd);
+ 		//验证手机号码
+ 		if(userTel==''){
+ 			sw.toast('请输入业务员ID');
+ 			return;
+ 		}
+ 		//验证登录密码
+ 		if(userPwd==''){
+ 			sw.toast('请输入登录密码'); 
+ 			return;
+ 		}
+ 				
+ 		var postData = {}; 
+ 			postData.uId     = userTel;
+ 			postData.userPwd = userPwd;
+ 			dy(postData);
+ 		http.load('api.sev.login','salesmanLogin',postData,function(rData){//请求成功		
+// 			console.log(JSON.stringify(rData));  
+// 			sw.toast( rData.massage);  
+			sw.jcon(rData);  
+			if(rData.status==1){
+				sw.toast(rData.msg);  
+				onSuccess(rData);
+				JsonStorage.setItem('userType',2);			//2为业务员
+				JsonStorage.setItem('yeWuInfo',rData.info);	//记录业务详细信息
+				setTimeout(function(){
+					openView('../../index.html','person_index','pop-in'); 	
+					
+					var person = plus.webview.getWebviewById("view/person/index.html");
+					person.reload(true); 
+					plus.webview.close( 'setSys', 'slide-out-bottom', '300');
+					plus.webview.close( 'login', 'slide-out-bottom', '300');
+					plus.webview.close( 'salesman_login_login', 'slide-out-bottom', '300');
+				},1000);
+			}else{
+				sw.toast(rData.msg);  
+ 			    return;
+			}
+ 					
+ 		},function(xhr,type,errorThrown){//请求失败			
+			sw.toast('请求失败');  
+ 		})
+	
+ 	}
+ 		  
+</script>
+</html>

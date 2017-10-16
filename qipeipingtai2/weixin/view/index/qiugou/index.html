@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的求购</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	.sw-payList:after{
+		height: 0;
+	}
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.sw-name{
+		font-size: 14px;width:100%;display:inline-block;color: #333;text-align: left;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	.sw-text-mini{
+		float: left;font-size: 12px;color: #999;text-align: right;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	.sw-no-img:after,.sw-no-img:before{ 
+		height: 0;
+	}
+	.sw-qgi-ul1{
+		margin-bottom: 10px;margin-top: 0!important;padding-top: 10px;
+	}
+	.sw-qgi-li1{
+		width: 95px;padding: 0;padding-left: 15px;
+	}
+	.sw-qgi-li2{
+		margin-left: 95px;margin-top: -85px;padding-top: 0;padding-right:100px;
+	}
+	.sw-qgi-li3{
+		padding-top: 0;margin-left: 95px;padding-right:100px;
+	}
+	.sw-qgi-li4{
+		padding-left: 0;padding-right: 0;margin-top: 0px;padding-top: 0;
+	}
+	.sw-qg-span1{
+		color: #FFFFFF;font-size: 10px;padding: 2px 10px;float: right;border-radius: 13px;position: absolute;right: 15px;margin-top: -30px;
+	}
+	.sw-qg-span2{
+		font-size: 12px;color: #999999;position: absolute;right: 15px;margin-top: -25px;
+	}
+	.sw-qg-home{
+		color:#333;padding-left: 21px;background: url(../../../image/index/home_r.png) no-repeat;background-size:18px 16px;background-position:0 4px;
+	}
+	.sw-qg-date{
+		font-size:12px;padding-left: 21px;background: url(../../../image/person/icon_clock_r.png) no-repeat;background-size:14px 14px;background-position: 3px  5px;
+	}
+</style>
+<body style="background: #F5F5F5;">
+	
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">配件求购</h1>
+	</header>
+
+	<!--下拉刷新容器-->
+	<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+
+		<div class="mui-scroll">
+
+			<!--数据列表-->
+			<ul id="conList" class="mui-table-view mui-table-view-chevron" style="background: #EFEFF4">
+
+			</ul>
+
+			<input value="1" hidden="hidden" id="page"/>
+
+
+		</div>
+
+	</div>
+	<!--列表模板-->
+	<script id="pro-list-tpl" type="text/html">
+		{{# var len = d.length }} 	
+		{{# for(var i = 0;i < len; i++){ }} 
+		  <ul class="mui-table-view sw-qgi-ul1" onclick="qiugouDetail('{{ d[i].id }}')"> 
+	    	
+	    	<li class="mui-table-view-cell sw-payList sw-no-active sw-qgi-li1">
+				<img src="{{ imgUrl+d[i].face_pic }}" width="80px" height="80px"/>
+	    	</li>
+	    	{{# var groups = d[i].groups; }}
+	    	<li class="mui-table-view-cell sw-payList sw-no-active sw-qgi-li2" style="padding-bottom: 5px;margin-bottom: 0;height: 80px;padding-top: 10px;">
+			 	<span class="sw-name" style="color: #333333;">{{ groups.oneName }}/{{ groups.twoName }}</span>
+			 	<span class="sw-btheme sw-qg-span1">有效期：{{ d[i].limitation }}天</span>	
+			 	
+			 	<span class="sw-name" style="margin-top: 13px;color: #999999;font-size: 13px;">{{ groups.threeName }}/{{ groups.fourName }}</span>
+			 	<span class="sw-qg-span2" style="margin-top: -27px;"><span class="sw-text-mini">配件数：</span><span class="sw-ctheme">{{ d[i].wantNum }}</span></span>
+
+			 </li>
+	    		
+			<li class="mui-table-view-cell mui-media sw-card-li sw-no-active sw-payList sw-qgi-li4" style="padding-bottom: 0;">
+				<ul class="mui-table-view mui-grid-view mui-grid-5 sw-no-img" style="padding: 0;">
+					{{# if(d[i].vin_pic!=null&&d[i].vin_pic!=''){ }}
+		           <li class="mui-table-view-cell mui-media mui-col-sm-20">
+		            	<img class="mui-media-object" style="border: 1px solid #EFEFEF;height: {{ imgH }}px;" src="{{ imgUrl+d[i].vin_pic }}">
+		            </li>
+		            {{# } }}
+		             
+		           {{# var aboutPic = d[i].wantPic; var aboutLen = aboutPic.length; }}
+		           {{# for(var j = 0;j < aboutLen; j++){ }} 
+		            <li class="mui-table-view-cell mui-media mui-col-sm-20">
+		            	<img class="mui-media-object" style="border: 1px solid #EFEFEF;height: {{ imgH }}px;" src="{{ imgUrl+aboutPic[j].pic_url }}">
+		            </li>
+		            {{# } }}
+		        </ul> 	
+			</li>
+			
+			<li class="mui-table-view-cell sw-payList sw-no-active" style="line-height: 26px;">
+			 	<p class="sw-qg-home sw-word-one">{{ d[i].companyname }}</span></p>
+			 	<p class="sw-qg-date sw-word-one"><span style="font-size: 12px;color: #999999;">{{ d[i].create_time }}</span></p>	
+			 </li>
+			 
+		</ul>  
+		{{# } }}
+	</script>
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+  <script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/laytpl/laytpl.js"></script>
+ <script type="text/javascript" charset="utf-8">
+
+	var imgH = parseInt((document.body.clientWidth-15)/6);
+
+	 mui.init({
+		 pullRefresh: {
+			 container: '#pullrefresh',
+			 down: {
+				 callback: pulldownRefresh
+			 },
+			 up: {
+				 auto:true,
+				 contentrefresh: '正在加载...',
+				 contentnomore:'<div class="sw-footer"><span>我是有底线的</span></div>',
+				 callback: pullupRefresh
+			 }
+		 }
+	 });
+
+	 /**
+	  * 下拉刷新具体业务实现
+	  */
+	 function pulldownRefresh() {
+		 location.href = location.href;
+	 }
+
+	 //从新开始加载数据 
+	 function pullupRefresh(){
+	 	 
+	 	var page    = mui("#page")[0].value;//获取页数
+	    var keyword =  $("#keyword").val();    
+	 	
+      	var data = {};  
+      	var postData = {};
+      		
+      		//请求的数据
+      		postData.page     = page;//请求的页码
+      		postData.pageSize = 10;//每页显示数量
+     			
+      		data.postData = postData;  
+        
+            //页面相关数据
+      		data.mod      = 'api.sev.index';//模型
+      		data.fun      = 'getMountings';//方法 
+      		data.tpl      = 'pro-list-tpl';//列表模板
+      		data.listId   = 'proList';//列表容器  
+			//请求并处理数据
+  			loadInfo(data,false);	  	
+	 }
+ 
+ 
+ 	/**
+ 	 * 获取求购详情
+ 	 */
+	/**
+	 * 获取求购详情
+	 */
+	function qiugouDetail(wantId){
+
+		loading('加载中...');
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+			var tokenType = JsonStorage.getItem('userType');	//2为业务员
+			//将请求的数据保存到本地
+			var userInfo = JSON.parse(JsonStorage.getItem('userInfo'));
+
+			if(tokenType!=2&&userInfo.type==1){
+				openView('../../../view/index/qiugou/detail.html','qiugoudetail','pop-in',{'wantId':wantId});
+			}else{
+				sw.toast('您没有查看求购详情的权限');
+				//关闭加载框
+				closeLoading();
+			}
+
+		}else{//未登录显示未登录界面
+			//关闭加载框
+			closeLoading();
+			//顶部
+			sw.toast('您还未登录，请登录后重试');
+		}
+
+	}
+ 
+</script>
+</html>

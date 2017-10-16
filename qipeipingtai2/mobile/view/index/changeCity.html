@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">
+      
+    </script>
+</head>
+<style>
+	.sw-link{
+		color: #666;
+		border: 1px solid #efefef;
+		height: 48px;
+		line-height: 48px;
+		text-align: left;
+		width: 240px;
+		margin: auto;
+		border-radius: 24px;
+		font-size: 14px;
+		padding-left: 24px;
+	}
+	.sw-input-phone{
+		text-align: left;height: 48px!important;
+		background: url(../../image/index/icon_wz_sousuo@3x.png)no-repeat;
+		background-position: 24px;
+		background-size: 16px;
+		padding-left: 42px!important;
+	}
+	.sw-cityList:after {
+		background-color: #FFFFFF;
+	}
+	.sw-cityList {
+		color: #666;
+	}
+	.sw-cityList.active{
+		color: #333;
+		background: #EFEFEF;
+	}
+</style>	
+<body style="background: #EFEFEF;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">企业位置</h1>
+	    <button class="mui-btn mui-btn-link mui-pull-right" onclick="sureCity()">确认</button>
+	</header>
+	<div class="mui-content" style="background: #EFEFEF;">
+		<input type="text" name="sureCity" id="sureCity" value="" hidden="hidden"/>
+		 <div class="mui-input-row" style="position:fixed;top:44px;z-index:2;width: 100%;background: #efefef;padding-top: 10px;padding-bottom:10px;margin-bottom: 10px;text-align: center;border-bottom: 1px solid #DDDDDD;">
+	        <input type="text" placeholder="输入城市名称查询" id="searchKey" onkeyup="searchCity()" class="sw-input-phone" style="width:90%;margin-bottom: 0px;border-radius: 24px;"> 
+	    </div>
+	    <ul class="mui-table-view" style="margin-top: 68px;" id="cityList"></ul>
+		</div>
+<script id="city-list-tpl" type="text/html">
+	{{# var len = d.length; }}
+	{{# for(var i = 0;i < len; i++){ }}
+	<li class="mui-table-view-cell sw-cityList" onclick="$('.sw-cityList').removeClass('active');$(this).addClass('active');$('#sureCity').val($(this).text())">{{ d[i].zh }}</li>                              
+	{{# } }}
+</script>				
+</body>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/global.js"></script>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/laytpl/laytpl.js"></script>
+<script type="text/javascript">
+	//mui初始化
+	mui.init({});  
+	
+	mui.plusReady(function() {
+		searchCity(); 
+	});
+	
+	/**
+	 * 城市搜索
+	 */
+	function searchCity(){
+		var searchKey = $.trim($("#searchKey").val())
+		//获取配置城市数据
+		http.load('api.sev.index','getCityIni',{'key':searchKey},function(rData){			
+			if(rData.status==200){
+				var data = rData.data;
+				dy(data)
+				 //初始化信息					 	 				
+			 	var cityTpl = $('#city-list-tpl').html();	 		
+		        laytpl(cityTpl).render(data,function(render){           
+		            $('#cityList').html(render);    
+		        });	
+			}else{
+				sw.toast(rData.msg);  
+			}			
+		},function(xhr,type,errorThrown){				
+				//无网络提示
+				sw.toast('获取城市失败，服务器或网络异常'); 	
+		})
+	}
+
+	/**
+	 * 城市选择确认
+	 */
+	function sureCity(){
+		var sureCity = $("#sureCity").val();
+		
+		if(sureCity){
+			plus.storage.setItem('cityIni',sureCity);
+			plus.webview.getWebviewById("view/index/index.html").reload(true);
+			mui.back();
+		}else{
+			sw.toast('请选择城市');
+		}
+		
+	}
+
+</script>
+</html>

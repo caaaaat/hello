@@ -1,0 +1,36 @@
+/*分类标签*/
+#typeTag{width: 1200px;margin: 0 auto;text-align: left}
+#typeDiv{width: 1200px;background: #FFF;margin: 0 auto;margin-bottom: 15px;min-height: 330px;}
+.typeDiv{height: 70px;padding-right: 100px;position: relative}
+.typeDivList{text-align: center;float: left;width: 10%;font-size: 15px;font-weight: bold;line-height: 70px}
+.typeDivLR{position: absolute;right: 20px;top: 24px;width: 10%;height: 70px;text-align: right}
+.typeDivLRImg{padding: 10px 5px;cursor: pointer}
+.typeImgDiv{padding-left: 20px}
+.typeImgList{height: 100px;width: 80px;float: left;margin-right: 10px;margin-bottom: 20px;margin-top: 10px}
+.typeImgListDiv{height: 80px;width: 80px;}
+.typeImgListText{width: 100%;text-align: center}
+.typeDivListActive span{color: #FF524B;border-bottom: 3px solid #FF524B;padding: 10px 5px}
+.swiper-slide-active span{color: #FF524B;border-bottom: 3px solid #FF524B;padding: 10px 5px}
+
+.typeImg{width: 100%;height: 100%}
+/*经销商列表*/
+.jingXS{width: 1200px;height: 180px;padding-bottom: 20px;border: 1px solid #DDD;background: #FFF;margin:0 auto;margin-bottom: 30px}
+.jingXSCoverDiv{width: 180px;height: 180px;float: left;padding: 20px}
+.jingXSCoverImg{height: 140px;width: 140px}
+.jingXSInfoDiv{width: 380px;height: 180px;float: left;padding: 20px}
+.jingXSInfoDivD{width: 640px;height: 140px;overflow: hidden}
+.jingXSName{font-size: 17px;font-weight: bold;color: #333;margin-bottom: 10px}
+.jingXSInfo{line-height: 28px;font-size: 15px;}
+.dianPDiv{width: 320px;height: 180px;float: right;line-height: 180px;text-align: right;padding-right: 30px;position: relative;}
+.dianBanImg{position: absolute;top: 0;right: 0;height: 55px;z-index: 60}
+.dianPButton{width: 100px;height: 45px;border-radius: 8px}
+.dianErImgDiv{display: none;position: absolute;width: 180px;height: 180px;top: 0;right: 0;padding: 25px;line-height: 125px;background: #FFF}
+.dianErImg{width: 130px;height: 130px}
+/*加载中*/
+#jiaZai{display: none;font-size: 16px;width: 1200px;text-align: center;height: 50px;line-height: 20px;margin: 0 auto;}
+
+
+
+
+
+

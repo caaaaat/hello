@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>认证详情</title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <link href="/css/plat/upload_btn.css" rel="stylesheet">
+    <style>
+        .td_width_95{width: 95px; text-align: right;}
+        .div_90x110{width: 90px;display: inline-block; margin-right: 10px; margin-bottom: 10px;}
+        .span_90x110{width: 96px;height: 116px; text-align: center;line-height: 110px; display: inline-block; border: 1px solid lightgrey;margin-bottom: 5px;}
+        .span_90x20{width: 90px;height: 30px; text-align: center;line-height: 30px; display: inline-block;}
+        ._file{padding: 0;}
+    </style>
+</head>
+<body>
+<div class="col-xs-1"></div>
+<div class="col-xs-10">
+    <div class="ibox-content" style="border-width:0">
+        <div class="row">
+            <?php $OneCheck = isset($OneCheck) ? $OneCheck : '' ;?>
+            <?php if ($OneCheck) {?>
+            <input type="hidden" value="<?php echo $OneCheck['id'] ;?>" id="id"/>
+            <table class="table table-hover">
+                <tr>
+                    <td class="td_width_95" style="text-align: left;"><span style="color: black;font-weight: 600;">公司信息</span></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td class="td_width_95">公司全称：</td>
+                    <td colspan="2">
+                        <input class="form-control" type="text" id="firmsName" value="<?php echo $OneCheck['firmsName'] ;?>"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_width_95">联系人：</td>
+                    <td colspan="2">
+                        <input class="form-control" type="text" id="firmsMan" value="<?php echo $OneCheck['firmsMan'] ;?>"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_width_95">所在城市：</td>
+                    <td colspan="2">
+                        <select class="control-label" style="width: 33%;font-size: 14px; height: 34px; padding-left: 10px;" id="province">
+                            <option><?php echo $OneCheck['province'] ;?></option>
+                        </select>
+                        <select class="control-label" style="width: 33%;font-size: 14px; height: 34px; padding-left: 10px;" id="city">
+                            <option><?php echo $OneCheck['city'] ;?></option>
+                        </select>
+                        <select class="control-label" style="width: 32%;font-size: 14px; height: 34px; padding-left: 10px;" id="county">
+                            <option><?php echo $OneCheck['district'] ;?></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_width_95">手机号码：</td>
+                    <td colspan="2">
+                        <input class="form-control" type="text" id="firmsTel" value="<?php echo $OneCheck['firmsTel'] ;?>"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_width_95">详细地址：</td>
+                    <td colspan="2">
+                        <input class="form-control" type="text" id="address" value="<?php echo $OneCheck['address'] ;?>"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_width_95" style="text-align: left;"><span style="color: black;font-weight: 600;">资质照片</span></td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <div class="col-xs-12 col-sm-12 input-group">
+                            <div class="div_90x110">
+                                <input class="form-control" type="hidden" id="licence_pic" value="<?php echo $OneCheck['licence_pic'] ;?>"/>
+                                <span class="span_90x110" id="licence">
+                                    <?php if ($OneCheck['licence_pic']) {?>
+                                    <img style="width: 90px;height: 110px ;border: 0;" alt="营业执照" src="<?php echo $OneCheck['licence_pic'] ;?>">
+                                    <?php }else{ ?>
+                                    未上传
+                                    <?php } ?>
+                                </span>
+                                <span class="span_90x20">营业执照</span>
+                                <span class="span_90x20">
+                                    <button type="submit" class="btn btn-xs btn-primary _file" id="_licence"> 上 传 </button>
+                                    <button type="submit" class="btn btn-xs btn-danger" data-obj="licence" data-id="licence_pic"> 删 除 </button>
+                                </span>
+                            </div>
+                            <div class="div_90x110">
+                                <input class="form-control" type="hidden" id="taxes_pic" value="<?php echo $OneCheck['taxes_pic'] ;?>"/>
+                                <span class="span_90x110" id="taxes">
+                                    <?php if ($OneCheck['taxes_pic']) {?>
+                                    <img style="width: 90px;height: 110px ;border: 0;" alt="纳税认证" src="<?php echo $OneCheck['taxes_pic'] ;?>">
+                                    <?php }else{ ?>
+                                    未上传
+                                    <?php } ?>
+                                </span>
+                                <span class="span_90x20">纳税认证</span>
+                                <span class="span_90x20">
+                                    <button type="submit" class="btn btn-xs btn-primary _file" id="_taxes"> 上 传 </button>
+                                    <button type="submit" class="btn btn-xs btn-danger" data-obj="taxes" data-id="taxes_pic"> 删 除 </button>
+                                </span>
+                            </div>
+
+                            <div class="div_90x110">
+                                <input class="form-control" type="hidden" id="field_pic" value="<?php echo $OneCheck['field_pic'] ;?>"/>
+                                <span class="span_90x110" id="field">
+                                    <?php if ($OneCheck['field_pic']) {?>
+                                    <img style="width: 90px;height: 110px ;border: 0;" alt="实地认证" src="<?php echo $OneCheck['field_pic'] ;?>">
+                                    <?php }else{ ?>
+                                    未上传
+                                    <?php } ?>
+                                </span>
+                                <span class="span_90x20">实地认证</span>
+                                <span class="span_90x20">
+                                    <button type="submit" class="btn btn-xs btn-primary _file" id="_field"> 上 传 </button>
+                                    <button type="submit" class="btn btn-xs btn-danger" data-obj="field" data-id="field_pic"> 删 除 </button>
+                                </span>
+                            </div>
+
+                            <div class="div_90x110">
+                                <input class="form-control" type="hidden" id="brand_pic" value="<?php echo $OneCheck['brand_pic'] ;?>"/>
+                                <span class="span_90x110" id="brand">
+                                    <?php if ($OneCheck['brand_pic']) {?>
+                                    <img style="width: 90px;height: 110px ;border: 0;" alt="商标认证" src="<?php echo $OneCheck['brand_pic'] ;?>">
+                                    <?php }else{ ?>
+                                    未上传
+                                    <?php } ?>
+                                </span>
+                                <span class="span_90x20">商标认证</span>
+                                <span class="span_90x20">
+                                    <button type="submit" class="btn btn-xs btn-primary _file" id="_brand"> 上 传 </button>
+                                    <button type="submit" class="btn btn-xs btn-danger" data-obj="brand" data-id="brand_pic"> 删 除 </button>
+                                </span>
+                            </div>
+
+                            <div class="div_90x110">
+                                <input class="form-control" type="hidden" id="agents_pic" value="<?php echo $OneCheck['agents_pic'] ;?>"/>
+                                <span class="span_90x110" id="agents">
+                                    <?php if ($OneCheck['agents_pic']) {?>
+                                    <img style="width: 90px;height: 110px ;border: 0;" alt="产品代理认证" src="<?php echo $OneCheck['agents_pic'] ;?>">
+                                    <?php }else{ ?>
+                                    未上传
+                                    <?php } ?>
+                                </span>
+                                <span class="span_90x20">产品代理认证</span>
+                                <span class="span_90x20">
+                                    <button type="submit" class="btn btn-xs btn-primary _file" id="_agents"> 上 传 </button>
+                                    <button type="submit" class="btn btn-xs btn-danger" data-obj="agents" data-id="agents_pic"> 删 除 </button>
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="text-align: center;"><button type="submit" class="btn btn-primary" onclick="postData()"> 确 定 </button></td>
+                </tr>
+
+                <?php }else{?>
+                <tr>
+                    <td colspan="3" style="text-align: center;">
+                        获取认证详情失败
+                    </td>
+                </tr>
+            </table>
+            <?php }?>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/webuploader/webuploader.js"></script>
+<!--弹窗js-->
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+<script src="/js/area.js"></script>
+<script>
+    $(function () {
+        upPic('_licence');
+        upPic('_taxes');
+        upPic('_field');
+        upPic('_brand');
+        upPic('_agents');
+        setProvince('province',$('#province').val(),'city','county');
+        $("#province") .change(function () {
+            setCity($('#province').val(),'city','county');
+            setCounty('','','county');
+        });
+        $("#city") .change(function () {
+            setCounty($('#province').val(),$('#city').val(),'county');
+        });
+       $('.btn-danger').click(function () {
+           delPic(this);
+       })
+    });
+    /**
+     * 上传按钮初始化
+     * @param btn
+     */
+    function upPic(btn) {
+        var BASE_URL = '';
+        var uploader = WebUploader.create({
+            auto: true,
+            duplicate:true,
+            // swf文件路径
+            swf: BASE_URL + '/js/webuploader/Uploader.swf',
+            // 文件接收服务端。
+            server: '/tools/baiduUpload',
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#'+btn,
+            // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+            resize: false,
+            // 只允许选择图片文件。
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                //mimeTypes: 'image/*'
+                mimeTypes: 'gif,jpg,jpeg,bmp,png'
+            }
+        });
+        var btnObj = {
+            '_licence':'#licence'
+            ,'_taxes':'#taxes'
+            ,'_field':'#field'
+            ,'_brand':'#brand'
+            ,'_agents':'#agents'
+        };
+        //文件上传成功后的处理，在界面上的呈现，显示
+        uploader.on( 'uploadSuccess', function( file,response) {
+            $(btnObj[btn]+'_pic').val(response.httpUrl);
+            $(btnObj[btn]).html('<img src="'+response.httpUrl+'" style="height: 110px;width: 90px;"/>');
+        });
+    }
+    /**
+     * 删除图片
+     * @param obj
+     */
+    function delPic(obj) {
+        var imgId  = $(obj).attr('data-id') ;
+        var imgObj = $(obj).attr('data-obj') ;
+        $('#'+imgId).val('');
+        $('#'+imgObj).text('未上传');
+    }
+    
+    function postData() {
+        var data         = {} ;
+        data.id          = $('#id').val();
+        data.firmsName   = $('#firmsName').val();
+        data.firmsMan    = $('#firmsMan').val();
+        data.province    = $('#province').val();
+        data.city        = $('#city').val();
+        data.county      = $('#county').val();
+        data.firmsTel    = $('#firmsTel').val();
+        data.address     = $('#address').val();
+        data.licence_pic = $('#licence_pic').val();
+        data.taxes_pic   = $('#taxes_pic').val();
+        data.field_pic   = $('#field_pic').val();
+        data.brand_pic   = $('#brand_pic').val();
+        data.agents_pic  = $('#agents_pic').val();
+        //console.log(data);
+
+        if(!data.firmsName || data.firmsName == ''){
+            layer.msg('请输入公司名称');
+            return false ;
+        }else if(!data.firmsMan || data.firmsMan == ''){
+            layer.msg('请输入联系人名称');
+            return false ;
+        }else if(!data.firmsTel || data.firmsTel == ''){
+            layer.msg('请输入联系人电话');
+            return false ;
+        }else if(!data.address || data.address == ''){
+            layer.msg('请输入公司详细地址');
+            return false ;
+        }else {
+            var url = '/plat.firms/saveOneCheck' ;
+            var index = layer.load(2);
+            $.post(url,{data:data},function (rv) {
+                layer.close(index);
+                layer.msg(rv.massage);
+            },'json')
+        }
+    }
+</script>
+</html>

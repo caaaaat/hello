@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>圈子评论列表</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.32x32.ico">
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .mail-box-header label{ height: 34px; line-height: 34px; margin-bottom: 0; padding-left: 0;padding-right: 0;}
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content" style="padding: 0;">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <div class="mail-box-header">
+
+                <div class="form-group">
+                    <div>
+                        <input type="hidden" id="cid" value="<?php echo $cid ;?>"/>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-lg-6 " style="padding-left: 0; padding-right: 15px; margin-bottom: 3px;max-width: 165px;">
+                        <label class="col-xs-4 col-sm-4 control-label" style="width: 70px;">用户类型</label>
+                        <div class="col-xs-8 col-sm-8" style="padding-left: 0;padding-right: 0; width: 75px;">
+                            <select id="type" class="form-control">
+                                <option value=''>不限</option>
+                                <option value='1'>企业</option>
+                                <option value='2'>业务员</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-lg-6" style="padding-left: 0; padding-right: 0; margin-bottom: 3px;">
+                        <label class="col-xs-4 col-sm-4 control-label" style="width: 50px;">搜索</label>
+                        <div class="col-xs-8 col-sm-8" style="padding-left: 0;">
+                            <div class="col-xs-12 col-sm-12 input-group">
+                                <input type="text" class="form-control input-xs" id="searchKey" placeholder="企业ID/业务员ID/昵称"/>
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary" id="found"> 搜 索 </button>
+                                    <!---->
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrapper wrapper-content" style="padding: 0;">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+
+                    <!--列表开始-->
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center;width:155px">企业ID/业务员ID</th>
+                                <th style="text-align: center;width:90px">用户类型</th>
+                                <th style="text-align: center;width:110px">昵称</th>
+                                <th style="text-align: center;">评论</th>
+                                <th style="text-align: center;width:95px">评论时间</th>
+                                <th style="text-align: center;width:55px">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="listObj" style="text-align: center"></tbody>
+                        </table>
+                    </div>
+                    <script id="showList" type="text/html">
+                        {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                        <tr>
+                            <!--<td>{{ ((page-1)*pageSize)+i+1 }}</td>-->
+                            <td>
+                                <span>{{ list[i].exID }}</span>
+                            </td>
+                            <td>
+                                <span>{{ list[i].type == 1 ? '企业' : '业务员' }}</span>
+                            </td>
+                            <td>
+                                <span>{{ list[i].uname == null ? (list[i].exName == null ? '' : list[i].exName) : list[i].uname }}</span>
+                            </td>
+                            <td style="text-align: left;padding-left: 1em;">
+                                <span style="word-break: break-all;">{{ list[i].content }}</span>
+                            </td>
+                            <td>
+                                <span>{{ list[i].create_time }}</span>
+                            </td>
+
+                            <td>
+                                <span><a onclick="delComment({{ list[i].id }} , {{ list[i].parent_id }})">[删除]</a> </span>
+                            </td>
+                        </tr>
+
+                        {{# } }}
+                    </script>
+
+                    <script id="showNo" type="text/html">
+                        <tr>
+                            <td colspan="9" style="text-align: center">{{ d.massage }}</td>
+                        </tr>
+                    </script>
+                    <!--列表结束-->
+                    <!--页码开始-->
+                    <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                        <input hidden="hidden" value="1" id="page"/>
+                        <span>每页显示
+                        <select name="pageSize" id="pageSize" onchange="getList(1)">
+                            <option value="10"  selected="selected">10</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="300">300</option>
+                            <option value="500">500</option>
+                        </select>&nbsp;
+                    </span>
+                        <span id="pageInfo" style="margin-right: 10px;"></span>
+                        <div class="btn-group" id="pager"></div>
+                    </div>
+                    <!--页码结束-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script  type="text/javascript" src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script  type="text/javascript" src="/js/hplus/js/plugins/layer/layer-3.0.3.min.js"></script>
+
+<script src="/js/laytpl/laytpl.js"></script>
+<!--自定义js-->
+<script src="/js/area.js"></script>
+<!--分页插件-->
+<script src="/js/jquery.page.js"></script>
+<!--自定义JS-->
+<script src="/js/global.js"></script>
+<script>
+    $(function(){
+        getList(1);
+        $("#found").click(function(){
+            getList(1);
+        });
+    });
+    /**
+     * 获取数据
+     */
+    function getList(page){
+        var cid      = $("#cid").val();
+        var type     = $("#type").val();
+        var keywords = $("#searchKey").val();//关键字
+        page         = page ? page : 1;
+        pageSize     = $('#pageSize').val();
+        var url = '/plat.firms/getComments';
+        var index = layer.load(2);
+        $.post(url,{
+            cid:cid,
+            type:type,
+            keywords:keywords,
+            page:page,
+            pageSize:pageSize
+        },function(rdata){
+            layer.close(index);
+            var pageInfo = '';
+            var p     = rdata.page;
+            var pageSize = rdata.pageSize;
+            var count = rdata.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            $("#pageInfo").text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+            $("#pager").createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getList(p);
+                }
+            });
+            showData(rdata);
+        },'json');
+        $("#page").val(page);
+    }
+
+    /**
+     * 展示数据
+     */
+    function showData(data) {
+        if(data.massageCode == 'success'){
+            if(data.list.length>0){
+                var tpl2 = $('#showList').html();
+                laytpl(tpl2).render(data, function(html){
+                    $('#listObj').html(html);
+                });
+                return false
+            }
+        }else {
+            var tpl1 = $('#showNo').html();
+            laytpl(tpl1).render(data, function(html){
+                $('#listObj').html(html);
+            });
+        }
+
+    }
+
+    /**
+     * 删除评论
+     * @param id
+     * @param pid
+     */
+    function delComment(id,pid){
+        //alert(1);
+        layer.confirm('是否删除该评论? 删除后不可恢复',{area: ['300px', '160px'],shadeClose: true,title:'重要提示'},function () {
+                api.load('plat.firms','delComment',{id:id,pid:pid},function(rData){
+                    if(rData.massageCode == 'success'){
+                        layer.msg(rData.massage);
+                        getList(1);
+                    }else {
+                        layer.msg(rData.massage);
+                    }
+                });
+            });
+    }
+
+</script>
+</html>

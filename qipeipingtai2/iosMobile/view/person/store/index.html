@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>店铺管理</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="stylesheet" href="../../../css/mui.min.css">
+	<link rel="stylesheet" href="../../../css/common.css?v=1.0.1" type="text/css" charset="utf-8"/>
+	<style>
+		html,
+		body {
+			background-color: #efeff4;
+		}		
+		.mui-bar{
+			background: none;
+		}
+		
+		.sw-header-con{
+			width: 100%;height: 210px;background: url(../../../image/person/store/beijing.png) no-repeat;background-size: cover;
+		}
+		.sw-person-face{
+			width: 80px!important;height: 80px!important;border-radius: 40px;
+		}
+		.sw-card-header{
+			padding-top:5px!important;
+		}
+		.sw-card-header:after{
+			height: 0;
+		}
+		.sw-card-con:after{
+			height: 0;
+		}
+		.sw-media-body{
+			margin-left: 68px!important;
+		}
+		.sw-card-list{
+			width: 100%;margin-top: 10px;margin-bottom: 10px; 
+		}
+		.sw-card-list ul{
+			background: #FFFFFF!important;border: none;
+		}
+		.sw-meida-text{
+			font-size: 14px!important;color: #666!important;
+		}
+		.sw-biao-vip{
+			width:40px;height: 40px;background: url(../../image/person/biao_vip@2x.png) no-repeat;background-size: contain;position: absolute;right: -3px;top: 0;
+		}
+		.sw-biao-weirz{
+			width:40px;height: 40px;background: url(../../image/person/biao_weirz@2x.png) no-repeat;background-size: contain;position: absolute;right:-3px;top: 0;
+		}
+		.sw-first{
+			color: #FFFFFF;font-size: 16px;
+		}
+		.sw-ch{
+			font-size: 12px;float: right;
+		}
+		.sw-company{
+			color: #FFFFFF;line-height: 36px;border-bottom: 1px solid #FFFFFF;font-size: 14px;
+		}
+		.sw-two{
+			color: #FFFFFF;line-height: 36px;font-size: 12px;
+		}
+		.sw-vip-text{
+			margin-left: 28px;
+		}
+		.sw-title-img2{
+			width: 18px!important;
+		}
+		.sw-title-badge{
+			left: 22px;
+			top: 10px!important;
+		}
+		.sw-meida-text{
+			line-height: 18px!important;height: 18px!important;
+			}
+			
+	</style>
+</head>
+
+<body>
+<div class="mui-content" id="infoCon"></div>
+
+<script id="info-list-tpl" type="text/html">
+	
+	<div class="sw-header-con">
+		<div style="padding-top: 15px;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left sw-ctheme"></a>
+			<button class="mui-btn mui-btn-link mui-pull-right" >
+		    	<span class="sw-ctheme" id="storeIndex">店铺主页</span>
+	    	</button>
+		</div>
+    	<div style="clear: both;"></div>
+		
+		{{# if(d.type==1){ }}
+		<div class="mui-card-header mui-card-media sw-card-header">
+			<div style="width: 100%;text-align: center;"><img src="{{ imgUrl+d.face_pic }}" class="sw-person-face" id="face_img"/></div>
+			<div style="width: 90%;text-align: center;margin: auto;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;font-size: 14px;" id="companyname">
+				{{ d.companyname }}
+			</div>
+			<div id="history" style="width: 90%;text-align: center;font-size: 12px;padding-top:  10px;border-top: 1px solid #FFFFFF;margin: auto;margin-top: 10px;">
+				<div style="width: 50%;float: left;border-right: 1px solid #FFFFFF;" >
+					<img src="../../../image/person/store/icon_dpzy_peoples.png" style="width: 12px;height:17px;vertical-align: text-bottom;"/>
+					访问数：<span  class="sw-ctheme" id="visit_num">{{ d.visit_num }}</span>
+				</div>
+				<div style="width: 50%;float: left;">
+					<img src="../../../image/person/store/icon_dpzy_tel.png" style="width: 16px;vertical-align: text-bottom;"/>
+					来电数：<span  class="sw-ctheme" id="call_num">{{ d.call_num }}</span>
+				</div>
+			</div>
+		</div>
+		{{# }else{ }}
+		<div class="mui-card-header mui-card-media sw-card-header" style="padding-top: 24px!important;">
+			<div style="width: 100%;text-align: center;"><img src="{{ imgUrl+d.face_pic }}" class="sw-person-face" id="face_img"/></div>
+			<div style="width: 90%;text-align: center;margin: auto;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;font-size: 14px;" id="companyname">
+				{{ d.companyname }}
+			</div>				
+		</div>
+		{{# } }}
+	</div>
+		
+	<div class="sw-card-list">
+		{{# if(d.type==1){ }}			
+		<ul class="mui-table-view mui-grid-view mui-grid-9 sw-card-con">
+			<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="infoView">					   
+		        <img src="../../../image/person/store/icon_dpzy_xinxi.png" style="width: 60px;"/>
+		        <div class="mui-media-body sw-meida-text">信息管理</div>					   
+			</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="productView">					   
+		        <img src="../../../image/person/store/icon_dpzy_chanpin.png" style="width: 60px;"/>
+		        <div class="mui-media-body  sw-meida-text">产品管理</div>					    
+			</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="auth">					    
+		        <img src="../../../image/person/store/icon_dpzy_renzheng.png" style="width: 60px;"/>
+		        <div class="mui-media-body  sw-meida-text">认证</div>					    
+			</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="range">				    
+		    	<img src="../../../image/person/store/icon_dpzy_jingying.png" style="width: 60px;"/>
+		        <div class="mui-media-body  sw-meida-text">经营范围</div>					    
+			</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="card">					    
+		        <img src="../../../image/person/store/icon_dpzy_mingpian.png" style="width: 60px;"/>
+		        <div class="mui-media-body  sw-meida-text">企业名片</div>					   
+			</li>
+		</ul>
+		{{# }else{ }}
+		<ul class="mui-table-view mui-grid-view mui-grid-9 sw-card-con">
+			<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" id="infoView">					   
+		        <img src="../../../image/person/store/icon_dpzy_xinxi.png" style="width: 60px;"/>
+		        <div class="mui-media-body sw-meida-text">信息管理</div>					   
+			</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" id="productView">					   
+		        <img src="../../../image/person/store/icon_dpzy_chanpin.png" style="width: 60px;"/>
+		        <div class="mui-media-body  sw-meida-text">产品管理</div>					    
+			</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" id="auth">				    
+		        <img src="../../../image/person/store/icon_dpzy_renzheng.png" style="width: 60px;"/>
+		        <div class="mui-media-body  sw-meida-text">认证</div>					    
+			</li>
+
+			<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" id="card">					    
+		        <img src="../../../image/person/store/icon_dpzy_mingpian.png" style="width: 60px;"/>
+		        <div class="mui-media-body  sw-meida-text">企业名片</div>					   
+			</li>
+		</ul>		
+		{{# } }}
+	</div>
+		
+	<div style="clear: both;"></div>
+	<div style="width: 100%;padding: 15px;background: #FFFFFF;font-size: 14px;border-top: 1px solid #EEEEEE;border-bottom: 1px solid #EEEEEE;margin-bottom: 20px;">
+		
+		<div style="width: 100%;">
+			<span style="color: #333333;">企业类型：</span>
+			<p style="margin-left: 70px;margin-top: -21px;" id="type">{{ d.typeStr }}</p>
+		</div>
+		
+		<div style="width: 100%;">
+			<span style="color: #333333;">企业分类：</span>
+			<p style="margin-left: 70px;margin-top: -21px;" id="classification">{{ d.classStr }}</p>
+		</div>
+		
+		<div style="width: 100%;">
+			<span style="color: #333333;">企业地址：</span>
+			<p style="margin-left: 70px;margin-top: -21px;" id="address">{{ d.address }}</p>
+		</div>
+		{{# if(d.type==1){ }}	
+		<div style="width: 100%;">
+			<span style="color: #333333;">经销范围：</span>
+			<p style="margin-left: 70px;margin-top: -21px;" id="businessStr">{{ d.businessStr }}</p>
+		</div>
+		{{# } }}
+	</div>
+</script>
+<script type="text/javascript" src="../../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../../js/global.js"></script>
+<script type="text/javascript" src="../../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/laytpl/laytpl.js"></script>
+<script type="text/javascript">
+	//mui初始化
+	mui.init();
+
+	//mui plusReady
+	mui.plusReady(function() {	
+		//获取店铺基础信息
+		var token  = plus.storage.getItem('token');
+		//加载弹窗
+		loading('加载中...'); 
+		//获取数据
+		http.load('api.sev.user','getStoreInfo',{'token':token},function(rData){
+			//关闭加载框
+			closeLoading();	
+ 			sw.jcon(rData)
+ 			if(rData.face_pic==null||rData.face_pic==''){
+ 				rData.face_pic = '../../../image/person/store/icon_dpzy_mrtx.png';			
+			}
+ 			//父级将数据输出到页面     
+		 	var infoTpl = $('#info-list-tpl').html();	 		
+	        laytpl(infoTpl).render(rData,function(render){           
+	            $('#infoCon').html(render);   
+	        });	 
+ 			
+ 			//监听点击
+ 			mui("#infoView")[0].addEventListener('tap',function(){
+				openView('../../../view/person/store/info.html','person_store_info','pop-in');
+			})			
+			mui("#productView")[0].addEventListener('tap',function(){
+				openView('../../../view/person/store/product.html','person_store_product','pop-in');
+			})						
+			mui("#card")[0].addEventListener('tap',function(){
+				openView('../../../view/person/card/index.html','person_card_index','pop-in');
+			})
+			mui("#auth")[0].addEventListener('tap',function(){
+			openView('../../../view/person/auth/index.html','person_auth_index','pop-in');
+			})
+			
+			//经销商有历史和经营范围
+			if(rData.type==1){
+				mui("#history")[0].addEventListener('tap',function(){ 
+					openView('../../../view/person/store/history.html','person_store_history','pop-in');
+				})
+				mui("#range")[0].addEventListener('tap',function(){ 
+					openView('../../../view/person/store/range.html','person_store_range','pop-in');
+				})
+			}
+			
+			//监听店铺主页
+			mui("#storeIndex")[0].addEventListener('tap',function(){ 
+				
+				var EnterpriseID = rData.EnterpriseID; 
+				var cName = rData.companyname;				
+				if(rData.type==1){
+						var postData = {'EnterpriseID':EnterpriseID,'jxName':cName};
+						//打开窗口
+						openView('../../../view/index/shangjia/jingxiao.html','index_shangjia_jingxiao','pop-in',postData);
+					}else{
+						var postData = {'EnterpriseID':EnterpriseID,'qxName':cName};
+						openView('../../../view/person/repair/detail.html','person_repair_detail','pop-in',postData);
+					}
+					
+				})
+			
+			
+ 						
+		},function(xhr,type,errorThrown){
+		 		//关闭加载框
+				closeLoading();		
+				//无网络提示
+				//sw.toast('获取数据失败，服务器或网络异常');
+		}) 
+
+	})
+	
+</script>
+</body>
+</html>

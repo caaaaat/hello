@@ -1,0 +1,28 @@
+.titles{height: 90px;line-height: 90px;margin-top: 15px;text-align: center;font-size: 24px;font-weight: 500;color: #5D5D5D}
+#visitDiv{padding-left: 27px;padding-right: 27px;}
+.height230{height: 230px;margin-bottom: 40px;}
+.visitTiao{height: 35px;line-height: 35px;background: #FF6634;color: #FFF;padding-left: 15px;padding-right: 15px;font-size: 15px;}
+.floLeft{float: left;}
+.floRight{float: right;}
+.visitYou{padding-bottom: 5px;margin-left: 50px;}
+.visitInfoDiv{height: 195px;padding: 20px 18px;border: 1px solid #DDD;position: relative;}
+.visitImgDiv{width: 155px;height: 155px;float: left;}
+.visitImg{height: 155px;max-width: 155px;}
+.visitCompanyDiv{float: left;margin-left: 20px;width: 520px;max-height: 155px;overflow: hidden;}
+.companyName{font-size: 20px;color: #FF6632;font-weight: bold;max-width: 400px;float: left;overflow: hidden;text-overflow: ellipsis;white-space: pre;}
+.vImg{vertical-align: top;}
+.carCompany{border: 1px solid #15B1FC;padding: 3px 10px;border-radius: 25px;color: #15B1FC;font-size: 16px;font-weight: bold;}
+.jiaoCheTag{border: 1px solid #15B1FC;padding: 3px 10px;border-radius: 25px;color: #15B1FC;font-size: 16px;font-weight: bold;margin-left: 5px;}
+.huoCheTag{border: 1px solid #00CC33;padding: 3px 10px;border-radius: 25px;color: #00CC33;font-size: 16px;font-weight: bold;margin-left: 5px;}
+.wuLiuTag{border: 1px solid #FF6699;padding: 3px 10px;border-radius: 25px;color: #FF6699;font-size: 16px;font-weight: bold;margin-left: 5px;}
+.companyInfo{line-height: 23px;margin-top: 10px;}
+.inCompany{float: right;padding-top: 52px;padding-right: 15px;}
+.companyBtn{background: #FFF;border: none;border: 2px solid #FE514A;color: #FE514A;height: 52px;width: 112px;border-radius: 7px;}
+.banEWM{position: absolute;top: 2px;right: 2px;}
+.dianErImgDiv{position: absolute;top: 30px;right: 32px;display: none;}
+.truckCompany{border: 1px solid #38C542!important;color: #38C542!important;}
+
+/*·ÖÒ³*/
+.btn-primary.active{background: #FFF;color: #2E2E2E;border: 1px solid #FE534B;border-top: none;border-bottom: none;box-shadow:none;}
+.btn-white{border: 1px solid #FE534B;color: #FE534B;}
+.btn:hover{border: 1px solid #FE534B;}

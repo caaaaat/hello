@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>新闻资讯</title>
+    <link href="../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	html{
+		background: #F5F5F5;
+	}
+	.sw-card-cuBox3{
+		height: 40px;
+		white-space: normal; 
+		 color: #000000;
+	    overflow: hidden;
+	    display: -webkit-box;
+	    -webkit-line-clamp: 2;
+	    -webkit-box-orient: vertical;
+	    word-break: break-all;
+	}
+	.sw-card-img1{
+		width: 100px!important;max-width:100px!important;height: 80px!important;
+	}
+	.sw-card-date{
+		line-height: 26px;margin-top:12px;margin-left: 100px;
+	}
+	.sw-card-li:after{
+		left: 0;
+	}
+</style>	
+<body style="background: #FFFFFF;">
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">新闻资讯</h1>
+	</header>
+	
+	<div class="mui-content" style="background: #F5F5F5;">
+		
+		<ul class="mui-table-view" style="margin-top: 0;" id="xwList"></ul>
+		<div id="loadList"><input value="1" hidden="hidden" id="page"/></div> 
+	</div>
+	
+	<!--列表模板-->
+<script id="xw-list-tpl" type="text/html">
+	{{# var len = d.length }} 
+	
+	{{# for(var i = 0;i < len; i++){ }}
+	 <li class="mui-table-view-cell mui-media sw-card-li" onclick="goDetail('{{ d[i].art_ID }}','news')">   
+		<img class="mui-media-object mui-pull-left sw-card-img1" src="{{ imgUrl+d[i].face_img }}">
+		<div class="mui-media-body sw-card-cuBox3">
+			{{ d[i].title }}
+		</div>
+		<p class="sw-card-date">{{ d[i].create_time }}</p> 
+	</li>
+	{{# } }} 
+</script>	
+</body>
+ 	<script type="text/javascript" src="../../js/mui.min.js"></script>
+	<script type="text/javascript" src="../../js/global.js"></script>
+	<script src="../../js/jquery.min.js"></script>
+	<script src="../../js/laytpl/laytpl.js"></script> 
+  	<script type="text/javascript" charset="utf-8">
+	//mui初始化	
+	mui.init({
+	  pullRefresh : {
+	    container:'#loadList',//待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
+	    up : {
+	      height:50,//可选.默认50.触发上拉加载拖动距离
+	      auto:true,//可选,默认false.自动上拉加载一次
+	      contentrefresh : "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+	      contentnomore:'没有更多新闻资讯了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+	      callback :function(){	
+	      	
+	      	var self = plus.webview.currentWebview(); 	
+	      	var page = mui("#page")[0].value;//获取页数
+	     	      	
+	      	var data = {};  
+	      	var postData = {};
+	      		
+	      		//请求的数据
+	      		postData.page     = page;//请求的页码
+	      		postData.pageSize = 10;//每页显示数量
+	      			      			
+	      		data.postData = postData;   
+	      		
+	      		//页面相关数据
+	      		data.mod      = 'api.sev.article';//模型
+	      		data.fun      = 'getNewsList';//方法
+	      		data.tpl      = 'xw-list-tpl';//列表模板
+	      		data.listId   = 'xwList';//列表容器  
+	      		 
+				//请求并处理数据
+	  			loadInfo(data,false);
+	      } //必选，刷新函数
+	    }
+	  }
+	});
+	 
+	 mui.plusReady(function() { 
+	
+		//监控页面是否登录
+		if(UserInfo.has_login()){	//如果已经登录将新闻清空	
+			var token   = plus.storage.getItem('token');			
+			var postData = {};
+				postData.token = token;
+				postData.userType = JsonStorage.getItem('userType');	//2为业务员
+			//如果已经登陆 获取登录后的数据 
+			http.load('api.sev.article','clearNews',postData,function(rData){//请求成功	 
+	 		})	
+		}   
+	
+	})     
+	 
+	 
+	 /**
+	  * 前往详情
+	  * @param {Object} art_ID
+	  * @param {Object} type
+	  */
+	 function goDetail(art_ID,type){	 	
+	 	var extras = {'art_ID':art_ID,'type':type};
+	 	var url  = '../../view/gonggao/promotionDetail.html';
+	 	var id   = 'gonggao_promotionDetail';
+	 	var aniShow = 'pop-in';
+	 	openView(url,id,aniShow,extras);	 	
+	 }
+	 
+</script>
+</html>

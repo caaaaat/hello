@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>产品列表</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <link href="../../../css/swiper.css" rel="stylesheet"/>
+	<style>
+		.sw-payList:after{
+			height: 0;
+		}
+		.sw-after-l:after{
+			left: 0;
+		}
+		.sw-no-active,.sw-no-active:active{
+			background: #FFFFFF!important;
+		}
+		.sw-title-1{
+			width: 33.3%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+		}
+		.sw-title-2{
+			width: 50%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+		}
+		.sw-title-box{
+			width: 100%;height: 42px;border-bottom: 1px solid #DDDDDD;background: #FFFFFF;
+		}
+		.sw-list-box{
+			width: 100%;height: 42px;background: #FFFFFF;
+		}
+		.sw-no-img:after,.sw-no-img:before{
+			height: 0;
+		}
+		.sw-rafter:after{
+			content: '';
+			height: 24px;
+			background: #EFEFEF;
+			margin-top: 9px;
+			width: 1px;
+			float: right;
+		}
+		.sw-header {
+			width: 100%;
+			height: 48px;
+			overflow: hidden;
+			font-size: 12px;
+			line-height: 48px;
+			background: #FFFFFF;
+			border-bottom: 1px solid #ccc;
+		}
+		.sw-input-search{
+			text-align: left;
+			height: 42px!important;
+			padding-left: 20px!important;
+			font-size: 14px;
+			margin-bottom: 10px!important;
+			border-radius: 24px!important;
+			margin-right: 56px!important;
+			color: #666666;
+		}
+		.sw-input-box{
+			width: 100%;background: #F5F5F5;padding-top: 10px;text-align: center;
+		}
+		.sw-input-box1{
+			margin-right: 15px;margin-left: 15px;margin-bottom: 0;
+		}
+		.sw-money{
+			font-size: 14px;
+			font-weight: 700;
+		}
+		.sw-csl-div1{
+			width: 100%;padding: 0 15px;margin-bottom: 10px;
+		}
+		.sw-csl-div2{
+			background: #FFFFFF;border: #DDDDDD 1px solid;
+		}
+		.sw-csl-div3{
+			padding: 8px;
+		}
+		.sw-csl-div4{
+			padding-left: 106px;display:block;position: relative;margin-top:-104px;width: 100%;
+		}
+		.sw-csl-p1{
+			font-size: 14px;line-height: 28px;margin-bottom: 0;width: 100%;
+		}
+		.sw-csl-p2{
+			font-size: 12px;line-height: 24px;margin-bottom: 0;width: 100%;
+		}
+		.sw-search-p{
+					    background: url(../../../image/index/icon_wz_sousuo@3x.png)no-repeat;
+					    width: 45px;
+					    height: 36px;
+					    margin: 0!important;
+					    background-size: 17px;
+					    position: absolute;
+					    top: 13px;
+					    background-position: center;
+					    margin-top: -50px;
+					    right: 25px; 
+				}
+	</style>
+</head>
+<body>
+	
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title" id="mui-title"></h1>
+	</header>
+	
+	<div class="mui-content" style="background: #F5F5F5;"> 
+		<div class="mui-input-row sw-input-box">
+		   	<p class="mui-input-row sw-input-box1">
+		   		<input type="text" placeholder="输入产品名称、品牌、适用车系查询" class="sw-input-search" id="keyword">
+		    	<p class="sw-search-p" id="searchBtn"></p>
+		   	</p>
+	   </div>
+		<div class="mui-scroll-wrapper" style="margin-top:104px;">    
+			<div class="mui-scroll sw-coterie-box" id="loadList">    
+				<div id="proList">
+
+				</div>
+			</div>   
+		</div>	      
+	</div>
+	<input value="1" hidden="hidden" id="page"/>
+	
+	
+	<!--列表模板-->
+	<script id="pro-list-tpl" type="text/html">
+		{{# var len = d.length }} 	
+		{{# for(var i = 0;i < len; i++){ }} 
+			
+			<div class="sw-csl-div1" > 
+		   		<div class="sw-csl-div2" onclick="goProductDetail('{{ d[i].proId }}','{{ d[i].pro_type }}')">
+		   			<div class="sw-csl-div3" style="position: relative;">
+		   				<img src="{{ imgUrl+d[i].pro_pic }}" height="98px" width="98px" style="border: 1px solid #DDDDDD;"/>
+		   				
+		   				<div class="sw-csl-div4">
+		   					<p class="sw-csl-p1 sw-word-one sw-ctheme">
+		   						{{ d[i].proName }}
+		   					</p>		   					
+		   					<p class="sw-csl-p2 sw-word-one">
+		   						<span style="color: #333;">类别：</span><span style="color: #666;">{{ d[i].cate_1_name }}</span>
+		   					</p>		   			
+		   					<p  class="sw-csl-p2 sw-word-one">
+		   						<span style="color: #333;">车系：</span><span style="color: #666;">{{ d[i].car_group }}</span>
+		   					</p>
+		   					<p  class="sw-csl-p2 sw-word-one"> 
+		   						<span style="color: #333;">价格：</span><span style="color: #666;" class="sw-money sw-ctheme">{{ d[i].price }}</span>
+		   					</p>
+		   				</div> 
+		   			</div>  			 
+		   		</div>
+	   		</div>		
+	   		{{# } }}
+	</script>
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+ <script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/laytpl/laytpl.js"></script>
+<script src="../../../js/mui.pullToRefresh.js"></script>
+<script src="../../../js/mui.pullToRefresh.material.js"></script>
+ <script type="text/javascript" charset="utf-8">
+ 
+    var type = '';
+	var groupId = '';
+	var searchType = '';
+	var goStatus = 1;
+	var showSelf;
+	//mui plusReady
+	mui.plusReady(function() {
+		
+		var self  = plus.webview.currentWebview();	
+		    type  = self.type;
+		    searchType  = self.searchType;
+		    groupId  = self.groupId;
+		    keyword  = self.keyword;
+		    groupName  = self.groupName;
+		    
+		var title = groupName!=0?groupName:(type==1?'新品促销':'库存清仓'); 
+		
+		if(searchType==1){
+			$("#keyword").val(keyword);
+		}	
+		//更换标题
+		$("#mui-title").text(title); 	
+		
+		(function($) {
+			//阻尼系数
+			var deceleration = mui.os.ios?0.003:0.009;
+			$('.mui-scroll-wrapper').scroll({		
+				bounce: false,   
+				indicators: true, //是否显示滚动条
+				deceleration:deceleration 
+			});
+		})
+		
+		
+		mui("#loadList").pullToRefresh({ 
+			down: {
+				callback: function(){
+					location.href = location.href;
+				}
+			},
+			up: { 
+				auto: true,
+				offset: 50, //距离底部高度(到达该高度即触发)
+				contentnomore:contentnomoreStr,   
+				contentrefresh:contentrefreshStr,
+				callback: function() {  
+					
+						showSelf = this;				
+						getStartList(showSelf);
+						
+						}
+					}
+		});  
+		
+	})
+	
+	/**
+	  * 重新开始搜索
+	  */
+	 document.getElementById("searchBtn").addEventListener('tap',function(){
+			//清空数据
+			$("#proList").html('');
+			$("#page").val(1);
+			showSelf.refresh(true);  
+			showSelf.pullUpLoading(true);  
+		});
+	
+	/**
+	 * 获取数据
+	 * @param {Object} showSelf
+	 */
+	function getStartList(showSelf){
+		
+		//获取地址
+	    var cityIni= plus.storage.getItem('cityIni');
+	 	var page    = mui("#page")[0].value;//获取页数
+	    var keyword =  $("#keyword").val();    
+	 	
+      	var data = {};  
+      	var postData = {};
+      		
+      		//请求的数据
+      		postData.page     = page;//请求的页码
+      		postData.pageSize = 10;//每页显示数量 
+      		//其余参数
+      		postData.groupId = groupId;//车系
+      		postData.keyword = keyword;//关键字
+      		postData.type    = type;
+      		postData.cityIni = cityIni;  
+      		     
+      		data.postData = postData;             
+      		
+      		//页面相关数据
+      		data.mod      = 'api.sev.index';//模型
+      		data.fun      = 'getProducts';//方法
+      		data.tpl      = 'pro-list-tpl';//列表模板
+      		data.listId   = 'proList';//列表容器  
+      		data.pageId   = 'page';//页码Id	 
+      		
+			//请求并处理数据
+  			loadInfoArr(data,false,showSelf);
+		
+	}
+	
+	
+	/**
+	 * 前往产品详情
+	 * @param {Object} proId
+	 * @param {Object} pro_type
+	 */
+	function goProductDetail(proId,pro_type){
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+			goStatus = 0;
+			openView('../../../view/index/product/detail.html','index_product_detail','pop-in',{'proId':proId,'pro_type':pro_type}); 		
+		}else{//未登录显示未登录界面
+			goStatus = 0;  
+			//关闭加载框
+			closeLoading();	
+			//顶部 
+			sw.toast('您还未登录，登陆后可查看详细信息'); 
+		}		
+	}
+
+</script>
+</html>

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+        th{text-align: center;}
+        #tab-1 .mail-box-header label{ height: 34px; line-height: 34px;width: 50px; margin-bottom: 0; padding-left: 0;padding-right: 0;}
+        .content {  width: 220px;  display: inline-block;  overflow:hidden;  text-overflow:ellipsis;  white-space:nowrap;  padding-left: 10px;  }
+        .vid{width: 45px;text-align: center;}
+        .p_t_m_2{padding-top: 2px; padding-bottom: 2px;}
+        .l a{ color: #0066ff;}
+    </style>
+</head>
+<body>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true" id="tab_1">促销活动</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false" id="tab_2">PC推荐经销商</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false" id="tab_3">PC友情链接配置</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+                            <h3 style="margin-right: 10px;">促销活动</h3>
+                            <!--搜索-->
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="mail-box-header" style="padding-top: 5px;padding-bottom: 0; border: 0;">
+                                        <div class="form-group">
+                                            <div class="col-xs-8 col-sm-6 col-lg-6" style="">
+                                                <input type="hidden" id="tab_1_result" value="1"/>
+                                                <label class="col-xs-4 col-sm-4 col-lg-4 control-label">关键字</label>
+                                                <div class="col-xs-8 col-sm-8 col-lg-8" style="padding-left: 0;">
+                                                    <div class="col-xs-12 col-sm-12 input-group">
+                                                        <input type="text" class="form-control input-xs" id="tab_1_keywords" placeholder="活动ID/标题"/>
+                                                        <span class="input-group-btn">
+                                                            <button type="submit" class="btn btn-primary" id="tab_1_find"> 搜 索 </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="clear: both"></div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: right; padding-right: 15px;margin-bottom: -15px;">
+                                        <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" id="tab_1_refresh">刷新列表</button></span>
+                                        <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" data-style="1" onclick="activity(this)">添加</button></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper wrapper-content">
+                                <div class="ibox-content">
+                                    <!--列表开始-->
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>排序</th>
+                                                <th>活动ID</th>
+                                                <th>封面</th>
+                                                <th>标题</th>
+                                                <th>创建者</th>
+                                                <th>创建时间</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="tab_1_show" style="text-align: center"></tbody>
+                                        </table>
+                                    </div>
+                                    <script id="tab_1_model" type="text/html">
+                                        {{# if(d.massageCode == 'success') { }}
+                                        {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+                                        <tr>
+                                            <td>
+                                                <span><input class="vid" data-id="{{ list[i].id }}" data-type="1" onchange="saveVID(this)" value="{{ list[i].vid }}" /></span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].art_ID }}</span>
+                                            </td>
+                                            <td class="p_t_m_2">
+                                                {{# if (list[i].face_img) { }}
+                                                <span><img src="{{ list[i].face_img }}" style="width: 120px;height: 60px;"></span>
+                                                {{# }else{ }}
+                                                <span></span>
+                                                {{# } }}
+                                            </td>
+                                            <td>
+                                                <span class="content" title="{{ list[i].title }}">{{ list[i].title }}</span>
+                                            </td>
+
+                                            <td>
+                                                <span>{{ list[i].code }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].create_time }}</span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span class="l">
+                                                    <a data-id="{{ list[i]['id'] }}" onclick="getContent(this)">[ 查看 ]</a> <br/>
+                                                    <a data-id="{{ list[i]['id'] }}" data-style="2" onclick="activity(this)">[ 编辑 ]</a> <br/>
+                                                    <a data-id="{{ list[i].id }}" data-type="1" onclick="delContent(this)" style="margin-left: -4px;">[ 删除 ]</a>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        {{# } }}
+                                        {{# }else{ }}
+                                        <td colspan="10">
+                                            <span>{{ d.massage }}</span>
+                                        </td>
+                                        {{# } }}
+                                    </script>
+                                    <!--table end-->
+                                    <!--page-->
+                                    <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                        <input hidden="hidden" value="1" id="tab_1_page"/>
+                                        <span>每页显示
+                                    <select id="tab_1_pageSize" onchange="getLists(1,1)">
+                                        <option value="10"  selected="selected">10</option>
+                                        <option value="30" >30</option>
+                                        <option value="50" >50</option>
+                                        <option value="100">100</option>
+                                        <option value="300">300</option>
+                                        <option value="500">500</option>
+                                        <option value="1000">1000</option>
+                                        <option value="3000">3000</option>
+                                        <option value="5000">5000</option>
+                                    </select>&nbsp;
+                                </span>
+                                        <span id="tab_1_pageInfo" style="margin-right: 10px;"></span>
+                                        <div class="btn-group" id="tab_1_pager"></div>
+                                    </div>
+                                    <!--页码结束-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                        <div class="panel-body">
+                            <h3 style="margin-right: 10px;">PC推荐经销商</h3>
+                            <div style="text-align: right; padding-right: 15px;margin-bottom: 15px;">
+                                <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" id="tab_2_refresh">刷新列表</button></span>
+                                <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" onclick="choiceFirm()">添加</button></span>
+                            </div>
+                            <div class="wrapper wrapper-content">
+                                <div class="ibox-content">
+                                    <!--列表开始-->
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>排序</th>
+                                                <th>企业ID</th>
+                                                <th>昵称</th>
+                                                <th>手机号</th>
+                                                <th>企业名称</th>
+                                                <th>企业类型</th>
+                                                <th>企业分类</th>
+                                                <th>所属区域</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="tab_2_show" style="text-align: center"></tbody>
+                                        </table>
+                                    </div>
+                                    <script id="tab_2_model" type="text/html">
+
+                                        {{# if(d.massageCode == 'success') { }}
+                                        {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+                                        {{# var typeArr = { 0:'',1:'经销商',2:'修理厂'} }}
+                                        {{# var classArr = { 0:{0:'',1:'',2:'',3:'',4:'',5:'',6:''} , 1:{0:'',1:'轿车商家',2:'货车商家',3:'用品商家',4:'',5:'',6:''}, 2:{0:'',1:'',2:'',3:'',4:'修理厂',5:'快修保养',6:'美容店'}  }   }}
+                                        <tr>
+                                            <td>
+                                                <span><input class="vid" data-id="{{ list[i].id }}" data-type="2" onchange="saveVID(this)" value="{{ list[i].vid }}"/></span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].EnterpriseID }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].uname == null ? '' : list[i].uname }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].phone }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].companyname }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ typeArr[list[i].type] }}</span>
+                                            </td>
+
+                                            <td>
+                                                <span>{{ classArr[list[i].type][list[i].classification] }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].area }}</span>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span class="l">
+                                                    <a data-id="{{ list[i].id }}" data-type="2" onclick="delContent(this)" style="margin-left: -4px;">[ 取消 ]</a>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        {{# } }}
+                                        {{# }else{ }}
+                                        <td colspan="10">
+                                            <span>{{ d.massage }}</span>
+                                        </td>
+                                        {{# } }}
+                                    </script>
+                                    <!--table end-->
+                                    <!--page-->
+                                    <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                        <input hidden="hidden" value="1" id="tab_2_page"/>
+                                        <span>每页显示
+                                    <select id="tab_2_pageSize" onchange="getLists(2,1)">
+                                        <option value="10"  selected="selected">10</option>
+                                        <option value="30" >30</option>
+                                        <option value="50" >50</option>
+                                        <option value="100">100</option>
+                                        <option value="300">300</option>
+                                        <option value="500">500</option>
+                                        <option value="1000">1000</option>
+                                        <option value="3000">3000</option>
+                                        <option value="5000">5000</option>
+                                    </select>&nbsp;
+                                </span>
+                                        <span id="tab_2_pageInfo" style="margin-right: 10px;"></span>
+                                        <div class="btn-group" id="tab_2_pager"></div>
+                                    </div>
+                                    <!--页码结束-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-3" class="tab-pane">
+                        <div class="panel-body">
+                            <h3 style="margin-right: 10px;">PC友情链接</h3>
+                            <div style="text-align: right; padding-right: 15px;margin-bottom: 15px;">
+                                <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" id="tab_3_refresh">刷新列表</button></span>
+                                <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" data-id="0" data-type="1" data-style="1" onclick="friendly_link(this)">添加</button></span>
+                            </div>
+                            <div class="wrapper wrapper-content">
+                                <div class="ibox-content">
+                                    <!--列表开始-->
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>排序</th>
+                                                <th>名称</th>
+                                                <th>链接</th>
+                                                <th>创建者</th>
+                                                <th>创建时间</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="tab_3_show" style="text-align: center"></tbody>
+                                        </table>
+                                    </div>
+                                    <script id="tab_3_model" type="text/html">
+                                        {{# var url_typeArr = {  0:'其他', 1:'促销活动',2:'新闻资讯',3:'新手上路',4:'外部链接',5:'无连接',6:'其他' }  }}
+                                        {{# if(d.massageCode == 'success') { }}
+                                        {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+                                        <tr>
+                                            <td>
+                                                <span><input class="vid" data-id="{{ list[i].id }}" data-type="3" onchange="saveVID(this)" value="{{ list[i].vid }}"/></span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].vname }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="content" title="{{ list[i].vurl }}">{{ list[i].vurl }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].code }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ list[i].create_time }}</span>
+                                            </td>
+
+                                            <td style="text-align: center;">
+                                                <span class="l">
+                                                    <a data-id="{{ list[i].id }}" data-type="3" data-style="2" onclick="friendly_link(this)">[ 编辑 ]</a> <br/>
+                                                    <a data-id="{{ list[i].id }}" data-type="3" onclick="delContent(this)" style="margin-left: -4px;">[ 删除 ]</a>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        {{# } }}
+                                        {{# }else{ }}
+                                        <td colspan="10">
+                                            <span>{{ d.massage }}</span>
+                                        </td>
+                                        {{# } }}
+                                    </script>
+                                    <!--table end-->
+                                    <!--page-->
+                                    <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                        <input hidden="hidden" value="1" id="tab_3_page"/>
+                                        <span>每页显示
+                                    <select id="tab_3_pageSize" onchange="getLists(3,1)">
+                                        <option value="10"  selected="selected">10</option>
+                                        <option value="30" >30</option>
+                                        <option value="50" >50</option>
+                                        <option value="100">100</option>
+                                        <option value="300">300</option>
+                                        <option value="500">500</option>
+                                        <option value="1000">1000</option>
+                                        <option value="3000">3000</option>
+                                        <option value="5000">5000</option>
+                                    </select>&nbsp;
+                                </span>
+                                        <span id="tab_3_pageInfo" style="margin-right: 10px;"></span>
+                                        <div class="btn-group" id="tab_3_pager"></div>
+                                    </div>
+                                    <!--页码结束-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/js/laytpl/laytpl.js"></script>
+<!--弹窗js-->
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+<!--分页插件-->
+<script src="/js/jquery.page.js"></script>
+
+<!--自定义JS-->
+<script src="/js/global.js"></script>
+<script>
+    $(function(){
+        getLists(1,1);
+        $('#tab_1,#tab_1_find,#tab_1_refresh').click(function () {
+            getLists(1,1);
+        });
+        $('#tab_2,#tab_2_refresh').click(function () {
+            getLists(2,1);
+        });
+        $('#tab_3,#tab_3_refresh').click(function () {
+            getLists(3,1);
+        });
+
+    });
+
+    //===============开始======================
+    function getLists(type,page) {
+        var data    = {} ;
+        data.type   = type ? type : 1 ;
+        data.page   = page ? page : 1 ;
+        data.pageSize = type == 1 ?  $("#tab_1_pageSize").val() : $("#tab_2_pageSize").val() ;
+        data.keywords = type == 1 ?  $("#tab_1_keywords").val() : (type == 2 ? $("#tab_2_keywords").val() : $("#tab_3_keywords").val()) ;
+        var url = '/plat.activity/getLists';
+        //var index = layer.load(2);
+        $.post(url,{data:data},function(rv){
+            var pageObj   = $("#tab_1_page") ;
+            var pagerObj  = $("#tab_1_pager") ;
+            var modelObj  = $("#tab_1_model") ;
+            var bannerObj = $("#tab_1_show") ;
+            var pInfoObj  = $("#tab_1_pageInfo") ;
+            if(type == 2){
+                pageObj   = $("#tab_2_page") ;
+                pagerObj  = $("#tab_2_pager") ;
+                modelObj  = $("#tab_2_model") ;
+                bannerObj = $("#tab_2_show") ;
+                pInfoObj  = $("#tab_2_pageInfo") ;
+            }else if(type==3){
+                pageObj   = $("#tab_3_page") ;
+                pagerObj  = $("#tab_3_pager") ;
+                modelObj  = $("#tab_3_model") ;
+                bannerObj = $("#tab_3_show") ;
+                pInfoObj  = $("#tab_3_pageInfo") ;
+            }
+            var p        = rv.page;
+            var pageSize = rv.pageSize;
+            var count    = rv.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            pInfoObj.text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+
+            pagerObj.createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getLists(type,p);
+                }
+            });
+            var tpl = modelObj.html();
+            laytpl(tpl).render(rv, function(html){
+                bannerObj.html(html);
+            });
+            pageObj.val(p);
+        },'json');
+    }
+    function saveVID(obj) {
+        var data = {} ;
+        data.id  = $(obj).attr('data-id');
+        data.vid = $(obj).val();
+        data.type= $(obj).attr('data-type');
+        var url = '/plat.activity/saveVID';
+        $.post(url,{data:data},function(rv){
+            if(rv.massageCode == 'success'){
+                getLists(data.type,1);
+            }
+
+        },'json')
+    }
+    /**
+     * 删除促销活动/取消推荐经销商/删除友情链接
+     * @param obj
+     */
+    function delContent(obj) {
+        var tip = '是否删除 ? 删除之后无法恢复!' ;
+        var data = {} ;
+        data.id  = $(obj).attr('data-id');
+        data.type= $(obj).attr('data-type');
+        if(data.type == 2){
+            tip  = '是否取消 ? 取消之后可以重新添加!' ;
+        }
+        layer.confirm(tip,{shadeClose: true, title:'重要提示'},function (index) {
+
+            var url = '/plat.activity/delContent';
+            $.post(url,{data:data},function(rv){
+                if(rv.massageCode == 'success'){
+                    layer.close(index);
+                    layer.msg(rv.massage) ;
+                    getLists(data.type,1);
+                }else {
+                    layer.msg(rv.massage) ;
+                }
+            },'json')
+        });
+    }
+
+    function getContent(obj) {
+        var id   = $(obj).attr('data-id');
+        var title = "促销活动详情";
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['90%', '85%'],
+            content: '/plat.activity/getContent/?id='+id
+        });
+    }
+    function activity(obj) {
+        var id   = $(obj).attr('data-id');
+        var style= $(obj).attr('data-style');
+
+        var title = "新增促销活动";
+        if(style == 2){
+            title = "编辑促销活动";
+        }
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['90%', '85%'],
+            content: '/plat.activity/editContent/?id='+id,
+            end:function () {
+                getLists(1,1);
+            }
+        });
+    }
+    function choiceFirm() {
+        var title = "新增推荐经销商";
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['800px', '85%'],
+            content: '/plat.activity/choiceFirm/',
+            /*end:function () {
+                getLists(2,1);
+            }*/
+        });
+    }
+    function friendly_link(obj) {
+        var id   = $(obj).attr('data-id');
+        var style= $(obj).attr('data-style');
+
+        var title = "新增友情链接";
+        if(style == 2){
+            title = "编辑友情链接";
+        }
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['500px', '250px'],
+            content: '/plat.activity/friendlyLink/?id='+id,
+            /*end:function () {
+                getLists(3,1);
+            }*/
+        });
+    }
+
+</script>
+</body>
+</html>

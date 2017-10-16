@@ -1,0 +1,45 @@
+.titles{height: 90px;line-height: 90px;margin-top: 15px;text-align: center;font-size: 20px;font-weight: 500;color: #5D5D5D}
+#approveInfo{padding-left: 52px;padding-right: 52px;margin-top: 25px;}
+.hint{height: 30px;background: #FECBC8;text-align: center;color: #FA0D05;line-height: 30px;margin-bottom: 40px;}
+input{padding-left: 10px;border: 1px solid #DDD;}
+select{height: 40px;border: 1px solid #DDD;}
+#s_city{width: 80px;}
+#s_county{width: 107px; }
+.marBottom32{font-size: 16px;margin-bottom: 32px;}
+.approveText{float: left;width: 95px;line-height: 40px;}
+.approveInput{width: 308px;height: 40px;}
+.approveRightText{float: left;width: 95px;line-height: 40px;margin-left: 28px;margin-right: 30px;text-align: right;}
+textarea{border: 1px solid #DDD;padding-left: 10px;padding-right: 10px;}
+.approveTextarea{width: 769px;height: 72px;max-width: 769px;max-height: 72px;}
+.companyInfoText{font-size: 16px;color: #333;margin-bottom: 40px;font-weight: 500;}
+.biTian{color: #FF2927;font-weight: bold;}
+.ziZhiZhaoPian{color: #333;font-size: 16px;font-weight: 500;margin-bottom: 30px;}
+.marTop10{margin-top: 10px;}
+.ziZhiImgDiv{width:90px;position: relative;float: left;margin-right: 28px;}
+.moRenImg{width:90px;height: 90px;border: 1px solid #DDD;}
+.shangChuanBtn{float: left;padding: 0;background: #28E251;width: 40px;height: 22px;text-align: center;}
+.shanChuBtn{float: right;padding: 0;background: #FF544C;width: 40px;height: 22px;text-align: center;}
+.imgInfo{position: absolute;color: #FD4C46;top: 36px;right: 0;width: 90px;text-align: center}
+.shenHe{letter-spacing: 6px;background: #FF524B;width: 392px;height: 48px;border-radius: 7px;font-size: 18px;font-weight: bold;}
+.shenHeDiv{margin-top: 70px;text-align: center;margin-bottom: 70px;}
+
+/*认证成功*/
+.noUpImg{background: #FFF;width: 90px;height: 90px;border: 1px solid #DDD;}
+.noUpText{width: 90px;text-align: center;color: #FF544C;position: absolute;top: 35px;}
+.textCenter{text-align: center;}
+.borderBtottomX{border-bottom: 1px solid #DDD;margin-top: 65px;}
+.tiShiText{text-align: center;color: #656565;margin-top: 60px;font-size: 18px;}
+.marBottom60{margin-bottom: 60px;}
+.companyText{float: left;width: 320px;line-height: 40px;}
+.adress{float: right;line-height: 40px;width: 295px;}
+.adressInfo{float: right;line-height: 40px;width: 765px;}
+
+
+/*固定定位QQ、电话*/
+.fixedQQ{display: none;color: #FFF;text-align:center;float: right;height: 40px;margin-top: 10px;width: 150px;border: 2px solid #FAA29E;border-radius: 30px;line-height: 40px;background: #FAA29E}
+.fixedDiv{height: 60px;margin-top: 20px;}
+.fixedDinWei{position: fixed;width: 260px;height: 260px;top: 300px;right: 15px;z-index: 100}
+.fixedYuan{float: right;height: 60px;width: 60px;text-align: center;line-height: 52px}
+
+
+

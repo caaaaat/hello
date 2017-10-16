@@ -1,0 +1,65 @@
+.titles{height: 90px;line-height: 90px;margin-top: 15px;text-align: center;font-size: 24px;font-weight: 500;color: #5D5D5D}
+input{padding-left: 10px;padding-right: 10px;}
+.quYuSelect{height: 40px;border: 1px solid #DDD;color: #666;margin-left: -5px;padding-left: 5px;}
+select,select option{font-size: 16px;}
+#divBody{padding-left: 20px;padding-right: 20px;}
+.floLeft{float: left;}
+.relaTiveFloLeft{position: relative;float: left;}
+.souSuoInput{padding-left: 35px;width: 285px;height: 42px;border: 1px solid #FF524B;background: #FFF;line-height: 42px;}
+.souSuoImg{position: absolute;top: 13px;left: 13px;}
+.souSuoBtn{vertical-align: bottom;border: none;color: #FFF;background: #FD524A;width: 88px;height: 42px;font-size: 16px;margin-left: -5px;}
+.floLeftMarLeft25{float: left;margin-left: 25px;}
+.shangText{height: 40px;line-height: 40px;font-size: 16px;}
+.floRight{float: right;}
+.selectType{height: 40px;padding-left: 5px;}
+.marTop62{margin-top: 62px;}
+.mapDiv{float: left;width: 465px;height: 425px;}
+.mapImg{width: 465px;height: 425px;border: 1px solid #DDD}
+.floRight450{float: right;width: 450px;margin-top: -1px;}
+.trackDiv{height: 142px;border: 1px solid #DDD;padding: 15px 15px 15px 20px;}
+.trackImgDiv{width: 115px;height: 115px;float: left;}
+.trackImg{height: 115px;max-width: 115px;}
+.floLeftMarLeft18{float: left;margin-left: 18px;}
+.trackName{font-size: 16px;color: #FF6534;font-weight: bold;height: 40px;line-height: 40px;}
+.trackTag{font-size: 12px;width: 62px;height: 20px;border: 1px solid #18B2FC;line-height: 20px;text-align: center;color:#18B2FC}
+.trackInfo{color: #A9A9A9;margin-top: 25px;}
+.touSu{margin-left: 5px;margin-right: 12px;}
+.marLeft5{margin-left: 5px;}
+.floRightPadTop32{float: right;padding-top: 32px;}
+.inShop{font-size: 16px;color: #FF524B;border-radius: 7px;border: 2px solid #FF524B;width: 112px;height: 52px;line-height: 52px;text-align: center;}
+/*.floRight450:first-child .trackDiv{border-bottom: none!important;}*/
+.companyNameHidden{float: left;max-width: 500px;overflow: hidden;text-overflow: ellipsis;white-space: pre;}
+
+/*搜索*/
+.goBackDiv{position: absolute;top: -20px;left: 30px;font-weight: normal;font-size: 18px;}
+.souSuoInputSeek{padding-left: 35px;width: 405px;height: 42px;border: 1px solid #FF524B;background: #FFF;line-height: 42px;}
+.padLeft30PadBottom62{padding-left: 30px;padding-bottom: 62px;}
+.padLeft20PadRight20{padding-left: 20px;padding-right: 20px;}
+.shangJiaListDiv{border: 1px solid #DDD;height: 142px;padding: 15px 55px 15px 30px;margin-bottom: 16px;}
+.shangJiaImgDiv{float: left;width: 112px;height: 112px;border: 1px solid #DDD;vertical-align: middle;}
+.shangJiaImg{width: 110px;max-height: 110px;}
+.shangJiaInfoDiv{float: left;margin-left: 25px;padding-top: 10px;}
+.CompanyDiv{font-size: 18px;color: #FF6634;font-weight: bold;margin-bottom: 5px;}
+.companyTag{color: #16B2FC;border: 1px solid #16B2FC;width: 62px;text-align: center;margin-bottom: 20px;}
+.touSu{margin-left: 5px;margin-right: 15px;}
+.marLeft5{margin-left: 5px;}
+.floRightPadTop29{float: right;padding-top: 29px;}
+.goShop{font-size: 20px;color: #FD524A;width: 112px;height: 52px;border: 2px solid #FD524A;line-height: 52px;text-align: center;border-radius: 7px;}
+.goShopRed{background: #FF524B!important;color: #FFF!important;;}
+.comPanyTagGree{color: #36C73E!important;border: 1px solid #36C73E!important;;}
+
+/*固定定位QQ、电话*/
+.fixedQQ{display: none;color: #FFF;text-align:center;float: right;height: 40px;margin-top: 10px;width: 150px;border: 2px solid #FAA29E;border-radius: 30px;line-height: 40px;background: #FAA29E}
+.fixedDiv{height: 60px;margin-top: 20px;}
+.fixedDinWei{position: fixed;width: 260px;height: 260px;top: 300px;right: 15px;z-index: 100}
+.fixedYuan{float: right;height: 60px;width: 60px;text-align: center;line-height: 52px}
+
+
+/*分页*/
+.btn-primary.active{background: #FFF;color: #2E2E2E;border: 1px solid #FE534B;border-top: none;border-bottom: none;box-shadow:none;}
+.btn-white{border: 1px solid #FE534B;color: #FE534B;}
+.btn:hover{border: 1px solid #FE534B;}
+
+
+
+

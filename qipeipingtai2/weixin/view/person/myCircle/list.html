@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的圈子</title>
+    <link type="text/css" charset="utf-8" rel="stylesheet" href="../../../css/mui.min.css"/>
+    <link type="text/css" charset="utf-8" rel="stylesheet" href="../../../css/common.css" />
+</head>
+<style>
+	.sw-link{
+		color: #666;
+		border: 1px solid #efefef; 
+		height: 48px;
+		line-height: 48px;
+		text-align: left;
+		width: 240px;
+		margin: auto;
+		border-radius: 24px;
+		font-size: 14px;
+		padding-left: 24px;
+	}
+	.sw-input-box{
+		width: 100%;background: #efefef;padding-top: 10px;text-align: center;z-index: 3;
+	}
+	.sw-input-phone{
+		text-align: left;
+		height: 40px!important;
+		background-size: 16px;
+		padding-left: 24px!important;
+		padding-right: 42px!important;
+		width:96%!important;
+		margin-bottom: 10px!important;
+		border-radius: 24px!important;
+	}
+		.sw-search-p{
+	    background: url(../../../image/index/icon_wz_sousuo@3x.png)no-repeat;
+	    width: 45px;
+	    height: 36px;
+	    margin: 0!important;
+	    background-size: 17px;
+	    position: absolute;
+	    top: 11px;
+	    background-position: center;
+	    margin-top: -50px;
+	    right: 16px; 
+	    
+			}
+	.sw-input-zx{
+		position: absolute;right: 42px;top: 22px;width: 24px;height: 24px;
+	}
+	.sw-card-header{
+		padding-right: 10%!important;
+	}
+	.sw-card-header:after{
+		background: none!important;
+	}
+	.sw-card-body{
+		background: #f5f5f5;margin-top: 4px;border: 1px solid #DDDDDD;border-radius: 6px;padding: 10px;
+	}
+	.sw-coterie-imgBox:before,.sw-coterie-imgBox:after{
+		height: 0;
+	}
+	.sw-card-cuBox3{
+		height: 60px;
+		white-space: normal; 
+		 color: #000000;
+		 overflow-y: hidden;
+	    display: -webkit-box;
+	    -webkit-box-orient: vertical;
+	    word-break: break-all;
+	    font-size: 16px;
+	    line-height: 32px!important;
+	}
+	
+	.sheying:active{
+		width: 46px!important;
+	}
+	.sw-coterie-box{
+		background: #FFFFFF;margin-bottom: 20px;
+	}
+	.sw-face{
+		border-radius: 50%;
+	}
+	.sw-nickName{
+		color:#FF534C;line-height: 24px;
+	}
+	.sw-table-text1{
+		color: #333333;line-height: 18px;
+	}
+	.sw-dingwei-img{
+		width: 16px;vertical-align: top;margin-right: 4px;
+	}
+	
+	.sw-del-box{
+		width: 50%;float: left;line-height: 24px;
+	}
+	.sw-del-text{
+		font-size: 13px;color: #FF534C;margin-left: 16px
+	}
+	
+	.sw-like-box{
+		width: 50%;float: right;line-height: 24px;text-align: right;
+	}
+	.sw-like-img{
+		height: 15px;width:17px;vertical-align: text-bottom;margin-right: 4px;
+	}
+	.sw-pj-img{
+		height: 15px;width:17px;vertical-align: text-bottom;margin-right: 4px;
+	}
+	
+	.sw-card-li{
+		background: #e9e9e9;width: 90%;padding: 10px 12px;padding-right: 10px!important;
+	}
+	.sw-card-img1{
+		height: 60px!important;max-width: 60px!important;
+	}
+	.sheying-box{
+		position: fixed;width: 40px;bottom: 30px;right: 12px;z-index: 3;
+	}
+	.sheying-box img{
+		width: 40px;
+	}
+	.sheying{
+		transition: width 100ms;
+		
+	}
+		.mui-popup-button:after {
+    width: 0px;
+}
+.mui-popup-inner:after {
+    height: 0px;
+}
+.mui-popup-button:first-child:last-child {
+    border-radius: 4px;
+}
+.sw-popu-btn{
+	width:70%;height:36px;line-height:14px;border-radius: 1px;margin: auto;font-size: 16px;
+}
+/*//下拉加载*/
+.mui-bar~.mui-content .mui-fullscreen {
+	top: 44px;
+	height: auto;
+}
+.mui-pull-top-tips {
+	position: absolute;
+	top: -20px;
+	left: 50%;
+	margin-left: -25px;
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+	z-index: 1;
+}
+.mui-bar~.mui-pull-top-tips {
+	top: 24px;
+}
+.mui-pull-top-wrapper {
+	width: 42px;
+	height: 42px;
+	display: block;
+	text-align: center;
+	background-color: #efeff4;
+	border-radius: 25px;
+	background-clip: padding-box;
+	overflow: hidden; 
+}
+.mui-pull-top-tips.mui-transitioning {
+	-webkit-transition-duration: 200ms;
+	transition-duration: 200ms;
+}
+.mui-pull-top-tips .mui-pull-loading {
+	/*-webkit-backface-visibility: hidden;
+	-webkit-transition-duration: 400ms;
+	transition-duration: 400ms;*/
+	
+	margin: 0;
+}
+.mui-pull-top-wrapper .mui-icon,
+.mui-pull-top-wrapper .mui-spinner {
+	margin-top: 7px;
+}
+.mui-pull-top-wrapper .mui-icon.mui-reverse {
+	/*-webkit-transform: rotate(180deg) translateZ(0);*/
+}
+.mui-pull-bottom-tips {
+	text-align: center;
+	background-color: #efeff4;
+	font-size: 15px;
+	line-height: 40px;
+	color: #777;
+}
+.mui-pull-top-canvas {
+	overflow: hidden;
+	background-color: #fafafa;
+	border-radius: 40px;
+	width: 40px;
+	height: 40px;
+	margin: 0 auto;
+}
+.mui-pull-top-canvas canvas {
+	width: 40px;
+}
+.mui-slider-indicator.mui-segmented-control {
+	background-color: #efeff4;
+}	
+</style>
+<body style="background: #EFEFEF;">
+	<header class="mui-bar mui-bar-nav">	
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">我的圈子</h1>
+	</header>
+	<div class="mui-content" style="background: #EFEFEF;">
+	 <div class="mui-input-row sw-input-box">
+		<input type="text" placeholder="输入关键字搜索"  id="keyWord" style="font-size:14px;color: #666;" maxlength="17" class="sw-input-phone">
+		<p class="sw-search-p" onclick="forSearch002()"></p>	
+	</div>
+
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper"  style="margin-top:60px;padding-bottom: 50px;">
+
+			<div class="mui-scroll">
+
+				<!--数据列表-->
+				<ul id="conList" class="mui-table-view mui-table-view-chevron" style="padding-top: 50px;">
+
+				</ul>
+
+				<input value="1" hidden="hidden" id="page"/>
+
+
+			</div>
+
+		</div>
+
+	</div>
+	 <div class="sheying sheying-box" id="publish"><img src="../../../image/coterie/sheying.png" class="sheying"/></div>
+	
+	 
+	 <!--圈子模板-->
+	 <script id="pay-list-tpl" type="text/html">
+	 	{{# var len = d.length }}
+		{{# for(var i = 0;i < len; i++){ }}
+			<div class="mui-card-header mui-card-media sw-card-header" id="circle_{{ d[i].id }}">
+	 	 	<img src="{{ imgUrl+d[i].head_pic }}" class="sw-face"/>
+			<div class="mui-media-body">
+				<span class="sw-nickName">{{ d[i].uname }}</span>
+				<p class="sw-table-text1" style="word-break: break-all;">{{ d[i].content }}</p>
+		    	{{# if(d[i].circle_type==2){ }}
+		    	<ul class="mui-table-view sw-coterie-imgBox" onclick="openFirms('{{ d[i].fxFirm.EnterpriseID }}','{{ d[i].fxFirm.companyname }}','{{ d[i].fxFirm.type }}')" style="margin: 10px 0;">
+					<li class="mui-table-view-cell mui-media sw-card-li">
+
+						<img class="mui-media-object mui-pull-left sw-card-img1" src="{{ imgUrl+d[i].fxFirm.face_pic }}">
+						<div class="mui-media-body sw-card-cuBox3">
+							{{ d[i].fxFirm.companyname }}
+						</div>
+
+					</li>
+				</ul>
+				{{# }else{ }}
+				
+				<ul class="mui-table-view mui-grid-view sw-coterie-imgBox" style="margin-left: -12px;">
+					{{# for(var j=0,len2=d[i].imgs.length;j<len2;j++){ }}
+					<li class="mui-table-view-cell mui-media mui-col-xs-4">
+						<img class="mui-media-object" src="{{ imgUrl+d[i].imgs[j] }}" data-preview-src="{{ imgUrl+d[i].imgs[j] }}" data-preview-group="{{ d[i].id }}" width="100%" height="{{ imgH }}px" style="height: {{ imgH }}px;">
+					</li>
+					{{# } }}
+				</ul>
+				
+				{{# } }}
+				<p style="color: #FF534C!important;">
+					<img src="../../../image/coterie/dingwei.png" class="sw-dingwei-img"/>{{ d[i].area }}
+				</p> 
+				<div style="width: 100%;">
+					<p class="sw-del-box">
+						{{ d[i].create_time }}
+						{{# if(d[i].can_delete){ }}
+						<span class="sw-del-text" onclick="delCircle('{{ d[i].id }}','{{ d[i].type }}','{{ d[i].fu_id }}')">删除</span>
+						<input type="number" name="delStatus{{ d[i].id }}" id="delStatus{{ d[i].id }}" value="1" hidden="hidden" />	
+						{{# } }}   
+					</p>
+					<p class="sw-like-box">	
+						<span style="margin-right: 32px;">
+							{{# if(d[i].is_collect){ }}
+							<img src="../../../image/coterie/icon_dt_like_r.png" class="sw-like-img" id="like_this_{{ d[i].id }}" onclick="collectCircle('{{ d[i].id }}',0)"/>
+							{{# }else{ }}
+							<img src="../../../image/coterie/icon_dt_like.png" class="sw-like-img" id="like_this_{{ d[i].id }}"  onclick="collectCircle('{{ d[i].id }}',1)"/>
+							{{# } }}
+							<span id="circle_collect_{{ d[i].id }}">{{ d[i].collection }}</span>
+						</span>
+						<span id="detail">
+							<img src="../../../image/coterie/icon_dt_pingjia.png" class="sw-pj-img" onclick="pinglun22('{{ d[i].id  }}')"/>{{ d[i].comments }}
+						</span>
+					</p>
+				</div>
+
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+		{{# mui.previewImage(); } }}
+	 </script>
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+ <script src="../../../js/jquery.min.js"></script>
+ <script src="../../../js/laytpl/laytpl.js"></script>
+ <script src="../../../js/mui.previewimage.js?v=1.0.6"></script>
+<script src="../../../js/mui.zoom.js"></script>
+<script src="../../../js/mui.pullToRefresh.js"></script>
+<script src="../../../js/mui.pullToRefresh.material.js"></script>
+ <script>
+
+	 mui.init({
+		 pullRefresh: {
+			 container: '#pullrefresh',
+			 up: {
+				 auto:true,
+				 contentrefresh: '正在加载...',
+				 contentnomore:'<div class="sw-footer"><span>我是有底线的</span></div>',
+				 callback: getDataForCircle
+			 }
+		 }
+	 });
+
+ 	//消息列表
+ 	function pinglun22(n){
+ 		openView('../../../view/coterie/coterieDetail.html','detail','pop-in',{vid:n});
+ 	}
+	/*mui("#detail")[0].addEventListener('tap',function(){
+		openView('../../../view/coterie/coterieDetail.html','detail','pop-in');
+	})*/
+	//发表评论
+	mui("#publish")[0].addEventListener('tap',function(){
+		openView('../../../view/coterie/publish.html','view_coterie_publish','pop-in');
+	});
+
+	
+	function forSearch002(){
+		$('#conList').html('');
+		mui("#page")[0].value=1;
+		mui('#pullrefresh').pullRefresh().refresh(true);
+		mui('#pullrefresh').pullRefresh().pullupLoading();
+	}
+
+	function getDataForCircle() {
+        var page = mui("#page")[0].value;//获取页数
+        var keyword = $('#keyWord').val();
+
+        var data = {};
+        var postData = {};
+
+        //请求的数据
+        postData.dos      = 'mine';
+        postData.keyword  = keyword;
+        postData.page     = page;//请求的页码
+        postData.pageSize = 10;//每页显示数量
+        postData.token    = JsonStorage.getItem('token');
+        postData.userType = JsonStorage.getItem('userType');	//2为业务员
+
+        data.postData = postData;
+        console.log(postData.token);
+        //页面相关数据
+        data.mod      = 'api.sev.circle';//模型
+        data.fun      = 'getCircleDateList';//方法
+        data.tpl      = 'pay-list-tpl';//列表模板
+        data.listId   = 'payList';//列表容器
+
+        //请求并处理数据
+        loadInfo(data,false);
+    }
+
+
+
+
+	var imgH = parseInt((document.body.clientWidth-120)/3);
+	//mui plusReady
+	$(function() {});
+
+	function delCircle(n,t,f){
+        mui.confirm('确认删除？删除后不可恢复', '&nbsp;', ['<span class="mui-popup-button mui-btn sw-popu-btn" style="color:#333">确认</span>','<span class="mui-popup-button mui-btn mui-btn-blue sw-popu-btn">取消</span>' ], function(e) {
+			if (e.index == 1) {//确认
+				var delId = "#delStatus"+n;
+			    if($(delId).val()==1){
+					$(delId).val(0)
+					//加载弹窗
+
+					var postData      = {};
+					postData.id       = n;
+					postData.ty       = t;
+					postData.fu       = f;
+					postData.token    = JsonStorage.getItem('token');
+	    			postData.userType = JsonStorage.getItem('userType');	//2为业务员
+
+			        if(UserInfo.has_login()==false){
+			        	sw.toast('请重新登录');
+						return
+					}
+						//如果已经登陆 获取登录后的数据
+					http.load('api.sev.circle','delSelfCircle',postData,function(rData){//请求成功
+						//关闭加载框
+						closeLoading();
+						sw.toast(rData.msg);
+			 			if(rData.status==200){//保存成功
+			 				//下架成功从列表移除
+							var conId = '#circle_'+n;
+							$(conId).remove();
+			 			}else{
+			 				$(delId).val(1)
+			 			}
+			 		},function(xhr,type,errorThrown){//请求失败
+			 			$(delId).val(1)
+						//无网络提示
+						sw.toast('请求失败，服务器或网络异常');
+			 		})
+				}
+			}
+		},'div')
+		$('.mui-popup-button').css('font-size','16px');
+	}
+
+	function collectCircle(n,t) {
+        if(UserInfo.has_login()==false){
+            sw.toast('请重新登录');
+            return
+        }
+        var postData      = {};
+        postData.id       = n;
+        postData.type     = t;
+        postData.token    = JsonStorage.getItem('token');
+        postData.userType = JsonStorage.getItem('userType');	//2为业务员
+        //如果已经登陆 获取登录后的数据
+        http.load('api.sev.circle','collectCircle',postData,function(rData){//请求成功
+            //关闭加载框
+            closeLoading();
+            sw.toast(rData.msg);
+            if(rData.status==200){//保存成功
+                if(t===1){
+					$('#like_this_'+n).attr('onclick','collectCircle('+n+',0)').attr('src','../../../image/coterie/icon_dt_like_r.png');
+					$('#circle_collect_'+n).html(parseInt($('#circle_collect_'+n).html())+1);
+                }else {
+                    $('#like_this_'+n).attr('onclick','collectCircle('+n+',1)').attr('src','../../../image/coterie/icon_dt_like.png');
+                    $('#circle_collect_'+n).html(parseInt($('#circle_collect_'+n).html())-1);
+                }
+            }
+        },function(xhr,type,errorThrown){//请求失败
+            //无网络提示 
+            sw.toast('请求失败，服务器或网络异常');
+        })
+    }
+
+
+	 //页面跳转
+	 function openFirms(EnterpriseID,comName,type){
+//		loading('加载中...');
+
+		 //监控页面是否登录
+		 if(UserInfo.has_login()){
+
+			 if(type==1){//经销商
+				 var postData = {'EnterpriseID':EnterpriseID,'jxName':comName};
+				 //打开窗口
+				 openView('../../../view/index/shangjia/jingxiao.html','index_shangjia_jingxiao','pop-in',postData);
+
+			 }else{//汽修厂
+
+				 var token   = JsonStorage.getItem('token');
+				 var postData = {};
+				 postData.token = token;
+				 //如果已经登陆 获取登录后的数据
+				 http.load('api.sev.user','getUserInfo',postData,function(rData){//请求成功
+					 //关闭加载框
+//					closeLoading();
+					 if(rData.status==200){
+						 dy(rData);
+						 var data = rData.data;
+						 //前往汽修厂确认
+						 qxConfirm(data.is_showfactry,EnterpriseID,comName)
+					 }else{
+						 sw.toast(rData.msg);
+					 }
+				 },function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+					 //关闭加载框
+//					closeLoading();
+					 //无网络提示
+					 sw.toast('请求失败，服务器或网络异常');
+				 })
+
+			 }
+
+		 }else{//未登录显示未登录界面
+			 console.log(1)
+			 //关闭加载框
+//			closeLoading();
+			 //顶部
+			 sw.toast('您还未登录，请登录后重试');
+		 }
+	 }
+
+
+	 //汽修提示
+	 function qxConfirm(is_showfactry,EnterpriseID,qxName){
+		 if(is_showfactry==1){
+			 var postData = {'EnterpriseID':EnterpriseID,'qxName':qxName};
+			 openView('../../../view/person/repair/detail.html','person_repair_detail','pop-in',postData);
+		 }else{
+			 mui.confirm('您无访问权限，可咨询客服了解详情', '&nbsp;', ['<span class="mui-popup-button mui-btn sw-popu-btn" style="color:#333">关闭</span>','<span class="mui-popup-button mui-btn mui-btn-blue sw-popu-btn">客服</span>' ], function(e) {
+				 if (e.index == 3&&kefuStatus==1) {//确认
+					 kefuStatus = 0;
+					 setTimeout(function(){
+						 kefuStatus = 1;
+						 var qqIni = plus.storage.getItem('qqIni');
+						 window.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin='+qqIni+'&version=1&src_type=web&web_src=qq.com';
+					 },300)
+				 }
+			 },'div')
+			 $('.mui-popup-button').css('font-size','16px');
+			 //关闭加载框
+			 closeLoading();
+		 }
+	 }
+ </script>
+</html> 

@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="/css/pc/person/shopInfo.css">
+<!--<link href="/js/hplus/css/font-awesome.min.css" rel="stylesheet">-->
+<link href="/js/hplus/css/animate.min.css" rel="stylesheet">
+<div class="titles" style="position: relative">
+    <div class="goBackDiv"><a href="/person/shopInfo"><img src="/images/qpxm/pc/person/shopInfo/left.png" style="vertical-align: baseline" alt=""> 返回</a></div>
+    <span style="font-size: 24px;font-weight: 500;">访问明细</span>
+</div>
+<!--上部选项-->
+<div class="padLeft28right25">
+    <a href="/person/shopCareful?type=1"><div class="typeXuanXiang <?php if($type07==1){ ?>typeXuanXiangActive<?php } ?>">来访记录</div></a>
+    <a href="/person/shopCareful?type=2"><div class="typeXuanXiang <?php if($type07!=1){ ?>typeXuanXiangActive<?php } ?>" style="margin-left: -2px;">来电记录</div></a>
+    <div style="clear: both;"></div>
+</div>
+<!--访问商家列表-->
+<div id="shopListDiv">
+    <!--VIP商家-->
+    <!--<div class="shopListDiv">
+        <div class="floatLeft">
+            <img src="/images/qpxm/pc/index/cuXiaoCar.png" class="height155maxW155" alt="">
+        </div>
+        <div class="shopListInfo">
+            <div class="shopListVIPNameDiv">
+                经销商企业名称
+                <img src="/images/qpxm/pc/person/shopInfo/v.png" alt="">
+                <span class="carTypeName">轿车商家</span>
+            </div>
+            <div class="shopListInfoDiv">
+                <div class="height25lineH25">
+                    <span>联系人 ：</span><span>samul</span>
+                </div>
+                <div class="height25lineH25">
+                    <span>电话 ：</span><span>13333333333</span>
+                </div>
+                <div class="height25lineH25">
+                    2017-02-25 15:05:12
+                </div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>-->
+    <!--普通认证商家-->
+    <?php foreach($data as $v){?>
+    <div class="shopListDiv">
+        <div class="floatLeft">
+            <div style="width: 155px;height: 155px;text-align: center">
+                <img src="<?php echo $v['face_pic'];?>" class="height155maxW155" alt="">
+            </div>
+        </div>
+        <div class="shopListInfo">
+            <div class="<?php if(strtotime($v['vip_time'])>time()){ echo 'shopListVIPNameDiv'; }else{ echo 'shopListNameDiv'; }?>">
+                <?php echo $v['companyname'];?>
+                <?php if(strtotime($v['vip_time'])>time()){ echo '<img src="/images/qpxm/pc/person/shopInfo/v.png" alt="">'; }?>
+                <?php if($v['is_check']==1){ echo '<img src="/images/qpxm/pc/person/shopInfo/renZ.png" alt="">'; }?>
+                <?php $lxArr = array('','轿车商家','货车商家', '用品商家','修理厂','快修保养','美容店');?>
+                <span class="carTypeName"><?php echo $lxArr[$v['classification']];?></span>
+            </div>
+            <div class="shopListInfoDiv">
+                <div class="height25lineH25">
+                    <span>联系人 ：</span><span><?php echo $v['linkMan'];?></span>
+                </div>
+                <div class="height25lineH25">
+                    <span>电话 ：</span><span><?php echo $v['linkPhone'];?></span>
+                </div>
+                <div class="height25lineH25">
+                    <?php echo $v['invitime'];?>
+                </div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <?php }?>
+</div>
+<!--分页开始-->
+<div class="text-right" style="margin-bottom: 20px;margin-right: 25px;margin-top: 50px;">
+    <span style="color: #999"></span>
+    <span id="pageInfo" style="margin-right: 10px;"><?php echo $pageHtml['countStr'];?></span>
+    <div class="btn-group" id="pager"><?php if($data){ ?><?php echo $pageHtml['key'];?><?php } ?></div>
+</div>

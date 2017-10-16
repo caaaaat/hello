@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title></title>
+	<link rel="stylesheet" href="../../../../../css/mui.min.css" />
+	<link rel="stylesheet" href="../../../../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	.sw-input{
+		text-align: left;
+		height: 48px!important;
+		font-size: 14px!important;
+		text-align: center;
+		border: none!important;
+	}
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.sw-title-1{
+		width: 33.3%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+	}
+	.sw-list-title3{
+		line-height:40px;font-size: 14px;color: #666;
+	}
+	.card-box1{
+		width: 90%;border-radius: 4px;margin: auto;padding-top: 15px;
+	}
+	.sw-list-title{
+		font-size: 14px;color: #666;width: 70px;display: inline-block;
+	}
+	.sw-list-input1{
+		border: none;height: 21px;font-size:14px;padding-left: 2px;width: 60%;color: #333;
+	}
+	.sw-after-no:after{
+		height: 0;
+	}
+	.sw-img-r{
+		float: right;width: 20px;
+	}
+	.sw-img{
+		width: 60px;height: 60px;float: right;margin-left: 4px;
+	}
+	.sw-img1{
+		width: 40px;height: 40px;float: right;margin-left: 4px;
+	}
+
+	.mui-popup-button:after {
+		width: 0px;
+	}
+	.mui-popup-inner:after {
+		height: 0px;
+	}
+	.mui-popup-button:first-child:last-child {
+		border-radius: 4px;
+	}
+	.sw-popu-btn{
+		width:70%;height:36px;line-height:14px;border-radius: 1px;margin: auto;font-size: 16px;
+	}
+	.sw-list-text2{
+		margin-left:70px ;margin-top: -30px;
+	}
+</style>
+<body style="background: #efefef;">
+<header class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<h1 class="mui-title">企业名片</h1>
+	<button class="mui-btn mui-btn-link mui-pull-right" onclick="savaCanvas()">保存</button>
+</header>
+<div style="display: none;">
+	<img src="../../../../../image/card-bg1.jpg" alt="" />
+	<img src="../../../../../image/card-bg2.jpg" alt="" />
+	<img src="../../../../../image/card-bg3.jpg" alt="" />
+	<img src="../../../../../image/card-bg4.jpg" alt="" />
+	<img id="QR_pic" src="" alt="" />
+	<img src="" id="ico1" alt="" />
+	<img src="" id="ico2" alt="" />
+	<img src="" id="ico3" alt="" />
+</div>
+<div class="mui-content" style="background: #efefef;">
+
+	<div class="mui-input-row" style="margin-bottom: 30px;">
+
+		<div class="card-box1" id="tplCon">
+			<img src="" title="企业名片" width="100%" height="100%" id="cardImg" style="border-radius: 2px;"/>
+		</div>
+		<div class="card-box1" style="display: none;">
+			<canvas id="myCanvas" width="520" height="320"></canvas>
+		</div>
+
+		<ul class="mui-table-view" style="margin-top: 10px;" id="infoCon">
+			<li class="mui-table-view-cell  sw-no-active sw-after-no">
+				<span class="sw-list-title">企业名称：</span>
+				<input class="sw-list-input1" placeholder="请输入企业名称"/>
+			</li>
+
+			<li class="mui-table-view-cell  sw-no-active sw-after-no">
+				<span class="sw-list-title">联系人：</span>
+				<input class="sw-list-input1" placeholder="请输入联系人姓名"/>
+			</li>
+
+			<li class="mui-table-view-cell  sw-no-active sw-after-no">
+				<span class="sw-list-title">手机号：</span>
+				<input class="sw-list-input1" placeholder="请输入联系人手机号码"/>
+			</li>
+
+			<li class="mui-table-view-cell  sw-no-active sw-after-no">
+				<span class="sw-list-title">电话：</span>
+				<input class="sw-list-input1" placeholder="请输入联系电话"/>
+			</li>
+			<li class="mui-table-view-cell  sw-no-active sw-after-no">
+				<span class="sw-list-title">QQ：</span>
+				<input class="sw-list-input1" placeholder="请输入QQ号码"/>
+			</li>
+			<li class="mui-table-view-cell  sw-no-active sw-after-no">
+				<span class="sw-list-title">地址：</span>
+				<input class="sw-list-input1" placeholder="请输入联系地址"/>
+			</li>
+			<li class="mui-table-view-cell  sw-no-active sw-after-no">
+				<span class="sw-list-title">二维码：</span>
+				<span style="height: 40px;"></span>
+			</li>
+			<li class="mui-table-view-cell sw-after-no">
+				<a class="mui-navigate-right">
+					<span class="sw-list-title3">主营图标1：</span>
+					<span class="sw-img-r">&nbsp;</span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell sw-after-no">
+				<a class="mui-navigate-right">
+					<span class="sw-list-title3">主营图标2：</span>
+					<span class="sw-img-r">&nbsp;</span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell sw-after-no">
+				<a class="mui-navigate-right">
+					<span class="sw-list-title3">主营图标3：</span>
+					<span class="sw-img-r">&nbsp;</span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">
+				<span class="sw-list-title2 sw-list-title3">主营：</span>
+				<p class="sw-list-text2">&nbsp;</p>
+			</li>
+		</ul>
+
+
+	</div>
+
+</div>
+
+<script id="info-list-tpl" type="text/html">
+	<li class="mui-table-view-cell  sw-no-active sw-after-no">
+		<span class="sw-list-title">企业名称：</span>
+		<input class="sw-list-input1" id="companyname" placeholder="请输入企业名称" value="{{ d.companyname }}"/>
+	</li>
+
+	<li class="mui-table-view-cell  sw-no-active sw-after-no">
+		<span class="sw-list-title">联系人：</span>
+		<input class="sw-list-input1" onkeyup="inputChange()" id="linkMan" placeholder="请输入联系人姓名" value="{{ d.linkMan }}"/>
+	</li>
+
+	<li class="mui-table-view-cell  sw-no-active sw-after-no">
+		<span class="sw-list-title">手机号：</span>
+		<input class="sw-list-input1" onkeyup="inputChange()" id="phoneStr" placeholder="请输入联系人手机号码" value="{{ d.phoneStr }}"/>
+	</li>
+
+	<li class="mui-table-view-cell  sw-no-active sw-after-no">
+		<span class="sw-list-title">电话：</span>
+		<input class="sw-list-input1" onkeyup="inputChange()" id="telStr" placeholder="请输入联系电话" value="{{ d.telStr }}"/>
+	</li>
+	<li class="mui-table-view-cell  sw-no-active sw-after-no">
+		<span class="sw-list-title">QQ：</span>
+		<input class="sw-list-input1" onkeyup="inputChange()" id="qqStr" placeholder="请输入QQ号码" value="{{ d.qqStr }}"/>
+	</li>
+	<li class="mui-table-view-cell  sw-no-active sw-after-no sw-word-one" >
+		<!--<span class="sw-list-title">地址：</span>-->
+		<!--<span class="sw-list-input1 " id="address">{{ d.address }}</span>-->
+		<!--<input type="text" class="sw-list-input1" id="address" value="{{ d.address }}" placeholder="请输入企业地址" />-->
+		<span class="sw-list-title">地址：</span>
+		<input class="sw-list-input1" id="address" placeholder="请输入企业地址" value="{{ d.address }}"/>
+	</li>
+	<li class="mui-table-view-cell  sw-no-active sw-after-no">
+		<span class="sw-list-title">二维码：</span>
+		<span><img src="{{ imgUrl+d.QR_pic }}" id="QR_pic" height="40px" style="vertical-align: middle;border: 1px solid #F5F5F5;"/></span>
+	</li>
+	{{# if(d.type==1){ }}
+	{{#   for(var i=0;i<3;i++){ }}
+	<li class="mui-table-view-cell sw-after-no" id="main_icon_{{ i+1 }}">
+		<a class="mui-navigate-right">
+			<span class="sw-list-title3">主营图标{{ i+1 }}：</span>
+			<span class="sw-img-r">&nbsp;</span>
+			<span id="iconCon{{ i+1 }}">
+			{{# if(d.icon[i]){ }}			
+				<img src="{{ imgUrl+d.icon[i].img }}" id="icon_{{ i+1 }}" class="sw-img1"/>							
+			{{# } }} 
+			</span>
+		</a>
+	</li>
+	{{# } }}
+	{{# } }}
+
+	{{# if(d.type==2){ }}
+	<li class="mui-table-view-cell sw-after-no sw-no-active">
+		<span class="sw-list-title2 sw-list-title3">主营：</span>
+		<p class="sw-list-text2" id="major">{{ d.major }}</p>
+	</li>
+	{{# } }}
+</script>
+
+
+</body>
+<script src="../../../../../js/mui.min.js"></script>
+<script src="../../../../../js/global.js"></script>
+<script src="../../../../../js/jquery.min.js"></script>
+<script src="../../../../../js/laytpl/laytpl.js"></script>
+<script type="text/javascript">
+	//监听主营图片上传返回事件
+	window.addEventListener('refreshImg',function(){
+		var main_icon_1 = plus.storage.getItem('main_icon_1');
+		var main_icon_2 = plus.storage.getItem('main_icon_2');
+		var main_icon_3 = plus.storage.getItem('main_icon_3');
+
+		if(main_icon_1!=undefined&&main_icon_1!='null'&&main_icon_1!=''){
+			var str1 = '<img src="'+imgUrl+main_icon_1+'" id="icon_1" class="sw-img1"/>';
+			$("#iconCon1").html(str1);
+		}else{
+			$("#iconCon1").html('');
+		}
+
+		if(main_icon_2!=undefined&&main_icon_2!='null'&&main_icon_2!=''){
+			var str2 = '<img src="'+imgUrl+main_icon_2+'" id="icon_2" class="sw-img1"/>';
+			$("#iconCon2").html(str2);
+		}else{
+			$("#iconCon2").html('');
+		}
+
+		if(main_icon_3!=undefined&&main_icon_3!='null'&&main_icon_3!=''){
+			var str3 = '<img src="'+imgUrl+main_icon_3+'" id="icon_3" class="sw-img1"/>';
+			sw.jcon(str3);
+			$("#iconCon3").html(str3);
+		}else{
+			$("#iconCon3").html('');
+		}
+		setTimeout(function(){
+			createCanvas();
+		},300)
+
+	});
+	//mui初始化
+	mui.init();
+
+
+	var tplId = '';
+	var publishStatus = 1;
+	var userType = 1;
+	//mui plusReady
+	mui.plusReady(function() {
+		var self  = plus.webview.currentWebview();
+		tplId       = self.tplId;
+		var erImg   = self.erImg;
+		var ico1    = self.ico1;
+		var ico2    = self.ico2;
+		var ico3    = self.ico3;
+		$('#ico1').attr('src',ico1);
+		$('#ico2').attr('src',ico2);
+		$('#ico3').attr('src',ico3);
+		$('#QR_pic').attr('src',erImg);
+
+
+		var	tokenId = self.tokenId;						//业务员工资表ID
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+			//加载弹窗
+			loading('加载中...');
+			var token  = plus.storage.getItem('token');
+			var postData = {};
+			postData.token = tokenId;
+			//如果已经登陆 获取登录后的数据
+			http.load('api.sev.salesmanSouCang','getCardTplInfo',postData,function(rData){//请求成功
+				sw.jcon(rData)
+				if(rData.status==200){
+					var data = rData.data;
+					dy(data)
+//	 				$('.QR_pic').attr('src',imgUrl+data.QR_pic);
+					var element = document.getElementById('QR_pic');
+					element.src = imgUrl+data.QR_pic;
+					var tplList = tplId==1?'#tpl1-list-tpl':'#tpl2-list-tpl';
+					userType = data.type;
+					//数据读取
+					/*var tplTpl = $(tplList).html();
+					 laytpl(tplTpl).render(data,function(render){
+					 $("#tplCon").append(render);
+					 });*/
+					//数据读取
+					var infoTpl = $('#info-list-tpl').html();
+					laytpl(infoTpl).render(data,function(render){
+						$("#infoCon").html(render);
+					});
+
+					//主营图片
+					var len = data.icon.length;
+					if(len>0){
+						for(var i=0;i<3;i++){
+							if(data.icon[i]){
+								plus.storage.setItem('main_icon_'+(i+1),data.icon[i].img);
+							}else{
+								plus.storage.removeItem('main_icon_'+(i+1));
+							}
+						}
+					}
+
+					if(data.type==1){
+						//选择封面图片
+						mui("#main_icon_1")[0].addEventListener('tap',function(){
+							openView('../../../../../view/person/store/uploadImg.html','person_store_uploadImg','pop-in',{upId:'main_icon_1'});
+						})
+						//选择封面图片
+						mui("#main_icon_2")[0].addEventListener('tap',function(){
+							openView('../../../../../view/person/store/uploadImg.html','person_store_uploadImg','pop-in',{upId:'main_icon_2'});
+						})
+						//选择封面图片
+						mui("#main_icon_3")[0].addEventListener('tap',function(){
+							openView('../../../../../view/person/store/uploadImg.html','person_store_uploadImg','pop-in',{upId:'main_icon_3'});
+						})
+					}
+
+					//画布初始化	
+//					setTimeout(function(){
+//						createCanvas(data.type);
+//					},300)
+					createCanvas(data.type);
+
+				}else{
+					sw.toast(rData.msg);
+				}
+				setTimeout(function(){
+					//关闭加载框
+					closeLoading();
+				},300)
+
+			},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+				//关闭加载框
+				closeLoading();
+				//无网络提示
+				sw.toast('获取数据失败，请检查网络链接');
+			})
+		}
+	})
+
+	var cardBg1xcm = '../../../../../image/card-bg1.jpg';//名片背景
+	var cardBg2xcm = '../../../../../image/card-bg2.jpg';//名片背景
+	var cardBg3xcm = '../../../../../image/card-bg3.jpg';//名片背景
+	var cardBg4xcm = '../../../../../image/card-bg4.jpg';//名片背景
+	/*经销商提交保存*/
+	function createCanvas(type){
+		var firms_name    = $.trim($("#companyname").val());
+		var firms_linkMan = $.trim($("#linkMan").val());
+		var firms_phone 	= $.trim($("#phoneStr").val());
+		var firms_tel 		= $.trim($("#telStr").val());
+		var firms_QQ 		= $.trim($("#qqStr").val());
+		var firms_address 	= $.trim($("#address").val());
+		var firms_QR 	= $.trim($("#QR_pic").attr('src'));
+		var main_icon_1 = $("#icon_1").attr('src');
+		main_icon_1 = $.trim(main_icon_1)?$.trim(main_icon_1):'';
+		var main_icon_2 = $("#icon_2").attr('src');
+		main_icon_2 = $.trim(main_icon_2)?$.trim(main_icon_2):'';
+		var main_icon_3 = $("#icon_3").attr('src');
+		main_icon_3 = $.trim(main_icon_3)?$.trim(main_icon_3):'';
+		var tokenUse = tplId;        //选择的模板 (1:二维码在右边，2:二维码在左边)
+		var major = $.trim($("#major").text());
+		var cardBg;
+		if(type==1){
+			cardBg = tplId==1?cardBg1xcm:cardBg2xcm;
+			setCard(cardBg,firms_QR,firms_name,firms_linkMan,firms_phone,firms_tel,firms_QQ,firms_address,main_icon_1,main_icon_2,main_icon_3,tokenUse);
+		}else{
+			cardBg = tplId==1?cardBg3xcm:cardBg4xcm;
+			setCardQiXiu(cardBg,firms_QR,firms_name,firms_linkMan,firms_phone,firms_tel,firms_QQ,firms_address,major,tokenUse)
+		}
+	}
+
+
+	//绘制名片
+	function setCard(img1,img2,name,linkMan,phone,tel,qq,address,main_icon_1,main_icon_2,main_icon_3,tokenUse){
+
+		if(address){
+			if(address.length > 38){
+				address = address.slice(0,38)+'...';
+			}
+		}
+		if(name){
+			if(name.length > 16){
+				name = name.slice(0,16)+'...';
+			}
+		}
+		var c=document.getElementById("myCanvas");
+		var ctx=c.getContext("2d");
+
+		var image = new Image();
+		image.src = img1;
+		ctx.drawImage(image,0,0,520,320);
+
+		ctx.font="28px Microsoft YaHei";
+		ctx.fillStyle = "#333";
+		ctx.fillText(name,20,40);
+
+		//联系人x轴位置
+		var linkManW = 20;
+		if(main_icon_1){
+			linkManW = linkManW+65;
+		}
+		if(main_icon_2){
+			linkManW = linkManW+65;
+		}
+		if(main_icon_3){
+			linkManW = linkManW+65;
+		}
+
+		//图标一
+		var image2 = new Image();
+		image2.src = main_icon_1;
+		ctx.save(); // 保存当前ctx的状态
+		ctx.arc(50,100,25,0,2*Math.PI); //画出圆
+		ctx.clip(); //裁剪上面的圆形
+		ctx.drawImage(image2,25,75,50,50); // 在刚刚裁剪的园上画图
+		ctx.restore(); // 还原状态
+
+		if(!main_icon_1){
+			var con_2 = 50;
+		}else{
+			var con_2 = 115;
+		}
+
+		//图标二
+		var image3 = new Image();
+		image3.src = main_icon_2;
+		ctx.save(); // 保存当前ctx的状态
+		ctx.arc(con_2,100,25,0,2*Math.PI); //画出圆
+		ctx.clip(); //裁剪上面的圆形
+		ctx.drawImage(image3,con_2-25,75,50,50); // 在刚刚裁剪的园上画图
+		ctx.restore(); // 还原状态
+		if(!main_icon_1 && !main_icon_2){
+			var con_3 = 50;
+		}else if(!main_icon_1 || !main_icon_2){
+			var con_3 = 115;
+		}else{
+			var con_3 = 180;
+		}
+		//图标三
+		var image4 = new Image();
+		image4.src = main_icon_3;
+		ctx.save(); // 保存当前ctx的状态
+		ctx.arc(con_3,100,25,0,2*Math.PI); //画出圆
+		ctx.clip(); //裁剪上面的圆形
+		ctx.drawImage(image4,con_3-25,75,50,50); // 在刚刚裁剪的园上画图
+		ctx.restore(); // 还原状态
+
+		ctx.font="22px Microsoft YaHei";
+		ctx.fillText("联系人："+linkMan,linkManW,110);
+
+		if(tokenUse==1){
+			//二维码
+			var image1 = new Image();
+			image1.src = img2;
+			ctx.drawImage(image1,395,155,110,110);
+
+			ctx.fillText("手机："+phone,20,175);
+			ctx.fillText("电话："+tel,20,205);
+			ctx.fillText("Q Q："+qq,28,235);
+			//ctx.fillText("地址："+address,20,235);
+			writeTextOnCanvas(ctx,30,34,'地址：'+address,20,265);
+		}else{
+			var image1 = new Image();
+			image1.src = img2;
+			ctx.drawImage(image1,20,155,110,110);
+
+			ctx.fillText("手机："+phone,140,175);
+			ctx.fillText("电话："+tel,140,205);
+			ctx.fillText("Q Q："+qq,148,235);
+			//ctx.fillText("地址："+address,20,235);
+			writeTextOnCanvas(ctx,30,34,'地址：'+address,140,265);
+		}
+		ctx.font="18px Microsoft YaHei";
+		ctx.fillText("本名片由《汽配群》生成",170,305);
+		var myCanvas = document.getElementById("myCanvas");
+		var base64 = myCanvas.toDataURL("image/png");        //获取base64字符串
+
+		$("#cardImg").attr('src',base64)
+
+	}
+
+
+	//绘制名片（汽修厂）
+	function setCardQiXiu(img1,img2,name,linkMan,phone,tel,qq,address,major,tokenUse){
+		if(address){
+			if(address.length > 38){
+				address = address.slice(0,38)+'...';
+			}
+		}
+		if(name){
+			if(name.length > 20){
+				name = name.slice(0,20)+'...';
+			}
+		}
+		if(major){
+			if(major.length > 42){
+				major = major.slice(0,42)+'...';
+			}
+		}
+		var c=document.getElementById("myCanvas");
+		var ctx=c.getContext("2d");
+
+		var image = new Image();
+		image.src = img1;
+		ctx.drawImage(image,0,0,520,320);
+
+		ctx.font="28px Microsoft YaHei";
+
+		if(tokenUse==1){
+			ctx.fillStyle = "#fff";
+		}else{
+			ctx.fillStyle = "#333";
+		}
+
+		ctx.fillText(name,20,40);
+		ctx.font="22px Microsoft YaHei";
+
+		ctx.fillText("联系人："+linkMan,20,70);
+		writeTextOnCanvas(ctx,30,46,major,20,100);
+
+		if(tokenUse==1){
+			var image1 = new Image();
+			image1.src = img2;
+			ctx.drawImage(image1,395,142,110,110);
+
+			ctx.fillText("手机："+phone,20,160);
+			ctx.fillText("电话："+tel,20,190);
+			ctx.fillText("Q Q："+qq,28,220);
+			//ctx.fillText("地址："+address,20,235);
+			writeTextOnCanvas(ctx,30,34,'地址：'+address,20,250);
+		}else{
+			var image1 = new Image();
+			image1.src = img2;
+			ctx.drawImage(image1,20,175,110,110);
+
+			ctx.fillText("手机："+phone,140,200);
+			ctx.fillText("电话："+tel,140,225);
+			ctx.fillText("Q Q："+qq,148,250);
+			//ctx.fillText("地址："+address,20,235);
+			writeTextOnCanvas(ctx,30,34,'地址：'+address,140,275);
+		}
+		ctx.font="18px Microsoft YaHei";
+		ctx.fillText("本名片由《汽配群》生成",170,305);
+		var myCanvas = document.getElementById("myCanvas");
+		var base64 = myCanvas.toDataURL("image/png");        //获取base64字符串
+
+		$("#cardImg").attr('src',base64)
+	}
+
+	//ctx_2d        getContext("2d") 对象
+	//lineheight    段落文本行高
+	//bytelength    设置单字节文字一行内的数量
+	//text          写入画面的段落文本
+	//startleft     开始绘制文本的 x 坐标位置（相对于画布）
+	//starttop      开始绘制文本的 y 坐标位置（相对于画布）
+	function writeTextOnCanvas(ctx_2d, lineheight, bytelength, text ,startleft, starttop){
+		function getTrueLength(str){//获取字符串的真实长度（字节长度）
+			var len = str.length, truelen = 0;
+			for(var x = 0; x < len; x++){
+				if(str.charCodeAt(x) > 128){
+					truelen += 2;
+				}else{
+					truelen += 1;
+				}
+			}
+			return truelen;
+		}
+		function cutString(str, leng){//按字节长度截取字符串，返回substr截取位置
+			var len = str.length, tlen = len, nlen = 0;
+			for(var x = 0; x < len; x++){
+				if(str.charCodeAt(x) > 128){
+					if(nlen + 2 < leng){
+						nlen += 2;
+					}else{
+						tlen = x;
+						break;
+					}
+				}else{
+					if(nlen + 1 < leng){
+						nlen += 1;
+					}else{
+						tlen = x;
+						break;
+					}
+				}
+			}
+			return tlen;
+		}
+		for(var i = 1; getTrueLength(text) > 0; i++){
+			var tl = cutString(text, bytelength);
+			ctx_2d.fillText(text.substr(0, tl).replace(/^\s+|\s+$/, ""), startleft, (i-1) * lineheight + starttop);
+			text = text.substr(tl);
+		}
+	}
+
+	/**
+	 * 输入改变
+	 */
+	function inputChange(){
+		createCanvas(userType);
+	}
+
+	/**
+	 * 提交名片
+	 */
+	function savaCanvas(){
+
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+			var self  = plus.webview.currentWebview();					//业务员工资表ID
+			var token  = self.tokenId;
+			var userId  = plus.storage.getItem('token');				//业务员id
+			var data = {};
+			data.firms_name     = $.trim($("#companyname").val());
+			data.firms_linkMan  = $.trim($("#linkMan").val());
+			data.firms_phone 	= $.trim($("#phoneStr").val());
+			data.firms_tel 		= $.trim($("#telStr").val());
+			data.firms_QQ 		= $.trim($("#qqStr").val());
+			data.firms_address 	= $.trim($("#address").val());
+			data.major		 	= $.trim($("#major").text());
+			data.firms_QR 	= $("#QR_pic").attr('src');
+			main_icon_1 = $("#icon_1").attr('src');
+			data.main_icon_1 = $.trim(main_icon_1)?$.trim(main_icon_1):'';
+			main_icon_2 = $("#icon_2").attr('src');
+			data.main_icon_2 = $.trim(main_icon_2)?$.trim(main_icon_2):'';
+			main_icon_3 = $("#icon_3").attr('src');
+			data.main_icon_3 = $.trim(main_icon_3)?$.trim(main_icon_3):'';
+			var myCanvas = document.getElementById("myCanvas");
+			var base64 = myCanvas.toDataURL("image/png");        //获取base64字符串
+			mui.confirm('确认保存？？？', '&nbsp;', ['<span class="mui-popup-button mui-btn sw-popu-btn" style="color:#333">确认</span>','<span class="mui-popup-button mui-btn mui-btn-blue sw-popu-btn">取消</span>' ], function(e) {
+				if (e.index == 1&&publishStatus==1) {//确认
+					publishStatus = 0;
+					loading('发布中...');
+					//如果已经登陆 获取登录后的数据
+					http.load('api.sev.salesmanSouCang','ceartCard',{'data':data,'token':token,'userId':userId,'base64':base64},function(rData){//请求成功
+						//发布求购成功
+						setTimeout(function(){
+							closeLoading();
+							sw.toast(rData.msg);
+							if(rData.status==200){
+								var person = plus.webview.getWebviewById("person_salesman_store_info_card");
+								person.reload(true);
+								//关闭界面
+								plus.webview.close( 'person_salesman_store_info_editCard', 'pop-in');
+								plus.webview.close( 'person_salesman_store_info_cardTpl', 'pop-in');
+							}else{
+								publishStatus = 1;
+							}
+						},300)
+
+					},function(){
+						publishStatus = 1;
+						closeLoading();
+						//无网络提示
+						//sw.toast('请求失败，服务器或网络异常');
+					});
+
+				}
+			},'div')
+			$('.mui-popup-button').css('font-size','16px');
+		}
+	}
+</script>
+</html>

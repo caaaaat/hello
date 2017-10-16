@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的求购</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">
+      
+    </script>
+</head>
+<style>
+	.sw-payList:after{
+		height: 0;
+	}
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.sw-title{
+		font-size: 14px;color: #666;
+	}
+	.sw-money-box{
+		float: right;font-weight: 700;font-size: 16px;	
+	}
+	.sw-name{
+		font-size: 14px;display:block;color: #333;text-align: left;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;padding-right:80px; 
+	}
+	.sw-youxiao{
+		color: #FFFFFF;font-size: 10px;padding: 2px 10px;float: right;border-radius: 13px;position: relative;margin-top: -24px; 
+	}
+	.sw-date{
+		font-size: 12px;display:inline-block;color: #999;width: 40%;text-align: left;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	.sw-text{
+		float: right;font-size: 12px;color: #999;width: 50%;text-align: right;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	.sw-text1{
+		float: left;font-size: 12px;color: #999;width: 50%;text-align: right;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	.sw-text-mini{
+		float: right;font-size: 10px;color: #999;width: 50%;text-align: right;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	.sw-payList p{
+		height: 21px;line-height: 24px;
+	}
+	.sw-link-box{
+		height: 36px!important;padding-top: 0!important;padding-bottom: 0!important;line-height: 36px!important;padding-right: 36px!important;
+	}
+	.sw-card-img1{
+		width: 110px!important;max-width:110px!important;height: 110px!important;
+	}
+	.sw-card-cuBox3{
+		height: 82px;
+		white-space: normal; 
+		 color: #000000;
+	    overflow: hidden;
+	    display: -webkit-box;
+	    -webkit-line-clamp: 4;
+	    -webkit-box-orient: vertical;
+	    word-break: break-all;
+	}
+	.sw-card-date{
+		font-size: 14px;
+	}
+	.sw-text1{
+		margin-left: 42px;margin-top: -20px;color: #666666;
+	}
+	.sw-biao-lei1{
+		display:inline-block;float: right;border: 1px solid #3EB7FF;font-size: 10px;color: #3EB7FF;height: 18px;line-height: 18px;padding: 0 4px;border-radius: 9px;
+	}
+	.sw-biao-lei2{
+		display:inline-block;float: right;border: 1px solid #18C839;font-size: 10px;color: #18C839;height: 18px;line-height: 18px;padding: 0 4px;border-radius: 9px;
+	}
+	.sw-renz-img{
+		width: 16px;vertical-align: middle;margin-left: 4px;
+	}
+	.sw-title-1{
+		width: 50%;float: left;text-align: center;line-height: 42px;font-size: 14px;
+	}
+	.sw-title-box{
+		width: 100%;height: 42px;border-bottom: 1px solid #DDDDDD;background: #FFFFFF;position: fixed;top: 44px;z-index: 99;
+	}
+	.sw-no-img:after,.sw-no-img:before{
+		height: 0;
+	}
+	
+	.mui-popup-button:after {
+    width: 0px;
+}
+.mui-popup-inner:after {
+    height: 0px;
+}
+.mui-popup-button:first-child:last-child {
+    border-radius: 4px;
+}
+.sw-popu-btn{
+	width:70%;height:36px;line-height:14px;border-radius: 1px;margin: auto;font-size: 16px;
+}
+</style>
+<body style="background: #F5F5F5;">
+	
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">我的求购</h1>
+	    <button class="mui-btn mui-btn-link mui-pull-right" id="publish">发布求购</button>
+	</header>
+	
+	<div class="mui-content" style="background: #F5F5F5;">
+		
+	   <div class="sw-title-box">
+	   		<div class="sw-title-1 sw-ctheme" onclick="reGetInfo(1,this)">求购中</div>
+	   		<div class="sw-title-1" onclick="reGetInfo(2,this)">求购历史</div>
+	   		<input type="number" name="purchaseType" id="purchaseType" value="1" hidden="hidden" />
+	   </div>
+
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper" style="margin-top: 85px;">
+
+			<div class="mui-scroll">
+
+				<!--数据列表-->
+				<ul id="conList" class="mui-table-view" style="background: #EFEFF4">
+
+				</ul>
+
+				<input value="1" hidden="hidden" id="page"/>
+
+
+			</div>
+
+		</div>
+
+	</div>
+	
+<script id="qiugou-list-tpl" type="text/html">
+
+	{{# var purchaseType = d.purchaseType; var list = d.list; var len = list.length;  }}
+	{{# for(var i=0;i<len;i++){ }}
+	<ul class="mui-table-view" style="margin-top: 10px;" id="child{{ list[i].id }}">
+	    {{# var groups = list[i].groups; }}	
+		<li class="mui-table-view-cell sw-payList sw-no-active" id="detail" onclick="qiugouDetail({{ list[i].id }})">
+		 	<span class="sw-name sw-ctheme">{{ groups.oneName }}/{{ groups.twoName }}</span>
+		 	<span class="sw-btheme sw-youxiao" style="">有效期：{{ list[i].limitation }}天</span>		
+		</li>
+		 
+		<li class="mui-table-view-cell sw-payList sw-no-active" style="padding-top: 0;padding-bottom: 0;" onclick="qiugouDetail({{ list[i].id }})">
+		 	<span class="sw-name" style="font-size: 12px;color: #999999;">{{ groups.threeName }}/{{ groups.fourName }}</span>
+		 	<span class="sw-text-mini sw-youxiao">配件数：
+		 		<span class="sw-ctheme">{{ list[i].wantNum }}</span>
+		 	</span>
+		</li>
+	
+		<li class="mui-table-view-cell mui-media sw-card-li sw-no-active sw-payList" style="padding-left: 0;padding-right: 0;" onclick="qiugouDetail({{ list[i].id }})">
+			<ul class="mui-table-view mui-grid-view mui-grid-5 sw-no-img" style="padding: 0;">
+				{{# if(list[i].vin_pic!=null&&list[i].vin_pic!=''){ }}
+				<li class="mui-table-view-cell mui-media mui-col-sm-20" style="height: {{ imgH }}px;">
+	            	<img class="mui-media-object" style="border: 1px solid #EFEFEF;height: {{ imgH }}px;" src="{{ imgUrl+list[i].vin_pic }}">		            	
+	            </li>
+	            {{# } }} 
+	            
+	           {{# var aboutPic = list[i].wantPic; var aboutLen = aboutPic.length; }}
+	           {{# for(var j = 0;j < aboutLen; j++){ }} 
+	            <li class="mui-table-view-cell mui-media mui-col-sm-20" style="height: {{ imgH }}px;">
+	            	<img class="mui-media-object" style="border: 1px solid #EFEFEF;height: {{ imgH }}px;" src="{{ imgUrl+aboutPic[j].pic_url }}">		            	
+	            </li>
+	            {{# } }}	            
+	        </ul> 	
+		</li>
+			
+		<li class="mui-table-view-cell sw-payList sw-no-active" style="line-height: 26px;">
+		 	
+		 	<img src="../../../image/person/icon_clock_r.png" height="14px" style="vertical-align: middle;" >
+		 	
+		 	<span style="font-size: 12px;color: #999999;">{{ list[i].create_time }}</span>
+		 	
+		 	{{# if(purchaseType==1){ }} 
+		 	<span class="sw-text"> 
+		 		<button onclick="offSale('{{ list[i].id }}')" type="button" class="mui-btn mui-btn-tangerine" style="padding: 5px 12px;font-size: 12px!important;border-radius: 6px;border: none;">下架</button>
+		 		<input type="number" name="offStatus{{ list[i].id }}" id="offStatus{{ list[i].id }}" value="1" hidden="hidden" />	
+		 	</span>
+		 	{{# }else{ }}
+		 	<span class="sw-text">
+		 		<button type="button" onclick="editPurchase('{{ list[i].id }}');" class="mui-btn mui-btn-blue" style="padding: 5px 12px;font-size: 12px!important;border-radius: 6px;border: none;">编辑</button>
+		 		<button onclick="delSale('{{ list[i].id }}')"  type="button" class="mui-btn mui-btn-tangerine" style="padding: 5px 12px;font-size: 12px!important;border-radius: 6px;border: none;">删除</button>
+		 		<input type="number" name="delStatus{{ list[i].id }}" id="delStatus{{ list[i].id }}" value="1" hidden="hidden" />
+		 	</span>	
+		 	{{# } }}  
+		 </li>		 
+	</ul> 
+	{{# } }}	
+</script>	
+</body>
+<script src="../../../js/mui.min.js"></script>
+<script src="../../../js/global.js"></script>
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/laytpl/laytpl.js"></script>
+ <script type="text/javascript" charset="utf-8">
+ 	//mui初始化
+	mui.init({
+		pullRefresh: {
+			container: '#pullrefresh',
+			down: {
+				callback: pulldownRefresh
+			},
+			up: {
+				auto:true,
+				contentrefresh: '正在加载...',
+				contentnomore:'<div class="sw-footer"><span>我是有底线的</span></div>',
+				callback: pullupRefresh
+			}
+		}
+	});
+
+	/**
+	 * 下拉刷新具体业务实现
+	 */
+	function pulldownRefresh() {
+		location.href = location.href;
+	}
+
+	$(function(){
+		mui("#page")[0].value = 1;
+		mui("#purchaseType")[0].value = 1;
+	});
+
+
+
+	var imgH = parseInt((document.body.clientWidth-30)/5);
+
+	 //从新开始加载数据 
+	 function pullupRefresh(){
+
+	 	var page         = mui("#page")[0].value;//获取页数
+	 	var purchaseType = mui("#purchaseType")[0].value;//获取类型	 
+  		var token   = JsonStorage.getItem('token');
+							
+      	var data = {};  
+      	var postData = {};
+      		
+      		//请求的数据
+      		postData.page     = page;//请求的页码
+      		postData.pageSize = 10;//每页显示数量 
+     		postData.token    = token;
+     		postData.purchaseType= purchaseType;
+     		
+      		data.postData = postData;  
+  
+      		//页面相关数据
+      		data.mod      = 'api.sev.purchase';//模型
+      		data.fun      = 'getPurChaseList';//方法
+      		data.tpl      = 'qiugou-list-tpl';//列表模板     		      		
+      		data.listId   = 'qiugouList';//列表容器  
+			//请求并处理数据
+  			loadInfo(data,true);	 	
+	 }	
+	
+	/**
+	 * 重新获取数据
+	 * @param {Object} type
+	 * @param {Object} j
+	 */
+ 	function reGetInfo(type,j){
+ 		if($(j).hasClass('sw-ctheme')==false){
+	 		$(".sw-title-1").removeClass('sw-ctheme');	
+	 		$(j).addClass('sw-ctheme');	
+			$("#purchaseType").val(type); 			
+	 		//清空数据
+			//清空数据
+			$('#conList').html('');
+			mui("#page")[0].value=1;
+			mui('#pullrefresh').pullRefresh().refresh(true);
+			mui('#pullrefresh').pullRefresh().pullupLoading();
+ 		}		
+ 	}
+
+	//下架
+ 	function offSale(purchaseId){		
+		mui.confirm('确认下架？', '&nbsp;', ['<span class="mui-popup-button mui-btn sw-popu-btn" style="color:#333">确认</span>','<span class="mui-popup-button mui-btn mui-btn-blue sw-popu-btn">取消</span>' ], function(e) {			
+			if (e.index == 1) {//确认
+				var offId = "#offStatus"+purchaseId;
+			    if($(offId).val()==1){
+					$(offId).val(0)
+					//加载弹窗
+					loading('下架中...'); 
+					var token      = JsonStorage.getItem('token');
+	   				
+					var postData    = {};
+			        postData.token      = token;
+			        postData.purchaseId = purchaseId;
+			        
+					//如果已经登陆 获取登录后的数据
+					http.load('api.sev.purchase','offSale',postData,function(rData){//请求成功						
+						//关闭加载框
+						closeLoading();
+						setTimeout(function(){
+							sw.toast(rData.msg); 
+				 			if(rData.status==200){//保存成功
+				 				//下架成功从列表移除
+								var conId = '#child'+purchaseId;
+								$(conId).remove();							
+				 			}else{
+				 				$(offId).val(1)
+				 			}
+						},300)		 			
+			 		},function(xhr,type,errorThrown){//请求失败
+			 			$(offId).val(1)
+						//无网络提示
+						sw.toast('请求失败，服务器或网络异常'); 
+			 		})	
+				}
+			}
+		},'div')
+		$('.mui-popup-button').css('font-size','16px');
+ 	}
+
+	//删除
+ 	function delSale(purchaseId){		
+		mui.confirm('确认删除？', '&nbsp;', ['<span class="mui-popup-button mui-btn sw-popu-btn" style="color:#333">确认</span>','<span class="mui-popup-button mui-btn mui-btn-blue sw-popu-btn">取消</span>' ], function(e) {			
+			if (e.index == 1) {//确认
+				var delId = "#delStatus"+purchaseId;
+			    if($(delId).val()==1){
+					$(delId).val(0)
+					//加载弹窗
+					var token      = JsonStorage.getItem('token');
+	   				
+					var postData    = {};
+			        postData.token      = token;
+			        postData.purchaseId = purchaseId;
+			        
+					//如果已经登陆 获取登录后的数据
+					http.load('api.sev.purchase','delSale',postData,function(rData){//请求成功						
+						//关闭加载框
+						closeLoading();
+						setTimeout(function(){
+							sw.toast(rData.msg); 
+				 			if(rData.status==200){//保存成功
+				 				//下架成功从列表移除
+								var conId = '#child'+purchaseId;
+								$(conId).remove();							
+				 			}else{
+				 				$(delId).val(1)
+				 			}
+						},300)		 			
+			 		},function(xhr,type,errorThrown){//请求失败
+			 			$(delId).val(1)
+						//无网络提示
+						sw.toast('请求失败，服务器或网络异常'); 
+			 		})	
+				}
+			}
+		},'div')
+		$('.mui-popup-button').css('font-size','16px');
+ 	}
+
+ 	/**
+ 	 * 获取求购详情
+ 	 */
+ 	function qiugouDetail(wantId){
+ 		openView('../../../view/person/purchase/detail.html','person_purchase_detail','pop-in',{'wantId':wantId});
+ 	}
+
+	function editPurchase(purchaseId){
+		JsonStorage.removeItem('series');
+		JsonStorage.removeItem('vinp_pic');
+		JsonStorage.removeItem('otherp');
+		openView('../../../view/person/purchase/editPurchase.html','person_purchase_editPurchase','pop-in',{'purchaseId':purchaseId });
+
+	}
+	//发布求购
+	mui("#publish")[0].addEventListener('tap',function(){
+		JsonStorage.removeItem('series');
+		JsonStorage.removeItem('vinp_pic');
+		JsonStorage.removeItem('otherp');
+		openView('../../../view/person/purchase/publish.html','person_purchase_publish','pop-in',{'from':'1'});
+	})	 
+</script>
+</html>

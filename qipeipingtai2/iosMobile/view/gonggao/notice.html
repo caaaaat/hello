@@ -1,0 +1,521 @@
+<!DOCTYPE html>  
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>通知公告</title>
+    <link href="../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	html{
+		background: #F5F5F5;
+	}
+	.sw-link{
+		color: #666;
+		border: 1px solid #efefef;
+		height: 48px;
+		line-height: 48px;
+		text-align: left;
+		width: 240px;
+		margin: auto;
+		border-radius: 24px;
+		font-size: 14px;
+		padding-left: 24px;
+	}
+	.sw-card-header{
+		padding-right: 10%!important;
+	}  
+	.sw-card-header:after{
+		background: none!important;
+	}
+	.sw-card-body{
+		background: #f5f5f5;margin-top: 4px;border: 1px solid #DDDDDD;border-radius: 6px;padding: 10px;
+	}
+	.sw-card-a1{
+		width: 90%;height: auto;background: #FFFFFF;padding: 8px;margin-top: 4px;border: 1px solid #DDDDDD;
+	}
+	.sw-card-a2{
+		overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	.sw-card-a3{
+		margin-left: 38px;color: #666;word-break:keep-all;white-space:normal;
+	}
+	.sw-card-red{
+		color: #fd524b;
+	}
+	.sw-card-hr{
+		height: 1px;border: none;background: #DDDDDD;
+	}
+	.sw-card-t1{
+		line-height: 18px;font-size: 12px;
+	}
+
+	.sw-table-cell:after {
+		right: 20px;
+		left: 65px;
+	}
+	.sw-table-badge{
+		padding: 4px;background: #ff0204;position: absolute;left: 50px;top:20px!important;width: 0;
+	}
+	.sw-msg-box{
+		width: 100%;background: #FFFFFF;margin-top: 10px;margin-bottom: 20px;border-top: 1px solid #DDDDDD;border-bottom: 1px solid #DDDDDD;
+	}
+	.sw-title-badge{
+		padding: 4px;background: rgba(215, 9, 11, 1)!important;position: absolute;left:10px;top:15px!important;width: 0;z-index: 99;
+	}
+	
+		/*//下拉加载*/
+	.mui-bar~.mui-content .mui-fullscreen {
+		top: 44px;
+		height: auto;
+	}
+	.mui-pull-top-tips {
+		position: absolute;
+		top: -20px;
+		left: 50%;
+		margin-left: -25px;
+		width: 40px;
+		height: 40px;
+		border-radius: 100%;
+		z-index: 999;  
+	}
+	.mui-bar~.mui-pull-top-tips {
+		top: 24px;
+	}
+	.mui-pull-top-wrapper {
+		width: 42px;
+		height: 42px;
+		display: block;
+		text-align: center;
+		background-color: #efeff4;
+		border: 1px solid #ddd;
+		border-radius: 25px;
+		background-clip: padding-box;
+		box-shadow: 0 4px 10px #bbb;
+		overflow: hidden; 
+	}
+	.mui-pull-top-tips.mui-transitioning {
+		-webkit-transition-duration: 200ms;
+		transition-duration: 200ms;
+	}
+	.mui-pull-top-tips .mui-pull-loading {
+		/*-webkit-backface-visibility: hidden;
+		-webkit-transition-duration: 400ms;
+		transition-duration: 400ms;*/
+		
+		margin: 0;
+	}
+	.mui-pull-top-wrapper .mui-icon,
+	.mui-pull-top-wrapper .mui-spinner {
+		margin-top: 7px;
+	}
+	.mui-pull-top-wrapper .mui-icon.mui-reverse {
+		/*-webkit-transform: rotate(180deg) translateZ(0);*/
+	}
+	.mui-pull-bottom-tips {
+		text-align: center;
+		background-color: #efeff4;
+		font-size: 15px;
+		line-height: 40px;
+		color: #777;
+	}
+	.mui-pull-top-canvas {
+		overflow: hidden;
+		background-color: #fafafa;
+		border-radius: 40px;
+		box-shadow: 0 4px 10px #bbb;
+		width: 40px;
+		height: 40px;
+		margin: 0 auto;
+	}
+	.mui-pull-top-canvas canvas {
+		width: 40px;
+	}
+	.mui-slider-indicator.mui-segmented-control {
+		background-color: #efeff4;
+	}
+	.mui-popup-button:after {
+		width: 0px;
+	}
+	.mui-popup-inner:after {
+		height: 0px;
+	}
+	.mui-popup-button:first-child:last-child {
+		border-radius: 4px;
+	}
+	.sw-popu-btn{
+		width:70%;height:36px;line-height:14px;border-radius: 1px;margin: auto;font-size: 16px;
+	}
+</style>	
+<body style="background: #FFFFFF;">
+	<header class="mui-bar mui-bar-nav">
+	    <h1 class="mui-title">通知公告</h1>
+	    <button class="mui-btn mui-btn-link mui-pull-right" id='msgList' onclick="$('#naTip').hide()">
+	    	<span class="mui-badge sw-title-badge" style="display: none;" id="naTip"></span>
+	    	<img src="../../image/index/icon_xiaoxi@3x.png" style="width: 18px;vertical-align: text-top;position: relative;" />
+	    </button>
+	</header>  
+	
+	<div class="mui-content">
+		<div class="mui-scroll-wrapper" style="margin-top:44px;background: #EFEFF4;"> 
+			<div class="mui-scroll sw-coterie-box" id="loadList">  
+				<ul class="mui-table-view mui-table-view-chevron" style="margin-top: 0;margin-bottom: 15px;">
+					<li class="mui-table-view-cell mui-media sw-table-cell" id="promotion" onclick="$('#activeTip').hide()">	
+						
+						<span class="mui-badge sw-table-badge" style="display: none;" id="activeTip"></span>
+						
+						<img class="mui-media-object mui-pull-left" src="../../image/notice/icon_cuxiao.png">
+						<div class="mui-media-body" style="height: 42px;line-height: 42px;">
+							促销活动
+						</div>					
+					</li>
+					<li class="mui-table-view-cell mui-media sw-table-cell" id="news" onclick="$('#newTip').hide()">	
+						
+						<span class="mui-badge sw-table-badge" style="display: none;" id="newTip"></span>
+						
+						<img class="mui-media-object mui-pull-left" src="../../image/notice/icon_news.png">
+						<div class="mui-media-body" style="height: 42px;line-height: 42px;">
+							新闻资讯
+						</div>					
+					</li>
+					<li class="mui-table-view-cell mui-media sw-table-cell" id="newbie">					
+						<img class="mui-media-object mui-pull-left" src="../../image/notice/icon_newdriver.png">
+						<div class="mui-media-body" style="height: 42px;line-height: 42px;">
+							新手上路
+						</div>					 
+					</li>
+				</ul>
+				
+				<div class="mui-table-view " id="noticeList">
+
+				</div>
+			</div>   
+		</div>
+	</div>
+	
+	<input value="1" hidden="hidden" id="page"/>
+<!--列表模板-->
+<script id="notice-list-tpl" type="text/html"> 
+	{{# var len = d.length; }} 	
+	{{# for(var i = 0;i < len; i++){ }}
+		
+	{{# if(d[i].msgType==2){ }}	
+	<div class="mui-card-header mui-card-media sw-card-header" onclick="openFirm('{{ d[i].aboutId }}')">
+		<img src="../../image/msg/icon_xiaoxi.png"/>
+		<div class="mui-media-body sw-card-body">			
+			 {{ d[i].msgText }}
+		</div>
+	</div>
+	{{# }else if(d[i].msgType==3){ }}
+	<div class="mui-card-header mui-card-media sw-card-header" onclick="qiugouDetail('{{ d[i].aboutId }}')">
+		<img src="../../image/msg/icon_xiaoxi.png"/>
+		<div class="mui-media-body sw-card-body">			
+			发布了求购信息      
+			 <div class="sw-card-a1">
+			 	{{ d[i].info.car12Str }}
+			 	<p  style="line-height: 24px;">{{ d[i].info.car34Str }}</p>
+			 	<p class="sw-card-t1">配件数：{{ d[i].info.paiS }}</p>
+			 	<hr class="sw-card-hr">
+			 	<p style="margin-top: 4px;font-size: 11px;">{{ d[i].info.create_time }}<span class="sw-card-red" style="float: right;">有效期{{ d[i].info.limitation }}天</span></p> 
+			 </div>
+		</div>
+	</div>		
+	{{# }else{ }}
+	
+	{{# } }}
+	{{# } }}
+</script>	
+</body>
+<script type="text/javascript" src="../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/global.js"></script>
+<script type="text/javascript" src="../../js/laytpl/laytpl.js"></script>
+<script type="text/javascript" src="../../js/mui.pullToRefresh.js"></script>
+<script type="text/javascript" src="../../js/mui.pullToRefresh.material.js"></script> 
+<script type="text/javascript" charset="utf-8">
+window.addEventListener('msgNotice', function(e) {  
+		$("#naTip").hide();  
+    })
+
+
+ var showSelf;
+
+	mui.init();
+	
+	mui.plusReady(function() {
+		
+		//监控页面是否登录
+		if(UserInfo.has_login()){		
+			var token   = plus.storage.getItem('token');			
+			var postData = {};
+				postData.token = token;
+				postData.userType = JsonStorage.getItem('userType');	//2为业务员
+			//如果已经登陆 获取登录后的数据
+			http.load('api.sev.index','getUnReadMsgNum',postData,function(rData){//请求成功	 
+	 			if(rData.status==200){ 	
+	 				var data = rData.data;
+	 				dy(data)
+	 				if(data.newNum>0){ 
+	 					$("#newTip").show();
+	 				}
+	 				
+	 				if(data.activeNum>0){
+	 					$("#activeTip").show();  
+	 				}
+	 				
+	 				if(data.naNum>0){
+	 					$("#naTip").show(); 
+	 				}
+	 			}		
+	 		})	
+		}
+		
+		
+		(function($) {
+			//阻尼系数
+			var deceleration = mui.os.ios?0.003:0.009;
+			$('.mui-scroll-wrapper').scroll({		
+				bounce: false,   
+				indicators: true, //是否显示滚动条
+				deceleration:deceleration 
+			});
+		})
+		
+		
+		mui("#loadList").pullToRefresh({   
+			down: {
+				callback: function(){
+					location.href = location.href;
+				}
+			},
+			up: { 
+				auto: true,
+				offset: 50, //距离底部高度(到达该高度即触发)
+				contentnomore:contentnomoreStr,   
+				contentrefresh:contentrefreshStr,
+				callback: function() {  
+						showSelf = this;				
+						getStartList(showSelf);			
+						}
+					}
+		});  
+		
+	});
+
+	 //从新开始加载数据 
+	 function getStartList(showSelf){
+	 	var token = plus.storage.getItem('token');
+	 	var page  = mui("#page")[0].value;//获取页数	
+	 	//获取地址
+	    var cityIni= plus.storage.getItem('cityIni'); 
+	    
+      	var data  = {};  
+      	var postData = {};
+  		     		
+      		//请求的数据
+			postData.page     = page;//请求的页码
+      		postData.pageSize = 10;//每页显示数量 
+			postData.token    = token;
+			postData.userType = JsonStorage.getItem('userType');	//2为业务员
+			postData.cityIni  = cityIni;   	
+			
+      		data.postData = postData;  
+      		//页面相关数据
+      		data.mod      = 'api.sev.index';//模型
+      		data.fun      = 'getNotice';//方法
+      		data.tpl      = 'notice-list-tpl';//列表模板     		      		
+      		data.listId   = 'noticeList';//列表容器    
+			data.pageId   = 'page';//页码Id	
+			
+			//请求并处理数据
+			loadInfoArr(data,false,showSelf);	 		
+	 }	
+	
+	
+	//消息列表
+	mui("#msgList")[0].addEventListener('tap',function(){
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+			openView('../../view/msg/index.html','view_msg_index','pop-in');
+		}else{//未登录显示未登录界面
+			openView('../../view/login/login.html','view_login_login','slide-in-bottom'); 		
+		}
+		
+	})
+	//促销列表
+	mui("#promotion")[0].addEventListener('tap',function(){
+			openView('../../view/gonggao/Promotion.html','promotion','pop-in');
+		})
+	//新闻列表
+	mui("#news")[0].addEventListener('tap',function(){
+			openView('../../view/gonggao/news.html','promotion','pop-in');
+		})
+	//新手上路
+	mui("#newbie")[0].addEventListener('tap',function(){
+			openView('../../view/gonggao/newbie.html','promotion','pop-in');
+		})
+	
+	
+/**
+ * 获取求购详情
+ */
+function qiugouDetail(wantId){
+ 		loading('加载中...'); 
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+			var tokenType = JsonStorage.getItem('userType');	//2为业务员	
+			 //将请求的数据保存到本地
+			var userInfo = JSON.parse(plus.storage.getItem('userInfo'));
+			
+			if(tokenType!=2&&userInfo.type==1){
+				openView('../../view/index/qiugou/detail.html','qiugoudetail','pop-in',{'wantId':wantId});
+			}else{
+				sw.toast('您没有查看求购详情的权限');	 
+				//关闭加载框
+				closeLoading();	
+			}
+			
+ 		}else{//未登录显示未登录界面
+			//关闭加载框
+			closeLoading();	
+			//顶部 
+			sw.toast('您还未登录，请登录后重试'); 
+		}
+ 		
+ 	}
+ 	
+//前往厂商详情
+function openFirm(EnterpriseID){
+	loading('加载中...'); 
+	//监控页面是否登录
+	if(UserInfo.has_login()){
+		//查看对应的厂商信息
+		http.load('api.sev.article','getFirmInfo',{'EnterpriseID':EnterpriseID},function(rData){
+			
+			dy(rData)  
+			if(rData.status==200){ 
+				
+				var data = rData.data;
+				
+				var EnterpriseID = data.EnterpriseID;
+				var firmName     = data.companyname;
+				
+				if(data.type==1){//经销商
+					
+					openJx(EnterpriseID,firmName);
+					
+				}else{//汽修厂
+					
+					openQx(EnterpriseID,firmName)
+				}
+				
+			}else{
+				sw.toast(rData.msg); 	
+			}
+			//关闭加载框
+			closeLoading();	
+			
+		},function(xhr,type,errorThrown){
+		 		//关闭加载框
+				closeLoading();		
+				//无网络提示
+				//sw.toast('获取数据失败，请检查网络'); 	 
+		}) 
+		
+	}else{//未登录显示未登录界面
+		//关闭加载框
+		closeLoading();	
+		//顶部 
+		sw.toast('您还未登录，请登录后重试'); 
+	}
+ 		
+ 	}
+ 
+ 
+//页面跳转
+function openJx(EnterpriseID,jxName){	
+		
+		loading('加载中...'); 
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+			
+			var postData = {'EnterpriseID':EnterpriseID,'jxName':jxName};
+			//打开窗口
+			mui.openWindow({
+					    url:'../../view/index/shangjia/jingxiao.html',
+					    id:'index_shangjia_jingxiao',//默认使用当前页面的url作为id
+					    styles:{},//窗口参数
+					    extras:postData//自定义扩展参数
+				});
+		
+		}else{//未登录显示未登录界面
+		//关闭加载框
+		closeLoading();	
+		//顶部 
+		sw.toast('您还未登录，请登录后重试'); 
+		}
+	}
+	
+//页面跳转
+function openQx(EnterpriseID,qxName){
+	loading('加载中...'); 
+	//监控页面是否登录
+	if(UserInfo.has_login()){
+		
+		var token   = plus.storage.getItem('token');			
+		var postData = {};
+			postData.token = token;
+		//如果已经登陆 获取登录后的数据
+		http.load('api.sev.user','getUserInfo',postData,function(rData){//请求成功
+ 			//关闭加载框
+			closeLoading();				
+ 			if(rData.status==200){ 	
+ 				dy(rData);
+ 				var data = rData.data;	
+ 				//前往汽修厂确认 
+	        	  	qxConfirm(data.is_showfactry,EnterpriseID,qxName)      
+ 			}else{ 				
+ 				sw.toast(rData.msg); 	 
+ 			}
+	
+ 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+ 			//关闭加载框
+			closeLoading();	
+			//无网络提示
+			//sw.toast('请求失败，服务器或网络异常');
+ 		})
+
+	}else{//未登录显示未登录界面
+		//关闭加载框
+		closeLoading();	
+		//顶部 
+	  sw.toast('您还未登录，请登录后重试'); 
+	}
+	
+	
+	
+}  
+
+//汽修提示
+function qxConfirm(is_showfactry,EnterpriseID,qxName){
+	if(is_showfactry==1){
+		var postData = {'EnterpriseID':EnterpriseID,'qxName':qxName};
+		openView('../../view/person/repair/detail.html','person_repair_detail','pop-in',postData);
+	}else{
+		mui.confirm('您无访问权限，可咨询客服了解详情', '&nbsp;', ['<span class="mui-popup-button mui-btn sw-popu-btn" style="color:#333">关闭</span>','<span class="mui-popup-button mui-btn mui-btn-blue sw-popu-btn">客服</span>' ], function(e) {				
+			if (e.index == 3&&kefuStatus==1) {//确认
+				kefuStatus = 0;
+				setTimeout(function(){
+					var qqIni = plus.storage.getItem('qqIni');
+					window.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin='+qqIni+'&version=1&src_type=web&web_src=qq.com';				
+				},300)										
+			}	  			
+		},'div')
+		$('.mui-popup-button').css('font-size','16px');	
+		//关闭加载框
+		closeLoading();	
+	}
+}
+</script>
+</html>

@@ -1,0 +1,114 @@
+<link rel="stylesheet" href="/css/pc/person/vip.css">
+<div class="titles" style="position: relative">
+    <div class="goBackDiv"><a href="/person/vip"><img src="/images/qpxm/pc/person/shopInfo/left.png" style="vertical-align: baseline" alt=""> 返回</a></div>
+    <span style="font-size: 24px;font-weight: 500;">充值</span>
+</div>
+
+<div id="recharge">
+    <div>开通/续费月份</div>
+    <?php if($data){ ?>
+    <div class="marLeft150W570">
+        <?php foreach($data as $k=>$v){ ?>
+            <?php if($k==0){ ?>
+            <div class="rechargeList">
+                <div class="floLeftMarLeft70"><?php echo $v['number']; ?>个月</div>
+                <div class="floRightMarRight25">
+                    <a href="javascript:;" token="1" tokenType="dealer" class="monthFor" data-m="<?php echo $v['number']; ?>" onclick="companyType(this)"><?php echo $v['money']; ?>元<img src="/images/qpxm/pc/person/vip/yesXuan.png" style="margin-left: 15px;vertical-align: baseline;" alt=""></a>
+                </div>
+            </div>
+            <?php }else{ ?>
+            <div class="rechargeList">
+                <div class="floLeftMarLeft70"><?php echo $v['number']; ?>个月</div>
+                <div class="floRightMarRight25">
+                    <a href="javascript:;" token="" tokenType="dealer" class="monthFor" data-m="<?php echo $v['number']; ?>" onclick="companyType(this)"><?php echo $v['money']; ?>元<img src="/images/qpxm/pc/person/vip/noXuan.png" style="margin-left: 15px;vertical-align: baseline;" alt=""></a>
+                </div>
+            </div>
+            <?php } ?>
+        <?php } ?>
+    </div>
+
+    <div class="marTop55">支付方式</div>
+    <div class="payDiv">
+        <div class="floLeftW86">
+            <a href="javascript:;" onclick="payType(this)">
+                <img src="/images/qpxm/pc/person/vip/weiXin.png" alt="">
+                <div class="payImgDiv">
+                    <img src="/images/qpxm/pc/person/vip/noXuan.png" token="" data-value="wx" class="payType" alt="">
+                </div>
+            </a>
+        </div>
+        <div class="floRightW86">
+            <a href="javascript:;" onclick="payType(this)">
+                <img src="/images/qpxm/pc/person/vip/zhiFuBao.png" alt="">
+                <div class="payImgDiv">
+                    <img src="/images/qpxm/pc/person/vip/noXuan.png" token="" data-value="ali" class="payType" alt="">
+                </div>
+            </a>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <div class="payBtnDiv">
+        <button class="payBtn" onclick="toPay()">支付</button>
+    </div>
+    <?php }else{ ?>
+    <div style="text-align: center">暂时无法充值,请联系客服</div>
+    <?php } ?>
+</div>
+
+<script src="/js/global.js" type="text/javascript"></script>
+<script src="/js/pc/layer/layer.js"></script>
+<script>
+    /*充值月份选择*/
+    function companyType(obj){
+        var token = $(obj).attr('token');
+        if(!token){
+            var len = $('.floRightMarRight25').length;
+            for(var i=0; i<len; ++i){
+                $('.floRightMarRight25').eq(i).find('a').attr('token','');
+                $('.floRightMarRight25').eq(i).find('img').attr('src','/images/qpxm/pc/person/vip/noXuan.png');
+            }
+            $(obj).attr('token',1);
+            $(obj).find('img').attr('src','/images/qpxm/pc/person/vip/yesXuan.png')
+        }
+    }
+
+    /*充值方式选择(支付宝/微信)*/
+    function payType(obj){
+        var token = $(obj).find('.payType').attr('token');
+        if(!token){
+            var len = $('.payType').length;
+            for(var i=0; i<len; ++i){
+                $('.payType').eq(i).attr('token','');
+                $('.payType').eq(i).attr('src','/images/qpxm/pc/person/vip/noXuan.png');
+            }
+            $(obj).find('.payType').attr('token',1);
+            $(obj).find('.payType').attr('src','/images/qpxm/pc/person/vip/yesXuan.png');
+        }
+    }
+    var order = '';
+    function toPay() {
+        var payType = $('.payType[token="1"]').attr('data-value');
+        var month   = $('.monthFor[token="1"]').attr('data-m');
+        if(payType){
+            api.load('pc.pay','toPayOfVip',{payType:payType,month:month},function (data) {
+                if(data.status===1){
+                    order = data.coder;
+                    layer.open({
+                     type: 2,
+                     title: data.msg,
+                     shadeClose: true,
+                     shade: 0.6,
+                     maxmin: false,
+                     area: ['600px', '400px'],
+                     content: '/pc.pay/toPayQROfVip?order='+data.coder
+                     });
+                }else {
+                    layer.msg(data.msg,{icon: 2,skin: 'layui-layer-rim'})
+                }
+            })
+        }else {
+            layer.msg('请选择支付方式',{icon: 0,skin: 'layui-layer-rim'})
+        }
+    }
+
+</script>

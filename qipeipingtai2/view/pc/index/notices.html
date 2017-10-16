@@ -1,0 +1,114 @@
+<link rel="stylesheet" href="/css/pc/index/message.css">
+<div id="message">
+
+</div>
+
+<div class="moreDate">
+    <a href="javascript:;" onclick="moreData()"><div class="moreText">查看更多</div></a>
+    <div style="clear: both;"></div>
+</div>
+
+<script id="msgList" type="text/html">
+    {{# for(var i = 0, len = d.list.length; i < len; i++){ }}
+    <div class="messageList" data-id="{{ d.list[i].id }}" data-t="{{ d.list[i].is_read }}">
+        <div class="floLeft">
+            <img src="{{# if(d.list[i].is_read==0){ }}/images/qpxm/pc/product/logo.png{{# }else{ }}/images/qpxm/pc/product/emali.png{{# } }}" alt="">
+        </div>
+        <div class="messageDiv">
+            <span>{{ d.list[i].msgText }}</span>
+                {{# if(d.list[i].msgType==3){  }}
+                <div class="messageInfoDiv">
+                    <!--求购消息-->
+                    <div>{{ d.list[i].info.car12Str }}</div>
+                    <div class="color999">{{ d.list[i].info.car34Str }}</div>
+                    <div class="numBers">配件数 : {{ d.list[i].info.paiS }}</div>
+                    <div class="messgeXian"></div>
+                    <div class="size14color999">
+                        <span>{{ d.list[i].info.create_time }}</span>
+                        <span class="messgeYouXiao">有效期{{ d.list[i].info.limitation }}天</span>
+                    </div>
+                </div>
+                {{# }else if(d.list[i].msgType==4 || d.list[i].msgType==5){  }}
+                <div class="messageInfoDiv">
+                    <!--评论消息-->
+                    <div><span style="color: #FE534B;">{{ d.list[i].info.uname }}</span>: {{ d.list[i].info.content }}</div>
+                </div>
+                {{# }else if(d.list[i].msgType==6){  }}
+                    <div class="messageInfoDiv">
+                <!--店铺被经销商访问  店铺被汽修厂/美容院访问-->
+                    <div style="color: #FE514A">{{ d.list[i].info.companyname }}</div>
+                    {{# if(d.list[i].info.type==1){ }}
+                    <div>[主营] {{ d.list[i].info.major }}</div>
+                    {{# } }}
+                    </div>
+                {{# }else if(d.list[i].msgType==2){  }}
+                    <!-- 厂商入驻消息 -->
+
+                {{# }else{ }}
+                <div class="messageInfoDiv">
+                     <div style="font-size: 14px;color: #A0A0A0;margin-top: 30px;">{{ d.list[i].createTime }}</div>
+                </div>
+                {{# } }}
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    {{# } }}
+</script>
+<script src="/js/pc/layer/layer.js"></script>
+<script src="/js/laytpl/laytpl.js"></script>
+<script src="/js/global.js"></script>
+<script>
+    var thisPage = 1;
+
+    function getMsg(page) {
+        api.load('pc.firm','getMsg',{page:page},function (data) {
+            thisPage +=1;
+            if(data.list.length>0){
+         var tpl = $('#msgList').html();
+                laytpl(tpl).render(data, function(html){
+                    $('#message').append(html);
+                });
+            }else {
+                $('.moreDate').find('a').attr('onclick','').find('div').html('到底了');
+            }
+            window.onscroll = function () {
+                       $('.messageList').each(function (i,v) {
+                    var oLi = $(v);
+                    //检查oLi是否在可视区域
+                    var t = document.documentElement.clientHeight + (document.documentElement.scrollTop || document.body.scrollTop);
+                    //console.log(t);
+                    var h = getH(oLi);
+                    //console.log(h);
+                    if (h < t) {
+                        var tt = $(v).attr('data-t');
+                        var id = $(v).attr('data-id');
+                        //console.log('-'+tt);
+                        if(tt==='0'){
+                            //console.log(id);
+                            api.load('pc.firm','' +
+                                    '' +
+                                    'doReadMsg',{msgId:id});
+                            $(v).attr('data-t','1');
+                            $(v).find('div').find('img').attr('src','/images/qpxm/pc/product/emali.png');
+                        }
+                    }
+                });
+            };
+            window.onload = function () {
+                window.onscroll();
+            };
+        })
+    }
+
+    function moreData() {
+        getMsg(thisPage);
+    }
+
+    getMsg(thisPage);
+
+    function getH(obj) {
+        var h = 0;
+        h += $(obj).offset().top;
+        return h;
+    }
+</script>

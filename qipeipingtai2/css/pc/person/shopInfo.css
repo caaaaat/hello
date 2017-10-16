@@ -1,0 +1,86 @@
+.titles{height: 90px;line-height: 90px;margin-top: 15px;text-align: center;font-size: 20px;font-weight: bold;color: #5D5D5D}
+/*img{vertical-align: top;}*/
+.infoTextDiv{height: 32px;line-height: 32px;}
+.height32{height: 32px;}
+.infoText{padding-left: 20px;font-size: 18px;}
+.padding25{padding: 25px;}
+.shopImgDiv{float: left;width: 80px;height: 80px;border-radius: 50%;overflow: hidden;}
+.shopImg{height: 80px;max-width: 80px;}
+.shopInfoDiv{float: left;margin-left: 30px;font-size: 14px;}
+.shopName{font-size: 18px;margin-bottom: 20px;}
+.floatLeft{float: left}
+.shopType{float: left;width: 320px!important;}
+.shopTotal{margin-top: 20px;height: 35px;line-height: 35px;}
+.verMiddle{vertical-align: middle}
+.shopTelNum{float: left;margin-left: 30px;height: 35px;line-height: 35px;}
+/*.mingXi{float: right;margin-right: -80px;}*/
+.mingXi{float: left;padding-left: 100px;}
+.mingXiText{text-align: center;width: 90px;height: 35px;background: #4A68FE;color: #FFF;line-height: 35px;font-weight: bold;font-size: 18px;}
+/*.shopCoverDiv{padding: 65px;padding-top: 20px;}*/
+.shopCoverDiv{padding-top: 20px;padding-left: 65px;}
+.shopCoverText{float: left;font-size: 20px;color: #9A9A9A;font-weight: bold;width: 110px;}
+.shopCoverImg{height: 70px;max-width: 70px;}
+/*.bannerDiv{padding: 65px;padding-top: 20px;}*/
+.bannerDiv{padding-left: 65px;padding-top: 20px;}
+.bannerText{float: left;font-size: 20px;color: #9A9A9A;font-weight: bold;width: 110px;}
+.bannerShopImg{height: 70px;max-width: 70px;margin-right: 40px;}
+.zhuYinDiv{padding-left: 65px;margin-top: 40px;height: 30px;line-height: 30px;}
+.zhuYinText{float: left;font-size: 20px;color: #9A9A9A;font-weight: bold;width: 110px;}
+.floLeft20{float: left;margin-left: 20px;}
+.fontSize14{font-size: 14px}
+.lianXiRen{float: left;font-size: 20px;color: #9A9A9A;font-weight: bold;width: 100px;}
+.phoneDiv{padding-left: 65px;margin-top: 40px;height: 30px;line-height: 30px;}
+.phone{float: left;font-size: 20px;color: #9A9A9A;font-weight: bold;width: 110px;}
+.w35h35{width: 35px;height: 35px;}
+.zuoBiaoImg{width: 200px;height: 100px;border: 1px solid #DDD}
+.jieShaoShop{float: left;margin-left: 20px;width: 650px;}
+.bianJiShop{margin-top: 20px;margin-bottom: 60px;}
+.jianJiShopBtn{margin: 0 auto;font-size: 20px;line-height: 60px;;text-align: center;border-radius: 7px;width: 440px;height: 60px;background: #FF524B;color: white;}
+/*编辑店铺信息*/
+.btnMe{border-radius: 5px;border: none;width: 70px;height: 30px;background: #FF524B;color: #FFF;line-height: 30px;text-align: center}
+.upBntText{color: #BEBEBE;margin-left: 10px;}
+.positingLeft{position: relative;float: left;}
+.xBtn{position: absolute;top: 2px;left: 50px;}
+.upBtnDiv{float: left;line-height: 70px;margin-left: 30px;}
+.zhuYinTextarea{width: 500px;height: 55px;max-width: 500px;max-height: 55px;border: 1px solid #DDD;}
+.shopEditInput{padding-left: 5px;width: 200px;height: 35px;border: 1px solid #DDD}
+.w70h70{width: 70px;height: 70px;margin-right: 10px;}
+.goBackDiv{position: absolute;top: -20px;left: 30px;font-weight: normal}
+.padTop0marTop10{padding-top: 0;margin-top: 10px;}
+.marginLeft25{margin-left: 25px;}
+.padTop0marTop20{padding-top: 0;margin-top: 20px;}
+.marginLeft15{margin-left: 15px;}
+.marTop10{margin-top: 10px;}
+.zuoBiaoInput{width: 200px;height: 26px;border: 1px solid #DDD;line-height: 26px;padding-left: 5px;}
+.zuoBiaoBtn{border: none;color: #FFF;width: 70px;height: 26px;line-height: 24px;text-align: center;background: #FD524A;margin-left: -5px;}
+.positionRelative{position: relative;}
+.diZiTextarea{border: 1px solid #DDD;width: 500px;height: 50px;max-width: 500px;max-height: 50px;}
+.ziShu{position: absolute;top: 45px;right: 0;color: #BBB}
+.jieShaoTexarea{border: 1px solid #DDD;width: 500px;height: 90px;max-width: 500px;max-height: 90px;}
+.linePhone{margin-top: 5px;margin-bottom: 5px;}
+.zuoJi{margin-top: 5px;margin-bottom: 5px;}
+.qq{margin-top: 5px;margin-bottom: 5px;}
+.wechat_pic{float: left;background: url('/images/qpxm/pc/person/approveInfo/bgImg.png');background-size: cover;}
+/*访问明细*/
+.typeXuanXiang{float: left;text-align: center;line-height: 40px;width: 80px;height: 40px;background: #FFF;border: 1px solid #DDD;color: #FF6735}
+.typeXuanXiangActive{background: #FF6632!important;color: #FFF!important;}
+.padLeft28right25{padding-left: 28px;padding-right: 25px;}
+#shopListDiv{padding-left: 28px;padding-right: 25px;}
+.height155maxW155{height: 155px;max-width: 155px;}
+.shopListInfo{float: left;height: 155px;margin-left: 20px;}
+.shopListVIPNameDiv{font-size: 20px;font-weight: bold;color: #FF6634}
+.shopListNameDiv{font-size: 20px;font-weight: bold;color: #333}
+.carTypeName{font-weight: normal;color: #27B8FB;font-size: 14px;padding: 3px 15px;line-height: 28px;text-align: center;border-radius: 14px;border: 1px solid #27B8FB;}
+.shopListInfoDiv{margin-top: 50px;font-size: 14px;}
+.height25lineH25{height: 25px;line-height: 25px;}
+.shopDivListBottom{clear: both;border-bottom: 2px solid #DDD;padding-top: 40px;}
+.shopListDiv{border-bottom: 2px solid #DDD;border-top: 2px solid #DDD;padding-top: 40px;padding-bottom: 40px;margin-bottom: -2px;}
+
+
+/*分页*/
+.btn-primary.active{background: #FFF;color: #2E2E2E;border: 1px solid #FE534B;border-top: none;border-bottom: none;box-shadow:none;}
+.btn-white{border: 1px solid #FE534B;color: #FE534B;}
+.btn:hover{border: 1px solid #FE534B;}
+.pager{height: 34px;min-width: 34px;display: inline-block;line-height: 34px;margin: 0;}
+#pager button{padding: 0;height: 34px;min-width: 34px;}
+

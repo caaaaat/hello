@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Swiper demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="./webuploader.css">
+
+    <!--引入JS-->
+    <script type="text/javascript" src="./jquery1.12.4.min.js"></script>
+    <script type="text/javascript" src="./webuploader.js"></script>
+    <style>
+        input{width: 50px;height: 50px;}
+    </style>
+</head>
+<body>
+
+<div id="uploader-demo">
+    <!--用来存放item-->
+    <div id="fileList" class="uploader-list"></div>
+    <div id="filePicker">选择图片</div>
+</div>
+<button class="a">fdsafdsa</button>
+
+<script>
+    // 初始化Web Uploader
+    var uploader = WebUploader.create({
+
+        // 选完文件后，是否自动上传。
+        auto: true,
+
+        // swf文件路径
+        swf: './Uploader.swf',
+
+        // 文件接收服务端。
+        server: 'http://webuploader.duapp.com/server/fileupload.php',
+
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#filePicker',
+
+        // 只允许选择图片文件。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'gif,jpg,jpeg,bmp,png'
+        }
+    });
+
+
+//    // 当有文件被添加进队列的时候
+//    uploader.on( 'fileQueued', function( file ) {
+//        $list.append( '<div id="' + file.id + '" class="item">' +
+//                '<h4 class="info">' + file.name + '</h4>' +
+//                '<p class="state">等待上传...</p>' +
+//                '</div>' );
+//    });
+
+    $('.a').click(function(){
+        $('#filePicker').find('input[name="file"]').click();
+    });
+</script>
+</body>
+</html>

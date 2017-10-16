@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>绑定手机</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	.sw-input-code{
+		text-align: left;height: 48px!important;
+		background: url(../../../image/login/icon_tuxing.png)no-repeat;
+		background-position: 8px;
+		background-size: 14px;
+		padding-left: 30px!important;
+		margin-right:20px;
+		float: left;
+		font-size: 14px;
+	}
+	.weui-vcode-img{
+		height: 48px;width: 100px;
+	}
+	.vcode-img-div{
+		padding: 0;height: 48px;position: absolute;right: 0;
+	}
+	.sw-input-code-con{
+		overflow: hidden;padding-right: 120px;position: relative;margin-right: 0;
+	}
+	
+	.sw-check{
+		width: 12px;height: 12px;vertical-align:middle;margin-bottom:0;display: inline-block;background: url(../../image/login/icon_weixuan.png) no-repeat;background-size: contain;cursor: pointer;
+	}
+	.sw-check-active{
+		width: 12px;height: 12px;vertical-align:middle;margin-bottom:0;display: inline-block;background: url(../../image/login/icon_yixuan.png) no-repeat;background-size: contain;cursor: pointer;
+	}
+</style>
+<body style="background: #FFFFFF;">
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">绑定手机</h1>
+	</header>
+	
+	<div class="mui-content" style="padding: 0 20px;background: #FFFFFF;">
+	   
+	    <div class="sw-input-code-con" style="padding-top: 90px;margin-bottom: 50px">
+	        <input type="text" maxlength="6" id="smsCode" placeholder="请输入短信验证码" class="sw-input-code">
+			<div class="vcode-img-div">
+				<button type="button" id="getCode" class="mui-btn mui-btn-tangerine" style="height: 48px;width: 96px;">
+					获取验证码
+				</button>
+			 </div>
+	    </div>    
+	    <button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" id="material" onclick="setPwd()">完成</button>
+	</div>
+	
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+  <script src="../../../js/jquery.min.js"></script>
+ <script type="text/javascript" charset="utf-8">
+ 	mui.init();
+ 	
+ 	var	phone = '';	
+	//初始化
+	mui.plusReady(function() {	
+		var self = plus.webview.currentWebview();		
+			phone = self.phone;
+		var	token = self.token;	
+		//进入后检查手机短信验证码  未发送进行发送手机验证码
+		getSmsCode();	
+	})	
+	
+	//获取短信验证码
+ 	function getSmsCode(){	
+ 		var postData = {'phone':phone};
+
+ 		http.load('api.sev.register','sendCode',postData,function(rData){//请求成功
+				sw.jcon(rData);
+	 			//请求成功后判断样式处理
+	 			sw.toast(rData.msg);
+	 			//处理倒计时事件
+	 			if(rData.status==200){
+	 				setTimeCode(rData.time);     
+	 			}
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+				//无网络提示
+				//sw.toast('请求失败，请检查您网络设置');
+	 		}) 
+ 	}
+ 	
+ 	//短信验证码倒计时
+ 	function setTimeCode(s){   		
+		s--;
+		if (s == 0) {
+			$("#getCode").removeClass('mui-btn-gray').addClass('mui-btn-tangerine');
+			$("#getCode").text('获取验证码');
+			$("#getCode").attr('onclick','getSmsCode()');			
+		}else {
+			$("#getCode").removeClass('mui-btn-tangerine').addClass('mui-btn-gray');
+			$("#getCode").attr('onclick','');
+			$("#getCode").text(s+'s')
+			setTimeout(function() { 
+				setTimeCode(s)
+			}, 1000)
+		}		
+ 	}
+ 	
+ 	
+ 	/**
+	 * 注册设置密码
+	 */
+	function setPwd(){
+			
+        //获取填入的信息
+        var smsCode = $.trim($("#smsCode").val());
+		var token   = plus.storage.getItem('token');
+        //判断输入的值是否正确
+ 		if(smsCode==''){
+ 			sw.toast('请输入手机验证码');
+ 			return;
+ 		}else{
+ 			if(smsCode.length!=6){
+ 			sw.toast('手机验证码输入有误'); 
+ 			return;
+ 		    }
+ 		}
+
+	 	//提交数据
+	 	http.load('api.sev.user','setPhone',{'phone':phone,'smsCode':smsCode,'token':token},function(rData){//请求成功
+				sw.jcon(rData);    
+	 			//请求成功后判断样式处理 
+	 			sw.toast(rData.msg);
+				if(rData.status==200){
+					//plus.webview.getWebviewById("person_info_index").reload(true); 
+					plus.storage.setItem('pIIs','1');	//父级 父级
+					//关闭登录界面
+					plus.webview.close( 'person_info_setTel', 'slide-out-bottom', '300');
+					plus.webview.close( 'person_info_viCode', 'slide-out-bottom', '300');
+				}
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+	 			sw.jcon(type)
+				//无网络提示
+				//sw.toast('请求失败，请检查您网络设置');
+	 	})	
+	}
+ </script>
+</html>

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>编辑信息</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">   
+    </script>
+</head>
+<style>
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	
+	.sw-after-no:after{
+		height: 0;
+	}
+	.sw-list-title{
+		font-size: 14px;color: #666;
+	}
+	.sw-list-title1{
+		line-height:60px;font-size: 14px;color: #666;
+	}
+	.sw-list-title3{
+		line-height:40px;font-size: 14px;color: #666;
+	}
+	.sw-list-title2{
+		font-size: 14px;color: #666;display: inline-block;width: 56px;
+	}
+	.sw-list-title4{
+		font-size: 14px;color: #666;display: inline-block;width: 100px;
+	}
+	.sw-list-text2{
+		margin-left:56px ;margin-top: -21px;
+	}
+	.sw-list-text3{
+		float: right;font-size: 12px;color: #999;
+	}
+	.sw-list-text6{
+		float: right;font-size: 12px;color: #999;
+	}
+	.sw-list-text4{
+		margin-left:100px ;margin-top: -21px;font-size: 12px;
+	}
+	.sw-list-text5{
+		margin-left:56px ;margin-top: -21px;margin-right: 56px;
+	}
+	.sw-img{
+		width: 60px;height: 60px;float: right;margin-left: 4px;
+	}
+	.sw-img-r{
+		float: right;width: 20px;
+	}
+	.sw-img1{
+		width: 40px;height: 40px;float: right;margin-left: 4px;
+	}
+	.sw-icon-ca{
+		position: absolute;right: 16px;top: 12px;width: 14px;height: 14px;background: url(../../../image/person/purchase/icon_zp_cha.png) no-repeat;background-size: contain;
+	}
+	.sw-add-icon{
+		float: right;position: relative;right: -56px;margin-top: -48px;
+	}
+	.sw-input-text{
+		margin-bottom: 6px;font-size: 14px;
+	}
+	.sw-map-box{
+		width: 220px;height: 120px;float: right;margin-top: 12px;border: 1px solid #EFEFEF;font-size: 12px;color: #999999;text-align: center;line-height: 120px;border-radius: 2px;
+	}
+	
+	.mui-popup-button:after {
+    width: 0px;
+}
+.mui-popup-inner:after {
+    height: 0px;
+}
+.mui-popup-button:first-child:last-child {
+    border-radius: 4px;
+}
+.sw-popu-btn{
+	width:70%;height:36px;line-height:14px;border-radius: 1px;margin: auto;font-size: 16px;
+}
+</style>
+<body style="background: #EFEFEF;">
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">编辑信息</h1>
+	    <button class="mui-btn mui-btn-link mui-pull-right" onclick="saveStore()">
+			保存
+		</button>
+	</header>
+	
+	<div class="mui-content" style="background: #EFEFEF;" >   
+		 <ul class="mui-table-view" style="margin-top:10px;">
+		 	
+			<li class="mui-table-view-cell sw-after-no" id="uploadFaceImg">  
+				<a class="mui-navigate-right">
+					<span class="sw-list-title1">封面</span>
+					<span class="sw-img-r">&nbsp;</span>
+					<img src="../../../image/person/purchase/tianjiazp.png" id="faceImg" class="sw-img"/>
+				</a>
+			</li>
+			
+			<li class="mui-table-view-cell sw-after-no" id="bannerPic">	
+				<a class="mui-navigate-right">
+					<span class="sw-list-title1">banner</span>
+					<span class="sw-img-r">&nbsp;</span>
+					<span id="bannerList"></span>
+				</a>
+			</li>
+			
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">主营</span>
+				<p class="sw-list-text2">
+					<textarea placeholder="请输入主营项目" style="font-size: 14px;margin-bottom: 0;" id="major"></textarea>
+				</p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">联系人</span>
+				<p class="sw-list-text5">
+					<input type="text" name="linkMan" id="linkMan" value="" placeholder="请输入联系人姓名" style="margin-bottom: 0;font-size: 14px;" />
+				</p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">手机</span>
+				<p class="sw-list-text5" id="linkPhoneCon">
+					<span>
+						<input type="number" name="linkPhone" id="linkPhoneF" value="" placeholder="请输入联系电话" class="sw-input-text"/>
+						<img src="../../../image/person/store/icon_jia.png" width="24px" class="sw-add-icon" onclick="addPhone()">
+					</span>						
+				</p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">座机</span>
+				<p class="sw-list-text5" id="linkTelCon">
+					<span>
+						<input type="text" name="linkTel" id="linkTelF" value="" placeholder="请输入座机号码" class="sw-input-text" />
+						<img src="../../../image/person/store/icon_jia.png" width="24px" class="sw-add-icon" onclick="addTel()">
+					</span>   
+					
+				</p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title2">QQ</span>
+				<p class="sw-list-text5" id="linkQQCon">
+					<span>
+						<input type="number" name="linkQQ" id="linkQQF" value="" placeholder="请输入QQ号码" class="sw-input-text" />
+						<img src="../../../image/person/store/icon_jia.png" width="24px" class="sw-add-icon" onclick="addQQ()">
+					</span> 	
+				</p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no sw-no-active" id="wechatPic">
+				<a class="mui-navigate-right">
+					<span class="sw-list-title3">微信</span>
+					<span class="sw-img-r">&nbsp;</span>
+					<img src="../../../image/person/purchase/tianjiazp.png" id="wechatImg" class="sw-img1"/>
+				</a>
+			</li>
+		</ul>    
+		
+		
+		<ul class="mui-table-view" style="margin-top:10px;">
+			<li class="mui-table-view-cell sw-after-no sw-no-active">
+				<span class="sw-list-title">企业坐标：</span>
+				<span class="sw-list-text3" id="coordinate">&nbsp;</span>
+				<div style="clear: both;"></div>
+				<input type="text" name="longitude" id="longitude" value=""  hidden="hidden"/>
+				<input type="text" name="latitude"  id="latitude"  value=""  hidden="hidden"/>					
+				<div id="allmap" class="sw-map-box">地图加载中...</div> 
+			</li>
+			
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title4">详细地址：</span>
+				<p class="sw-list-text2" style="padding-left: 20px;">
+					<textarea id="address" placeholder="坐标地址不计入详细地址中，需再手动填写" style="font-size: 14px;margin-bottom: 0;"></textarea>
+				</p>
+			</li>
+			
+		</ul> 
+		
+		
+		<ul class="mui-table-view" style="margin-top:10px;margin-bottom: 20px;">
+			<li class="mui-table-view-cell sw-after-no sw-no-active">		
+				<span class="sw-list-title4">企业介绍：</span>
+				<span class="sw-list-text6">字数（<span id="infoNum">0</span>/500）</span>
+				<p style="margin-top: 8px;">
+					<textarea rows="5" id="info" maxlength="500" placeholder="请输入企业简介" style="font-size: 14px;" onchange="title_len();" onkeyup="title_len();" onclick="title_len();"></textarea> 
+				</p>
+			</li> 
+			
+		</ul> 
+		
+	</div>
+<!--联系手机号码-->	
+<script id="phone-list-tpl" type="text/html">
+	<span>
+		<input type="number" name="linkPhone" value="{{ d.phone }}" placeholder="请输入联系电话" class="sw-input-text" />
+		<img src="../../../image/person/store/icon_jian.png" width="24px" class="sw-add-icon" onclick="$(this).parent().remove()">
+	</span>
+</script>
+
+<!--联系人座机-->
+<script id="tel-list-tpl" type="text/html">
+	<span>
+		<input type="text" name="linkTel" value="{{ d.tel }}" placeholder="请输入座机号码" class="sw-input-text" />
+		<img src="../../../image/person/store/icon_jian.png" width="24px" class="sw-add-icon" onclick="$(this).parent().remove()">
+	</span>
+</script>
+
+<!--联系人qq-->
+<script id="qq-list-tpl" type="text/html"> 
+	<span>
+		<input type="number" name="linkQQ" value="{{ d.qq }}" placeholder="请输入QQ号码" class="sw-input-text" />
+		<img src="../../../image/person/store/icon_jian.png" width="24px" class="sw-add-icon" onclick="$(this).parent().remove()">
+	</span> 
+</script>
+</body>
+<script type="text/javascript" src="../../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../../js/global.js"></script>
+<script type="text/javascript" src="../../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/laytpl/laytpl.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZBcSIHdvwjfx105K8jvQCj5W"></script>    
+<script type="text/javascript">
+	//监听vinp上传返回事件
+ 	 window.addEventListener('refreshImg',function(){ 	 	 
+ 	 	var facePic = plus.storage.getItem('facePic');
+ 	 	var wechatPic = plus.storage.getItem('wechatPic');  
+ 	 	if(facePic!=undefined&&facePic!='null'&&facePic!=''){ 
+ 	 		$("#faceImg").attr('src',imgUrl+facePic);
+ 	 	}else{
+ 	 		$("#faceImg").attr('src','../../../image/person/purchase/tianjiazp.png');
+ 	 	}
+ 	 	
+ 	 	if(wechatPic!=undefined&&wechatPic!='null'&&wechatPic!=''){
+ 	 		$("#wechatImg").attr('src',imgUrl+wechatPic);
+ 	 	}else{
+ 	 		$("#wechatImg").attr('src','../../../image/person/purchase/tianjiazp.png');
+ 	 	}
+	});
+	
+	//监听banner上传返回事件
+ 	 window.addEventListener('bannerUpload',function(){ 	 	
+ 	 	var bannerPic = JSON.parse(plus.storage.getItem('banner'));
+ 	 	var bannerHtml = '';
+ 	 	if(bannerPic!=undefined&&bannerPic!='null'){ 
+			var bannerLen  = bannerPic.length;			
+			if(bannerLen>0){
+				for(var i=0;i<bannerLen;i++){
+					bannerHtml += '<img src="'+imgUrl+bannerPic[i]+'" class="sw-img"/>';
+				}
+			}  	 		
+ 	 	}
+ 	 	$("#bannerList").html(bannerHtml);
+	});
+	//mui初始化
+	mui.init();
+
+	var saveStatus = 1;
+	//mui plusReady
+	mui.plusReady(function() {	
+		//获取店铺基础信息
+		var token  = plus.storage.getItem('token');
+		//加载弹窗
+		loading('加载中...'); 
+		//获取数据
+		http.load('api.sev.user','getStoreInfo',{'token':token},function(rData){
+		
+ 			sw.jcon(rData)
+			//封面
+			if(rData.face_pic&&rData.face_pic!='null'){
+				$("#faceImg").attr('src',imgUrl+rData.face_pic);
+				plus.storage.setItem('facePic',rData.face_pic); 
+			}else{
+				plus.storage.setItem('facePic','');
+			}
+			sw.jcon(rData.wechat_pic)
+			//微信二维码
+			if(rData.wechat_pic&&rData.face_pic!='null'){
+				$("#wechatImg").attr('src',imgUrl+rData.wechat_pic);
+				plus.storage.setItem('wechatPic',rData.wechat_pic);  
+			}else{
+				plus.storage.setItem('wechatPic','');
+			}
+			//主营
+			$("#major").val(rData.major);
+			//联系人
+			$("#linkMan").val(rData.linkMan);
+			//地址 
+			$("#address").val(rData.address);
+			//公司简介
+			if(rData.info&&rData.info!='null'){
+				$("#info").val(rData.info);
+			//统计字数
+				var infoLen = rData.info.length;
+				$("#infoNum").text(infoLen);
+			}
+			//联系电话
+			var linkPhoneArr = rData.linkPhoneArr?rData.linkPhoneArr:''; 
+			var phoneLen     = linkPhoneArr.length;
+			if(phoneLen>0){
+				$("#linkPhoneF").val(linkPhoneArr[0]);
+				if(phoneLen>1){
+					for(var i=1;i<phoneLen;i++){						
+						var phoneTpl = $('#phone-list-tpl').html();			
+				        laytpl(phoneTpl).render({'phone':linkPhoneArr[i]},function(render){           
+				            $("#linkPhoneCon").append(render); 
+				        });
+					}       
+				}
+			}
+			
+			
+			//座机
+			 var linkTelArr = rData.linkTelArr?rData.linkTelArr:'';
+			 var telLen     = linkTelArr.length;
+			 if(telLen>0){
+				$("#linkTelF").val(linkTelArr[0]);
+				if(telLen>1){
+					for(var j=1;j<telLen;j++){
+						var telTpl = $('#tel-list-tpl').html();			
+				        laytpl(telTpl).render({'tel':linkTelArr[j]},function(render){           
+				            $("#linkTelCon").append(render); 
+				        }); 
+					}
+			        
+				}
+			}
+			 
+			//qq 
+			 var qqArr = rData.qqArr?rData.qqArr:'';
+			 var qqLen = qqArr.length;
+			 if(qqLen>0){
+				$("#linkQQF").val(qqArr[0]);
+				if(qqLen>1){
+					for(var m=1;m<qqLen;m++){
+						var qqTpl = $('#qq-list-tpl').html();			
+				        laytpl(qqTpl).render({'qq':qqArr[m]},function(render){           
+				            $("#linkQQCon").append(render); 
+				        });
+					}  
+				}
+			}
+			 
+			//banner
+			var banners    = rData.banners;
+			var bannerLen  = banners.length;
+			var bannerHtml = '';
+			if(bannerLen>0){
+				for(var i=0;i<bannerLen;i++){
+					bannerHtml += '<img src="'+imgUrl+banners[i].banner_url+'" class="sw-img"/>';
+				}
+				plus.storage.setItem('banner',JSON.stringify(rData.bannersArr))
+			}else{
+				plus.storage.removeItem('banner');
+			}
+			$("#bannerList").html(bannerHtml);
+			
+			//地图坐标
+			$("#coordinate").text(rData.coordinate);   
+			$("#longitude").val(rData.longitude);   
+			$("#latitude").val(rData.latitude);   
+				
+			//初始化地图
+			setTimeout(function(){
+				//关闭加载框
+				closeLoading();	
+				var point = new BMap.Point(rData.longitude, rData.latitude);	
+				setMap(point); 
+			},300)
+			
+		},function(xhr,type,errorThrown){
+	 		//关闭加载框
+			closeLoading();		
+			//无网络提示
+			sw.toast('获取数据失败，服务器或网络异常'); 	
+		}) 
+
+	})
+ 	
+ 	 //字数统计
+    function title_len(){
+        var value = $('#info').val().length;
+        if(value == 500){
+            var string = value;
+        }else{
+            string = value;
+        }
+        $('#infoNum').html(string);
+    }
+ 	
+	//百度地图调用
+	function setMap(point){      	 	 	
+			// 百度地图API功能
+			var map = new BMap.Map("allmap"); 
+				map.centerAndZoom(point, 15);
+			
+			var marker = new BMap.Marker(point);// 创建标注 
+				map.addOverlay(marker); 				
+				marker.enableDragging();//允许拖拽
+				
+				var geoc = new BMap.Geocoder();//获取定位信息			
+				getLatLngAdd(geoc,point);	 							
+				//拖拽结束事件
+				marker.addEventListener("dragend", function(e){
+					var o_Point_now =  marker.getPosition();
+						getLatLngAdd(geoc,o_Point_now); 
+				})	 
+	}
+	  
+	/**
+	 * 根据地址获取中文
+	 */ 
+	function getLatLngAdd(geoc,point){		
+		geoc.getLocation(point, function(rs){
+				var addComp = rs.addressComponents;
+				sw.jcon(addComp);
+				var address = addComp.province+addComp.city+addComp.district+	addComp.street+addComp.streetNumber;
+				$("#coordinate").text(address);
+				//将坐标保存
+				$("#latitude").val(point.lat);
+				$("#longitude").val(point.lng);
+		}); 					
+	}
+	
+	//添加电话
+	function addPhone(){	
+		//判断是否有未填写的手机号输入框
+		var linkPhones = $("input[name='linkPhone']");
+		var isAdd = 1;
+		$.each(linkPhones, function() {
+			if($.trim($(this).val())==''){
+				$(this).focus();
+				isAdd = 0;
+			}			
+		});
+		if(isAdd==0){
+			sw.toast('您还有未填写手机号码的输入框'); 	
+		}else{
+			var phoneTpl = $('#phone-list-tpl').html();			
+	        laytpl(phoneTpl).render({'phone':''},function(render){           
+	            $("#linkPhoneCon").append(render);   
+	        }); 
+		}
+		
+	}
+	
+	//添加座机
+	function addTel(){	
+		//判断是否有未填写的手机号输入框
+		var linkTels = $("input[name='linkTel']");
+		var isAdd = 1;
+		$.each(linkTels, function() {
+			if($.trim($(this).val())==''){
+				$(this).focus();
+				isAdd = 0;
+			}			
+		});
+		if(isAdd==0){
+			sw.toast('您还有未填写座机号码的输入框'); 	
+		}else{
+			var telTpl = $('#tel-list-tpl').html();			
+	        laytpl(telTpl).render({'tel':''},function(render){           
+	            $("#linkTelCon").append(render); 
+	        }); 
+		}
+		
+	}
+	
+	//添加qq
+	function addQQ(){	
+		//判断是否有未填写的手机号输入框
+		var linkQQs = $("input[name='linkQQ']");
+		var isAdd = 1;
+		$.each(linkQQs, function() { 
+			if($.trim($(this).val())==''){
+				$(this).focus();
+				isAdd = 0;
+			}			
+		});
+		if(isAdd==0){
+			sw.toast('您还有未填写qq号码的输入框'); 	
+		}else{
+			var qqTpl = $('#qq-list-tpl').html();			
+	        laytpl(qqTpl).render({'qq':''},function(render){           
+	            $("#linkQQCon").append(render); 
+	        }); 
+		}
+		
+	}
+	
+	
+	//选择封面图片
+	mui("#uploadFaceImg")[0].addEventListener('tap',function(){		
+		openView('../../../view/person/store/uploadImg.html','person_store_uploadImg','pop-in',{upId:'facePic'});
+	})
+	//选择微信图片
+	mui("#wechatPic")[0].addEventListener('tap',function(){		
+		openView('../../../view/person/store/uploadImg.html','person_store_uploadImg','pop-in',{upId:'wechatPic'});
+	})
+	//选择banner
+	mui("#bannerPic")[0].addEventListener('tap',function(){		
+		openView('../../../view/person/store/uploadBanner.html','person_store_uploadBanner','pop-in');
+	})
+	
+	//保存门店信息
+	function saveStore(){
+		var isSubmit  = 1;
+		var faceImg   = $.trim(plus.storage.getItem('facePic'));
+		var wechatPic = $.trim(plus.storage.getItem('wechatPic')); 
+		var bannerPic = JSON.parse(plus.storage.getItem('banner'));
+		
+		var major   = $.trim($("#major").val());
+		var linkMan = $.trim($("#linkMan").val());
+		var address = $.trim($("#address").val());
+		var coordinate  = $('#coordinate').text();
+        //经纬度
+        var longitude   = $('input[name="longitude"]').val();
+        var latitude    = $('input[name="latitude"]').val();
+		var info		= $.trim($("#info").val());
+		
+		
+		if(faceImg==''||faceImg=='null'){
+			sw.toast('请上传店铺封面');
+			isSubmit  = 0;
+	 		return; 
+		}
+		
+		if(bannerPic==null||bannerPic.length<=0){
+			sw.toast('请上传店铺banner');
+			isSubmit  = 0;
+	 		return; 
+		}
+		
+		if(major==''){
+			sw.toast('请输入主营项目');
+			isSubmit  = 0;
+	 		return; 
+		}
+		
+		if(linkMan==''){
+			sw.toast('请输入联系人姓名');
+			isSubmit  = 0;
+	 		return;
+		}
+		
+		//联系手机
+		var linkPhone   = $("input[name='linkPhone']");
+		var phoneArr    = [];	
+		$.each(linkPhone, function() {
+			var phone = $.trim($(this).val());
+			if(phone){
+				if(Verification.isTel(phone)==false){//验证手机号码输入是否正确
+	 				sw.toast('您输入的手机号码有误，请检查后重试');
+	 				isSubmit  = 0;
+	 				return; 
+ 				}
+			}else{
+				$(this).focus();
+				sw.toast('请输入手机号码'); 
+				isSubmit  = 0;
+				return;
+			}
+			
+			phoneArr.push(phone);
+		});
+		var phones = phoneArr.join(",");
+		
+		//联系座机
+		var linkTel   = $("input[name='linkTel']");
+		
+		var telArr    = [];
+		$.each(linkTel, function() {
+			var tel = $.trim($(this).val());
+			if(tel==''){
+				$(this).focus();
+				sw.toast('请输入座机号码'); 	
+				isSubmit  = 0;
+				return;
+			}		
+			telArr.push(tel);
+		});
+		var tels = telArr.join(",");
+		
+		//联系qq
+		var linkQQ   = $("input[name='linkQQ']");
+		var qqArr    = [];
+		$.each(linkQQ, function() {
+			var qq = $.trim($(this).val());
+			if(qq==''){
+				$(this).focus();
+				sw.toast('请输入qq号码'); 
+				isSubmit  = 0;
+				return;
+			}
+			qqArr.push(qq);
+		});
+		var qqs = qqArr.join(",");
+			
+		
+		if(longitude==''&&latitude==''){
+			sw.toast('请选择企业坐标');
+			isSubmit  = 0;
+	 		return; 
+		}
+		
+		if(address==''){
+			sw.toast('请输入企业详细地址');
+			isSubmit  = 0;
+	 		return; 
+		}
+		
+		if(info==''){
+			sw.toast('请输入企业介绍');
+			isSubmit  = 0;
+	 		return; 
+		}
+		
+		 var token = ''; 
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+			token   = plus.storage.getItem('token');	
+		}else{
+			sw.toast('您还未登录，请先登陆才能发布求购');
+			isSubmit  = 0;
+			return;
+		}
+		
+		if(isSubmit==0){
+			return;
+		}
+		
+		var postData = {};
+			postData.token   = token;
+			
+			postData.faceImg = faceImg;
+			postData.wechatPic = wechatPic; 
+			postData.bannerPic = bannerPic;
+			postData.major 	   = major;
+			postData.linkMan   = linkMan;
+			postData.address   = address;
+			postData.coordinate= coordinate;
+			postData.longitude = longitude; 
+			postData.latitude  = latitude;
+			postData.info   = info;
+			postData.phones = phones;
+			postData.qqs    = qqs;
+			postData.tels   = tels;
+		
+			mui.confirm('确认保存？', '&nbsp;', ['<span class="mui-popup-button mui-btn sw-popu-btn" style="color:#333">确认</span>','<span class="mui-popup-button mui-btn mui-btn-blue sw-popu-btn">取消</span>' ], function(e) {				
+
+				if (e.index == 1&&saveStatus==1) {//确认					
+					saveStatus = 0; 
+					
+					loading('保存中...');
+					//如果已经登陆 获取登录后的数据
+					http.load('api.sev.user','saveStore',postData,function(rData){//请求成功
+						closeLoading();	
+						sw.toast(rData.msg); 
+						if(rData.status==200){
+			 				//发布求购成功
+							setTimeout(function(){
+								var person = plus.webview.getWebviewById("person_store_info");
+								person.reload(true); 
+				 			   	//关闭界面
+								plus.webview.close( 'person_store_editInfo', 'pop-in');	 									 					
+							},300)	
+						}
+						
+					},function(){
+						saveStatus = 1; 
+						
+						closeLoading();	
+						//无网络提示
+			 			sw.toast('请求失败，服务器或网络异常'); 
+					});
+											
+				}
+				
+			},'div');
+			$('.mui-popup-button').css('font-size','16px');	
+
+	}
+	
+	
+	
+</script>
+</html>

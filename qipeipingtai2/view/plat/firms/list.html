@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>厂商列表</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .mail-box-header label{ height: 34px; line-height: 34px;width: 50px; margin-bottom: 0; padding-left: 0;padding-right: 0;}
+        .mt5{margin-bottom: 5px; padding-right: 0;}
+        .lr{padding-left: 0;padding-right: 0;}
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content" style="padding: 0">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <div class="mail-box-header col-xs-12">
+                <div class="form-group">
+                    <div class="col-xs-6 col-sm-3 col-lg-3 mt5" style="">
+                        <label class="col-xs-4 col-sm-4 col-lg-4 control-label">状态</label>
+                        <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="">
+                            <select id="status" class="form-control">
+                                <option value=''>全部</option>
+                                <option value='1'>正常</option>
+                                <option value='2'>停用</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-lg-3 mt5" style="">
+                        <label class="col-xs-4 col-sm-4 col-lg-4 control-label">类型</label>
+                        <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="">
+                            <div class="col-xs-6 col-sm-6 col-lg-6 lr">
+                                <select id="type" class="form-control" onchange="ChangType(this)">
+                                    <option value=''>全部</option>
+                                    <option value='1'>经销商</option>
+                                    <option value='2'>汽修厂</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-lg-6 lr">
+                                <select id="classification" class="form-control">
+                                    <option value=''>全部</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-lg-3 mt5" style="">
+                        <label class="col-xs-4 col-sm-4 col-lg-4 control-label">区域</label>
+                        <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="">
+                            <div class="col-xs-4 col-sm-4" style="padding-left: 0;padding-right: 0;">
+                                <select id="province" class="form-control" style="padding-left: 5px;">
+                                    <option value=''>全部</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-4 col-sm-4" style="padding-left: 0;padding-right: 0;">
+                                <select id="city" class="form-control" style="padding-left: 5px;">
+                                    <option value=''>全部</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-4 col-sm-4" style="padding-left: 0;padding-right: 0;">
+                                <select id="county" class="form-control" style="padding-left: 5px;">
+                                    <option value=''>全部</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-lg-3 mt5" style="">
+                        <label class="col-xs-4 col-sm-4 col-lg-4 control-label">认证</label>
+                        <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="">
+                            <select id="is_check" class="form-control">
+                                <option value=''>全部</option>
+                                <option value='1'>已认证</option>
+                                <option value='2'>未认证</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-lg-3 mt5" style="">
+                        <label class="col-xs-4 col-sm-4 col-lg-4 control-label">业务员</label>
+                        <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="">
+                            <select id="sale" class="form-control">
+                                <option value=''>全部</option>
+                                <option value='1'>已关联</option>
+                                <option value='2'>未关联</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-lg-3 mt5" style="">
+                        <label class="col-xs-4 col-sm-4 col-lg-4 control-label">VIP</label>
+                        <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="">
+                            <select id="is_vip" class="form-control">
+                                <option value=''>全部</option>
+                                <option value='1'>是</option>
+                                <option value='2'>否</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-lg-3 mt5" style="">
+                        <label class="col-xs-4 col-sm-4 col-lg-4 control-label">关键字</label>
+                        <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="padding-left: 0;">
+                            <div class="col-xs-12 col-sm-12 input-group">
+                                <input type="text" class="form-control input-xs" id="searchKey" placeholder="企业ID/昵称/手机号"/>
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary" id="found"> 搜 索 </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="clear: both"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrapper wrapper-content" style="padding: 0">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <h3 style="margin-right: 10px;">厂商列表</h3>
+                    <div style="text-align: right; padding-right: 15px;">
+                        <span><a class="btn btn-xs btn-primary" onclick="createFirm()">添加厂商</a></span>
+                        <span><a class="btn btn-xs btn-primary" onclick="getList(1)">刷新列表</a></span>
+                        <span><a class="btn btn-xs btn-primary" id="download" href="/plat.firms/exportToExcel">导出表格</a></span>
+                    </div>
+                    <!--列表开始-->
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center;width:150px">企业ID</th>
+                                <th style="text-align: center;width:150px">昵称</th>
+                                <th style="text-align: center;width:150px">手机号</th>
+                                <th style="text-align: center;width:150px">企业<br/>名称</th>
+                                <th style="text-align: center;width:240px">企业<br/>类型</th>
+                                <th style="text-align: center;width:240px">企业<br/>分类</th>
+                                <th style="text-align: center;width:240px">所属区域</th>
+                                <th style="text-align: center;width:240px">认证状态</th>
+                                <th style="text-align: center;width:240px">关联<br/>业务员</th>
+                                <th style="text-align: center;width:240px">VIP</th>
+                                <th style="text-align: center;width:240px">刷新点</th>
+                                <th style="text-align: center;width:240px">最近<br/>登录时间</th>
+                                <th style="text-align: center;width:240px">状态</th>
+                                <th style="text-align: center;width:240px">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="listObj" style="text-align: center">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <script id="showList" type="text/html">
+                        {{# var list     = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                        {{# var typeArr = { 0:'',1:'经销商',2:'修理厂'} }}
+                        {{# var classArr = { 0:{0:'',1:'',2:'',3:'',4:'',5:'',6:''} , 1:{0:'',1:'轿车商家',2:'货车商家',3:'用品商家',4:'',5:'',6:''}, 2:{0:'',1:'',2:'',3:'',4:'修理厂',5:'快修保养',6:'美容店'}  }   }}
+                        <tr>
+                            <!--<td class="star2">{{ ((page-1)*pageSize)+i+1 }}</td>-->
+
+                            <td class="star2">
+                                <span>{{ list[i].EnterpriseID }}</span>
+                            </td>
+                            <td class="star2">
+                                <span>{{ list[i].uname == null ? '' : list[i].uname }}</span>
+                            </td>
+                            <td class="star2">
+                                <span style="word-break: break-all;">{{ list[i].phone }}</span>
+                            </td>
+                            <td class="star2">
+                                <span>{{ list[i].companyname == null ? '' : list[i].companyname  }}</span>
+                            </td>
+                            <td class="star2">
+                                <span>{{ list[i].type == null ? '' : typeArr[list[i].type] }}</span>
+                            </td>
+                            <td class="star2">
+                                <span>{{ list[i].classification == null ? '' : classArr[list[i].type][list[i].classification] }}</span>
+                            </td>
+                            <td class="star2">
+                                <span>{{ list[i].area }}</span>
+                            </td>
+                            <td class="star2">
+                                <span>{{ list[i].is_check == 1 ? '已认证' : '未认证' }}</span>
+                            </td>
+                            <td class="star2">
+                                <span>{{ list[i].bId == null ? '否' : '是' }}</span>
+                            </td>
+                            <td class="star2">
+                                <span>{{ list[i].is_vip == 1 ? '是' : '否' }}</span>
+                            </td>
+                            <td class="star2">
+                                <span>{{ list[i].refresh_point == null ? 0 : list[i].refresh_point }}</span>
+                            </td>
+                            <td class="star2">
+                                <span>{{ list[i].last_time ? list[i].last_time : '' }}</span>
+                            </td>
+                            <td class="star2">
+                                <span>{{ list[i].status == 1 ? '正常' : '禁用' }}</span>
+                            </td>
+
+                            <td class="star2" style="text-align: center;">
+                                <span>
+                                    <p style="white-space: nowrap;margin-bottom: 0;">
+                                        {{# if(list[i].status == 1){ }}
+                                        <span style="cursor: pointer;color: #0066FF;margin-bottom: 2px;" onclick="getOneFirm('{{ list[i].companyname }}' ,{{ list[i].id }})">[ 详情 ]</span>
+                                        <span style="cursor: pointer;color: #0066FF;margin-bottom: 2px;" onclick="changeStatus({{ list[i].status }},{{ list[i].id }})">[ 禁用 ]</span>
+                                        {{# }else{ }}
+                                        <span style="cursor: pointer;color: #0066FF;margin-bottom: 2px;" onclick="getOneFirm('{{ list[i].companyname }}' ,{{ list[i].id }})">[ 详情 ]</span>
+                                        <span style="cursor: pointer;color: #0066FF;margin-bottom: 2px;" onclick="changeStatus({{ list[i].status }},{{ list[i].id }})">[ 启用 ]</span>
+                                        {{# } }}
+                                    </p>
+
+                                    <p style="cursor: pointer;color: #0066FF;margin-bottom: 2px;" data-id="{{ list[i].id }}" onclick="resetPassword(this)">[ 重置密码 ]</p>
+                                </span>
+                            </td>
+
+                        </tr>
+
+                        {{# } }}
+                    </script>
+
+                    <script id="showNo" type="text/html">
+                        <tr>
+                            <td colspan="14" style="text-align: center">{{ d.massage }}</td>
+                        </tr>
+                    </script>
+                    <!--列表结束-->
+                    <!--页码开始-->
+                    <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                        <input hidden="hidden" value="1" id="page"/>
+                        <span>每页显示
+                        <select name="pageSize" id="pageSize" onchange="getList(1)">
+                            <option value="10"  selected="selected">10</option>
+                                        <option value="30" >30</option>
+                                        <option value="50" >50</option>
+                                        <option value="100">100</option>
+                                        <option value="300">300</option>
+                                        <option value="500">500</option>
+                                        <option value="1000">1000</option>
+                                        <option value="3000">3000</option>
+                                        <option value="5000">5000</option>
+                        </select>&nbsp;
+                    </span>
+                        <span id="pageInfo" style="margin-right: 10px;"></span>
+                        <div class="btn-group" id="pager"></div>
+                    </div>
+                    <!--页码结束-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script  type="text/javascript" src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+
+<script src="/js/laytpl/laytpl.js"></script>
+<!--自定义js-->
+<script src="/js/area.js"></script>
+<!--分页插件-->
+<script src="/js/jquery.page.js"></script>
+<!--自定义JS-->
+<script src="/js/global.js"></script>
+<script>
+    $(function(){
+        getList(1);
+        $("#found").click(function(){
+            getList(1);
+        });
+        setProvince('province','','city','county');
+        $("#province") .change(function () {
+            setCity($('#province').val(),'city','county');
+            setCounty('','','county');
+        });
+        $("#city") .change(function () {
+            setCounty($('#province').val(),$('#city').val(),'county');
+        });
+    });
+    /**
+     * 获取数据
+     */
+    function getList(page){
+        var data      = {} ;
+        data.status   = $("#status").val();
+        data.type     = $("#type").val();
+        data.cfn      = $("#classification").val();
+        data.province = $("#province").val();
+        data.city     = $("#city").val();
+        data.county   = $("#county").val();
+        data.is_check = $("#is_check").val();
+        data.sale     = $("#sale").val();
+        data.is_vip   = $("#is_vip").val();
+        data.keywords = $("#searchKey").val();//关键字
+        data.page     = page ? page : 1;
+        data.pageSize = $('#pageSize').val();
+        var url = '/plat.firms/getFirms';
+        var index = layer.load(2);
+        $.post(url,{data:data},function(rdata){
+            var href  = '/plat.firms/exportToExcel/' ;
+            href     += '?status='+data.status+'&type='+data.type+'&cfn='+data.cfn+'&province='+data.province+'&city='+data.city+'' ;
+            href     += '&county='+data.county+'&is_check='+data.is_check+'&sale=&is_vip='+data.is_vip+'' ;
+            href     += '&keywords='+data.keywords+'&page='+data.page+'&pageSize='+data.pageSize+'' ;
+            $("#download").attr('href',href);
+            layer.close(index);
+            var pageInfo = '';
+            var p     = rdata.page;
+            var pageSize = rdata.pageSize;
+            var count = rdata.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            $("#pageInfo").text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+            $("#pager").createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getList(p);
+                }
+            });
+            showData(rdata);
+        },'json');
+        $("#page").val(page);
+    }
+
+    /**
+     * 展示数据
+     */
+    function showData(data) {
+        if(data.massageCode == 'success'){
+            if(data.list.length>0){
+                var tpl2 = $('#showList').html();
+                laytpl(tpl2).render(data, function(html){
+                    $('#listObj').html(html);
+                });
+                return false
+            }
+        }else {
+            var tpl1 = $('#showNo').html();
+            laytpl(tpl1).render(data, function(html){
+                $('#listObj').html(html);
+            });
+        }
+
+    }
+    function ChangType(obj) {
+        var op = '<option value="">全部</option>';
+        if($(obj).val() == 1){
+            op     += '<option value="1">轿车商家</option>' ;
+            op     += '<option value="2">货车商家</option>' ;
+            op     += '<option value="3">用品商家</option>' ;
+        }else if($(obj).val() == 2){
+            op     += '<option value="4">修理厂</option>' ;
+            op     += '<option value="5">快修保养</option>' ;
+            op     += '<option value="6">美容店</option>' ;
+        }else {
+
+        }
+
+        $("#classification").html(op);
+    }
+    /**
+     * 改变状态
+     * @param j
+     * @param comId
+     */
+    function changeStatus(j,comId){
+        //alert(1);
+        var tip = '是否禁用 ? 停用之后无法登录!' ;
+        if(j == 2){
+            tip = '是否启用 ?' ;
+        }
+        layer.confirm(tip,{shadeClose: true,title:'重要提示'},function () {
+
+                var postData = {};
+                postData.status = j == 1 ? 2 : 1 ;
+                postData.comId  = comId;
+                console.log(postData);
+                api.load('plat.firms','changeStatus',postData,function(rData){
+                    if(rData.massageCode == 'success'){
+                        layer.msg(rData.massage,{time:1500},function () {
+                            getList(1);
+                        });
+                    }else {
+                        layer.msg(rData.massage);
+                    }
+
+                });
+            }
+        );
+    }
+    
+    
+    function resetPassword(obj) {
+        var tip = '是否将该厂商密码重置为初始密码 7777777 ? ' ;
+        layer.confirm(tip,{shadeClose: true,title:'重要提示'},function () {
+            var url = '/plat.firms/resetPassword';
+            var data = {} ;
+            data.id  = $(obj).attr('data-id') ;
+            $.post(url,{data:data},function (rv) {
+                layer.msg(rv.massage) ;
+            },'json');
+        });
+
+    }
+    function getOneFirm(name, id) {
+        var title = name == 'null' ? '' : '-' + name ;
+        top.addTabWin('厂商详情'+title,'/plat.firms/getOneFirm?id='+id)
+    }
+    function createFirm() {
+        var title = "创建厂商账号";
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['85%', '95%'],
+            content: '/plat.firms/createFirm'
+        });
+    }
+</script>
+</html>

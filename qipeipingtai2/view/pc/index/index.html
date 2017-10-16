@@ -1,0 +1,634 @@
+<link rel="stylesheet" href="/css/swiper2/idangerous.swiper.css" crossorigin="anonymous">
+<style>
+    .swiper-pagination-switch {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        border-radius: 8px;
+        background: #9E9188;
+        margin-right: 20px;
+        border: 1px solid #fff;
+        cursor: pointer;
+    }
+    .swiper-active-switch {
+        background: #FD524A;
+    }
+    .pagination {
+        position: absolute;
+        z-index: 20;
+        left: 44%;
+        bottom: 0;
+    }
+    .gongGaoList{
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    .gongGaoList a{
+        white-space: nowrap;
+        width: 300px;
+        overflow: hidden;
+        display: inline-block;
+        text-overflow: ellipsis;
+    }
+    .carImg img{
+        vertical-align: sub;
+    }
+</style>
+<!--中部轮播-->
+<div class="row luoBo">
+    <div class="lunBoDiv" style="overflow: hidden">
+        <div class="swiper-wrapper">
+            <?php if($top_banners){ foreach($top_banners as $item){?>
+            <div class="swiper-slide"><a href="<?php echo $item['url']?$item['url']:'javascript:void(0)';?>" target="_black"><img src="<?php echo $item['img'];?>" style="height: 410px;width: 822px" alt="<?php echo $item['title'];?>"></a></div>
+            <?php }}else{?>
+            <div class=""><img src="/images/qpxm/pc/index/banner.png" style="height: 410px;width: 100%" alt=""></div>
+            <?php }?>
+        </div>
+        <!-- Add Pagination -->
+        <div class="pagination"></div>
+    </div>
+    <!--公告-->
+    <div class="gongGao" style="width: 380px">
+        <div class="gongGaoDiv">
+            <div style="border-bottom: 1px solid #ddd;padding-bottom: 15px">
+                <span style="font-size: 15px">通知公告</span>
+                <div style="float: right">
+                    <span onclick="showOne();" style="cursor: pointer"><img src="/images/qpxm/pc/index/left.png" alt=""></span>&emsp;
+                    <span onclick="showTwo();" style="cursor: pointer"><img src="/images/qpxm/pc/index/right.png" alt=""></span>
+                </div>
+            </div>
+            <?php foreach($notices as $k=>$v){?>
+            <?php $a = $k>6?'display:none':''; ?>
+            <div class="gongGaoList" style="<?php echo $a;?>">
+                <?php if($v['msgType']==2){ ?>
+                <a href="/def/store?ID=<?php echo $v['aboutId'];?>"><span class="tongGTitle"><?php echo $v['msgText'];?></span></a>
+                <div style="float: right">
+                    <span><img src="/images/qpxm/pc/index/right.png" alt=""></span>
+                </div>
+                <?php }elseif($v['msgType']==3){ ?>
+                <a href="/def/buyView?ID=<?php echo $v['aboutId'];?>" style=""><span class="tongGTitle"><?php echo $v['msgText'];?></span></a>
+                <div style="float: right">
+                    <span><img src="/images/qpxm/pc/index/right.png" alt=""></span>
+                </div>
+                <?php }else{ ?>
+                <a href="javascript:;"><span class="tongGTitle" title="<?php echo $v['msgText'];?>"><?php echo $v['msgText'];?></span></a>
+                <?php } ?>
+
+            </div>
+            <?php }?>
+        </div>
+        <div class="xinShou">
+            <a href="/def/newbie"><img src="/images/qpxm/pc/index/che.png" style="width: 100%;height: 60px" alt=""></a>
+        </div>
+    </div>
+</div>
+<!--汽车商家列表-->
+<div class="row merchant">
+    <div class="upMerchant">
+        <!--汽车列表-->
+        <div class="carDiv jiaoChe">
+            <div style="height: 65px;">
+                <div class="leftShuX">
+                    <img src="/images/qpxm/pc/index/shuX.png" height="30px" alt="">
+                </div>
+                <div class="carText">
+                    <div class="carTextT"><strong>轿车商家</strong></div>
+                </div>
+            </div>
+            <div class="cheMenu" style="position: relative">
+                <div class="row gunDongCaiD gunDongCaiD0">
+                    <div class="swiper-wrapper" style="height: 65px"  id="car_category_1">
+                        <?php
+                        if($car_cate['cate_1']){
+                            $car_cate_1_count = 0;
+                            foreach($car_cate['cate_1'] as $item){
+                                $car_cate_1_count++;
+                                if($car_cate_1_count==1){  ?>
+                            <div class="swiper-slide cheMenuClass cheMenuClassActive" onclick="activeTypeJ(this);choseCarCate()" style="width: 105px" data-id="<?php echo $item['id']?>">
+                                <span class="handEr"><?php echo $item['name'];?></span>
+                            </div>
+                                <?php }else{ ?>
+                        <div class="swiper-slide cheMenuClass" style="width: 105px" data-id="<?php echo $item['id'];?>" onclick="activeTypeJ(this);choseCarCate()">
+                            <span class="handEr"><?php echo $item['name'];?></span>
+                        </div>
+                        <?php         }
+                                }
+                            }else{ ?>
+                        <div class="swiper-slide cheMenuClass" style="width: 105px"><span class="handEr">还没有数据</span></div>
+                        <?php } ?>
+                        <!--<div class="bottmActive" style="left: 14px"></div>-->
+                    </div>
+                </div>
+                <div class="cheMenuClass">
+                    <span class="handEr prevList0"  onclick="choseCarCate();leftBtn0();"><img src="/images/qpxm/pc/index/left.png" alt=""></span>
+                    <span class="handEr nextList0" onclick="choseCarCate();rightBtn0();" style="margin-left: 10px;"><img src="/images/qpxm/pc/index/right.png" alt=""></span>
+                </div>
+            </div>
+            <!--汽车列表-->
+            <div class="row carListDiv" id="car_category_2" style="height: 235px;overflow: auto;">
+                <?php if($car_cate['cate_2']){
+                    foreach($car_cate['cate_2'] as $item){
+                ?>
+
+                <div class="carList car_cate_2" data-p="<?php echo $item['pid'];?>" data-id="<?php echo $item['id'];?>" style="display: none">
+                    <a href="/def/cars?van_cate=<?php echo $item['id'];?>">
+                        <div class="carImg" style="line-height: 80px;">
+                            <img src="<?php echo $item['img'];?>" alt="" width="80px" height="77px">
+                        </div>
+                    </a>
+                    <div class="carName"><?php echo $item['name'];?></div>
+                </div>
+
+                <?php }
+                    }else{ ?>
+                <div>
+                    <h3 style="text-align: center">还没有数据</h3>
+                </div>
+                <?php } ?>
+            </div>
+        </div>
+        <!--汽车列表-->
+        <div class="carDiv huoChe" style="margin-top: 10px">
+            <div style="height: 65px;">
+                <div class="leftShuX">
+                    <img src="/images/qpxm/pc/index/shuX.png" height="30px" alt="">
+                </div>
+                <div class="carText">
+                    <div class="carTextT"><strong>货车商家</strong></div>
+                </div>
+            </div>
+            <div class="cheMenu" style="position: relative">
+                <div class="row gunDongCaiD gunDongCaiD1">
+                    <div class="swiper-wrapper" id="van_category_1">
+                        <?php
+                        if($van_cate['cate_1']){
+                            $van_cate_1_count = 0;
+                            foreach($van_cate['cate_1'] as $item){
+                                $van_cate_1_count++;
+                                if($van_cate_1_count==1){  ?>
+                        <div class="swiper-slide cheMenuClass cheMenuClassActive" onclick="activeTypeH(this);choseVanCate()" style="width: 105px" data-id="<?php echo $item['id']?>"><span class="handEr"><?php echo $item['name'];?></span></div>
+                        <?php }else{ ?>
+                        <div class="swiper-slide cheMenuClass" style="width: 105px" data-id="<?php echo $item['id'];?>" onclick="activeTypeH(this);choseVanCate()"><span class="handEr"><?php echo $item['name'];?></span></div>
+                        <?php         }
+                                }
+                            }else{ ?>
+                        <div class="swiper-slide cheMenuClass" style="width: 105px"><span class="handEr">还没有数据</span></div>
+                        <?php } ?>
+                        <!--<div class="bottmActive" style="left: 14px"></div>-->
+                    </div>
+                </div>
+                <div class="cheMenuClass">
+                    <span class="handEr prevList1" onclick="choseVanCate();leftBtn1()"><img src="/images/qpxm/pc/index/left.png" alt=""></span>
+                    <span class="handEr nextList1" onclick="choseVanCate();rightBtn1()" style="margin-left: 10px;"><img src="/images/qpxm/pc/index/right.png" alt=""></span>
+                </div>
+            </div>
+
+            <!--汽车列表-->
+            <div class="row carListDiv" id="van_category_2" style="height: 235px;overflow: auto;">
+                <?php if($van_cate['cate_2']){
+                    foreach($van_cate['cate_2'] as $item){
+                ?>
+                <div class="carList van_cate_2" data-p="<?php echo $item['pid'];?>" data-id="<?php echo $item['id'];?>" style="display: none;">
+                    <a href="/def/vans?van_cate=<?php echo $item['id'];?>">
+                    <div class="carImg">
+                        <img src="<?php echo $item['img'];?>" alt="">
+                    </div>
+                    <div class="carName"><?php echo $item['name'];?></div>
+                    </a>
+                </div>
+                <?php }
+                    }else{ ?>
+                <div>
+                    <h3 style="text-align: center">还没有数据</h3>
+                </div>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+
+    <!--新品促销-->
+    <div class="newDiv">
+        <div class="xinPDiv">
+            <div class="row xinPDivTop">
+                <div class="xinPDivBody">
+                    <a href="javascript:;" onclick="chose008(1)">
+                        <div class="xinPName xinPNameActive" id="newDo008" style="padding-left: 10px">
+                            新品促销
+                        </div>
+                    </a>
+                    <a href="javascript:;" onclick="chose008(2)">
+                        <div class="xinPName" id="emptyDo008">
+                            库存清仓
+                        </div>
+                    </a>
+                </div>
+                <div class="xinPMore">
+                    <div style="text-align: right"><a href="/def/newMarket">更多>></a></div>
+                </div>
+            </div>
+            <!--新品列表-->
+            <?php foreach($newPro as $v){?>
+            <a href="/def/product?ID=<?php echo $v['proId'];?>" data-type="1">
+                <div class="xinPListDiv">
+                    <div class="xinPDivImg">
+                        <img src="<?php echo $v['pro_pic'];?>" alt="" width="98" height="98">
+                    </div>
+                    <div class="xinPDivInfo">
+                        <p class="xinPDivInfoName"><?php echo $v['proName'];?></p>
+                        <div>类型：<span><?php echo $v['name'];?></span></div>
+                        <div>车系：<span><?php echo substr($v['car_group'],0,strpos($v['car_group'],'/'));?></span></div>
+                        <div>价格：<span style="color: red">￥<?php echo $v['pro_price'];?></span></div>
+                    </div>
+                    <!--新品标签-->
+                    <div class="xinPBiaoQian">
+                        <img src="/images/qpxm/pc/index/new.png" alt="">
+                    </div>
+                </div>
+            </a>
+            <?php }?>
+
+            <?php foreach($empPro as $v){?>
+            <a href="/def/product?ID=<?php echo $v['proId'];?>" data-type="2" style="display: none">
+                <div class="xinPListDiv">
+                    <div class="xinPDivImg">
+                        <img src="<?php echo $v['pro_pic'];?>" alt="" width="98" height="98">
+                    </div>
+                    <div class="xinPDivInfo">
+                        <p class="xinPDivInfoName"><?php echo $v['proName'];?></p>
+                        <div>类型：<span><?php echo $v['name'];?></span></div>
+                        <div>车系：<span><?php echo substr($v['car_group'],0,strpos($v['car_group'],'/'));?></span></div>
+                        <div>价格：<span style="color: red">￥<?php echo $v['pro_price'];?></span></div>
+                    </div>
+                    <!--新品标签-->
+                    <div class="xinPBiaoQian">
+                        <img src="/images/qpxm/pc/index/new.png" alt="">
+                    </div>
+                </div>
+            </a>
+            <?php }?>
+        </div>
+    </div>
+
+</div>
+<!--推荐经销商-->
+<div class="tuiJianDiv">
+    <div class="tuiJianDivBoby">
+        <div style="float: left;">
+            <img src="/images/qpxm/pc/index/yewollShu.png" height="30px" alt="">
+        </div>
+        <div class="tuiJianShang">
+            <strong>推荐经销商</strong>
+        </div>
+    </div>
+    <!--商家列表-->
+    <div class="row tuiJianList">
+        <div class="swiper-button-prev" onclick="prevBtnClick()" style="position: absolute"></div>
+        <div class="swiper-button-next" onclick="nextBtnClick()" style="position: absolute"></div>
+        <!--推荐商家图片列表-->
+        <div class="swiper-container" style="height: 156px;margin: 0 auto">
+            <div class="swiper-wrapper">
+                <?php foreach($dealers as $item){?>
+                <div class="swiper-slide shangJShow">
+                    <a href="/def/store?ID=<?php echo $item['EnterpriseID'];?>">
+                        <img src="<?php if($item['face_pic']){echo $item['face_pic'];}else{echo '/images/qpxm/pc/person/shopInfo/tianjiazp_s.png';};?>" style="height: 156px;width: 156px;" alt="">
+                        <div class="shangJHide">
+                            <div class="shangJiaBack"></div>
+                            <div class="shangJiaDivT">
+                                <div style="max-height: 136px;overflow: hidden">
+                                    <p class="shangJiaCheN"><?php echo $item['companyname']?></p>
+                                    <p><?php echo $item['major']?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <?php }?>
+            </div>
+        </div>
+    </div>
+</div>
+<!--腰带banner-->
+<div style="margin-bottom: 15px">
+    <?php if($yao_banners){
+            foreach($yao_banners as $item){
+?>
+    <div class="yaoBanner">
+        <a href="<?php echo $item['url']?$item['url']:'javascript:void(0)';?>" target="_black"><img src="<?php echo $item['img'];?>" alt="<?php echo $item['title'];?>" style="width: 1200px;height: 100px"></a>
+    </div>
+    <?php }
+    } ?>
+</div>
+<!--最新求购-->
+<div class="zuiXGDiv">
+    <div class="zuiXGDivL">
+        <div style="margin-right: 20px">
+            <div class="zuiXGWD">
+                <img class="zuiXGDivImgs" src="/images/qpxm/pc/index/ziTiao.png" alt="">
+            </div>
+            <div class="zuiXGWDR">
+                <a href="/def/mountings"><p class="zuiXGWMore">更多>></p></a>
+            </div>
+        </div>
+        <div style="margin-left: 20px">
+            <p class="zuiXText"><strong>最新求购</strong></p>
+        </div>
+    </div>
+    <!--求购列表-->
+    <div style="height: 255px;">
+        <?php foreach($buyData as $k=>$v){?>
+        <a href="/def/buyView?ID=<?php echo $v['bID'];?>">
+            <?php if($k==2){?>
+            <div class="qiuGList" style="margin-right: 0;">
+            <?php }else{?>
+            <div class="qiuGList">
+            <?php }?>
+                <div class="qiuGListDiv">
+                    <div class="zuiXDiv">
+                        <div class="zuiXGDivImg">
+                            <img src="<?php echo $v['vin_pic'];?>" alt="" style="width: 70px;height: 70px">
+                        </div>
+                    </div>
+                    <div class="zuiXinInfo">
+              <span class="zuiXinText">
+                <span><?php echo $v['c1and2'];?></span>
+              </span>
+                        <div class="zuiXinInfoT">
+                            <div class="zuiXinYouX">
+                                有效期: <span>1天</span>
+                            </div>
+                        </div>
+                        <div class="zuiXinInfoD">
+                            <span><?php echo $v['c3and4'];?></span>
+                            <div class="peiJ">配件数：<span class="peiJianS"><?php echo $v['peiJS'];?></span></div>
+                        </div>
+                    </div>
+                </div>
+                <!--小图片列表-->
+                <div class="smallImgDiv">
+                    <?php foreach($v['pic_3'] as $vs){?>
+                    <div class="smallImg" style="margin-right: 10px">
+                        <img src="<?php echo $vs['pic_url'];?>" alt="" style="width: 80px;height: 80px">
+                    </div>
+                    <?php } ?>
+                </div>
+                <div class="smallDivs">
+                    <div class="smallDivSty">
+                        <span class="smallName"><img src="/images/qpxm/pc/index/shangB.png" alt=""></span><?php echo $v['companyname'];?>
+                    </div>
+                    <div class="smallDivDiv">
+                        <span class="smallMar"><img src="/images/qpxm/pc/index/time.png" alt=""></span><?php echo $v['create_time'];?>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <?php } ?>
+    </div>
+</div>
+<!--促销活动-->
+<div class="zuiXGDiv">
+    <div class="zuiXGDivL">
+        <div style="margin-right: 20px">
+            <div class="zuiXGWD">
+                <img class="zuiXGDivImgs" src="/images/qpxm/pc/index/cuXiaoShu.png" alt="">
+            </div>
+            <div class="zuiXGWDR">
+                <a href="/def/activities"><p class="zuiXGWMore">更多>></p></a>
+            </div>
+        </div>
+        <div style="margin-left: 20px">
+            <p class="zuiXText"><strong>促销活动</strong></p>
+        </div>
+    </div>
+    <div style="height: 270px;">
+        <?php foreach($activities as $k=>$item){?>
+        <a href="/def/activities?ID=<?php echo $item['art_ID'];?>">
+            <?php if($k==3){?>
+            <div class="cuXiaoDiv" style="margin-right: 0">
+            <?php }else{?>
+            <div class="cuXiaoDiv">
+            <?php }?>
+                <div class="cuXiaoDivImg">
+                    <img src="<?php echo $item['face_img'];?>" style="width: 287px;height: 221px" alt="<?php echo $item['title'];?>">
+                </div>
+                <div class="cuXiaoTitle" style="width: 280px;overflow:hidden;white-space:nowrap;text-overflow: ellipsis;">
+                    <span><?php echo $item['title']?></span>
+                </div>
+            </div>
+        </a>
+        <?php }?>
+    </div>
+</div>
+<!--新闻资讯-->
+<div class="zuiXGDiv" style="margin-top: 15px;height: auto">
+    <div class="zuiXGDivL">
+        <div style="margin-right: 20px">
+            <div class="zuiXGWD">
+                <img class="zuiXGDivImgs" src="/images/qpxm/pc/index/lvShu.png" alt="">
+            </div>
+            <div class="zuiXGWDR">
+                <a href="/def/news"><p class="zuiXGWMore">更多>></p></a>
+            </div>
+        </div>
+        <div style="margin-left: 20px">
+            <p class="zuiXText"><strong>新闻资讯</strong></p>
+        </div>
+    </div>
+    <div class="xinWenDiv">
+        <?php foreach($car_news as $k=>$item){?>
+        <a href="/def/news?ID=<?php echo $item['art_ID'];?>">
+            <?php if($k==2){?>
+            <div class="xinWenBor" style="margin-right: 0">
+            <?php }else{?>
+            <div class="xinWenBor">
+            <?php }?>
+                <div class="xinWenBorD">
+                    <img src="<?php echo $item['face_img'];?>" style="height: 120px;width: 120px" alt="<?php echo $item['title'];?>">
+                </div>
+                <div class="xinWenText">
+                    <span><?php echo $item['title']?></span>
+                </div>
+            </div>
+        </a>
+        <?php }?>
+    </div>
+</div>
+<!--<script src="/css/swiper/swiper.min.js"></script>-->
+<script src="/css/swiper2/idangerous.swiper.min.js"></script>
+<script>
+    function showTwo(){
+        $('.gongGaoList:lt(7)').hide();
+        $('.gongGaoList:gt(6)').show();
+    }
+    function showOne(){
+        $('.gongGaoList:lt(7)').show();
+        $('.gongGaoList:gt(6)').hide();
+    }
+    /*轿车商家点击选择分类*/
+    function activeTypeJ(obj){
+        $('.jiaoChe').find('.cheMenuClass').removeClass('swiper-slide-active');
+        $(obj).addClass('swiper-slide-active');
+    }
+    /*货车商家点击选择分类*/
+    function activeTypeH(obj){
+        $('.huoChe').find('.cheMenuClass').removeClass('swiper-slide-active');
+        $(obj).addClass('swiper-slide-active');
+    }
+
+//    //  推荐经销商
+    var swiper = new Swiper('.swiper-container', {
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        slidesPerView: 7,
+        spaceBetween: 30
+    });
+    function nextBtnClick(){
+        swiper.swipeNext();
+    }
+    function prevBtnClick(){
+        swiper.swipePrev();
+    }
+    //banner轮播图
+    var swipers = new Swiper('.lunBoDiv', {
+        pagination: '.pagination',
+        paginationClickable: true,
+        spaceBetween: 10,
+        centeredSlides: true,
+        autoplay: 3000,
+        autoplayDisableOnInteraction: false
+
+    });
+//      轿车商家
+    var swiper0 = new Swiper('.gunDongCaiD0',{
+        autoplay : false,//可选选项，自动滑动
+        loop : false,//可选选项，开启循环
+        slidesPerView : 7//个数
+    });
+    /*点击向右*/
+    function rightBtn0(){
+        var oldC = classActiveBefore('gunDongCaiD0');
+        swiper0.swipeNext();
+        var newC = classActiveAfter('gunDongCaiD0');
+        if(oldC>newC){
+            $('.gunDongCaiD0').find('.swiper-wrapper').find('.swiper-slide').removeClass('swiper-slide-active');
+            $('.gunDongCaiD0').find('.swiper-wrapper').find('.swiper-slide').eq(oldC).addClass('swiper-slide-active');
+        }
+    }
+    /*点击向左*/
+    function leftBtn0(){
+        var oldC = classActiveBefore('gunDongCaiD0');
+        swiper0.swipePrev();
+        var newC = classActiveAfter('gunDongCaiD0');
+        $('.gunDongCaiD0').find('.swiper-wrapper').find('.swiper-slide').removeClass('swiper-slide-active');
+        if(oldC == newC){
+            $('.gunDongCaiD0').find('.swiper-wrapper').find('.swiper-slide').eq(oldC).addClass('swiper-slide-active');
+        }else if(oldC >= (newC+6)){
+            $('.gunDongCaiD0').find('.swiper-wrapper').find('.swiper-slide').eq(newC+6).addClass('swiper-slide-active');
+        }else{
+            $('.gunDongCaiD0').find('.swiper-wrapper').find('.swiper-slide').eq(oldC).addClass('swiper-slide-active');
+        }
+    }
+
+//    货车商家
+    var swiper1 = new Swiper('.gunDongCaiD1',{
+        autoplay : false,//可选选项，自动滑动
+        loop : false,//可选选项，开启循环
+        slidesPerView : 7//个数
+    });
+    /*点击向右*/
+    function rightBtn1(){
+        var oldC = classActiveBefore('gunDongCaiD1');
+        swiper1.swipeNext();
+        var newC = classActiveAfter('gunDongCaiD1');
+        if(oldC>newC){
+            $('.gunDongCaiD1').find('.swiper-wrapper').find('.swiper-slide').removeClass('swiper-slide-active');
+            $('.gunDongCaiD1').find('.swiper-wrapper').find('.swiper-slide').eq(oldC).addClass('swiper-slide-active');
+        }
+    }
+    /*点击向左*/
+    function leftBtn1(){
+        var oldC = classActiveBefore('gunDongCaiD1');
+        swiper1.swipePrev();
+        var newC = classActiveAfter('gunDongCaiD1');
+        $('.gunDongCaiD1').find('.swiper-wrapper').find('.swiper-slide').removeClass('swiper-slide-active');
+        if(oldC == newC){
+            $('.gunDongCaiD1').find('.swiper-wrapper').find('.swiper-slide').eq(oldC).addClass('swiper-slide-active');
+        }else if(oldC >= (newC+6)){
+            $('.gunDongCaiD1').find('.swiper-wrapper').find('.swiper-slide').eq(newC+6).addClass('swiper-slide-active');
+        }else{
+            $('.gunDongCaiD1').find('.swiper-wrapper').find('.swiper-slide').eq(oldC).addClass('swiper-slide-active');
+        }
+    }
+
+    function choseCarCate() {
+        $('.car_cate_2').hide();
+        setTimeout(function(){
+            var pa007 = $('#car_category_1').find('.swiper-slide-active').attr('data-id');
+            console.log(pa007);
+
+            $('#car_category_2').find('div[data-p="'+pa007+'"]').show();
+        },100)
+
+    }
+    function choseVanCate() {
+        $('.van_cate_2').hide();
+        setTimeout(function(){
+            var pa007 = $('#van_category_1').find('.swiper-slide-active').attr('data-id');
+            console.log(pa007);
+
+            $('#van_category_2').find('div[data-p="'+pa007+'"]').show();
+        },100)
+    }
+    choseCarCate();
+    choseVanCate();
+
+
+    /*点击下一组/上一组之前选中的div*/
+    function classActiveBefore(che){
+        var len = $('.'+che).find('.swiper-wrapper').find('.swiper-slide').length;
+        var cla = '';
+        for(var i=0; i<len; ++i){
+            if($('.'+che).find('.swiper-wrapper').find('.swiper-slide').eq(i).hasClass('swiper-slide-active')){
+                cla = i;
+                break;
+            }
+        }
+        return cla;
+//        var len = $('.'+che).find('.typeDivList').length;
+//        var cla = '';
+//        for(var i=0; i<len; ++i){
+//            if($('.typeDivList').eq(i).hasClass('swiper-slide-active')){
+//                cla = i;
+//                break;
+//            }
+//        }
+//        return cla;
+    }
+    /*点击下一组/上一组之后选中的div*/
+    function classActiveAfter(che){
+        var len = $('.'+che).find('.swiper-wrapper').find('.swiper-slide').length;
+        var cla = '';
+        for(var i=0; i<len; ++i){
+            if($('.'+che).find('.swiper-wrapper').find('.swiper-slide').eq(i).hasClass('swiper-slide-active')){
+                cla = i;
+                break;
+            }
+        }
+        return cla;
+    }
+
+    function chose008(n) {
+        if(n===1){
+            $('#newDo008').addClass('xinPNameActive');
+            $('#emptyDo008').removeClass('xinPNameActive');
+            $('.xinPDiv').find('a[data-type="1"]').show();
+            $('.xinPDiv').find('a[data-type="2"]').hide();
+            $('.xinPMore').children('div').find('a').attr('href','/def/newMarket');
+        }else {
+            $('#emptyDo008').addClass('xinPNameActive');
+            $('#newDo008').removeClass('xinPNameActive');
+            $('.xinPDiv').find('a[data-type="2"]').show();
+            $('.xinPDiv').find('a[data-type="1"]').hide();
+            $('.xinPMore').children('div').find('a').attr('href','/def/clearance');
+        }
+    }
+</script>

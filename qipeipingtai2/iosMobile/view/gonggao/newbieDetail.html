@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8"/>
+    <style>
+	html{
+		background: #F5F5F5;
+	}
+	.sw-detail-box{
+		background: none;border: none;box-shadow: none;
+	}
+	.mui-card-header:after {
+		height: 0!important;
+		}
+</style>
+</head>	
+<body style="background: #FFFFFF;">
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">详情</h1>
+	</header>
+	
+	<div class="mui-content" style="background: #FFFFFF;">		
+		<div class="mui-card sw-detail-box" id="detailInfo">
+	
+		</div>
+	</div>
+<!--详情模板-->
+<script id="detail-list-tpl" type="text/html">
+	<div class="mui-card-header mui-card-media" style="padding: 0;">
+		<div class="mui-media-body" style="margin-left: 0;line-height: 24px;">
+			<span style="font-size: 16px;">{{ d.title }}</span>
+			<div class="mui-card-content">
+			{{ d.content }}
+			</div>
+		</div>	
+	</div>		
+
+</script>
+</body>
+<script type="text/javascript" src="../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../js/global.js"></script>
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/laytpl/laytpl.js"></script>
+<script type="text/javascript" charset="utf-8">
+	//mui初始化
+	mui.init();
+ 	//初始化
+	mui.plusReady(function() {
+		
+		var self = plus.webview.currentWebview();		
+		var	art_ID = self.art_ID;
+		var	type   = self.type;
+		
+		loading('加载中...'); 
+		//获取数据
+		http.load('api.sev.article','getArticleDetail',{'art_ID':art_ID,'type':type},function(rData){
+			sw.jcon(rData);
+			//关闭加载框
+			closeLoading(300);
+			if(rData.status==200){	
+				var data = rData.data;
+				//初始化信息					 	 				
+			 	var detailTpl   = $('#detail-list-tpl').html();	 		
+		        laytpl(detailTpl).render(data,function(render){           
+		            $('#detailInfo').html(render);    
+		        });
+				
+			}else{				
+				var tips = '<p style="text-align:center">'+rData.msg+'</p>';
+				$('#detailInfo').html(tips);  
+				sw.toast(rData.msg); 
+			}
+			   	
+		},function(xhr,type,errorThrown){			
+		 		//关闭加载框
+				closeLoading();		
+				//无网络提示
+				sw.toast('获取数据失败，请检查网络'); 	
+		}) 
+		
+	})	
+</script>
+</html>

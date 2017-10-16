@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>忘记密码(第一步)</title>
+</head>
+<link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/bootstrap/style.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/pc/login/register.css">
+<script src="/js/jquery1.12.4.min.js"></script>
+<style>
+    *{font-family: '微软雅黑 Regular', '微软雅黑';}
+    body{background: #F3F3F3;height: auto}
+</style>
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+    input[type="number"]{
+        -moz-appearance: textfield;
+    }
+</style>
+<body>
+    <div id="logo">
+        <div class="logo">
+            <a href="/def/index"><img src="/images/qpxm/pc/index/logo.png" class="logoImg" alt=""></a>
+            <span class="zuCeText">忘记密码</span>
+        </div>
+    </div>
+    <!--注册框-->
+    <div id="zuCeDIv">
+        <div class="zuCeDIv">
+            <div style="text-align: center">
+                <img src="/images/qpxm/pc/register/one1.png" alt="">
+                <img src="/images/qpxm/pc/register/forget1.png" alt="">
+            </div>
+            <form id="myForm" action="/login/forget" method="post" onsubmit="return mySubmit(true)">
+                <div class="phoneDivEr">
+                    <input type="number" placeholder="请输入手机号" class="phone" name="phone"  value="<?php echo $phone;?>">
+                </div>
+                <div class="yanZMDiv">
+                    <input type="text" placeholder="请输入验证码" class="yanZM" name="code">
+                    <span class="floRight">
+                        <a href="javascript:;" onclick="$('#captcha_img').attr('src','/?m=tools&a=imgCode&t='+Math.random())">
+                            <img id="captcha_img" alt="验证码" title="点击更换" src="/?m=tools&a=imgCode">
+                        </a>
+                        <a href="javascript:;" onclick="$('#captcha_img').attr('src','/?m=tools&a=imgCode&t='+Math.random())"><span style="color: #FE514A">点击重新刷新</span></a>
+                    </span>
+                    <div style="clear: both"></div>
+                    <div>
+                        <div style="height: 40px;"></div>
+                        <button type="submit" class="btn btn-danger dengLuBtn">下一步</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+<script src="/js/pc/layer/layer.js"></script>
+<?php if(isset($msg)){
+if($msg){
+?>
+<script>
+    $(function () {
+        layer.alert('<?php echo $msg; ?>',{icon: 2});
+    });
+</script>
+<?php }} ?>
+<script>
+    function mySubmit(flag){
+        return flag;
+    }
+
+    $("#myForm").submit(function(){
+        var phone    = $('input[name="phone"]').val();
+        var code     = $('input[name="code"]').val();
+        var is_do = true;
+        var text  = '';
+        if(!code){
+            is_do = false;
+            text = '请输入验证码';
+        }
+        if(!phone){
+            is_do = false;
+            text = '请输入手机号';
+        }
+        if(text){
+            layer.alert(text,{icon: 2,skin: 'layui-layer-rim'});
+        }
+        if(is_do){
+            return mySubmit(true);
+        }else {
+            return mySubmit(false);
+        }
+    });
+</script>
+</html>

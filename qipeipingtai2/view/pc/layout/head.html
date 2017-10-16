@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title><?php echo $title?$title:'首页';?></title>
+</head>
+<link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/bootstrap/style.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/pc/index/index.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/swiper/swiper.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/pc/style.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/pc/person/style.css">
+<script src="/js/jquery1.12.4.min.js"></script>
+<script src="/js/jquery.cookie.js"></script>
+<style>
+    *{font-family: '微软雅黑 Regular', '微软雅黑';}
+    a{color: inherit}
+</style>
+<body>
+<!--顶部导航条开始-->
+<div class="row" id="hederTop">
+    <div style="width: 1200px;margin: 0 auto;font-family: '微软雅黑 Regular', '微软雅黑';position: relative">
+        <div class="col-md-1 dest" style="float: left;width: 8%" id="currentCity" data-value="<?php echo $currentCity;?>"><?php echo $currentCity;?><img style="margin-left: 20px;vertical-align: middle;" src="/images/qpxm/pc/index/u8.png" alt="">
+            <div class="destList">
+                <div style="padding: 15px">
+                    <?php
+                    if(is_array(isset($cityIni)?$cityIni:'')){
+                            foreach($cityIni as $v){
+?>
+                    <div><a href="javascript:;" data-v="<?php echo $v;?>" onclick="choseCity007(this)"><?php echo $v;?></a></div>
+                    <?php }
+                        }
+?>
+                </div>
+            </div>
+        </div>
+        <script>
+            var currentURL = "<?php echo $_SERVER['REQUEST_URI'];?>";
+            function choseCity007(i) {
+                var city = $(i).attr('data-v');
+                $.cookie('currentCity', city, { expires: 7 , path: '/'});
+                setTimeout(function () {
+                    window.location.reload()
+                },66)
+            }
+        </script>
+        <div style="float: right;">
+            <div class="row headerTiao">
+                <div class="caiDanL" id="login" style="padding-right: 13px;position: relative;">
+                    <!--登陆信息-->
+                    <div class="login">
+                        <!--已经登陆-->
+                        <?php if(isset($userInfo) && $userInfo){?>
+                        <div class="isLoginDiv">
+                            <div>
+                                <a href="/person">
+                                <img src="<?php echo $userInfo['head_pic']?$userInfo['head_pic']:'/images/qpxm/pc/index/noLogin.png';?>" class="isLoginImg" alt="">
+                                </a>
+                                <div class="isLoginInfo">
+                                    <div class="height20"><a href="/person"><?php echo $userInfo['uname']?$userInfo['uname']:$userInfo['companyname'];?></a></div>
+                                    <div class="height20"><?php echo $userInfo['type']==1?'经销商':'汽修厂';?></div>
+                                    <div class="height20"><a href="/def/store?ID=<?php echo $userInfo['EnterpriseID'];?>"><?php echo $userInfo['companyname'];?></a></div>
+                                </div>
+                            </div>
+                            <div style="clear: both"></div>
+                            <div class="VIPTime">
+                                <span><?php echo $userInfo['vip_time']?'VIP ：'.substr($userInfo['vip_time'],0,10):'还不是VIP';?></span>
+                                <span style="float: right"><a href="/login/logout">退出</a></span>
+                            </div>
+                        </div>
+                        <div class="borBottom"></div>
+                        <div class="bottomDiv">
+                            <div class="aList"><a href="/person/shopInfo">店铺管理</a></div>
+                            <?php if($userInfo['type']==1 && $userInfo['is_showfactry']==1){ ?>
+                            <div class="aList"><a href="/person/track">汽修厂轨迹</a></div>
+                            <?php } ?>
+                            <div class="aList"><a href="/person/visit">我的轨迹</a></div>
+                            <div class="aList"><a href="/person/vip">VIP会员</a></div>
+                            <div class="aList"><a href="/person/myRefresh">我的刷新点</a></div>
+                            <div class="aList"><a href="/person/approveInfo">认证</a></div>
+                            <div class="aList"><a href="/def/circle">我的圈子</a></div>
+                            <?php if($userInfo['type']==2){ ?>
+                            <div class="aList"><a href="/person/shoping">我的求购</a></div>
+                            <?php } ?>
+                            <div class="aList"><a href="/person/collectShop">收藏记录</a></div>
+                            <div class="aList"><a href="/person/bindSaleMan">绑定业务员</a></div>
+                            <div class="aList"><a href="/person/invite">分享邀请</a></div>
+                        </div>
+                        <?php }else{?>
+                        <!--未登录-->
+                        <a href="/login">
+                            <div class="noLogin">
+                                <img src="/images/qpxm/pc/index/noLogin.png" class="noLoginImg" alt="">
+                                &nbsp;&nbsp;[请登录]
+                            </div>
+                            <div class="noLoginBottom"></div>
+                            <div class="bottomDiv">
+                                <div class="aList">店铺管理</div>
+                                <div class="aList">汽修厂轨迹</div>
+                                <div class="aList">我的轨迹</div>
+                                <div class="aList">VIP会员</div>
+                                <div class="aList">我的刷新点</div>
+                                <div class="aList">认证</div>
+                                <div class="aList">我的圈子</div>
+                                <div class="aList">我的求购</div>
+                                <div class="aList">收藏记录</div>
+                                <div class="aList">绑定业务员</div>
+                                <div class="aList">分享邀请</div>
+                            </div>
+                        </a>
+                        <?php }?>
+                    </div>
+                    <?php if(isset($userInfo) && $userInfo){?>
+                    <a href="/person" style="color: #FF0103;"><?php echo $userInfo['uname']?$userInfo['uname']:$userInfo['companyname'];?></a><img style="vertical-align: middle;" src="/images/qpxm/pc/index/u7.png" alt="">
+                    <?php }else{?>
+                    <a href="/login" style="color: #FF0103;">请登录</a><img style="vertical-align: middle;" src="/images/qpxm/pc/index/u7.png" alt="">
+
+                    <?php }?>
+                </div>
+                <?php if(isset($userInfo) && $userInfo){?>
+                <?php }else{?>
+                <div class="caiDanL" style="padding-right: 12px">|</div>
+                <div class="caiDanL"><a href="/login/register" class="caiDA">注册</a></div>
+                <?php }?>
+                <div class="caiDanL"><a href="/person/collectShop" class="caiDA">我的收藏</a></div>
+                <div class="caiDanL"><a href="/def/circle" class="caiDA">我的圈子</a></div>
+                <div class="caiDanL"><a href="/person/myRefresh" class="caiDA">我的刷新点(<?php echo isset($userInfo)?($userInfo?($userInfo['refresh_point']?$userInfo['refresh_point']:'0'):'0'):'0'; ?>)</a></div>
+                <div class="caiDanL"><a href="/def/notices" class="caiDA">消息<?php echo isset($userInfo)?($userInfo?($userInfo['wdxx']?'('.$userInfo['wdxx'].')':'(0)'):''):'';?></a></div>
+                <div class="caiDanL moreShowS">
+                    <a href="" class="caiDA">更多<img style="vertical-align: middle;" src="/images/qpxm/pc/index/u8.png" alt=""></a>
+                    <div class="moreShow">
+                        <div class="moreShowList">
+                            <div><a href="/def/news">新闻咨询</a></div>
+                            <div><a href="/def/activities">促销活动</a></div>
+                            <div><a href="/def/newbie">新手上路</a></div>
+                            <div><a href="/def/info">公司简介</a></div>
+                            <div><a href="/def/xieyi">服务协议</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--右侧固定定位QQ、电话-->
+<div class="fixedDinWei" style="height: 350px;">
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="showF(this)">
+            <div class="fixedYuan"><img src="/images/qpxm/pc/index/phone.png" alt=""></div>
+        </a>
+        <div class="fixedQQ"><?php echo $qqTel['Tel'];?></div>
+    </div>
+    <div class="fixedDiv">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=&site=<?php echo $qqTel['QQ'];?>&menu=yes" onclick="showF(this)" target="_blank">
+            <div style="float: right;"><img src="/images/qpxm/pc/index/rQQ.png" alt=""></div>
+        </a>
+        <div class="fixedQQ"><?php echo $qqTel['QQ'];?></div>
+    </div>
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="location.href='/def/index'">
+            <div style="float: right;"><img src="/images/qpxm/pc/index/goHomeIco.png" alt=""></div>
+        </a>
+    </div>
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="goTop()">
+            <div style="float: right;"><img src="/images/qpxm/pc/index/rUp.png" alt=""></div>
+        </a>
+    </div>
+</div>
+

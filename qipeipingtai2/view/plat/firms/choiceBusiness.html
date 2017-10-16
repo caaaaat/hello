@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>厂商列表</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .float{ float: left ;width:75px;height: 25px;list-style: none; text-align: center;border: 1px solid lightgrey;}
+        .floatLeft { float: left ;width: 8px;height: 27px; border: none; line-height: 27px;margin-right: 3px;}
+        .floatRight{ float: right ;width: 8px;height: 27px; border: none; line-height: 27px;margin-left: 3px;}
+        .type_a{ display: inline-block; height: 23px; padding: 3px; color: black ; width:73px; overflow:hidden;  text-overflow:ellipsis; white-space:nowrap;}
+        .car_lv2 { float: left;cursor: pointer;list-style: none; width: 73px; height: 93px; margin-right: 5px; margin-bottom: 5px; border: 1px solid lightgrey;}
+        .checkbox{position: relative;top: -95px;left: 2px;}
+        .img{width: 71px;height: 73px;border: none;cursor: pointer;}
+        .car_type_lv2_name{display: inline-block;width: 73px;padding: 3px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content" style="padding: 0">
+    <div class="mail-box-header col-xs-12">
+        <div class="floatLeft" id="left" style="cursor: pointer;margin-right: 10px;" onclick="rightScroll(this)">
+            <img src="/images/qpxm/pc/register/left.png">
+        </div>
+        <div style="float: left;overflow: hidden; height: 26px;width: 450px;">
+            <div style="float: left;overflow: hidden; height: 25px;width: 10000px;">
+                <?php $CarGroupItem = isset($CarGroupItem) ? $CarGroupItem : '' ;?>
+                <?php if ($CarGroupItem) {?>
+                <ul id="car_lv1" style="float: left; margin-bottom: 0;overflow: hidden;height: 27px; padding-left: 0;">
+                    <?php $style = "style='background-color:lightgrey'" ;?>
+                    <?php foreach ($CarGroupItem as $v){?>
+                    <li class="float" title="<?php echo $v['name']?>">
+                        <a data-val="group_<?php echo $v['id']?>" class="type_a" data-id="<?php echo $v['id']?>" href="javascript:void (0);"  <?php echo $style ;?>>
+                            <?php echo $v['name']?>
+                        </a>
+                    </li>
+                    <?php $style = '' ;?>
+                    <?php }?>
+                </ul>
+                <?php }?>
+            </div>
+        </div>
+
+        <div class="floatRight" style="cursor: pointer" onclick="leftScroll(this)">
+            <img src="/images/qpxm/pc/register/right.png">
+        </div>
+    </div>
+</div>
+<input type="hidden" value="<?php echo $_type ;?>" id="_type"/>
+<div style="clear: both;"></div>
+<div class="wrapper wrapper-content" style="padding: 0" id="main">
+    <?php if ($CarGroupItem) {?>
+    <?php $hidden = '';?>
+    <?php foreach ($CarGroupItem as $v){?>
+    <div class="row <?php echo $hidden?>" data-name="child" style="padding: 10px;" id="group_<?php echo $v['id'] ;?>">
+        <ul>
+            <?php foreach ($v['child'] as $vv){?>
+            <li class="car_lv2">
+                <div style="width: 73px; height: 73px;">
+                    <label for="img_<?php echo $vv['id'] ;?>">
+                        <img class="img" src="<?php echo $vv['img'] ;?>">
+                    </label>
+                </div>
+                <div title="<?php echo $vv['name'] ;?>" style="width: 73px; height: 20px; text-align: center;"><span class="car_type_lv2_name"><?php echo $vv['name'] ;?></span></div>
+                <input type="checkbox" data-type="<?php echo $v['name'] ;?>" data-value="<?php echo $vv['name'] ;?>"  value="<?php echo $vv['id'] ;?>" class="checkbox" id="img_<?php echo $vv['id'] ;?>"/>
+            </li>
+            <?php }?>
+        </ul>
+    </div>
+    <?php $hidden = 'hidden';?>
+    <?php }?>
+    <?php }?>
+</div>
+<div class="hr-line-dashed" style="margin: 0 20px 5px 20px;"></div>
+<div class="form-group" style="">
+    <div class="col-xs-12" style="text-align: center;padding-bottom: 20px;">
+        <button class="btn btn-primary" type="submit" onclick="getChecked()">确定</button>
+    </div>
+</div>
+
+</body>
+<script  type="text/javascript" src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+
+<!--自定义JS-->
+<script src="/js/global.js"></script>
+<script>
+    $(function () {
+        $('.type_a').click(function () {
+            hidden(this);
+        });
+    });
+    function leftScroll(obj){
+        var lv1_obj = $("#car_lv1") ;
+        var rightOffset  = $(obj).offset();
+        var lastOffset = $(lv1_obj.find('li:last')).offset() ;
+        if(rightOffset.left-lastOffset.left < 50){
+            lv1_obj.animate({marginLeft:'-=75px'},20);
+        }
+//        obj.find('li:first').remove();
+//        obj.append(first);
+    }
+    function rightScroll(obj){
+        //$(obj).attr('onclick','');
+        var lv1_obj = $("#car_lv1") ;
+        var leftOffset  = $('#left').offset();
+        var firstOffset = $(lv1_obj.find('li:first')).offset() ;
+        if(leftOffset.left-firstOffset.left > 0){
+            lv1_obj.animate({marginLeft:'+=75px'},20)
+        }
+        //$(obj).attr('onclick',"rightScroll(this)");
+
+    }
+    function hidden(obj) {
+        $('#car_lv1').find('li a').each(function () {
+            $(this).attr('style','background-color:#ffffff');
+        });
+        $(obj).attr('style','background-color:lightgrey') ;
+        var _group = $(obj).attr('data-val') ;
+        $('#main').find('div[data-name=child]').each(function () {
+            if($(this).attr('id') == _group){
+                $(this).removeClass('hidden');
+            }else {
+                $(this).addClass('hidden');
+            }
+        })
+    }
+    function getChecked() {
+        var checked = $('#main').find('input[type=checkbox]:checked') ;
+        if(checked.length >300){
+            layer.msg('最多选择300项分类');
+        }else {
+            var str = '';
+            var ids = '';
+            if(checked.length >0){
+                var ext = ',';
+                for (var i=0;i<checked.length;i++){
+                    var type  = $(checked[i]).attr('data-type');
+                    var value = $(checked[i]).attr('data-value');
+                    var strItem = $(checked[i]).attr('data-type')+'/'+$(checked[i]).attr('data-value');
+                    str += strItem + "  ";
+                    ids += ext+$(checked[i]).val()+ ",";
+                    ext = '' ;
+                }
+            }
+            $(parent.document.getElementById('bns')).text(str);
+            $(parent.document.getElementById('business')).val(ids);
+            parent.layer.closeAll();
+        }
+
+    }
+
+</script>
+</html>

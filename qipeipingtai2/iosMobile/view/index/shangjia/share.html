@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>发布动态</title>
+    <link rel="stylesheet" href="../../../css/mui.min.css" />
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	html{
+		background: #FFFFFF;
+	}
+	.sw-grid-view:after{
+		height: 0;
+	}
+	.sw-img-view:after,.sw-img-view:before{
+		height: 0;
+	}	
+	.sw-icon-dt{
+		position: absolute;right: 4px;top: 14px;width: 18px;height: 18px;background: url(../../../image/coterie/icon_dt_c.png) no-repeat;background-size: contain;
+	}
+</style>	
+<body style="background: #FFFFFF;">
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">发布动态</h1>
+	    <button class="mui-btn mui-btn-link mui-pull-right">发布</button>
+	</header>
+	
+	<div class="mui-content" style="background: #FFFFFF;">
+		
+		<div class="mui-input-row" style="margin:0;border-bottom: 1px solid #EFEFEF;">
+			<textarea id="textarea" rows="5" style="border: none;font-size: 14px;margin-bottom: 0;" placeholder="写点什么？"></textarea>
+		</div>
+		<div></div>
+		
+		<ul class="mui-table-view mui-grid-view sw-grid-view" style="padding: 4px 15px 0;border-bottom: 0;">
+			<li class="mui-table-view-cell mui-media mui-col-xs-6" style="padding: 0;text-align: left;font-size: 13px;color: #999;"><img src="../../../image/coterie/icon_dt_pic.png" style="width: 13px;height: 13px;margin-right: 4px;vertical-align: middle;display: inline-block;margin-top: -2px;"/>8/9张</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-6" style="padding: 0;text-align: right;font-size: 13px;color: #999;">0/200</li>
+		</ul>
+		
+		<ul class="mui-table-view mui-grid-view sw-img-view">
+			
+			<li class="mui-table-view-cell mui-media mui-col-xs-4" style="position: relative;">
+				<img src="../../../image/coterie/icon_dt_add.png" width="100%"/>
+				
+			</li>
+			
+			<li class="mui-table-view-cell mui-media mui-col-xs-4" style="position: relative;">
+				<p class="sw-icon-dt"></p>		
+				<img src="../../../image/coterie/muwu.png" width="100%"/>
+			</li>
+			
+			<li class="mui-table-view-cell mui-media mui-col-xs-4" style="position: relative;">
+				<p class="sw-icon-dt"></p>		
+				<img src="../../../image/coterie/muwu.png" width="100%"/>
+			</li>
+			
+			<li class="mui-table-view-cell mui-media mui-col-xs-4" style="position: relative;">
+				<p class="sw-icon-dt"></p>		
+				<img src="../../../image/coterie/muwu.png" width="100%"/>
+			</li>
+			
+		</ul>
+		
+	</div>
+	
+</body>
+ 	<script type="text/javascript" src="../../../js/mui.min.js"></script>
+	<script type="text/javascript" src="../../../js/global.js"></script>
+</html>

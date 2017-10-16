@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>相关照片</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">   
+    </script>
+</head>
+<style>
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF;
+	}
+	.sw-icon-ca{
+		position: absolute;right: 2px;top: 12px;width: 14px;height: 14px;background: url(../../../image/person/purchase/icon_zp_cha.png) no-repeat;background-size: contain;
+	}
+	.sw-scope-box{
+		background: none;
+	}
+	.sw-scope-box:after,.sw-scope-box:before{
+		height: 0;
+	}
+</style>
+<body style="background: #EFEFEF;">
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">相关照片</h1>
+	</header>
+	
+	<div class="mui-content" style="background: #EFEFEF;"> 
+		
+		<div style="padding: 0 15px;width: 100%;">		
+			<p style="line-height: 42px;margin-bottom: 0;">相关照片：</p>
+		</div>
+		<ul class="mui-table-view mui-grid-view sw-scope-box" style="" id="otherp-list">
+			<li class="mui-table-view-cell mui-media mui-col-sm-31" id="uploadCon">					
+                <img class="mui-media-object" id="imgSrc" src="../../../image/person/purchase/tianjiazp.png" onclick="showActionSheet(this)"> 	                	
+	        </li>
+	    </ul> 
+	</div>
+<script id="otherp-list-tpl" type="text/html">
+	<li class="mui-table-view-cell mui-media mui-col-sm-31">		            
+    	<p class="sw-icon-ca" onclick="delImg(this)"></p>	
+        <img class="mui-media-object" style="height: {{ d.height }}px;" src="{{ imgUrl+d.imgUrl }}"> 
+        <input value="{{ d.imgUrl }}" name="otherp" hidden="hidden" />
+    </li>
+</script>	 
+</body>
+<script src="../../../js/mui.min.js"></script>
+<script src="../../../js/global.js"></script>
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/laytpl/laytpl.js"></script>
+<script type="text/javascript">
+ 	//mui初始化
+	mui.init({  
+	    beforeback: function() {  
+	    //获得列表界面的webview  
+	    var info = plus.webview.currentWebview().opener();  
+	    //触发列表界面的自定义事件（refresh）,从而进行数据刷新  
+	    mui.fire(info, 'otherpUpload');  
+	    //返回true，继续页面关闭逻辑  
+	    return true;  
+	    }  
+	});
+	
+	var imgH = $("#imgSrc").width();
+ 	var procinstid = 0;  
+    //初始化页面执行操作  
+    function plusReady() {  
+        //Android返回键监听事件  
+        plus.key.addEventListener('backbutton',function(){},false);  
+        //初始化页面数据
+        var otherp = plus.storage.getItem('otherp');
+ 	 	if(otherp!=undefined){
+ 	 		otherp = JSON.parse(otherp);
+ 	 		var len = otherp.length;
+ 	 		if(len>0){	 			
+ 	 			for(var i=0;i<len;i++){	 				
+ 	 				var data = {};
+						data.imgUrl = otherp[i];
+						data.height = imgH;	
+				 	var pTpl   = $('#otherp-list-tpl').html();	 		
+			        laytpl(pTpl).render(data,function(render){           
+			            $('#otherp-list').append(render);  
+			        });			        
+ 	 			}
+ 	 			
+ 	 			if(len>8){
+ 	 				$("#uploadCon").css('display','none');
+ 	 			}
+ 	 		}
+ 	 	} 	 	
+    }
+    
+    if (window.plus) {  
+        plusReady();  
+    } else {  
+        document.addEventListener('plusready', plusReady, false);  
+    } 
+    
+      
+//选取图片的来源，拍照和相册  
+function showActionSheet(conf){  
+  	var divid = conf.id;  
+    var actionbuttons=[{title:"拍照"},{title:"相册选取"}];  
+    var actionstyle={title:"选择照片",cancel:"取消",buttons:actionbuttons};  
+	plus.nativeUI.actionSheet(actionstyle, function(e){  
+	        if(e.index==1){  
+	            appendByCamera();
+	        }else if(e.index==2){  
+	            appendByGallery();  
+	        }  
+	} );  
+}  
+
+var files={};
+// 上传文件
+function upload(){
+	if(files.length<=0){
+		plus.nativeUI.alert("没有添加上传文件！");
+		return;
+	}
+	loading('上传中');
+	var task=plus.uploader.createUpload(imgUploadImg, 
+		{method:"POST"},
+		function(t,status){ //上传完成
+			closeLoading();			
+			if(status==200){
+				sw.jcon(t.responseText);	
+				var rData   = JSON.parse(t.responseText);
+					sw.toast(rData.msg);
+					
+				var rStatus = rData.status;
+					if(rStatus==200){
+						setOtherP(rData.url);
+					}
+			}else{
+				sw.toast("上传失败："+status);				
+			}
+			
+		}
+	);
+	task.addFile(files.path,{key:files.name});	
+	task.start();
+}
+// 拍照添加文件
+function appendByCamera(){
+	plus.camera.getCamera().captureImage(function(p){
+		appendFile(p);
+	});	
+}
+// 从相册添加文件
+function appendByGallery(){
+	plus.gallery.pick(function(p){
+        appendFile(p);
+    });
+}
+// 添加文件
+function appendFile(p){
+	files = {name:"uploadkey",path:p};
+	upload();
+}
+// 产生一个随机数
+function getUid(){
+	return Math.floor(Math.random()*100000000+10000000).toString();
+}
+
+//图片上传成功操作页面
+function setOtherP(otherp_pic){
+	//获取已经上传的图片数量
+	var otherpList = $("input[name='otherp']");
+	var len = otherpList.length;
+	if(len<9){
+		var data = {};
+			data.imgUrl = otherp_pic;
+			data.height = imgH;	
+			sw.jcon(data)
+	 	var pTpl   = $('#otherp-list-tpl').html();	 		
+        laytpl(pTpl).render(data,function(render){           
+            $('#otherp-list').append(render);  
+        });
+	}
+	
+	if(len>7){
+		$("#uploadCon").css('display','none');
+	}else{
+		$("#uploadCon").css('display','');
+	}
+	
+//	图片保存到本地
+	saveImg();
+} 
+
+/**
+ * 删除图片
+ * @param {Object} j
+ */
+function delImg(j){	
+	$(j).parent().remove();//移除自身
+	$("#uploadCon").css('display','');//显示上传
+	//	图片保存到本地
+	saveImg();
+}
+
+/**
+ * 图片保存到本地
+ */
+function saveImg(){
+	//将图片保存
+	var imgList = [];	
+	var otherpInput = $("input[name='otherp']");
+	$.each(otherpInput, function() {
+		var imgUrl = $(this).val();
+		sw.jcon(imgUrl);
+		imgList.push(imgUrl);
+	});	
+	plus.storage.setItem('otherp',JSON.stringify(imgList));
+}
+
+ </script>
+</html>

@@ -1,0 +1,72 @@
+<!--搜索及logo-->
+<div class="row mideLogo">
+    <!--logo-->
+    <div class="col-md-3 mideLogoDiv">
+        <div class="logoImg"><a href="/def/index">
+            <img src="/images/qpxm/pc/index/logo.png" width="145px" alt=""></a>
+        </div>
+    </div>
+    <!--搜索-->
+    <div class="col-md-6 souSuoDiv">
+        <div style="padding-top: 55px">
+            <div class="souSuoList">
+                <a href="javascript:;" class="search007"><span class="shangJ"  id="car007"  onclick="changeSearch(this)" data-u="cars" data-v="输入公司名称、主营产品查询">轿车商家</span></a>
+                <a href="javascript:;" class="search007"><span class="shangJia" id="van007" onclick="changeSearch(this)" data-u="vans" data-v="输入公司名称、主营产品查询">货车商家</span></a>
+                <a href="javascript:;" class="search007"><span class="shangJia" id="new007"  onclick="changeSearch(this)" data-u="newMarket" data-v="输入产品名称、品牌、适用车系查询">新品促销</span></a>
+                <a href="javascript:;" class="search007"><span class="shangJia" id="cre007" onclick="changeSearch(this)" data-u="clearance" data-v="输入产品名称、品牌、适用车系查询">库存清仓</span></a>
+            </div>
+            <div>
+                <div class="sousuoIm"><img src="/images/qpxm/pc/index/souSuo.png" alt=""></div>
+                <div style="float: left;width: 450px">
+                    <input placeholder="输入公司名称、主营产品查询" id="keywords007" class="form-control souSuoInput" value="<?php echo $keywords?>" type="text">
+                </div>
+                <div style="float: left">
+                    <button type="button" class="btn btn-primary souSuo" id="keywords007b"  onclick="toSearch007('cars')">搜索</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            function changeSearch(n) {
+                $('.search007 span').attr('class','shangJia');
+                $(n).attr('class','shangJ');
+                $('#keywords007').attr('placeholder',$(n).attr('data-v'));
+                $('#keywords007b').attr('onclick','toSearch007("'+$(n).attr('data-u')+'")');
+            }
+            function toSearch007(url) {
+                var  keywords = $('#keywords007').val();
+                window.location.href = '/def/'+url + '?u_type='+url+'&keywords='+keywords;
+            }
+        </script>
+        <script>
+            <?php if($u_type=='vans'){ ?>
+                $("#van007").trigger("click");
+            <?php }elseif($u_type=='newMarket'){ ?>
+                $("#new007").trigger("click");
+            <?php }elseif($u_type=='clearance'){ ?>
+                $("#cre007").trigger("click");
+            <?php }else{ ?>
+                $("#can007").trigger("click")
+            <?php } ?>
+        </script>
+    </div>
+    <!--二维码-->
+    <div class="col-md-1"></div>
+    <div class="col-md-2 erWeiMDiv">
+        <div style="">
+            <div class="row" style="">
+                <div style="float: left">
+                    <div class="erWeiM" style="margin: 0 auto">
+                        <img src="/images/qpxm/pc/index/xiaZai.png" width="70px" alt="">
+                    </div>
+                    <div class="downEr">手机下载版</div>
+                </div>
+                <div class="" style="float: right">
+                    <div class="erWeiM" style="margin: 0 auto">
+                        <img src="/images/qpxm/pc/index/WXWrWeiMa2.png" width="70px" alt="">
+                    </div>
+                    <div class="downEr">微信版</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

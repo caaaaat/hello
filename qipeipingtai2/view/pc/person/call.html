@@ -1,0 +1,139 @@
+<link rel="stylesheet" href="/css/pc/person/visit.css">
+<div class="titles">
+    <span>拨打记录</span>
+</div>
+
+<div id="visitDiv">
+    <!--访问列表-->
+    <?php foreach($data as $v){?>
+    <!--VIP商家-->
+    <div class="height230">
+        <div class="visitTiao">
+            <div class="floLeft">
+                <span>最近访问 ：</span><span><?php echo $v['invitime'];?></span>
+            </div>
+            <div class="floRight">
+                <a href="/person/call?ID=<?php echo $v['EnterpriseID'];?>"><span>共 ：</span><?php echo $v['num'];?>次
+                <img src="/images/qpxm/pc/person/shopInfo/you.png" class="visitYou" alt=""></a>
+            </div>
+        </div>
+        <div class="visitInfoDiv">
+            <div class="visitImgDiv">
+                <img src="/images/qpxm/pc/index/tuiJianS.png" class="visitImg" alt="">
+            </div>
+            <div class="visitCompanyDiv">
+                <div style="">
+                    <div class="companyName"><?php echo $v['companyname'];?></div>
+                    <div style="float: left;"><?php if(strtotime($v['vip_time'])>time()){ echo '<img src="/images/qpxm/pc/person/shopInfo/v.png" alt="">'; }?></div>
+                    <div style="float: left;"><?php if($v['is_check']==1){ echo '<img src="/images/qpxm/pc/person/shopInfo/renZ.png" alt="">'; }?></div>
+                    <?php $lxArr = array('','轿车商家','货车商家', '用品商家','修理厂','快修保养','美容店');?>
+                    <div class="carCompany <?php $v['classification']==2?'truckCompany':'';?>" style="float: left;margin-left: 5px"><?php echo $lxArr[$v['classification']];?></div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="companyInfo">
+                    <span>[主营]<?php echo $v['major']?></span>
+                </div>
+            </div>
+            <div class="inCompany">
+                <a href="/def/store?ID=<?php echo $v['EnterpriseID'];?>"><button class="companyBtn">进入店铺</button></a>
+            </div>
+            <div class="banEWM">
+                <a href="javascript:;" onclick="showEr(this)"><img width="55px" src="/images/qpxm/pc/person/shopInfo/banEWM.png" alt=""></a>
+            </div>
+            <div class="dianErImgDiv">
+                <a href="javascript:;" onclick="showEr(this)"><img width="130px" src="<?php echo $v['QR_pic']?>" alt=""></a>
+            </div>
+        </div>
+    </div>
+    <?php } ?>
+    <!-- &lt;!&ndash;已认证商家&ndash;&gt;
+     <div class="height230">
+         <div class="visitTiao">
+             <div class="floLeft">
+                 <span>最近访问 ：</span><span>03-01 13:00</span>
+             </div>
+             <div class="floRight">
+                 <span>共 ：</span>3次
+                 <a href="javascript:;"><img src="/images/qpxm/pc/person/shopInfo/you.png" class="visitYou" alt=""></a>
+             </div>
+         </div>
+         <div class="visitInfoDiv">
+             <div class="visitImgDiv">
+                 <img src="/images/qpxm/pc/index/tuiJianS.png" class="visitImg" alt="">
+             </div>
+             <div class="visitCompanyDiv">
+                 <div style="">
+                     <span class="companyName">经销商企业名称</span>
+                     <span><img src="/images/qpxm/pc/person/shopInfo/renZ.png" class="vImg" alt=""></span>
+                     <span class="carCompany">快修保养</span>
+                 </div>
+                 <div class="companyInfo">
+                     <span>[主营]一汽丰田：卡罗拉 锐志 皇冠 RAV4 威驰花冠 卡罗拉 锐志 皇冠 RAV4 威驰花冠 卡罗拉 锐志 皇冠 RAV4 威驰花冠</span>
+                 </div>
+             </div>
+             <div class="inCompany">
+                 <button class="companyBtn">进入店铺</button>
+             </div>
+             <div class="banEWM">
+                 <a href="javascript:;" onclick="showEr(this)"><img width="55px" src="/images/qpxm/pc/person/shopInfo/banEWM.png" alt=""></a>
+             </div>
+             <div class="dianErImgDiv">
+                 <a href="javascript:;" onclick="showEr(this)"><img width="130px" src="/images/qpxm/pc/supperList/erWeiMa.png" alt=""></a>
+             </div>
+         </div>
+     </div>
+     &lt;!&ndash;未认证商家&ndash;&gt;
+     <div class="height230">
+         <div class="visitTiao">
+             <div class="floLeft">
+                 <span>最近访问 ：</span><span>03-01 13:00</span>
+             </div>
+             <div class="floRight">
+                 <span>共 ：</span>3次
+                 <a href="javascript:;"><img src="/images/qpxm/pc/person/shopInfo/you.png" class="visitYou" alt=""></a>
+             </div>
+         </div>
+         <div class="visitInfoDiv">
+             <div class="visitImgDiv">
+                 <img src="/images/qpxm/pc/index/tuiJianS.png" class="visitImg" alt="">
+             </div>
+             <div class="visitCompanyDiv">
+                 <div style="">
+                     <span class="companyName">经销商企业名称</span>
+                     <span class="carCompany truckCompany">货车商家</span>
+                 </div>
+                 <div class="companyInfo">
+                     <span>[主营]一汽丰田：卡罗拉 锐志 皇冠 RAV4 威驰花冠 卡罗拉 锐志 皇冠 RAV4 威驰花冠 卡罗拉 锐志 皇冠 RAV4 威驰花冠</span>
+                 </div>
+             </div>
+             <div class="inCompany">
+                 <button class="companyBtn">进入店铺</button>
+             </div>
+             <div class="banEWM">
+                 <a href="javascript:;" onclick="showEr(this)"><img width="55px" src="/images/qpxm/pc/person/shopInfo/banEWM.png" alt=""></a>
+             </div>
+             <div class="dianErImgDiv">
+                 <a href="javascript:;" onclick="showEr(this)"><img width="130px" src="/images/qpxm/pc/supperList/erWeiMa.png" alt=""></a>
+             </div>
+         </div>
+     </div>-->
+</div>
+<!--分页开始-->
+<div class="text-right" style="margin-bottom: 40px;margin-right: 25px;margin-top: 50px;">
+    <span style="color: #999"></span>
+    <span id="pageInfo" style="margin-right: 10px;"><?php echo $pageHtml['countStr'];?></span>
+    <div class="btn-group" id="pager"><?php if($data){ ?><?php echo $pageHtml['key'];?><?php } ?></div>
+</div>
+<script>
+    /*点击半截二维码显示完整二维码*/
+    function showEr(obj){
+        $(obj).find('img').attr('src','/images/qpxm/pc/supperList/backEr.png');
+        $(obj).attr('onclick','hideEr(this)');
+        $(obj).parent().parent().find('.dianErImgDiv').show();
+    }
+    function hideEr(obj){
+        $(obj).find('img').attr('src','/images/qpxm/pc/person/shopInfo/banEWM.png');
+        $(obj).attr('onclick','showEr(this)');
+        $(obj).parent().parent().find('.dianErImgDiv').hide();
+    }
+</script>

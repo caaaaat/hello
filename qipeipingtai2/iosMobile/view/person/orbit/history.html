@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>详细记录</title>
+		<link href="../../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8" />
+		<script type="text/javascript" charset="utf-8">
+		</script>
+	</head>
+	<style>
+		.sw-payList:after {
+			left: 0;
+			height: 0;
+		}
+		
+		.sw-payList {
+			border-bottom: 1px solid #EFEFEF;
+		}
+		
+		.sw-no-active,
+		.sw-no-active:active {
+			background: #FFFFFF;
+		}
+		
+		.sw-title {
+			font-size: 14px;
+			color: #666;
+		}
+
+	</style>
+
+	<body style="background: #EFEFEF;">
+
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">详细记录</h1>
+		</header>
+
+		<div class="mui-content">
+			
+			<div class="mui-scroll-wrapper" style="margin-top:44px;">    
+				<div class="mui-scroll sw-coterie-box" id="loadList">  
+					<div class="mui-table-view " id="orbitList">
+
+					</div>
+				</div>   
+			</div>
+		
+		</div>
+		<input value="1" hidden="hidden" id="page" />
+
+		<!--列表模板-->
+		<script id="orbit-list-tpl" type="text/html">
+			{{# var len = d.length; }} {{# for(var i = 0;i
+			< len; i++){ }} <li class="mui-table-view-cell sw-payList sw-no-active">
+				<span class="sw-title">{{ d[i].create_time }}</span>
+				</li>
+				{{# } }}
+		</script>
+	</body>
+	<script src="../../../js/mui.min.js"></script>
+	<script src="../../../js/global.js"></script>
+	<script src="../../../js/jquery.min.js"></script>
+	<script src="../../../js/laytpl/laytpl.js"></script>
+	<script src="../../../js/mui.pullToRefresh.js"></script>
+	<script src="../../../js/mui.pullToRefresh.material.js"></script>
+	<script type="text/javascript" charset="utf-8">
+		var showSelf;
+		var orbitType = '1';
+		var toFirmsId = '';
+		
+		mui.init();
+		//mui plusReady
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			orbitType = self.orbitType;
+			toFirmsId = self.toFirmsId;
+			
+			
+			
+			mui("#loadList").pullToRefresh({ 
+				down: {
+					callback: function(){
+						location.href = location.href;
+					}
+				},
+				up: { 
+					auto: true,
+					offset: 50, //距离底部高度(到达该高度即触发)
+					contentnomore:contentnomoreStr,   
+					contentrefresh:contentrefreshStr,
+					callback: function() {  
+							showSelf = this;				
+							getStartList(showSelf);			
+							}
+						}
+			}); 
+			
+			
+		})
+
+		//从新开始加载数据 
+		function getStartList(showSelf) {
+			var token = plus.storage.getItem('token');
+			var page = mui("#page")[0].value; //获取页数							
+			var data = {};
+			var postData = {};
+
+			//请求的数据
+			postData.page = page; //请求的页码
+			postData.pageSize = 10; //每页显示数量 
+			postData.token = token;
+			postData.toFirmsId = toFirmsId;
+
+			data.postData = postData;
+
+			//页面相关数据
+			data.mod = 'api.sev.user'; //模型
+			data.fun = orbitType == 1 ? 'getVisitToFirmsDateLog' : 'getCallToFirmsDateLog'; //方法
+			data.tpl = 'orbit-list-tpl'; //列表模板     		      		
+			data.listId = 'orbitList'; //列表容器    
+			data.pageId = 'page';//页码Id	 
+  		
+			data.postData = postData;	
+			
+			//请求并处理数据
+			loadInfoArr(data,true,showSelf);	
+		
+		}
+	</script>
+
+</html>

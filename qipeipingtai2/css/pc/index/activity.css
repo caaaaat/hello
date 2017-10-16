@@ -1,0 +1,31 @@
+#activityMinute{width: 1200px;margin: 0 auto;margin-top: 60px;padding-left: 100px;padding-right: 100px;}
+.activityTitle{font-size: 28px; font-weight: bold;color: #333;text-align: center;}
+.activityTime{text-align: center;font-size: 14px;margin-top: 8px;}
+.activityImgDiv{width: 686px;height: 318px;background: #FFF;margin: 0 auto;margin-top: 80px;}
+.activityImg{width: 686px;max-height: 318px;}
+.activityInfo{font-size: 16px;color: #333;margin-top: 60px;margin-bottom: 60px;}
+.activesList:nth-child(2n+1){margin-left: 0!important;}
+#activeity{width: 1200px;margin: 0 auto;}
+.activeityCover{width: 1200px;height: 315px;overflow: hidden;vertical-align: middle;}
+.activeityCoverImg{width: 1200px;max-height: 315px;}
+.marTop30MarbOTTOM5{margin-top: 30px;margin-bottom: 5px;}
+.activeTitleText{font-size: 24px;color: #333;}
+.activesList{margin-left: 40px;float: left;width: 580px;height: 440px;border: 1px solid #DDD;background: #FFF;margin-bottom: 26px;}
+.activesListImg{height: 393px;width: 578px;}
+.huoDongBiaoTi{width: 100%;text-overflow:ellipsis;white-space:nowrap;overflow: hidden;color: #333;border-top: 1px solid #DDD;font-size: 18px;height: 44px;line-height: 44px;padding-left: 15px;padding-right: 15px;}
+.activeityMore{height: 60px;background: #CCC;color: #FFF;font-size: 20px;text-align: center;line-height: 60px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

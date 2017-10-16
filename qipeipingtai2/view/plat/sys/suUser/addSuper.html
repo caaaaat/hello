@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .control-label{margin-bottom: 0;height: 34px;line-height: 34px; padding-right: 0;}
+    </style>
+</head>
+<body>
+<div class="col-xs-1"></div>
+<div class="col-xs-10">
+    <div class="ibox-content" style="border-width:0">
+
+        <div class="form-horizontal" style="margin-bottom: 10px;height: 36px;">
+            <div class="col-xs-2 " style="width: 60px;height: 36px; text-align: center;line-height: 36px;">
+                <span style="display: inline-block;width: 36px;height: 36px;border-radius: 18px;background-color: red; color: white;font-size: 25px;">!</span>
+            </div>
+            <div class="col-xs-10" style="padding-left: 0;">
+                <p style="color: #0099FF;">
+                    初始密码统一为123456，请务必让员工登录后修改密码, 若遗忘密码，请为其重置为初始密码
+                </p>
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-xs-4 control-label"><span style="color: red;">＊</span>管理员名称:</label>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <input type="text" id="suName" class="form-control" placeholder="管理员名称">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 control-label"><span style="color: red;">＊</span>管理员帐号:</label>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <input type="text" id="suCode" class="form-control" placeholder="管理员帐号">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 control-label"><span style="display: inline-block;width: 27px;"></span>管辖区域:</label>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <select class="control-label" style="width: 100%;font-size: 14px;" id="province" onchange="provChange(this)">
+                        <option><?php echo $me['province'] ; ?></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" style="height: 20px;">
+                <div class="col-xs-4"></div>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <span id="tip" style="color: red;height: 20px;"></span>
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+                <input type="hidden" value="<?php echo $me['province'] ; ?>" id="prov"/>
+                <div class="col-xs-12" style="text-align: center;">
+                    <button class="btn btn-primary" type="submit" onclick="saveSu()">保存管理员</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/plat/province.js"></script>
+<!--弹窗js-->
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+<script>
+    $(function () {
+        $("input") .focus(function () {
+            $("#tip").text('');
+        });
+        var prov = $('#prov').val() ;
+        if( prov == '' || prov == '0'  ){
+            setProvince('province',$('#province').val());
+        }
+    });
+
+    function provChange(obj) {
+        var prov = $(obj).val() ;
+        if(prov != ''){
+            $("#tip").text('该帐号只能看见 ['+prov+'] 内的所有厂商的相关信息');
+        }else {
+            $("#tip").text('');
+        }
+    }
+    function saveSu() {
+
+        var data      = {} ;
+        data.suName   = $.trim($("#suName").val());
+        data.suCode   = $.trim($("#suCode").val());
+        data.prov     = $.trim($("#province").val());
+
+        if(!data.suName || data.suName==''){
+            $("#suName").focus();
+            //layer.msg('请输入管理员名称',{time:1500});
+            $("#tip").text('请输入管理员名称');
+            return false;
+        }else if (!data.suCode || data.suCode==''){
+            $("#suCode").focus();
+            //layer.msg('请输入管理员帐号',{time:1500});
+            $("#tip").text('请输入管理员帐号');
+            return false;
+        }else {
+            $.post('/plat.suUser/saveSu',{data:data},function(Rv){
+                if(Rv.massageCode == 'success'){
+                    layer.msg(Rv.massage,{time:1500});
+                    parent.getList(1);
+                    setTimeout(function () {
+                        parent.layer.closeAll();
+                    },1500);
+                }else {
+                    layer.msg(Rv.massage,{time:1500});
+                }
+            },'json')
+        }
+    }
+
+
+
+</script>
+</body>
+</html>

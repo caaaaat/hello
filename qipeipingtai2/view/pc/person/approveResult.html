@@ -1,0 +1,144 @@
+<link rel="stylesheet" href="/css/pc/person/approve.css">
+<style>
+    .ziZhiImgDiv img:hover{cursor: pointer;}
+</style>
+<div class="titles">
+    <span style="font-size: 24px;">认证</span>
+</div>
+<div id="approveInfo">
+    <div class="hint">经销商需认证后才会被搜索到，汽修厂需认证后才能上架清仓商品</div>
+    <div class="companyInfoText">
+        公司信息 <span class="biTian">( 必填 )</span>
+    </div>
+    <!--公司全称-->
+    <div class="marBottom32">
+        <div class="approveText">公司全称:</div>
+        <div class="companyText"><?php echo $data['firmsName'];?></div>
+        <div class="approveRightText">联系人:</div>
+        <div style="float: right;line-height: 40px;width: 295px;"><?php echo $data['firmsMan'];?></div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--手机号码-->
+    <div class="marBottom32">
+        <div class="approveText">手机号码:</div>
+        <div class="companyText"><?php echo $data['firmsTel'];?></div>
+        <div class="approveRightText">所在城市:</div>
+        <div class="adress"><?php echo $data['province'].' '.$data['city'].' '.$data['district'];?></div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--详细地址-->
+    <div class="marBottom32">
+        <div class="approveText">详细地址:</div>
+        <div class="adressInfo"><?php echo $data['address'];?></div>
+        <div style="clear: both;"></div>
+    </div>
+    <div class="ziZhiZhaoPian">资质照片 <span class="biTian">( 至少上传1张 )</span></div>
+    <div>
+        <!--上传营业执照-->
+        <div class="ziZhiImgDiv">
+            <?php if($data['licence_pic']){?>
+            <img src="<?php echo $data['licence_pic'];?>" class="moRenImg" alt="">
+            <?php }else{?>
+            <div class="noUpImg"></div>
+            <div class="noUpText">未上传</div>
+            <?php }?>
+            <div class="marTop10 textCenter">营业执照</div>
+        </div>
+        <!--上传纳税认证-->
+        <div class="ziZhiImgDiv">
+            <?php if($data['taxes_pic']){?>
+            <img src="<?php echo $data['taxes_pic'];?>" class="moRenImg" alt="">
+            <?php }else{?>
+            <div class="noUpImg"></div>
+            <div class="noUpText">未上传</div>
+            <?php }?>
+            <div class="marTop10 textCenter">纳税认证</div>
+        </div>
+        <!--上传实地认证-->
+        <div class="ziZhiImgDiv">
+            <?php if($data['field_pic']){?>
+            <img src="<?php echo $data['field_pic'];?>" class="moRenImg" alt="">
+            <?php }else{?>
+            <div class="noUpImg"></div>
+            <div class="noUpText">未上传</div>
+            <?php }?>
+            <div class="marTop10 textCenter">实地认证</div>
+        </div>
+        <!--上传商标认证-->
+        <div class="ziZhiImgDiv">
+            <?php if($data['brand_pic']){?>
+            <img src="<?php echo $data['brand_pic'];?>" class="moRenImg" alt="">
+            <?php }else{?>
+            <div class="noUpImg"></div>
+            <div class="noUpText">未上传</div>
+            <?php }?>
+            <div class="marTop10 textCenter">商标认证</div>
+        </div>
+        <!--上传产品代理认证-->
+        <div class="ziZhiImgDiv">
+            <?php if($data['agents_pic']){?>
+            <img src="<?php echo $data['agents_pic'];?>" class="moRenImg" alt="">
+            <?php }else{?>
+            <div class="noUpImg"></div>
+            <div class="noUpText">未上传</div>
+            <?php }?>
+            <div class="marTop10 textCenter">产品代理认证</div>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    <div class="borderBtottomX"></div>
+    <?php if($data['status']==1){?>
+    <div class="tiShiText" style="font-weight: bold;font-size: 20px;">提交审核</div>
+    <div style="font-size: 16px;text-align: center;margin-top: 20px;">
+        <div>提交日期 <?php echo $data['create_time']?></div>
+        <div>将在1-3个工作日完成审核，请保持电话通畅</div>
+    </div>
+    <?php }elseif($data['status']==2){?>
+    <div class="tiShiText" style="font-weight: bold;font-size: 20px;">审核成功，已成为经销商</div>
+    <?php }elseif($data['status']==3){?>
+    <div class="tiShiText" style="font-weight: bold;font-size: 20px;">审核失败</div>
+    <div style="font-size: 16px;text-align: center;margin-top: 20px;">
+        <div><?php echo $data['reason']?></div>
+    </div>
+    <?php }?>
+    <!--提交审核-->
+    <?php if($data['status']!=1){?>
+    <div class="shenHeDiv marBottom60" style="margin-top: 40px;">
+        <button type="button" class="btn btn-danger shenHe" onclick="location.href='/person/approve'">重新审核</button>
+    </div>
+    <?php }else{?>
+    <div style="margin-bottom: 60px;"></div>
+    <?php }?>
+</div>
+
+<!--右侧固定定位QQ、电话-->
+<div class="fixedDinWei">
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="showF(this)">
+            <div class="fixedYuan"><img src="/images/qpxm/pc/index/phone.png" alt=""></div>
+        </a>
+        <div class="fixedQQ">123456</div>
+    </div>
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="showF(this)" target="_blank">
+            <div style="float: right;"><img src="/images/qpxm/pc/index/rQQ.png" alt=""></div>
+        </a>
+        <div class="fixedQQ">123456</div>
+    </div>
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="goTop()">
+            <div style="float: right;"><img src="/images/qpxm/pc/index/rUp.png" alt=""></div>
+        </a>
+    </div>
+</div>
+<!--三级联动    -->
+<script class="resources library" src="/js/pc/area.js" type="text/javascript"></script>
+<script src="/js/pc/layer/layer.js"></script>
+<script>
+    layer.photos({
+        photos: '.ziZhiImgDiv'
+        ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+    });
+    //    初始化三级联动
+    _init_area();
+</script>

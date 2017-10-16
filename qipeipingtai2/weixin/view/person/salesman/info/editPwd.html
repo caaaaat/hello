@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="../../../../css/mui.min.css" type="text/css" charset="utf-8"/>
+    <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8"/>
+	<style type="text/css" charset="utf-8">
+		.sw-input-phone{
+			text-align: left;
+			height: 48px!important;
+			font-size: 14px!important;
+		}	
+	</style>
+</head>
+<body style="background: #FFFFFF;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">修改密码</h1>
+	</header>
+	<div class="mui-content" style="padding: 0 20px;background: #FFFFFF;">
+		
+	    <div class="mui-input-row" style="padding-top: 60px;">
+	        <input type="password" placeholder="请输入原密码" onkeyup="disBtn();" onchange="disBtn()" onclick="disBtn()" class="sw-input-phone" id="oldPwd" maxlength="16">
+	    </div>  
+	    
+	    <div class="mui-input-row">
+	        <input type="password" placeholder="请设置新密码，6-16位数字、字母或字符" onkeyup="disBtn();" onchange="disBtn()" onclick="disBtn()" class="sw-input-phone" id="newPwd" maxlength="16">
+	    </div>
+	    
+	    <div class="mui-input-row" style="margin-bottom: 40px;">
+	        <input type="password" placeholder="请再次输入新密码" onkeyup="disBtn();" onchange="disBtn()" onclick="disBtn()" class="sw-input-phone" id="newPwdTest" maxlength="16">
+	    </div>
+	    
+	    <button type="button" class="mui-btn mui-btn-tangerine mui-btn-block mui-disabled" id="subBtn">确认修改</button> 
+	</div>
+</body>
+<script src="../../../../js/mui.min.js"></script>
+<script src="../../../../js/global.js"></script>
+<script src="../../../../js/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+  //提交密码
+    function changePwd(){
+        var isSubmit = true;
+        //获取填入的信息
+        var oldPwd     = $.trim($("#oldPwd").val());
+        var newPwd     = $.trim($("#newPwd").val());
+        var newPwdTest = $.trim($("#newPwdTest").val());
+        var token   = JsonStorage.getItem('token');
+      
+        //判断输入的值是否正确
+            if(oldPwd){
+                if(newPwd){                	
+                	if(newPwd.length < 6 || newPwd.length > 16){
+                		sw.toast('请输入密码，6至16位的数字，字母或符号');
+                	}else{ 
+	                	if(newPwdTest){
+	                        if(newPwdTest!=newPwd){
+	                        	sw.toast('两次输入的密码不一致');
+	                            isSubmit = false;
+	                        }
+	                    }else{
+	                        sw.toast('请确认您的新密码');
+	                        isSubmit = false;
+	                    }
+                	}
+                   
+                }else{
+                    sw.toast('请输入您的新密码');
+                    isSubmit = false;
+                }
+            }else{
+                sw.toast('请输入您的原密码'); 
+                isSubmit = false;
+            }
+
+        //验证通过后提交数据
+        if(isSubmit){
+            var postData = {};
+            postData.oldPwd = oldPwd;
+            postData.newPwd = newPwd;
+            postData.repPassword = newPwdTest;
+ 			postData.token  = token;
+			//如果已经登陆 获取登录后的数据
+			http.load('api.sev.user','changeYeWuPwd',postData,function(rData){//请求成功
+				sw.jcon(rData); 
+	 			sw.toast(rData.msg);  
+	 			if(rData.status==200){//保存成功 设置父级是否需要刷新 				
+	 				setTimeout(function(){//延时返回父级
+	 					mui.back();
+	 				},1000) 
+	 			}
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+				//无网络提示
+				sw.toast('请求失败，请检查您网络'); 
+	 		})         
+        }
+
+    }
+    
+    //提交按钮
+    function disBtn() {
+    	var oldPwd = $.trim($("#oldPwd").val());
+    	var newPwd = $.trim($("#newPwd").val());
+    	var newPwdTest = $.trim($("#newPwdTest").val());
+
+    	var isSubmit = 1;
+    	if(!oldPwd) {
+    		isSubmit = 0;
+    	}
+    	if(!newPwd) {
+    		isSubmit = 0;
+    	}
+    	if(!newPwdTest) {
+    		isSubmit = 0;
+    	}
+    	
+    	if(isSubmit == 1) {
+    		$("#subBtn").attr('onclick', "changePwd()").removeClass('mui-disabled');
+    	} else {
+    		$("#subBtn").attr('onclick', '').addClass('mui-disabled');
+    	}
+    }</script>
+</html>

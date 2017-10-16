@@ -1,0 +1,63 @@
+    <link rel="stylesheet" href="/css/pc/person/changePWD.css">
+    <div class="titles">
+        <span style="font-size: 24px;font-weight: 500;">绑定手机</span>
+    </div>
+    <div style="margin: auto;text-align: center;margin-bottom: 30px;">
+        <img src="/images/qpxm/pc/person/bindPhone/one.png" alt="">
+    </div>
+    <form id="myForm" action="/pc.person/bindPhone" method="post" onsubmit="return mySubmit(true)">
+        <div class="oldPWD">
+            <input type="text" placeholder="请输入手机号" name="phone" class="oldInput" value="<?php echo $phone;?>">
+        </div>
+        <div class="oldPWD" style="width: 440px;margin-bottom: 30px;">
+            <input type="text" placeholder="请输入验证码" name="code" class="oldInput" style="width: 325px;float: left;">
+            <div class="" style="float: right">
+                <a href="javascript:;" onclick="$('#captcha_img').attr('src','/?m=tools&a=imgCode&t='+Math.random())">
+                    <img id="captcha_img" style="height: 50px;width: 100px;" alt="验证码" title="点击更换" src="/?m=tools&a=imgCode">
+                </a>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+        <div class="saveDiv" style="margin-bottom: 10px;">
+            <button type="submit" class="btn btn-danger saveBtn">保存</button>
+        </div>
+    </form>
+    <div style="color: #FE5248;text-align: center">已绑定用户可重新更换绑定手机</div>
+    <div style="height: 55px;"></div>
+
+<?php if(isset($msg)){ ?>
+<script>
+    $(function () {
+        layer.alert('<?php echo $msg; ?>',{icon: 2,skin: 'layui-layer-rim'});
+    });
+</script>
+<?php } ?>
+    <script src="/js/pc/layer/layer.js"></script>
+    <script>
+        function mySubmit(flag){
+            return flag;
+        }
+
+        $("#myForm").submit(function(){
+            var phone    = $('input[name="phone"]').val();
+            var code     = $('input[name="code"]').val();
+            var is_do = true;
+            var text  = '';
+            if(!code){
+                is_do = false;
+                text = '请输入验证码';
+            }
+            if(!phone){
+                is_do = false;
+                text = '请输入手机号';
+            }
+            if(text){
+                layer.alert(text,{icon: 2,skin: 'layui-layer-rim'});
+            }
+            if(is_do){
+                return mySubmit(true);
+            }else {
+                return mySubmit(false);
+            }
+        });
+    </script>

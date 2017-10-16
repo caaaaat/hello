@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>促销活动</title>
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="../../css/mui.min.css" />
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="../../css/common.css" />
+    <style>
+	html{
+		background: #F5F5F5;
+	}
+	.sw-card-cuBox{
+		margin: -1px 0 10px 0;
+		box-shadow: none;
+		border-bottom: 1px solid #DDDDDD;
+		border-top: 1px solid #DDDDDD;
+	}
+	.sw-card-cuBox1{
+		width: 100%;padding:10px 15px;
+	}
+	.sw-card-cuBox2{
+		padding: 8px 0 0 0;
+	}
+	.sw-card-img{
+		border:1px solid #DDDDDD;height:180px;
+	}
+	.sw-card-title{
+		color: #333;margin-bottom: 0;
+	}
+	
+</style>  
+</head>	
+<body style="background: #F5F5F5;">
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">促销活动</h1>
+	</header>
+
+	<!--下拉刷新容器-->
+	<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+		<div class="mui-scroll">
+			<!--数据列表-->
+			<ul id="conList" class="mui-table-view mui-table-view-chevron" style="background: #EFEFEF"></ul>
+			<input value="1" hidden="hidden" id="page"/>
+		</div>
+	</div>
+	<!--列表模板-->
+<script id="cx-list-tpl" type="text/html">
+	{{# var len = d.length }} 
+	
+	{{# for(var i = 0;i < len; i++){ }}
+	 <li class="mui-card sw-card-cuBox" onclick="goDetail('{{ d[i].art_ID }}','activity')">
+			<div class="sw-card-cuBox1">
+				<div class="mui-card-header mui-card-media sw-card-img" style="background-image:url({{ imgUrl+d[i].face_img }});"></div>
+				<div class="mui-card-content">
+					<div class="mui-card-content-inner sw-card-cuBox2">
+						<p class="sw-card-title sw-word-one">{{ d[i].title }}</p>
+					</div>
+				</div>
+			</div>
+		</li>
+	{{# } }}
+</script>
+</body>
+<script type="text/javascript" src="../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../js/global.js"></script>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/laytpl/laytpl.js"></script>
+<script type="text/javascript" charset="utf-8">
+	//mui初始化
+	mui.init({
+		pullRefresh: {
+			container: '#pullrefresh',
+			down: {
+				callback: pulldownRefresh
+			},
+			up: {
+				auto:true,
+				contentrefresh: '正在加载...',
+				contentnomore:'<div class="sw-footer"><span>我是有底线的</span></div>',
+				callback: pullupRefresh
+			}
+		}
+	});
+
+	/**
+	 * 下拉刷新具体业务实现
+	 */
+	function pulldownRefresh() {
+		location.href = location.href+'?rand'+Math.random;
+	}
+
+	/**
+	 * 上拉
+	 */
+	function pullupRefresh(){
+		var page = mui("#page")[0].value;//获取页数
+
+		var data = {};
+		var postData = {};
+
+		//请求的数据
+		postData.page     = page;//请求的页码
+		postData.pageSize = 10;//每页显示数量
+
+		data.postData = postData;
+
+		//页面相关数据
+		data.mod      = 'api.sev.article';//模型
+		data.fun      = 'getActivityList';//方法
+		data.tpl      = 'cx-list-tpl';//列表模板
+
+		//请求并处理数据
+		loadInfo(data,false);
+	}
+
+	
+	 $(function() {
+	
+		//监控页面是否登录
+		if(UserInfo.has_login()){	//如果已经登录将新闻清空	
+			var token   = JsonStorage.getItem('token');
+			var postData = {};
+				postData.token = token;
+				postData.userType = JsonStorage.getItem('userType');	//2为业务员
+			//如果已经登陆 获取登录后的数据 
+			http.load('api.sev.article','clearActive',postData,function(rData){//请求成功	 
+	 		})	
+		}   
+	
+	});
+	
+	 /**
+	  * 前往详情
+	  * @param {Object} art_ID
+	  * @param {Object} type
+	  */
+	 function goDetail(art_ID,type){	 	
+	 	var extras = {'art_ID':art_ID,'type':type};
+	 	var url  = '../../view/gonggao/promotionDetail.html';
+	 	var id   = 'gonggao_promotionDetail';
+	 	var aniShow = 'pop-in';
+	 	openView(url,id,aniShow,extras);	 	
+	 }
+</script>
+</html>

@@ -1,0 +1,312 @@
+﻿<link rel="stylesheet" href="/css/pc/index/supperList.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/swiper2/idangerous.swiper.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/pc/style.css" crossorigin="anonymous">
+
+<!--分类标签-->
+<div id="typeTag">
+  <span>轿车商家</span>
+  <span style="color: #FE6F67"> >> </span>
+  <span id="car_category_1_show" data-value="0"></span>
+  <span style="color: #FE6F67"> >> </span>
+  <span id="car_category_2_show" data-value="0"></span>
+</div>
+<!--分类列表-->
+<div id="typeDiv">
+  <div class="typeDiv" style="overflow: hidden;">
+    <div class="swiper-container" style="margin: 0">
+      <div class="swiper-wrapper" id="car_category_1">
+        <?php
+                        if($car_cate['cate_1']){
+                            $car_cate_1_count = 0;
+                            foreach($car_cate['cate_1'] as $item){
+                                $car_cate_1_count++;
+                                if($car_cate_1_count==1){  ?>
+        <div class="swiper-slide swiper-slide-active typeDivList" data-id="<?php echo $item['id'];?>" data-name="<?php echo $item['name'];?>" onclick="activeType(this);choseCarCate()"><a href="javascript:;"><span><?php echo $item['name'];?></span></a></div>
+        <?php }else{ ?>
+        <div class="swiper-slide typeDivList" data-id="<?php echo $item['id'];?>" data-name="<?php echo $item['name'];?>" onclick="activeType(this);choseCarCate()"><a href="javascript:;"><span><?php echo $item['name'];?></span></a></div>
+        <?php         }
+                                }
+                            }else{ ?>
+        <div class="swiper-slide cheMenuClass" style="width: 105px"><span class="handEr">还没有数据</span></div>
+        <?php } ?>
+        <!--<div class="bottmActive" style="left: 14px"></div>-->
+      </div>
+    </div>
+    <!--向左向右-->
+    <div class="typeDivLR">
+      <span class="typeDivLRImg"><img src="/images/qpxm/pc/index/left.png" onclick="leftBtn();choseCarCate()" alt=""></span>
+      <span class="typeDivLRImg"><img src="/images/qpxm/pc/index/right.png" onclick="rightBtn();choseCarCate()" alt=""></span>
+    </div>
+  </div>
+  <div class="typeImgDiv" id="car_category_2">
+    <?php if($car_cate['cate_2']){
+                    foreach($car_cate['cate_2'] as $item){
+                ?>
+    <div class="typeImgList car_cate_2"  data-p="<?php echo $item['pid'];?>" data-id="<?php echo $item['id'];?>" data-name="<?php echo $item['name'];?>" onclick="choseCarCate_2(this)" style="display: none;cursor: pointer">
+      <div class="typeImgListDiv">
+        <img class="typeImg" src="<?php echo $item['img'];?>" alt="">
+      </div>
+      <div class="typeImgListText">
+        <span><?php echo $item['name'];?></span>
+      </div>
+    </div>
+    <?php }
+                    }else{ ?>
+    <div>
+      <h3 style="text-align: center">还没有数据</h3>
+    </div>
+    <?php } ?>
+  </div>
+  <div style="clear: both;"></div>
+</div>
+<!--经销商企业列表-->
+<div id="companyList">
+<?php if($firms){
+          foreach($firms as $item){
+?>
+<div class="jingXS">
+  <div class="jingXSCoverDiv">
+    <a href="/def/store?ID=<?php echo $item['EnterpriseID'];?>"><img class="jingXSCoverImg" src="<?php echo $item['face_pic'];?>" alt=""></a>
+  </div>
+  <div class="jingXSInfoDiv">
+    <div class="jingXSInfoDivD">
+      <div class="jingXSName"><a href="/def/store?ID=<?php echo $item['EnterpriseID'];?>"><?php echo $item['companyname'];?></a></div>
+      <div class="jingXSInfo">[主营] <?php echo $item['major'];?></div>
+    </div>
+  </div>
+  <div class="dianPDiv">
+    <a href="javascript:;" onclick="showEr(this)"><img class="dianBanImg" src="/images/qpxm/pc/supperList/banErWeiM.png" alt=""></a>
+    <a href="/def/store?ID=<?php echo $item['EnterpriseID'];?>" class="btn btn-danger dianPButton">进入店铺</a>
+    <div class="dianErImgDiv">
+      <img class="dianErImg" src="<?php echo $item['wechat_pic'];?>" alt="">
+    </div>
+  </div>
+</div>
+<?php }
+}else{ ?>
+
+<?php } ?>
+</div>
+<!--加载中-->
+<div id="jiaZai">加载中...</div>
+<div class="buxuyaozaixianshile" style="width: 1200px;margin: 0 auto;text-align: center;font-size: 20px;font-weight: bold;display: none">没有更多对应的商家信息</div>
+<script src="/css/swiper2/idangerous.swiper.min.js"></script>
+<script src="/js/pc/supperList.js"></script>
+<script src="/js/global.js"></script>
+<script>
+    var keyword = '<?php echo $keywords?>';
+    var car_cate_2 = '<?php echo $car_cate_2_chose;?>';
+    var page = 1;
+    var pageSize = 4;
+    var isChange = 0;
+</script>
+<script>
+
+  /*点击选中一级分类菜单*/
+    function activeType(obj){
+       $('.typeDivList').removeClass('swiper-slide-active');
+       $(obj).addClass('swiper-slide-active');
+    }
+
+    var mySwiper = new Swiper('.swiper-container',{
+        autoplay : false,//可选选项，自动滑动
+        loop : false,//可选选项，开启循环
+        slidesPerView : 10//个数
+    });
+  /*点击向左*/
+    function leftBtn(){
+      var oldC = classActiveBefore();
+      mySwiper.swipePrev();
+      var newC = classActiveAfter();
+      $('.typeDivList').removeClass('swiper-slide-active');
+        if(oldC == newC){
+            $('.typeDivList').eq(oldC).addClass('swiper-slide-active');
+        }else if(oldC >= (newC+9)){
+        $('.typeDivList').eq(newC+9).addClass('swiper-slide-active');
+        }else{
+            $('.typeDivList').eq(oldC).addClass('swiper-slide-active');
+        }
+    }
+  /*点击向右*/
+    function rightBtn(){
+      var oldC = classActiveBefore();
+      mySwiper.swipeNext();
+      var newC = classActiveAfter();
+      if(oldC>newC){
+        $('.typeDivList').removeClass('swiper-slide-active');
+        $('.typeDivList').eq(oldC).addClass('swiper-slide-active');
+      }
+    }
+
+  /*点击下一组/上一组之前选中的div*/
+    function classActiveBefore(){
+      var len = $('.typeDivList').length;
+      var cla = '';
+      for(var i=0; i<len; ++i){
+        if($('.typeDivList').eq(i).hasClass('swiper-slide-active')){
+          cla = i;
+          break;
+        }
+      }
+      return cla;
+    }
+  /*点击下一组/上一组之后选中的div*/
+  function classActiveAfter(){
+    var len = $('.typeDivList').length;
+    var cla = '';
+    for(var i=0; i<len; ++i){
+      if($('.typeDivList').eq(i).hasClass('swiper-slide-active')){
+        cla = i;
+        break;
+      }
+    }
+    return cla;
+  }
+    //选中一级分类处理
+  function choseCarCate() {
+      $('.car_cate_2').hide();
+      setTimeout(function(){
+          var th007 = $('#car_category_1').find('.swiper-slide-active');
+          var pa007 = th007.attr('data-id');
+          $('#car_category_1_show').html(th007.attr('data-name'));
+          $('#car_category_1_show').attr('data-value',pa007);
+          $('#car_category_2_show').html('全部');
+          $('#car_category_2_show').attr('data-value',0);
+          $('#car_category_2').find('div[data-p="'+pa007+'"]').show();
+          page = 1;
+          setTimeout(function () {
+              getData();
+          },100);
+      },5)
+
+  }
+
+
+/*  if(car_cate_2!=='0'){
+      morenxuanzhong1(car_cate_2);
+      choseCarCate();
+      setTimeout(function () {
+          choseCarCate_2($('#car_category_2').find('div[data-id="'+car_cate_2+'"]'));
+      },10)
+  }else {
+      choseCarCate();
+  }*/
+  if(keyword){
+      $('#car_category_2_show').html(keyword);
+      //choseCarCate();
+      jiaZaiData();
+  }else{
+      if(car_cate_2!=='0'){
+          morenxuanzhong1(car_cate_2);
+          choseCarCate();
+          setTimeout(function () {
+              choseCarCate_2($('#car_category_2').find('div[data-id="'+car_cate_2+'"]'));
+          },10)
+      }else {
+          choseCarCate();
+      }
+
+  }
+
+  //默认选中
+  function morenxuanzhong1(cate_2) {
+      var pid = $('#car_category_2').find('div[data-id="'+cate_2+'"]').attr('data-p');
+      activeType($('#car_category_1').find('div[data-id="'+pid+'"]'));
+  }
+
+
+    //选中二级分类处理
+  function choseCarCate_2(n) {
+      var cate2 = $(n);
+      $('#car_category_2_show').html(cate2.attr('data-name'));
+      $('#car_category_2_show').attr('data-value',cate2.attr('data-id'));
+      page =1;
+      setTimeout(function () {
+          getData();
+      },100);
+  }
+
+  var firmList = '';
+  function getData() {
+      keyword = '';
+      $('#companyList').html('');
+      $('.buxuyaozaixianshile').hide();
+      var type = $('.swiper-slide-active').attr('data-id');
+      jiaZaiData()
+
+  }
+
+
+  //瀑布流开始
+  var loading = false;
+  $(window).scroll(function(){
+      var scrollTop = $(this).scrollTop();
+      var scrollHeight = $(document).height();
+      var windowHeight = $(this).height();
+      if(loading) return;
+      if(scrollTop + windowHeight == scrollHeight){
+          $('#jiaZai').show();
+          loading = true;
+          setTimeout(function() {
+              jiaZaiData();
+              $('#jiaZai').hide();
+          }, 600);
+      }
+  });
+
+  function jiaZaiData(){
+      var car_cate_1 = $('#car_category_1_show').attr('data-value');
+      var car_cate_2 = $('#car_category_2_show').attr('data-value');
+      api.load('pc.firm','getFirms',{
+          keyword:keyword,
+          type:1,
+          type_2:1,
+          car_cate_1: car_cate_1,
+          car_cate_2:car_cate_2,
+          page:page,
+          pageSize:pageSize
+      },function (data) {
+          //console.log(data);
+          if(data.page==1){
+              console.log(1);
+              $('#companyList').html('');
+          }
+          var len = data.list.length;
+          if(len > 0){
+              for(var i=0; i<len; ++i){
+                  var str = data1(data.list[i]);
+                  if($('.jingXS').length<1){
+                      $('#companyList').append(str);
+                  }else{
+                      $('.jingXS:last').after(str);
+                  }
+              }
+              page += 1;
+              loading = false;
+          }else{
+              loading = true;
+              setTimeout(function () {
+                  $('.buxuyaozaixianshile').show();
+              },500);
+
+          }
+      });
+  }
+
+  function data1(i){
+      var img = '';
+      if(i.is_vip==1){
+          img = '<img src="/images/qpxm/pc/person/shopInfo/v.png" alt="">'
+      }
+      var str = '<div class="jingXS"><div class="jingXSCoverDiv">';
+      str += '<img class="jingXSCoverImg" src="'+i.face_pic+'" alt=""></div>';
+      str += '<div class="jingXSInfoDiv"><div class="jingXSInfoDivD">';
+      str += '<div class="jingXSName">'+ i.companyname+img +'</div>';
+      str += '<div class="jingXSInfo">[主营]：'+ i.major+'</div></div>';
+      str += '</div><div class="dianPDiv">';
+      str += '<a href="javascript:;" onclick="showEr(this)"><img class="dianBanImg" src="/images/qpxm/pc/supperList/banErWeiM.png" alt=""></a>';
+      str += '<a href="/def/store?ID='+i.EnterpriseID+'"><button type="button" class="btn btn-danger dianPButton">进入店铺</button><div class="dianErImgDiv"></a>';
+      str += '<img class="dianErImg" src="'+i.QR_pic+'" alt=""></div></div></div>';
+      return str;
+  }
+</script>

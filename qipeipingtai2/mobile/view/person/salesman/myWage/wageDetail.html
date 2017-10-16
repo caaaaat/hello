@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的工资</title>
+    <link href="../../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">
+      
+    </script>
+</head>
+<style>
+	.mui-table-view-cell:after{right: 15px;}
+	.listJianTou{float: right;margin-right: 20px;padding-top: 1px;color: #696969;}
+	.listWuJianTou{float: right;padding-top: 1px;color: #A5A5A5;}
+	.shiYongPingLv .mui-navigate-right:after{content: none!important;}
+	.erJiXuanXiangKa .mui-table-view-cell:after{background-color: white!important;}
+	.mui-table-view-cell:after{background-color: #EAEAEA!important;}
+	.mui-table-view-cell.mui-active{background-color: white;}
+</style>
+<body style="background: #F5F5F5;">
+	
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">工资详情</h1>
+	    <!--<button class="mui-btn mui-btn-link mui-pull-right">提成说明</button>-->
+	</header>
+	<div class="mui-content" style="background: #F5F5F5;font-size: 14px;">
+		<div style="margin-bottom: 20px;" id="wageInfo">
+			
+		</div>
+		
+	</div>
+	
+	<div id="loadList"><input value="1" hidden="hidden" id="page"/></div>    
+	<script id="pay-list-tpl" type="text/html">
+		{{# if(d.status==200){ }} 
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" onclick="goBack()">
+						<span style="color: #6C6C6C;">{{ d.list.time }}</span>
+						<span class="listJianTou">历史记录</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="javascript:;" onclick="xinZengMingXi()">
+					<span style="color: #6C6C6C;">新增关联汽修厂提成</span>
+					<span class="listWuJianTou">{{ d.list.new_firm_num }}*{{ d.list.new_firm_prop }}=<span style="color: #FE2E2D;">{{ d.list.new_firm_comm }}元</span></span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-collapse shiYongPingLv mui-active" style="color: #6C6C6C;">
+					<a class="mui-navigate-right" href="#">
+						汽修厂使用频率提成
+						<span class="listWuJianTou">合计：<span style="color: #FE2E2D;">{{ d.list.repair_use_money }}元</span></span>
+					</a>
+					<ul class="mui-table-view mui-table-view-chevron erJiXuanXiangKa" style="font-size: 12px;">
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" style="padding-left: 0;" href="javascript:;" onclick="showMingXi(1)">
+								<span>1级汽修厂</span>
+								<span style="float: right;color: #A5A5A5;">{{ d.list.repair_lv1_used }}*{{ d.list.repair_lv1_prop }}={{ d.list.repair_lv1_used*d.list.repair_lv1_prop }}元</span>
+							</a>
+						</li> 
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" style="padding-left: 0;" href="javascript:;" onclick="showMingXi(2)">
+								<span>2级汽修厂</span>
+								<span style="float: right;color: #A5A5A5;">{{ d.list.repair_lv2_used }}*{{ d.list.repair_lv2_prop }}={{ d.list.repair_lv2_used*d.list.repair_lv2_prop }}元</span>
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" style="padding-left: 0;" href="javascript:;" onclick="showMingXi(3)">
+								<span>3级汽修厂</span>
+								<span style="float: right;color: #A5A5A5;">{{ d.list.repair_lv3_used }}*{{ d.list.repair_lv3_prop }}={{ d.list.repair_lv3_used*d.list.repair_lv3_prop }}元</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="javascript:;" onclick="qiXiuGuanLianTiCheng()">
+						<span style="color: #6C6C6C;">汽修厂关联提成</span>
+						<span class="listWuJianTou">{{ d.list.firm_num }}*{{ d.list.firm_prop }}=<span style="color: #FE2E2D;">{{ d.list.firm_comm }}元</span></span>
+					</a>
+				</li> 
+				<li class="mui-table-view-cell">
+					<a href="javascript:;" onclick="guanLianCompanyTiCheng()">
+						<span style="color: #6C6C6C;">关联厂商充值提成</span>
+						<span class="listWuJianTou">{{ d.list.firm_recharge_money }}*{{ d.list.firm_recharge_prop }}=<span style="color: #FE2E2D;">{{ d.list.firm_recharge_comm }}元</span></span>
+					</a>
+				</li> 
+				<li class="mui-table-view-cell">
+					<span style="color: #6C6C6C;">基本工资</span>
+					<span class="listWuJianTou" style="color: #FE2E2D;">{{ d.list.base_wage }}元</span>
+				</li>
+				<li class="mui-table-view-cell">
+					<span style="color: #6C6C6C;">其他补贴</span>
+					<span class="listWuJianTou" style="color: #FE2E2D;">{{ d.list.subsidies }}元</span>
+				</li>
+				<li class="mui-table-view-cell">
+					<span style="color: #FC6E63;">合计工资</span>
+					<span class="listWuJianTou" style="color: #FE2E2D;">{{ d.list.total }}元</span>
+				</li>
+			</ul>
+		{{# } }}	
+	</script>	
+</body>
+ <script src="../../../../js/jquery.min.js"></script> 
+ <script src="../../../../js/mui.min.js"></script>
+ <script src="../../../../js/laytpl/laytpl.js"></script>
+ <script src="../../../../js/global.js"></script> 
+ <script type="text/javascript" charset="utf-8">
+ mui.init();
+//初始化 
+mui.plusReady(function() {
+	if(UserInfo.has_login()){
+		var self = plus.webview.currentWebview();		//获取传递的参数
+		var	id 	 = self.wageId;
+		var userType= JsonStorage.getItem('userType');	//2为业务员
+		var token   = plus.storage.getItem('token');
+		if(userType != 2){
+			sw.toast('请使用业务员账号登录');  
+			return false; 
+		}
+		if(!token){
+			sw.toast('您还没有登录，请登录后重试');  
+			return false; 
+		}
+		if(!id){
+			sw.toast('数据缺失，请重试');
+			return;
+		}
+		var postData = {}; 
+		postData.id    = id; 
+		postData.token = token;
+		http.load('api.sev.salesman','getWageInfo',postData,function(rData){//请求成功
+	    	dy(rData);           	
+		  	if(rData.status==200){  	  
+		  		//将数据输出到页面      
+			 	var payTpl = $('#pay-list-tpl').html();	 		  
+		        laytpl(payTpl).render(rData,function(render){ 
+		            $('#wageInfo').html(render);   
+		        });	
+		  	}else{
+		  		sw.toast(rData.msg); 
+		  		return;
+		  	}
+	    },function(xhr,type,errorThrown){//请求失败 将之前的数据填入		
+			//无网络提示
+			sw.toast('请求失败，请检查网络'); 
+		}) 
+	}else{//未登录显示未登录界面	 		
+		//无网络提示
+		sw.toast('您还未登录,请登录后重试');  
+	}	   
+})
+
+	/*跳转汽修厂使用频率明细页面*/ 
+	function showMingXi(jiShu){
+		var self = plus.webview.currentWebview();		//获取传递的参数
+		var	id 	 = self.wageId;
+		var extras = {'wageId':id,'jiShu':jiShu}; 
+		openView('../../../../view/person/salesman/myWage/brokerage.html','person_salesman_myWage_brokerage','pop-in',extras);
+	}
+	/*跳转新增关联汽修厂提成详情页面*/
+	function xinZengMingXi(){
+		var self = plus.webview.currentWebview();		//获取传递的参数
+		var	id 	 = self.wageId;
+		var extras = {'wageId':id}; 
+		openView('../../../../view/person/salesman/myWage/careful.html','person_salesman_myWage_careful','pop-in',extras);
+	}
+	/*跳转上一个页面（历史工资）*/ 
+	function goBack(){
+		openView('../../../../view/person/salesman/myWage/historyWage.html','person_salesman_myWage_historyWage','pop-in');
+	}
+	/*跳转汽修厂关联提成明细*/ 
+	function qiXiuGuanLianTiCheng(){
+		var self = plus.webview.currentWebview();		//获取传递的参数
+		var	id 	 = self.wageId;
+		var extras = {'wageId':id}; 
+		openView('../../../../view/person/salesman/myWage/companyTiCheng.html','person_salesman_myWage_companyTiCheng','pop-in',extras);
+	}
+	/*跳转关联厂商充值提成*/
+	function guanLianCompanyTiCheng(){
+		var self = plus.webview.currentWebview();		//获取传递的参数
+		var	id 	 = self.wageId;
+		var extras = {'wageId':id}; 
+		openView('../../../../view/person/salesman/myWage/toPay.html','person_salesman_myWage_toPay','pop-in',extras);
+	}
+ </script>
+</html>
+
+

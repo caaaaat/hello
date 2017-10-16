@@ -1,0 +1,145 @@
+<link rel="stylesheet" href="/css/pc/person/shoping.css">
+<link rel="stylesheet" href="/css/pc/person/shopControl.css">
+<div class="titles">
+    <span style="font-size: 24px;font-weight: 500;">求购历史</span>
+</div>
+<!--模态框 (删除)-->
+<div class="modal fade" id="del" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="margin-top: 250px;">
+        <div class="modal-content" style="width: 300px;!important;border-radius: 7px;margin: 0 auto;">
+            <div class="refreshAlert">
+                <div class="refreshAlertText">确认删除？</div>
+                <div>
+                    <div class="refreshAlertLeft" onclick="delProduct()">确定</div>
+                    <div class="refreshAlertRight" onclick="$('#del').modal('hide')">取消</div>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="shoping">
+
+</div>
+<!--分页开始-->
+<div class="text-right" style="margin-bottom: 40px;margin-right: 25px;margin-top: 50px;">
+    <span id="pageText"></span>
+    <span id="pageInfo" style="margin-right: 10px;"></span>
+    <div class="btn-group" id="pager"></div>
+</div>
+<input type="hidden" id="addBaseId" value="0">
+<input type="hidden" id="pages" value="1">
+<input type="hidden" id="delShop" value="">
+<!--分页插件-->
+<script src="/js/pc/jquery.page.js"></script>
+<script src="/js/pc/layer/layer.js" type="text/javascript"></script>
+<script>
+    $(function(){
+        getList();
+    });
+    /*首页列表展示*/
+    function getList(page,pageSize){
+        var index = layer.load(2);
+        page = page ? page : 1;
+        pageSize = pageSize ? pageSize : 3;
+        var url = '/pc.product/getShopHistory';
+        $.post(url, {
+            page: page,
+            pageSize: pageSize
+        }, function (rdata) {
+            layer.close(index);
+            var pageInfo = '';
+            var p = rdata.page;
+            var pageSize = rdata.pageSize;
+            var count = rdata.count;
+            if (count > 0) {
+                var startPage = (p - 1) * pageSize + 1;
+                //var endPage  = (p*pageSize);
+                var endPage = ((p * pageSize) > count) ? count : (p * pageSize);
+//                pageInfo = '显示 ' + startPage + ' 到 ' + endPage + ' 项，共 ' + count + ' 项';
+                pageInfo = '第'+startPage+'~'+endPage+'条/共'+count+'条';
+            } else {
+                pageInfo = '共 0 项';
+            }
+            $("#pageText").text(pageInfo);
+            //分页处理
+            var totalPage = count / pageSize;
+            //总页码
+            totalPage = Math.ceil(totalPage);
+            $("#pager").createPage({
+                pageCount: totalPage,
+                current: p,
+                backFn: function (p) {
+                    $('#pages').val(p);
+                    getList(p, pageSize);
+                }
+            });
+            showSub(rdata);
+        }, 'json');
+    }
+
+    function showSub(data){
+        var count = data.count;
+        if (count < 1) {
+            var str = '<div style="text-align: center;">对不起，暂时没有数据!!!</div>';
+            $("#shoping").html(str);
+            return false;
+        }
+        var listObj = $("#shoping");
+        if(data){
+            var list = data.list;
+            if(list){
+                var s = '';
+                for(var i = 0; i < list.length; i ++ ) {
+                    s += '<div class="shopingList" style="cursor: pointer" onclick=\'location.href="/person/shopingEidt?id='+list[i].bID+'"\'>';
+                    s += '<div><div class="shopingType">'+list[i].oneName+'/'+list[i].twoName+'</div>';
+                    s += '<div class="youXiaoQi">有效期 ：'+list[i].limitation+'天</div>';
+                    s += '<div style="clear: both;"></div></div>';
+                    s += '<div class="numDiv">';
+                    s += '<div class="shopingName">'+list[i].threeName+'/'+list[i].fourName+'</div>';
+                    s += '<div class="shopingNum">配件数 ：'+list[i].num+'</div>';
+                    s += '<div style="clear: both;"></div></div>';
+                    s += '<div class="numDiv">';
+                    s += '<div class="shopingTime">'+list[i].create_time+'</div>';
+                    s += '<div class="xiaJiaDiv">';
+//                    s += '<button class="bianJi" onclick=\'location.href="/person/shopingEidt?id='+list[i].bID+'"\'>编辑</button>';
+                    s += '<button class="bianJi" onclick=\'event.stopPropagation();location.href="/person/shopBianJi?id='+list[i].bID+'"\'>编辑</button>';
+                    s += '<button class="xiaJia" data_id="'+list[i].id+'" onclick="event.stopPropagation();del(this)">删除</button></div>';
+                    s += '<div style="clear: both;"></div></div></div>';
+                }
+            }else{
+                listObj.html('');
+            }
+            if(listObj){
+                listObj.html(s);
+            }
+        }
+    }
+
+    /*点击删除*/
+    function del(obj){
+        var id = $(obj).attr('data_id');
+        $('#delShop').val(id);
+        $('#del').modal('show');
+    }
+
+    /*确认删除*/
+    function delProduct(){
+        var id = $('#delShop').val();
+        console.log(id);
+        var url = '/pc.product/delShop';
+        $.post(url, {
+            id:id
+        }, function (rdata) {
+            var data = eval('('+ rdata +')');
+            if(data.status==1){
+                layer.msg('删除成功');
+                $('#del').modal('hide');
+                getList();
+            }else{
+                layer.msg(data.msg);
+                $('#del').modal('hide');
+            }
+        });
+    }
+</script>

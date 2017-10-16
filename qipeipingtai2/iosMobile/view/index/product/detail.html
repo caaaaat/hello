@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>产品详情</title>
+    <link rel="stylesheet"  type="text/css" charset="utf-8" href="../../../css/mui.min.css"/>
+    <link rel="stylesheet"  type="text/css" charset="utf-8" href="../../../css/common.css"/>
+    <style>
+	html{
+		background: #F5F5F5;
+	}
+	.sw-card-cuBox3{
+		height: 40px;
+		white-space: normal; 
+		 color: #333333!important;
+	    overflow: hidden;
+	    display: -webkit-box;
+	    -webkit-line-clamp: 2;
+	    -webkit-box-orient: vertical;
+	    word-break: break-all;
+	    font-size: 14px
+	}
+	.sw-card-img1{
+		width: 80px!important;max-width:80px!important;height: 80px!important;border: 1px solid #DDDDDD;
+	}
+	.sw-card-date{
+		line-height: 26px;margin-top:12px;margin-left: 80px;
+	}
+	.sw-card-li:after{
+		left: 0;
+	}
+	.sw-like{
+		width: 18px;height: 18px;float: right;background: url(../../../image/coterie/icon_dt_like.png) no-repeat;background-size: contain;
+	}
+	.sw-like-r{
+		width: 18px;height: 18px;float: right;background: url(../../../image/coterie/icon_dt_like_r.png) no-repeat;background-size: contain;
+	}
+	.sw-cx-ul1{
+		margin-top: 0;background: #FFFFFF;margin-bottom: 10px;
+	}
+	.sw-cx-div1{
+		width: 100%;padding: 15px;background: #FFFFFF;font-size: 14px;border-top: 1px solid #EEEEEE;border-bottom: 1px solid #EEEEEE;margin-bottom: 10px;
+	}
+	.sw-cx-div2{
+		width: 100%;margin-bottom:10px;
+	}
+	.sw-cx-nav{
+		background: #FFFFFF;box-shadow:  0 0 1px #DDDDDD;padding-top: 10px;
+	}
+	.sw-cx-p1{
+		margin-left: 70px;margin-top: -21px;color: #666;min-height: 21px;
+	}
+	.mui-tab-items{
+		    display: table-cell;
+		    overflow: hidden;
+		    width: 1%;
+		    height: 50px;
+		    text-align: center;
+		    vertical-align: middle;
+		    white-space: nowrap;
+		    text-overflow: ellipsis;
+		    color: #929292;
+	}
+	.mui-bar-tab .mui-tab-items .mui-icon {
+	    top: 3px;
+	    width: 24px;
+	    height: 24px;
+	    padding-top: 0;
+	    padding-bottom: 0;
+		}
+	.mui-bar-tab .mui-tab-items .mui-icon~.mui-tab-label {
+	    font-size: 11px;
+	    display: block;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	}
+	
+	.mui-bar .mui-icon:active {
+	    opacity: .9;
+	}
+	.sw-company-vip{
+		color: #FF534C!important;
+	}
+	.sw-no-active,.sw-no-active:active{
+			background: #FFFFFF!important;
+		}
+	.sw-jieshao{
+		word-break: break-word;
+	}	
+	.sw-jieshao img{
+		width: 100%;
+		height: auto;
+	}
+	
+	.sw-renz{
+		background: url(../../../image/person/renzheng2.png) no-repeat;background-size: 16px;background-position: right 1px;padding-right:18px;
+	}
+	.sw-renv{
+		background: url(../../../image/person/renzheng.png) no-repeat;background-size: 16px;background-position: right 1px;padding-right:18px;
+	}	
+	.sw-renv-renz{
+		background: url(../../../image/person/renzv-renz.png) no-repeat;background-size: 36px;background-position: right 1px;padding-right:38px;
+	}
+	
+		.mui-preview-image.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			.mui-preview-header,
+			.mui-preview-footer {
+				position: absolute;
+				width: 100%;
+				left: 0;
+				z-index: 10;
+			}
+			.mui-preview-header {
+				height: 44px;
+				top: 0;
+				text-align: center;
+			}
+			.mui-preview-footer {
+				height: 50px;
+				bottom: 0px;
+			}
+			.mui-preview-header .mui-preview-indicator {
+				display: block;
+				line-height: 25px;
+				color: #fff;
+				text-align: center!important;
+				margin: auto;
+				width: 70px;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius: 12px;
+				font-size: 16px;
+			}
+			.mui-preview-image {
+				display: none;
+				-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+			}
+			.mui-preview-image.mui-preview-in {
+				-webkit-animation-name: fadeIn;
+				animation-name: fadeIn;
+			}
+			.mui-preview-image.mui-preview-out {
+				background: none;
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+			}
+			.mui-preview-image.mui-preview-out .mui-preview-header,
+			.mui-preview-image.mui-preview-out .mui-preview-footer {
+				display: none;
+			}
+			.mui-zoom-scroller {
+				position: absolute;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				-webkit-backface-visibility: hidden;
+			}
+			.mui-zoom {
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			.mui-slider .mui-slider-group .mui-slider-item img {
+				width: auto;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+				display: inline-table;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			.mui-preview-loading {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			.mui-preview-loading.mui-active {
+				display: block;
+			}
+			.mui-preview-loading .mui-spinner-white {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -25px;
+				margin-top: -25px;
+				height: 50px;
+				width: 50px;
+			}
+			.mui-preview-image img.mui-transitioning {
+				-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+				transition: transform 0.5s ease, opacity 0.5s ease;
+			}
+			@-webkit-keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@-webkit-keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			@keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+</style>
+</head>	
+<body style="background: #F5F5F5;">
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title" id="mui-title"></h1>
+	</header>
+	
+	<div class="mui-content" style="background: #F5F5F5;" id="proDetail">
+		<ul class="mui-table-view sw-cx-ul1">
+		<li class="mui-table-view-cell mui-media sw-card-li" style="background: #FFFFFF;">
+			<a href="javascript:;">
+				<img class="mui-media-object mui-pull-left sw-card-img1" src="../../../image/index/bgImg.png">
+				<div class="mui-media-body sw-card-cuBox3"> &nbsp;</div>
+				<p class="sw-card-date">
+					<span class="sw-ctheme">&nbsp;</span>
+					<span class="sw-like"></span> 
+				</p>
+			</a>
+		</li>
+	</ul>
+		
+	<ul class="mui-table-view sw-cx-ul1">
+		<li class="mui-table-view-cell mui-media sw-card-li" style="background: #FFFFFF;">
+			<div style="width: 100%;padding-right: 74px;">
+				
+				<p style="color:#333;" class="sw-word-one sw-company-vip">
+					<img src="../../../image/index/home_r.png" height="16px" style="vertical-align: middle;margin-right: 2px;">
+				</p>
+				
+				<p style="font-size:12px;" class="sw-word-one">
+					<img src="../../../image/person/repair/icon_dingwei.png" height="16px" width="12px" style="vertical-align: middle;margin-left: 4px;margin-right: 5px;">
+					&nbsp;
+				</p>
+			</div>
+			<button type="button" id="opneJx"  class="mui-btn mui-btn-tangerine" style="font-size: 12px;">进入店铺</button>
+		</li>
+	</ul>
+		
+	<div class="sw-cx-div1">
+			
+		<div class="sw-cx-div2">
+			<span style="color: #333;font-weight: 700;">产品介绍</span>
+		</div>
+		
+		<div style="width: 100%;">
+			<span style="color: #999;">厂家编码：</span><p class="sw-cx-p1">&nbsp;</p>
+		</div>
+		
+		<div style="width: 100%;">
+			<span style="color: #999;">产品品牌：</span><p class="sw-cx-p1">&nbsp;</p>
+		</div>
+		
+		<div style="width: 100%;">
+			<span style="color: #999;">产品类别：</span><p class="sw-cx-p1">&nbsp;</p>
+		</div>
+		
+		<div style="width: 100%;">
+			<span style="color: #999;">产品分类：</span><p class="sw-cx-p1">&nbsp;</p>
+		</div>
+		
+		<div style="width: 100%;">
+			<span style="color: #999;">适用车系：</span><p class="sw-cx-p1">&nbsp;</p> 
+		</div>
+		<div style="width: 100%;">
+			<span style="color: #999;">产品毛重：</span><p class="sw-cx-p1">&nbsp;</p>
+		</div>
+		<div style="width: 100%;">
+			<span style="color: #999;">产品产地：</span><p class="sw-cx-p1">&nbsp;</p>
+		</div>
+		<div style="width: 100%;">
+			<span style="color: #999;">产品规格：</span><p class="sw-cx-p1">&nbsp;</p>
+		</div>
+	</div>
+		
+	<div class="sw-cx-div1"></div>	
+	
+	<div style="width: 100%;height: 70px;"></div>
+	
+	<nav class="mui-bar mui-bar-tab sw-cx-nav">
+		
+		<a class="mui-tab-items">
+			<span class="mui-icon sw-shouji"></span>
+			<span class="mui-tab-label sw-ctheme">手机</span>
+		</a>
+		<a class="mui-tab-item">
+			<span class="mui-icon sw-QQ"></span> 
+			<span class="mui-tab-label sw-ctheme">QQ</span>
+		</a>
+		<a class="mui-tab-items" >
+			<!--<img height="24px" src="../../../image/index/weixin.png" data-preview-src="../../../image/index/weixin.png" data-preview-group="1"/>-->
+			<span class="mui-icon"><img height="24px" src="../../../image/index/weixin.png" /></span>
+			<span class="mui-tab-label sw-ctheme">微信</span>
+		</a>
+		<a class="mui-tab-item">
+			<span class="mui-icon sw-jubao"></span>
+			<span class="mui-tab-label sw-ctheme">举报</span>
+		</a>
+	</nav>
+	</div>
+		
+		
+		
+		
+	</div> 
+<!--产品详情模板-->
+<script id="pro-list-tpl" type="text/html">
+				
+	<ul class="mui-table-view sw-cx-ul1">
+		<li class="mui-table-view-cell mui-media sw-card-li sw-no-active" style="background: #FFFFFF;">
+			<img class="mui-media-object mui-pull-left sw-card-img1" src="{{ imgUrl+d.pro_pic }}">
+			<div class="mui-media-body sw-card-cuBox3">{{ d.proName }}</div>
+			<p class="sw-card-date">
+				<span class="sw-ctheme">{{ d.price }}</span>
+				{{# if(d.isCollectProduct==true){ }}
+				<span class="sw-like-r" onclick="collectStore('{{ d.id }}',0,this)"></span>
+				{{# }else{ }}
+				<span class="sw-like" onclick="collectStore('{{ d.id }}',1,this)"></span>				
+				{{# } }}	 
+			</p>
+		</li>
+	</ul>
+		
+	<ul class="mui-table-view sw-cx-ul1">
+		<li class="mui-table-view-cell mui-media sw-card-li" style="background: #FFFFFF;">
+			<div style="width: 100%;padding-right: 74px;">
+				{{# if(d.firmType==1){ }}
+				
+					{{# if(d.is_vip==1){ }}
+					
+						{{# if(d.is_check==1){ }}
+						<p style="color:#333;" class="sw-word-one sw-renv-renz"><img src="../../../image/index/home_r.png" height="16px" style="vertical-align: middle;margin-right: 2px;">					
+						{{# }else{ }}
+						<p style="color:#333;" class="sw-word-one sw-renv"><img src="../../../image/index/home_r.png" height="16px" style="vertical-align: middle;margin-right: 2px;">					
+						{{# } }}
+						
+					{{# }else{ }}
+					<p style="color:#333;" class="sw-word-one"><img src="../../../image/index/home_r.png" height="16px" style="vertical-align: middle;margin-right: 2px;">									
+					{{# } }}
+					
+					{{ d.companyname }} 
+							
+					</p>
+					
+				{{# }else{ }}
+				
+					{{# if(d.is_check==1){ }}
+					<p style="color:#333;" class="sw-word-one sw-company-vip sw-renz"><img src="../../../image/index/home_r.png" height="16px" style="vertical-align: middle;margin-right: 2px;">					
+					{{# }else{ }}
+					<p style="color:#333;" class="sw-word-one"><img src="../../../image/index/home_r.png" height="16px" style="vertical-align: middle;margin-right: 2px;">									
+					{{# } }}
+					
+					{{ d.companyname }}
+					
+					{{# if(d.is_check==1){ }} 
+					<img src="../../../image/person/renzheng2.png" height="16px" style="vertical-align: middle;margin-right: 2px;">
+					{{# } }}
+					
+					</p>
+								
+				{{# } }}
+				
+				<p style="font-size:12px;" class="sw-word-one"><img src="../../../image/person/repair/icon_dingwei.png" height="16px" width="12px" style="vertical-align: middle;margin-left: 4px;margin-right: 5px;">{{ d.address }}</p>
+			</div>
+			<button type="button" class="mui-btn mui-btn-tangerine" style="font-size: 12px;" onclick="openJx('{{ d.EnterpriseID }}','{{ d.companyname }}')">进入店铺</button>
+		</li>
+	</ul>
+		
+	<div class="sw-cx-div1">
+			
+		<div class="sw-cx-div2">
+			<span style="color: #333;font-weight: 700;">产品介绍</span>
+		</div>
+		{{# if(d.pro_no!=null){ }}
+		<div style="width: 100%;">
+			<span style="color: #999;">厂家编码：</span><p class="sw-cx-p1">{{ d.pro_no }}</p>
+		</div>
+		{{# } }}
+		{{# if(d.pro_brand!=null){ }}
+		<div style="width: 100%;">
+			<span style="color: #999;">产品品牌：</span><p class="sw-cx-p1">{{ d.pro_brand }}</p>
+		</div>
+		{{# } }}
+		{{# if(d.cate_1_name!=null){ }}
+		<div style="width: 100%;">
+			<span style="color: #999;">产品类别：</span><p class="sw-cx-p1">{{ d.cate_1_name }}</p>
+		</div>
+		{{# } }}
+		{{# if(d.cate_2_name!=null){ }}
+		<div style="width: 100%;">
+			<span style="color: #999;">产品分类：</span><p class="sw-cx-p1">{{ d.cate_2_name }}</p>
+		</div>
+		{{# } }}
+		{{# if(d.car_group!=null){ }}
+		<div style="width: 100%;">
+			<span style="color: #999;">适用车系：</span><p class="sw-cx-p1">{{ d.car_group }}</p>  
+		</div>
+		{{# } }}
+		
+		{{# if(d.pro_weight!=null){ }}
+		<div style="width: 100%;">
+			<span style="color: #999;">产品毛重：</span><p class="sw-cx-p1">{{ d.pro_weight }}</p>
+		</div>
+		{{# } }}
+		{{# if(d.pro_area!=null){ }}
+		<div style="width: 100%;">
+			<span style="color: #999;">产品产地：</span><p class="sw-cx-p1">{{ d.pro_area }}</p>
+		</div>
+		{{# } }}
+		{{# if(d.pro_spec!=null){ }}
+		<div style="width: 100%;">
+			<span style="color: #999;">产品规格：</span><p class="sw-cx-p1">{{ d.pro_spec }}</p>
+		</div>
+		{{# } }}
+		{{# if(d.pro_memo!=null){ }}
+		<div style="width: 100%;" >
+			<span style="color: #999;">备注说明：</span><p class="sw-cx-p1">{{ d.pro_memo }}</p>
+		</div>
+		{{# } }}
+	</div>
+	
+	{{# if(d.pro_text){ }}
+	<div class="sw-cx-div1 sw-jieshao" style="max-width: 100%;overflow-x: hidden;">{{ d.pro_text }}</div>	
+	{{# } }}
+	<div style="width: 100%;height: 70px;"></div>
+	
+	<nav class="mui-bar mui-bar-tab sw-cx-nav">
+		
+		{{# if(d.linkPhone){ }}
+		<a class="mui-tab-items" onclick="document.location.href = 'tel:{{ d.linkPhone }}'">
+			<span class="mui-icon sw-shouji"></span>
+			<span class="mui-tab-label sw-ctheme">手机</span>
+		</a>
+		{{# }else{ }}
+		<a class="mui-tab-items" onclick="sw.toast('该公司未填写手机号码');">
+			<span class="mui-icon sw-shouji"></span>
+			<span class="mui-tab-label sw-ctheme">手机</span>
+		</a>
+		{{# } }}
+		
+		{{# if(d.qq){ }}
+		<a class="mui-tab-items" onclick="document.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin={{ d.qq }}&version=1&src_type=web&web_src=qq.com;'">
+			<span class="mui-icon sw-QQ"></span> 
+			<span class="mui-tab-label sw-ctheme">QQ</span>
+		</a>
+		{{# }else{ }}
+		<a class="mui-tab-items" onclick="sw.toast('该公司未填写QQ号码');">
+			<span class="mui-icon sw-QQ"></span> 
+			<span class="mui-tab-label sw-ctheme">QQ</span>
+		</a>		
+		{{# } }}
+		
+		{{# if(d.wechat_pic){ }}
+		<a class="mui-tab-items" id="imgCon"> 
+			<span class="mui-icon"><img height="24px" src="../../../image/index/weixin.png" data-preview-src="{{ imgUrl+d.wechat_pic }}" data-preview-group="1"/></span> 
+			<span class="mui-tab-label sw-ctheme">微信</span> 
+		</a> 
+		{{# }else{ }}
+		<a class="mui-tab-items" onclick="sw.toast('该公司未上传微信二维码');"> 
+			<span class="mui-icon"><img height="24px" src="../../../image/index/weixin.png" /></span> 
+			<span class="mui-tab-label sw-ctheme">微信</span> 
+		</a>
+		{{# } }}
+		
+		<a class="mui-tab-items" onclick="document.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin=821273766&version=1&src_type=web&web_src=qq.com'">
+			<span class="mui-icon sw-jubao"></span>
+			<span class="mui-tab-label sw-ctheme">举报</span>
+		</a>
+		
+	</nav>
+			
+</script>
+
+<!--产品已删除模板-->
+<script id="del-list-tpl" type="text/html">
+	<div class="" style="text-align: center;margin-top: 120px;">
+		<img src="../../../image/index/icon_cpxq_wekong.png" style="max-width: 120px;">
+		<p style="line-height: 48px;">该产品已被删除</p>
+	</div>
+</script> 
+</body>
+<script type="text/javascript" src="../../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../../js/global.js"></script>
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/laytpl/laytpl.js"></script>
+<script src="../../../js/mui.previewimage.js?v=1.0.6"></script>   
+<script src="../../../js/mui.zoom.js"></script> 
+<script type="text/javascript" charset="utf-8"> 
+	mui.init();
+	//mui plusReady
+	mui.plusReady(function() {
+		var self  = plus.webview.currentWebview();	
+		    pro_type  = self.pro_type;
+		    proId     = self.proId;
+		//更换标题
+		$("#mui-title").text(pro_type); 
+		//初始化页面
+		setView(proId);
+		mui.previewImage();  
+	})
+
+	mui.previewImage();  
+	//初始化页面
+	function setView(proId){
+		
+		var token = plus.storage.getItem('token');
+		 	token = token?token:'0';  
+		var userType = JsonStorage.getItem('userType');	//2为业务员
+		//加载弹窗
+		loading('加载中...'); 
+		//获取数据
+		http.load('api.sev.index','getProductDetail',{'proId':proId,'token':token,'userType':userType},function(rData){
+			
+			sw.jcon(rData);
+			//关闭加载框
+			closeLoading(300);		
+			if(rData.status==200){				
+				var info = rData.data;
+				var is_delete = rData.is_delete;  
+				
+				if(is_delete==1){					
+					//已删除			 	 				
+				 	var infoTpl   = $('#del-list-tpl').html();	 						
+				}else{					
+					//未删除					 	 				
+				 	var infoTpl   = $('#pro-list-tpl').html();
+				}
+				
+				laytpl(infoTpl).render(info,function(render){           
+			            $('#proDetail').html(render);  			             
+			      	});
+								
+			}else{ 
+				sw.toast(rData.msg);  
+			}
+					
+		},function(xhr,type,errorThrown){			
+		 		//关闭加载框
+				closeLoading();		
+				//无网络提示
+				sw.toast('获取数据失败，请检查网络'); 	
+		})		
+	}
+	
+	//收藏店铺
+	function collectStore(productId,type,j){
+	   //判断是否登录
+	   if(UserInfo.has_login()==false){//未登录	   	
+		   	sw.toast('您还未登录，请先登录');   	
+	   }else{//登录
+	   	var userType = JsonStorage.getItem('userType');	//2为业务员
+	   	var token  = plus.storage.getItem('token');				
+		var postData = {};
+			postData.token  = token;
+			postData.productId = productId;
+			postData.type   = type;
+			postData.userType = userType;
+					
+	   	//获取数据
+		http.load('api.sev.index','collectProduct',postData,function(rData){
+			sw.toast(rData.msg);  
+			if(rData.status==200){
+				$(j).toggleClass('sw-like-r').toggleClass('sw-like')
+				if(type==1){//收藏
+					$(j).attr('onclick','collectStore('+productId+',0,this)');
+				}else{//取消收藏
+					$(j).attr('onclick','collectStore('+productId+',1,this)');
+				} 			
+			}			
+		},function(xhr,type,errorThrown){				
+				//无网络提示
+				//sw.toast('获取数据失败，服务器或网络异常');
+		})
+				
+	   }	   
+	}
+	
+	//页面跳转
+	function openJx(EnterpriseID,jxName){		
+		var postData = {'EnterpriseID':EnterpriseID,'jxName':jxName};
+	
+		//打开窗口
+		mui.openWindow({
+				    url:'../../../view/index/shangjia/jingxiao.html',
+				    id:'index_shangjia_jingxiao',//默认使用当前页面的url作为id
+				    styles:{},//窗口参数
+				    extras:postData//自定义扩展参数
+			});
+	}
+</script>
+</html>

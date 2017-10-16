@@ -1,0 +1,116 @@
+{
+  "view/coterie/list.html": {
+    "resources": [
+      "js/laytpl/laytpl.js",
+      "js/mui.pullToRefresh.js",
+      "image/index/icon_wz_sousuo@3x.png",
+      "js/jquery.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "image/index/icon_xiaoxi@3x.png",
+      "image/coterie/dingwei.png",
+      "js/mui.zoom.js",
+      "image/coterie/sheying.png",
+      "css/common.css",
+      "image/coterie/icon_dt_like.png",
+      "css/mui.min.css",
+      "image/coterie/icon_dt_pingjia.png",
+      "js/mui.previewimage.js",
+      "image/coterie/icon_dt_like_r.png"
+    ]
+  },
+  "index.html": {
+    "resources": [
+      "image/index/gonggao.png",
+      "image/index/quanzi.png",
+      "image/index/chaxun.png",
+      "js/mui.min.js",
+      "css/common.css",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "image/index/gerenzhongxin.png",
+      "image/index/home_r.png",
+      "js/global.js",
+      "image/index/home.png",
+      "view/index/index.html"
+    ],
+    "refer": [
+      "view/coterie/list.html",
+      "view/vin/index.html",
+      "view/gonggao/notice.html",
+      "view/person/index.html",
+      "view/index/index.html"
+    ]
+  },
+  "view/vin/index.html": {
+    "resources": [
+      "js/laytpl/laytpl.js",
+      "image/index/icon_wz_sousuo@3x.png",
+      "js/jquery.min.js",
+      "css/common.css",
+      "image/vin/xiangji.png",
+      "css/mui.min.css"
+    ]
+  },
+  "view/gonggao/notice.html": {
+    "resources": [
+      "js/laytpl/laytpl.js",
+      "js/mui.pullToRefresh.js",
+      "image/msg/icon_xiaoxi.png",
+      "js/jquery.min.js",
+      "css/common.css",
+      "js/mui.pullToRefresh.material.js",
+      "image/notice/icon_newdriver.png",
+      "css/mui.min.css",
+      "image/notice/icon_cuxiao.png",
+      "image/notice/icon_news.png",
+      "image/index/icon_xiaoxi@3x.png"
+    ]
+  },
+  "view/person/index.html": {
+    "resources": [
+      "image/person/icon_shuaxindian@2x.png",
+      "js/laytpl/laytpl.js",
+      "js/mui.pullToRefresh.js",
+      "image/person/icon_renzheng@2x.png",
+      "image/login/icon_tel.png",
+      "js/jquery.min.js",
+      "image/person/icon_fenxiangyq@2x.png",
+      "image/person/icon_wodeguiji@2x.png",
+      "js/mui.pullToRefresh.material.js",
+      "image/index/icon_xiaoxi@3x.png",
+      "image/person/icon_bdywy@2x.png",
+      "image/person/icon_quanzi@2x.png",
+      "image/login/icon_qq.png",
+      "image/person/icon_dianpu@2x.png",
+      "image/person/biao_vip@2x.png",
+      "image/person/icon_qxcguiji@2x.png",
+      "css/common.css",
+      "image/person/beijing_pic.png",
+      "css/mui.min.css",
+      "image/person/icon_shoucangjilv@2x.png",
+      "image/person/icon_shezhi@2x.png",
+      "image/person/icon_vip@2x.png"
+    ]
+  },
+  "view/index/index.html": {
+    "resources": [
+      "js/laytpl/laytpl.js",
+      "js/mui.pullToRefresh.js",
+      "image/index/icon_huoche.png",
+      "js/jquery.min.js",
+      "js/mui.pullToRefresh.material.js",
+      "image/index/icon_cuxiao.png",
+      "image/start/banner.png",
+      "image/index/icon_wuliu.png",
+      "image/index/icon_qiugou.png",
+      "image/index/sanjiao@3x.png",
+      "image/index/icon_xiaoxi@3x.png",
+      "css/common.css",
+      "image/index/icon_qincang.png",
+      "css/mui.min.css",
+      "image/index/icon_jiaoche.png",
+      "image/index/dian_next@2x.png",
+      "image/index/dian_now@2x.png"
+    ]
+  }
+}

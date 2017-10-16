@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="/css/pc/index/activity.css">
+<div id="activeity">
+    <!--<div class="activeityCover">
+        <img src="/images/qpxm/pc/index/cuXiaoHuoDong.png" class="activeityCoverImg" alt="">
+    </div>-->
+    <div class="marTop30MarbOTTOM5">
+        <div class="activeTitleText">新闻资讯</div>
+    </div>
+    <div style="" id="activesList">
+        <?php foreach($news as $v){?>
+        <div class="activesList">
+            <a href="/def/news?ID=<?php echo $v['art_ID'];?>">
+                <img src="<?php echo $v['face_img']?>" class="activesListImg" alt="">
+                <div class="huoDongBiaoTi"><?php echo $v['title']?></div>
+            </a>
+        </div>
+        <?php }?>
+        <div style="clear: both;"></div>
+    </div>
+    <a href="javascript:;" onclick="more()">
+        <div class="activeityMore" id="changeziti">查看更多</div>
+    </a>
+</div>
+<script src="/js/global.js" type="text/javascript"></script>
+<script>
+    var page = 2;
+    var isCan=true;
+    function more(){
+        if(isCan){
+            api.load('pc.article','getNewsList',{page:page},function (data) {
+                if(data.list.length>0){
+                    var str = '';
+                    for(var i=0; i<data.list.length; ++i){
+                        str += '<div class="activesList"><a href="/def/news?ID='+data.list[i].art_ID+'">';
+                        str += '<img src="'+data.list[i].face_img+'" class="activesListImg" alt="">';
+                        str += '<div class="huoDongBiaoTi">'+data.list[i].title+'</div>';
+                        str += '</a></div>';
+                    }
+                    $('.activesList:last').after(str);
+                    page +=1;
+                }else {
+                    $('#changeziti').html('没有更多了');
+                    isCan=false;
+                }
+            });
+        }
+    }
+</script>

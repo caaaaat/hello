@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+<div id="bigDiv">
+    <style>
+        #bigDiv{width: 1200px;margin: 0 auto;}
+        .quanZiText{float: left;margin-left: 20px;font-size: 28px;color: #FD524A;font-weight: bold;line-height: 45px;}
+        #textBody{height: 830px;background: white;padding-top: 110px;}
+        .textBody{width: 650px;height: 330px;margin: 0 auto;border: 1px solid #DDD;padding-left: 45px;padding-right: 45px;}
+        .h60Lh60{height: 60px;line-height: 60px;}
+        .dongTaiText{float: left;font-size: 24px;font-weight: bold;}
+        .floRightSize16{float: right;font-size: 16px;}
+        .textareaKuang{height: 180px;width: 100%;border: 1px solid #DDD;resize:none;padding: 15px;}
+        .faBuBtn{width: 102px;height: 40px;background: #FF524B;color: white;line-height: 40px;text-align: center;font-size: 18px;border-radius: 10px;margin-top: 13px;float: right}
+        .faBuBtn:hover{background: #E10C00;cursor: pointer;}
+        .faBuBtn:active{background: #FF4B42;}
+        .companyDivText{width: 650px;height: 180px;border: 1px solid #DDD;margin: 0 auto;margin-top: 60px;padding: 10px;}
+        .leftCompanyDiv{width: 156px;height: 156px;border: 1px solid #DDD;float: left;}
+        .w154h154{width: 154px;height: 154px;}
+        .companyNameText{float: left;margin-left: 25px;padding-top: 15px;padding-bottom: 15px;font-size: 18px;}
+    </style>
+    <div style="padding-top: 45px;padding-bottom: 40px;">
+        <img src="/images/qpxm/pc/index/logo.png" style="float: left;" alt="">
+        <div class="quanZiText">分享到圈子</div>
+        <div style="clear: both"></div>
+    </div>
+    <div id="textBody">
+        <div class="textBody">
+            <div class="h60Lh60">
+                <div class="dongTaiText">发布动态</div>
+                <div class="floRightSize16"><span class="nowNum">0</span>/500字</div>
+                <div style="clear: both;"></div>
+            </div>
+            <div style="margin-top: 15px;">
+                <textarea class="textareaKuang">欢迎各位厂商使用我的邀请码 ：<?php echo $userInfo['invite_code'];?></textarea>
+            </div>
+            <div class="faBuBtn" onclick="faBu()" id="faBu">发布</div>
+        </div>
+        <div class="companyDivText">
+            <div class="leftCompanyDiv">
+                <img src="<?php echo $userInfo['face_pic'];?>" class="w154h154" alt="">
+            </div>
+            <div class="companyNameText"><?php echo $userInfo['companyname'];?></div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/pc/layer/layer.js" type="text/javascript"></script>
+<script>
+    $(function(){
+        var maxLength = 500;
+        var len = $('.textareaKuang').val().length;
+        $('.nowNum').html(maxLength - len);
+    });
+    /*详细地址字数*/
+    $('.textareaKuang').keyup(function(event) {
+        /* Act on the event */
+        var maxLength = 500;
+        var len = $('.textareaKuang').val().length;
+        $('.nowNum').html(maxLength - len);
+        if(parseInt($('.nowNum').text()) < 0){
+            $('.nowNum').html('0');
+            var res = $(this).val().substring(0,500);
+            $(this).val(res);
+        }
+    });
+
+    function faBu(){
+        var content = $('.textareaKuang').val();   //发布内容
+        if(!content){
+            layer.msg('请填写发布内容');
+            return false;
+        }
+        $('#faBu').attr('onclick','');
+        var url = '/pc.circle/inviteToCircle';
+        $.post(url, {
+            content:content
+        }, function (rdata) {
+            var rdata = eval('(' + rdata + ')');
+            $('#faBu').attr('onclick','faBu()');
+            if(rdata.status===1){
+                layer.confirm('发布成功', {
+                    btn: ['关闭本页','前往圈子'] //按钮
+                }, function(){
+                    window.close();
+                }, function(){
+                    location.href='/def/circle';
+                });
+            }else{
+                layer.msg(rdata.msg);
+            }
+        });
+    }
+</script>
+</body>
+</html>

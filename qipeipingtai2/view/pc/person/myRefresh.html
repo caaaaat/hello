@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="/css/pc/person/myRefresh.css">
+<div class="titles">
+    <span style="font-size: 24px;">我的刷新点</span>
+</div>
+<div>
+    <div class="vipBGImg">
+        <div class="refreshCount">
+            我的刷新点: <?php echo isset($userInfo)?($userInfo?($userInfo['refresh_point']?$userInfo['refresh_point']:'0'):'0'):'0'; ?>次
+        </div>
+    </div>
+</div>
+<div class="vipKaiTongDiv">
+    <button class="vipKaiTong" onclick="location.href='/person/refreshPay'">开通/续费</button>
+</div>
+
+<!--右侧固定定位QQ、电话-->
+<!--<div class="fixedDinWei">
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="showF(this)">
+            <div class="fixedYuan"><img src="/images/qpxm/pc/index/phone.png" alt=""></div>
+        </a>
+        <div class="fixedQQ">123456</div>
+    </div>
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="showF(this)" target="_blank">
+            <div style="float: right;"><img src="/images/qpxm/pc/index/rQQ.png" alt=""></div>
+        </a>
+        <div class="fixedQQ">123456</div>
+    </div>
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="goTop()">
+            <div style="float: right;"><img src="/images/qpxm/pc/index/rUp.png" alt=""></div>
+        </a>
+    </div>
+</div>-->
+
+<script>
+
+</script>

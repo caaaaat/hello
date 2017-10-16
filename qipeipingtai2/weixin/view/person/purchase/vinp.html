@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>VIN照片</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">   
+    </script>
+</head>
+<style>
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.sw-list-title1{
+		line-height:80px;font-size: 14px;color: #999;
+	}
+	.sw-img{
+		width: 80px!important;height: 80px!important;float: right;max-width: 80px!important;
+	}
+	.sw-icon-ca{
+		position: absolute;right: 16px;top: 12px;width: 14px;height: 14px;background: url(../../../image/person/purchase/icon_zp_cha.png) no-repeat;background-size: contain;
+	}
+</style>
+<body style="background: #EFEFEF;">
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">VIN照片</h1>
+	</header>
+	
+	<div class="mui-content" style="background: #EFEFEF;">   
+		 <ul class="mui-table-view" style="margin-top:10px;">
+			 <li class="mui-table-view-cell sw-after-no sw-no-active" id="showCon" style="display: none;">		
+				<span class="sw-list-title1">VIN照片</span>
+				<img src="../../../image/person/purchase/tianjiazp.png" class="sw-img" id="showImg"/>
+				<p class="sw-icon-ca" onclick="delImg()"></p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no" id="uploadCon">		
+				<span class="sw-list-title1">VIN照片</span>
+				<label style="height: 0;">
+					<img class="mui-media-object sw-img" id="imgSrc" src="../../../image/person/purchase/tianjiazp.png">
+					<input type="file" id="file" name="file" accept="image/gif,image/jpeg,image/jpg,image/png,capture=camera"  onchange="ajaxFileUpload()" style="width: 0;height: 0;border: none;display: block"/>
+				</label>
+			</li>
+		</ul>    
+	</div>
+	
+</body>
+<script type="text/javascript" src="../../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../../js/global.js"></script>
+<script type="text/javascript" src="../../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/ajaxFileUpload.js" ></script>
+ <script type="text/javascript">
+	 var procinstid = 0;
+	 var upId = '';
+	 //初始化页面执行操作
+
+	 //获取值
+	 var self   = sw.getQueryVariable();
+	 		upId = self.upId;
+	 //设置图片
+	 var imgSrc = JsonStorage.getItem(upId);
+	 if(imgSrc!=undefined&&imgSrc!='null'&&imgSrc!=''){
+		 $("#showCon").css('display','block');
+		 $("#uploadCon").css('display','none');
+		 $("#showImg").attr('src',imgUrl+imgSrc);
+	 }
+
+
+	 //图片上传
+	 function ajaxFileUpload() {
+		 $.ajaxFileUpload
+		 (
+				 {
+					 url:imgUploadImg, //用于文件上传的服务器端请求地址
+					 secureuri: false, //一般设置为false
+					 fileElementId: 'file', //文件上传空间的id属性  <input type="file" id="file" name="file" />
+					 dataType: 'json', //返回值类型 一般设置为json
+					 success: function (data, status)  //服务器成功响应处理函数
+					 {
+//						 console.log(data)
+						 //上传成功返回值，必须为json格式
+						 if(data.status==200){
+							 $("#showCon").css('display','block');
+							 $("#uploadCon").css('display','none');
+							 $("#showImg").attr('src',imgUrl+data.url);
+							 //console.log(upId);
+							 // JsonStorage.removeItem(upId);
+							 //将数据保存到本地
+							 JsonStorage.setItem(upId,data.url);
+						 }
+
+					 },
+					 error: function (data, status, e)//服务器响应失败处理函数
+					 {
+
+					 }
+				 }
+		 );
+		 return false;
+	 }
+
+	 /**
+	  * 取消上传的图片
+	  */
+	 function delImg(){
+		 $("#showCon").css('display','none');
+		 $("#uploadCon").css('display','block');
+		 JsonStorage.removeItem(upId);
+		 $("#showImg").attr('src','../../../image/person/purchase/tianjiazp.png');
+	 }
+
+ </script>
+</html>

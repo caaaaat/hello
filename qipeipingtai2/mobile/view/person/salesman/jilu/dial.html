@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>拨打记录</title>
+    <link href="../../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZBcSIHdvwjfx105K8jvQCj5W"></script>
+    <script type="text/javascript" charset="utf-8">
+      
+    </script>
+</head>
+<style>
+	.sw-payList:after{
+		left: 0;
+	}
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.sw-title{
+		font-size: 14px;color: #666;
+	}
+	.sw-money-box{
+		float: right;font-weight: 700;font-size: 16px;	
+	}
+	.sw-date{
+		font-size: 12px;display:inline-block;color: #999;text-align: left;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	.sw-text{
+		float: right;font-size: 12px;color: #999;width: 50%;text-align: right;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	.sw-payList p{
+		height: 21px;line-height: 24px;
+	}
+	.sw-link-box{
+		height: 36px!important;padding-top: 0!important;padding-bottom: 0!important;line-height: 36px!important;padding-right: 36px!important;
+	}
+	.sw-card-img1{
+		width: 110px!important;max-width:110px!important;height: 110px!important;
+	}
+	.sw-card-cuBox3{
+		white-space: normal; 
+		 color: #000000;
+	    overflow: hidden;
+	    display: -webkit-box;
+	    -webkit-line-clamp: 2;
+	    -webkit-box-orient: vertical;
+	    word-break: break-all;
+	}
+	.sw-card-date{
+		font-size: 14px;
+	}
+	.sw-text1{
+		margin-left: 38px;margin-top: -20px;color: #666666;line-height: 18px;
+	}
+	.sw-biao-lei1{
+		display:inline-block;float: right;border: 1px solid #3EB7FF;font-size: 10px;color: #3EB7FF;height: 18px;line-height: 18px;padding: 0 4px;border-radius: 9px;
+	}
+	.sw-biao-lei2{
+		display:inline-block;float: right;border: 1px solid #18C839;font-size: 10px;color: #18C839;height: 18px;line-height: 18px;padding: 0 4px;border-radius: 9px;
+	}
+	.sw-renz-img{
+		width: 16px;vertical-align: middle;margin-left: 4px;
+	}
+	.sw-title-1{
+		width: 50%;float: left;text-align: center;line-height: 42px;font-size: 14px;
+	}
+	.sw-title-box{
+		width: 100%;height: 42px;border-bottom: 1px solid #DDDDDD;background: #FFFFFF;
+	}
+	.coverImg{width: 90px;height: 90px;max-width: 90px;margin-right: 7px;}
+	.rightBottomDiv{margin-top: 8px;color: #666;font-size: 10px;}
+	.floLeftW70{float: left;width: 70%;}
+	.floatLeftW22{width: 22%;float: left;}
+	.floLeftW28{width: 28%;float: left;}
+	.floRightW30{float: right;width: 30%;text-align: right;}
+	.size12px{font-size: 12px!important;}
+	.mui-table-view-cell:after,.mui-table-view:before{background-color: #EBEBEB;}
+	.sw-popu-btn{width:70%;height:36px;line-height:14px;border-radius: 1px;margin: auto;font-size: 16px;}	
+	.mui-popup-inner{padding-bottom: 35px;border-radius:7px 7px 0 0;padding-top: 25px;}
+	.mui-popup-inner:after{height: 0;display: none;;}
+	.mui-popup-button:first-child:last-child{border-radius: 5px;}
+	.mui-popup-button:after{width: 0;}
+	.mui-popup{border-radius: 5px!important;}
+	.mui-popup-button:last-child{border-radius:0 0 5px}
+	.mui-popup-button:first-child{border-radius:0 0 0 5px}
+	.vipIco{background: url(../../../../image/person/renzheng.png) no-repeat;background-size: 16px;}
+	.renZhengIco{background: url(../../../../image/person/renzheng2.png) no-repeat;background-size: 16px;}
+	.right75{position: absolute;right: 75px;top: 1px;height: 16px;width: 16px;}
+	.right55{position: absolute;right: 55px;top: 1px;height: 16px;width: 16px;}
+</style>
+<body style="background: #F5F5F5;">
+	
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">拨打记录</h1>
+	    <button class="mui-btn mui-btn-link mui-pull-right" onclick="delCircle()">清空</button>
+	</header>
+	 
+	<div class="mui-content" style="background: #F5F5F5;" id="payList"></div>
+	<div id="loadList"><input value="1" hidden="hidden" id="page"/></div>    
+	<script id="pay-list-tpl" type="text/html">
+	{{# var len = d.length }} 
+	{{# if(len>0){ }}   
+	{{# for(var i = 0;i < len; i++){ }}    
+	<ul class="mui-table-view" style="margin-top: 10px;"> 
+		 <li class="mui-table-view-cell sw-payList">
+		 	<a class="mui-navigate-right sw-link-box" onclick="showMingXi({{ d[i].id }})">
+		 		<span class="sw-date">最近访问：{{ d[i].last_create_time }}</span><span class="sw-text">共：{{ d[i].meCount }}次</span>		
+		 	</a>
+		 </li>
+		 <li class="mui-table-view-cell mui-media sw-card-li sw-no-active" style="padding: 10px;">
+			<img class="mui-pull-left coverImg" src="{{ imgUrl+d[i].face_pic }}">
+			{{# var vipImg = '' }}	
+			{{# var paddin='' }}	
+			{{# if(d[i].vip == 1 && d[i].is_check==1){ }}
+			{{# var vipImg='<div class="vipIco right75"></div><div class="renZhengIco right55"></div>' }}
+			{{# paddin='padding-right: 90px;' }}
+			{{# }else if(d[i].vip == 1){ }}
+			{{# var vipImg='<div class="vipIco right55"></div>' }}
+			{{# paddin='padding-right: 60px;' }}  
+			{{# }else if(d[i].is_check==1){ }}
+			{{# var vipImg='<div class="renZhengIco right55"></div>' }}
+			{{# paddin='padding-right: 60px;' }} 
+			{{# }else{ }}
+			{{# paddin='padding-right: 55px;' }}
+			{{# } }}
+			
+			{{# var companyType='' }}
+			{{# if(d[i].classification==1){ }}
+			{{# companyType='<p class="sw-biao-lei2" style="color: #0099FF;border-color: #0099FF;position: absolute;right: 0;top: 0;">轿车商家</p>' }}
+			{{# }else if(d[i].classification==2){ }}
+			{{# companyType='<p class="sw-biao-lei2" style="position: absolute;right: 0;top: 0;">货车商家</p>' }}
+			{{# }else if(d[i].classification==3){ }}
+			{{# companyType='<p class="sw-biao-lei2" style="color: #FF6699;border-color: #FF6699;position: absolute;right: 0;top: 0;">用品商家</p>' }}
+			{{# }else if(d[i].classification==4){ }}
+			{{# companyType='<p class="sw-biao-lei2" style="position: absolute;right: 0;top: 0;">修理厂</p>' }}
+			{{# }else if(d[i].classification==5){ }}
+			{{# companyType='<p class="sw-biao-lei2" style="color: #0099FF;border-color: #0099FF;position: absolute;right: 0;top: 0;">快修保养</p>' }} 
+			{{# }else if(d[i].classification==6){ }}
+			{{# companyType='<p class="sw-biao-lei2" style="color: #FF6699;border-color: #FF6699;position: absolute;right: 0;top: 0;">美容店</p>' }}
+			{{# } }} 
+			 
+			<div style="white-space:nowrap;width: 100%;position: relative;padding-left: 97px;{{ paddin }}">
+				<div style="overflow: hidden;text-overflow: ellipsis;">{{ d[i].companyname}}</div>
+				{{ vipImg }}
+				{{ companyType }}
+			</div>
+			<div class="mui-media-body sw-card-cuBox3" style="min-height: 34px;">
+				<span class="size12px">[主营]</span><p class="sw-text1" style="font-size: 12px;">{{ d[i].major }}</p>
+			</div>
+			<div class="mui-media-body rightBottomDiv">
+				<div class="floLeftW70"> 
+					<div class="floatLeftW22">
+						{{# if(d[i].linkPhone){ }}
+						<a href="tel:{{ d[i].linkPhone[0] }}" onclick="addTel({{ d[i].id }})">
+							<img style="width: 18px;" src="../../../../image/salesman/red_phone.png">
+						</a>		
+						{{# }else{ }}
+						<a href="javascript:;" onclick="sw.toast('该公司未填写手机号码')">
+							<img style="width: 18px;" src="../../../../image/salesman/red_phone.png">
+						</a>
+						{{# } }}
+					</div>
+					<div class="floatLeftW22">
+						{{# if(d[i].qq){ }}
+						<a href="javascript:;" onclick="document.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin={{ d[i].qq[0] }}&version=1&src_type=web&web_src=qq.com;'">
+							<img style="width: 18px;" src="../../../../image/salesman/red_qq.png">
+						</a>  
+						{{# }else{ }}
+						<a href="javascript:;" onclick="sw.toast('该公司未填写QQ号码');">
+							<img style="width: 18px;" src="../../../../image/salesman/red_qq.png">
+						</a>  
+						{{# } }}
+						
+					</div>
+					{{# if(d[i].type==1){ }} 
+					<div class="floLeftW28">  
+						<img style="width: 7px;" src="../../../../image/salesman/red_ren.png">
+						{{# if(!d[i].qqCount){d[i].qqCount=0} }}	
+						<span>{{ d[i].qqCount }}</span>	
+					</div>
+					
+					<div class="floLeftW28"> 
+						<img style="width: 7px;" src="../../../../image/salesman/red_tel.png">
+						{{# if(!d[i].telCount){d[i].telCount=0} }}	
+						<span>{{ d[i].telCount }}</span>	
+					</div>
+					{{# } }}
+				</div>
+				<div class="floRightW30">
+					<img style="height: 9px;" src="../../../../image/salesman/red_dingwei.png">
+					<span style="color: #F84841;">{{ d[i].distance }}</span>	
+				</div>
+			</div>	
+		 </li>
+	 </ul>
+	{{# } }}
+	{{# } }}
+	</script>	
+
+	<div id="allmap"></div>
+	<input type="hidden" value="1" id="delToken" />
+</body>
+<script src="../../../../js/jquery.min.js"></script>
+<script src="../../../../js/mui.min.js"></script>
+<script src="../../../../js/global.js"></script>
+<script src="../../../../js/laytpl/laytpl.js"></script>
+ <script type="text/javascript" charset="utf-8">
+var lng = '';
+var lat = '';	
+//mui初始化	 
+mui.init({      
+  pullRefresh : {
+    container:'#loadList',//待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
+	up : {
+	  height:50,//可选.默认50.触发上拉加载拖动距离
+	  auto:false,//可选,默认false.自动上拉加载一次
+	  contentrefresh : "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+	  contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+	  callback :function(){	
+	  	showLoda();
+	  } //必选，刷新函数   
+	}  
+  }
+});
+ 
+		 	 
+ 			//mui初始化
+mui.plusReady(function() {		
+	//监控页面是否登录 
+	if(UserInfo.has_login()){ 
+		
+		var map = new BMap.Map("allmap");
+		var point = new BMap.Point(116.331398,39.897445);
+		map.centerAndZoom(point,12);
+		var geolocation = new BMap.Geolocation();
+		geolocation.getCurrentPosition(function(r){
+			if(this.getStatus() == BMAP_STATUS_SUCCESS){
+				var mk = new BMap.Marker(r.point);
+				map.addOverlay(mk);
+				map.panTo(r.point);
+				lng = r.point.lng;
+				lat = r.point.lat;
+			}	 				
+			 mui('#loadList').pullRefresh().pullupLoading(); 	//	手动加载下拉事件
+		},{enableHighAccuracy: true})   
+		
+	};						
+});
+				
+
+  
+	//消息列表
+//	mui("#history")[0].addEventListener('tap',function(){
+//		openView('../../../../view/person/orbit/history.html','history','pop-in');
+//	})
+		
+function showLoda(){
+		//监控页面是否登录  
+	if(UserInfo.has_login()){
+		var userType= JsonStorage.getItem('userType');	//2为业务员
+		var token   = plus.storage.getItem('token');
+		dy(token);
+		if(userType != 2){
+			sw.toast('请使用业务员账号登录');  
+			return false; 
+		}
+ 
+		var page = mui("#page")[0].value;//获取页数
+	  	var data = {};  
+	  	var postData = {};
+  		
+  		//请求的数据
+  		postData.page     = page;//请求的页码
+  		postData.pageSize = 10;//每页显示数量   
+  		postData.token    = plus.storage.getItem('token');
+  		postData.lng = lng; 
+		postData.lat = lat; 
+  		data.postData = postData;      
+  		    
+  		//页面相关数据           
+  		data.mod      = 'api.sev.salesman';//模型  
+  		data.fun      = 'getBoDaJiLu';//方法     
+  		data.tpl      = 'pay-list-tpl';//列表模板
+  		data.listId   = 'payList';//列表容器
+		//请求并处理数据 
+		loadInfo(data,true);
+						 
+	}else{//未登录显示未登录界面	 		
+		//无网络提示
+		sw.toast('您还未登录,请登录后重试');  
+	}	
+	
+	
+}
+	 /*存入拨打记录表*/
+function addTel(companyId){
+	if(UserInfo.has_login()){
+		var userType= JsonStorage.getItem('userType');	//2为业务员 
+		var token   = plus.storage.getItem('token');
+		if(userType != 2){
+			sw.toast('请使用业务员账号登录');  
+			return false; 
+		}
+		if(!token){
+			sw.toast('您还未登录,请登录后重试');  
+			return false; 
+		}
+		if(!companyId){
+			sw.toast('数据缺失，操作失败');  
+			return false; 
+		}
+		var visit_type = 3;
+		var browser = {
+            versions: function() {
+                var u = navigator.userAgent,
+                app = navigator.appVersion;
+                return {
+  
+                    android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1,
+
+                    iPhone: u.indexOf('iPhone') > -1 ,                      
+
+                    iPad: u.indexOf('iPad') > -1,
+                    iPod: u.indexOf('iPod') > -1,
+   
+                    };
+                } (),
+                language: (navigator.browserLanguage || navigator.language).toLowerCase()
+            }
+            if (browser.versions.iPhone||browser.versions.iPad||browser.versions.iPod){
+                 var visit_type = 4;
+        	}
+		
+		var postData = {};
+		postData.token = token;
+		postData.companyId = companyId;
+		postData.visit_type= visit_type;
+		http.load('api.sev.salesman','addYeWuBoDaJiLu',postData,function(rData){//请求成功
+        	
+        },function(xhr,type,errorThrown){//请求失败 将之前的数据填入		
+				//无网络提示
+				sw.toast('请求失败，请检查网络'); 
+		}) 
+	}else{//未登录显示未登录界面	 		
+	//无网络提示
+	sw.toast('您还未登录,请登录后重试');    
+	}	
+}	
+		
+function showMingXi(companyId){
+	var token     = plus.storage.getItem('token');
+	var tokenType = JsonStorage.getItem('userType');	//2为业务员	
+	if(!token){
+		sw.toast('您还没有登录');
+		return false;
+	}
+	if(!tokenType || tokenType!=2){
+		sw.toast('请使用业务员账号登录');
+		return false;
+	}
+	if(!companyId){
+		sw.toast('数据丢失，请重试');
+		return false;
+	}
+	var extras = {'token':token,'companyId':companyId};
+	openView('../../../../view/person/salesman/jilu/boDaMingXi.html','person_salesman_jilu_boDaMingXi','pop-in',extras);
+}
+
+function delCircle(){
+    mui.confirm('确认清空？清空后不可恢复', '&nbsp;', ['<span class="mui-popup-button mui-btn sw-popu-btn" style="color:#333">确认</span>','<span class="mui-popup-button mui-btn mui-btn-blue sw-popu-btn">取消</span>' ], function(e) {
+		if (e.index == 1) {//确认
+			var delToken = $('#delToken').val();
+			if(delToken==0){
+				return false;
+			}
+			var len = $('#payList').find('ul').length;
+			if(len < 1){
+				sw.toast('已经没有拨打记录了');  
+				return;
+			}
+			$('#delToken').val(0);
+			var userType = JsonStorage.getItem('userType');	//2为业务员
+			var postData      = {};
+			postData.token    = plus.storage.getItem('token');
+	        if(UserInfo.has_login()==false){
+	        	sw.toast('请重新登录');
+				return;
+			}  
+	        if(userType!=2){
+	        	sw.toast('请使用业务员账号登录'); 
+				return;
+	        }
+				//如果已经登陆 获取登录后的数据
+			http.load('api.sev.salesman','delYeWuBoDaJiLu',postData,function(rData){//请求成功
+				//关闭加载框
+				$('#delToken').val(1);
+					closeLoading();
+					sw.toast(rData.msg);
+		 			if(rData.status==200){//保存成功 
+		 				$('#payList').html('');
+		 				mui('#loadList').pullRefresh().pullupLoading(); 	//	手动加载下拉事件
+		 			}
+	 		},function(xhr,type,errorThrown){//请求失败 
+				//无网络提示
+				sw.toast('请求失败，服务器或网络异常');
+	 		}) 
+		}
+	},'div')
+	$('.mui-popup-button').css('font-size','16px');
+}
+</script>
+</html>
+
+
+
+

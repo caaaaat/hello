@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=<?php echo G('config')['bmap']['ak'];?>"></script>
+    <style>
+        #tab-1 .mail-box-header label{ height: 34px; line-height: 34px;width: 50px; margin-bottom: 0; padding-left: 0;padding-right: 0;}
+        #tab-2 .mail-box-header label{ height: 34px; line-height: 34px;width: 50px; margin-bottom: 0; padding-left: 0;padding-right: 0;}
+        #tab-3 .mail-box-header label{ height: 34px; line-height: 34px;width: 50px; margin-bottom: 0; padding-left: 0;padding-right: 0;}
+        #tab-4 .mail-box-header label{ height: 34px; line-height: 34px;width: 50px; margin-bottom: 0; padding-left: 0;padding-right: 0;}
+        #tab-4 .total{height: 120px; border: 1px solid #e7eaec;text-align: center;padding-top: 40px;}
+        .l a{ color: #0066ff;}
+    </style>
+</head>
+<body>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true" id="tab_1">业务员工资配置</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2"  aria-expanded="false" id="tab_2">工资记录</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3"  aria-expanded="false" id="tab_3">财务流水</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-4"  aria-expanded="false" id="tab_4">财务统计</a></li>
+                </ul>
+                <div class="tab-content">
+                    <!--业务员工资配置-->
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body" style="padding-left: 25px;">
+                            <div class="wrapper wrapper-content" style="padding: 0">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12">
+                                        <div class="mail-box-header">
+
+                                            <div class="form-group">
+                                                <div class="col-xs-6 col-sm-6 col-lg-6" style="padding-left: 0; padding-right: 0; margin-bottom: 3px;max-width: 160px;">
+                                                    <label class="col-xs-4 col-sm-4 control-label">区域</label>
+                                                    <div class="col-xs-8 col-sm-8" style="padding-left: 0;padding-right: 0;">
+                                                        <div class="col-xs-4 col-sm-4" style="padding-left: 0;padding-right: 0;">
+                                                            <select id="tab_1_province" class="form-control" style="padding-left: 5px; width: 100px;">
+                                                                <option value=''>全部</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-lg-6" style="padding-left: 0; padding-right: 0; margin-bottom: 3px;">
+                                                    <label class="col-xs-4 col-sm-4 control-label">关键字</label>
+                                                    <div class="col-xs-8 col-sm-8" style="padding-left: 0;">
+                                                        <div class="col-xs-12 col-sm-12 input-group">
+                                                            <input type="text" class="form-control input-xs" id="tab_1_searchKey" placeholder="业务员ID/昵称/姓名"/>
+                                                            <span class="input-group-btn"><button type="submit" class="btn btn-primary" id="tab_1_find"> 搜 索 </button></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="clear: both"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper wrapper-content" style="padding: 0;">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content">
+                                                <h3 style="margin-right: 10px;">业务员工资列表</h3>
+                                                <div style="text-align: right; padding-right: 15px;">
+                                                    <span><a class="btn btn-xs btn-primary" id="tab_1_download" href="/plat.financial/exportSalesToExcel">导出表格</a></span>
+                                                    <!--<span><a class="btn btn-xs btn-primary" id="download" href="#">导出表格</a></span>-->
+                                                </div>
+                                                <!--列表开始-->
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th style="text-align: center;width:150px">业务员ID</th>
+                                                            <th style="text-align: center;width:150px">昵称</th>
+                                                            <th style="text-align: center;width:150px">姓名</th>
+                                                            <th style="text-align: center;width:150px">联系电话</th>
+                                                            <th style="text-align: center;width:150px">管辖区域</th>
+                                                            <th style="text-align: center;width:150px">基本工资（元）</th>
+                                                            <th style="text-align: center;width:150px">补贴（元）</th>
+                                                            <th style="text-align: center;width:240px">操作</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tab_1_show" style="text-align: center"></tbody>
+                                                    </table>
+                                                </div>
+                                                <script id="tab_1_model" type="text/html">
+                                                    {{# if(d.massageCode == 'success') { }}
+                                                    {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                                                    <tr>
+                                                        <!--<td>{{ ((page-1)*pageSize)+i+1 }}</td>-->
+                                                        <td>
+                                                            <span>{{ list[i].uId }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].uname }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].realname }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].phone }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].area }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].base_wage == null ? 0 : list[i].base_wage }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].subsidies == null ? 0 : list[i].subsidies }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="l">
+                                                                <a onclick=getOneSaleWageLog('{{ list[i].uname }}',{{ list[i].id }})>[工资记录]</a>
+                                                                <a data-id="{{ list[i].id }}" data-type="1" onclick="editWage(this)">[编辑]</a>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+
+                                                    {{# } }}
+                                                    {{# }else{ }}
+                                                    <td colspan="8">
+                                                        <span>{{ d.massage }}</span>
+                                                    </td>
+                                                    {{# } }}
+                                                </script>
+                                                <!--列表结束-->
+                                                <!--页码开始-->
+                                                <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                                    <input hidden="hidden" value="1" id="tab_1_page"/>
+                                                    <span>每页显示
+                                                        <select name="pageSize" id="tab_1_pageSize" onchange="getSales(1)">
+                                                            <option value="10"  selected="selected">10</option>
+                                        <option value="30" >30</option>
+                                        <option value="50" >50</option>
+                                        <option value="100">100</option>
+                                        <option value="300">300</option>
+                                        <option value="500">500</option>
+                                        <option value="1000">1000</option>
+                                        <option value="3000">3000</option>
+                                        <option value="5000">5000</option>
+                                                        </select>&nbsp;
+                                                    </span>
+                                                    <span id="tab_1_pageInfo" style="margin-right: 10px;"></span>
+                                                    <div class="btn-group" id="tab_1_pager"></div>
+                                                </div>
+                                                <!--页码结束-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--工资记录-->
+                    <div id="tab-2" class="tab-pane">
+                        <div class="panel-body" style="padding-left: 25px;">
+                            <div class="wrapper wrapper-content" style="padding: 0">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12">
+                                        <div class="mail-box-header">
+
+                                            <div class="form-group">
+                                                <div class="col-xs-3 col-sm-3 col-lg-3" style="padding-left: 0; padding-right: 0; margin-bottom: 3px; width: 210px;">
+                                                    <label class="col-xs-4 col-sm-4 control-label">月份</label>
+                                                    <div class="col-xs-8 col-sm-8" style="padding-left: 0;padding-right: 0; width: 150px;">
+                                                        <div class="col-xs-12 col-sm-12" style="padding-left: 0;padding-right: 0;">
+                                                            <input type="month" class="form-control input-xs" id="tab_2_month" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-8 col-sm-8 col-lg-8" style="padding-left: 0; padding-right: 0; margin-bottom: 3px;">
+                                                    <label class="col-xs-4 col-sm-4 control-label">关键字</label>
+                                                    <div class="col-xs-8 col-sm-8" style="padding-left: 0;">
+                                                        <div class="col-xs-12 col-sm-12 input-group">
+                                                            <input type="text" class="form-control input-xs" id="tab_2_searchKey" placeholder="业务员ID/昵称/姓名"/>
+                                                            <span class="input-group-btn"><button type="submit" class="btn btn-primary" id="tab_2_find"> 搜 索 </button></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="clear: both"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper wrapper-content" style="padding: 0;">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content">
+                                                <h3 style="margin-right: 10px;">业务员工资记录</h3>
+                                                <div style="text-align: right; padding-right: 15px;">
+                                                    <span><a class="btn btn-xs btn-primary" id="tab_2_download" href="/plat.financial/exportWageToExcel">导出表格</a></span>
+                                                    <!--<span><a class="btn btn-xs btn-primary" id="download" href="#">导出表格</a></span>-->
+                                                </div>
+                                                <!--列表开始-->
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th style="text-align: center;width:150px">业务员ID</th>
+                                                            <th style="text-align: center;width:150px">昵称</th>
+                                                            <th style="text-align: center;width:150px">姓名</th>
+                                                            <th style="text-align: center;width:150px">联系电话</th>
+                                                            <th style="text-align: center;width:150px">月份</th>
+                                                            <th style="text-align: center;width:150px">基本工资（元）</th>
+                                                            <th style="text-align: center;width:150px">补贴（元）</th>
+                                                            <th style="text-align: center;width:150px">修理厂使用频率提成（元）</th>
+                                                            <!--<th style="text-align: center;width:150px">汽修厂拨打数量提成（元）</th>-->
+                                                            <th style="text-align: center;width:150px">修理厂关联提成（元）</th>
+                                                            <th style="text-align: center;width:150px">新增关联汽修厂提成（元）</th>
+                                                            <th style="text-align: center;width:150px">关联经销商充值提成（元）</th>
+                                                            <th style="text-align: center;width:150px">合计工资（元）</th>
+                                                            <th style="text-align: center;width:240px">操作</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tab_2_show" style="text-align: center"></tbody>
+                                                    </table>
+                                                </div>
+                                                <script id="tab_2_model" type="text/html">
+                                                    {{# if(d.massageCode == 'success') { }}
+                                                    {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                                                    <tr>
+                                                        <td>
+                                                            <span>{{ list[i].uId }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].uname }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].realname }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].phone }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].time }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].base_wage }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].subsidies }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].repair_use_money }}</span>
+                                                        </td>
+                                                        <!--<td>
+                                                            <span>{{ list[i].repair_call_money }}</span>
+                                                        </td>-->
+                                                        <td>
+                                                            <span>{{ list[i].firm_comm }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].new_firm_comm }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].firm_recharge_comm }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].total }}</span>
+                                                        </td>
+                                                        <td style="text-align: center;">
+                                                            <span class="l">
+                                                                <p style="margin-bottom: 0;"><a onclick=getWageInfo('{{ list[i].uname }}',{{ list[i].id }})>[详情]</a></p>
+                                                                {{# if(list[i].is_show == 0){ }}
+                                                                <p style="margin-bottom: 0;"><a data-id="{{ list[i].id }}" data-type="2" onclick="editWage(this)">[编辑]</a></p>
+                                                                <p style="margin-bottom: 0;"><a data-id="{{ list[i].id }}" onclick="show_to_user(this)">[审核]</a></p>
+                                                                {{# } }}
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+
+                                                    {{# } }}
+                                                    {{# }else{ }}
+                                                    <td colspan="14">
+                                                        <span>{{ d.massage }}</span>
+                                                    </td>
+                                                    {{# } }}
+                                                </script>
+                                                <!--列表结束-->
+                                                <!--页码开始-->
+                                                <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                                    <input hidden="hidden" value="1" id="tab_2_page"/>
+                                                    <span>每页显示
+                                                        <select id="tab_2_pageSize" onchange="getWages(1)">
+                                                            <option value="10"  selected="selected">10</option>
+                                        <option value="30" >30</option>
+                                        <option value="50" >50</option>
+                                        <option value="100">100</option>
+                                        <option value="300">300</option>
+                                        <option value="500">500</option>
+                                        <option value="1000">1000</option>
+                                        <option value="3000">3000</option>
+                                        <option value="5000">5000</option>
+                                                        </select>&nbsp;
+                                                    </span>
+                                                    <span id="tab_2_pageInfo" style="margin-right: 10px;"></span>
+                                                    <div class="btn-group" id="tab_2_pager"></div>
+                                                </div>
+                                                <!--页码结束-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--财务流水-->
+                    <div id="tab-3" class="tab-pane">
+                        <div class="panel-body" style="padding-left: 25px;">
+                            <div class="wrapper wrapper-content" style="padding: 0">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12">
+                                        <div class="mail-box-header">
+                                            <div class="form-group">
+                                                <div class="col-xs-4 col-sm-4 col-lg-4" style="padding-left: 0; padding-right: 0; margin-bottom: 3px;">
+                                                    <label class="col-xs-4 col-sm-4 control-label" style="width: 70px;">支付方式</label>
+                                                    <div class="col-xs-8 col-sm-8" style="padding-left: 0;padding-right: 0;">
+                                                        <div class="col-xs-12 col-sm-12" style="padding-left: 0;padding-right: 0;">
+                                                            <select id="tab_3_pay_way" class="form-control" style="padding-left: 5px;">
+                                                                <option value=''>全部</option>
+                                                                <option value='1'>微信支付</option>
+                                                                <option value='2'>支付宝支付</option>
+                                                                <option value='3'>人工收费</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4 col-sm-4 col-lg-4" style="padding-left: 0; padding-right: 0; margin-bottom: 3px;">
+                                                    <label class="col-xs-4 col-sm-4 control-label">内容</label>
+                                                    <div class="col-xs-8 col-sm-8" style="padding-left: 0;padding-right: 0;">
+                                                        <div class="col-xs-12 col-sm-12" style="padding-left: 0;padding-right: 0;">
+                                                            <select id="tab_3_type" class="form-control" style="padding-left: 5px;">
+                                                                <option value=''>全部</option>
+                                                                <option value='1'>充值VIP</option>
+                                                                <option value='2'>充值刷新点</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4 col-sm-4 col-lg-4" style="padding-left: 0; padding-right: 0; margin-bottom: 3px;">
+                                                    <label class="col-xs-4 col-sm-4 control-label">关键字</label>
+                                                    <div class="col-xs-8 col-sm-8" style="padding-left: 0;">
+                                                        <div class="col-xs-12 col-sm-12 input-group">
+                                                            <input type="text" class="form-control input-xs" id="tab_3_searchKey" placeholder="企业ID/昵称/绑定手机号"/>
+                                                            <span class="input-group-btn"><button type="submit" class="btn btn-primary" id="tab_3_find"> 搜 索 </button></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="clear: both"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper wrapper-content" style="padding: 0;">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content">
+                                                <h3 style="margin-right: 10px;">财务流水记录</h3>
+                                                <div style="text-align: right; padding-right: 15px;">
+                                                    <span><a class="btn btn-xs btn-primary" id="tab_3_download" href="/plat.financial/exportFlowToExcel">导出表格</a></span>
+                                                    <!--<span><a class="btn btn-xs btn-primary" id="download" href="#">导出表格</a></span>-->
+                                                </div>
+                                                <!--列表开始-->
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th style="text-align: center;width:150px">企业ID</th>
+                                                            <th style="text-align: center;width:150px">昵称</th>
+                                                            <th style="text-align: center;width:150px">手机号</th>
+                                                            <th style="text-align: center;width:150px">企业名称</th>
+                                                            <th style="text-align: center;width:150px">金额（元）</th>
+                                                            <th style="text-align: center;width:150px">内容</th>
+                                                            <th style="text-align: center;width:150px">支付方式</th>
+                                                            <th style="text-align: center;width:150px">时间</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tab_3_show" style="text-align: center"></tbody>
+                                                    </table>
+                                                </div>
+                                                <script id="tab_3_model" type="text/html">
+                                                    {{# var typeArr = {1:'充值VIP',2:'充值刷新点'}  }}
+                                                    {{# var payArr  = {1:'微信支付',2:'支付宝支付',3:'人工收费'}  }}
+                                                    {{# if(d.massageCode == 'success') { }}
+                                                    {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                                                    <tr>
+                                                        <td>
+                                                            <span>{{ list[i].EnterpriseID }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].uname == null ? '' : list[i].uname }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].phone }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].companyname == null ? '' : list[i].companyname }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].money }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ typeArr[list[i].type] }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ payArr[list[i].payway] }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].create_time }}</span>
+                                                        </td>
+                                                    </tr>
+
+                                                    {{# } }}
+                                                    {{# }else{ }}
+                                                    <td colspan="8">
+                                                        <span>{{ d.massage }}</span>
+                                                    </td>
+                                                    {{# } }}
+                                                </script>
+                                                <!--列表结束-->
+                                                <!--页码开始-->
+                                                <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                                    <input hidden="hidden" value="1" id="tab_3_page"/>
+                                                    <span>每页显示
+                                                        <select id="tab_3_pageSize" onchange="getFinancialFlow(1)">
+                                                            <option value="10"  selected="selected">10</option>
+                                        <option value="30" >30</option>
+                                        <option value="50" >50</option>
+                                        <option value="100">100</option>
+                                        <option value="300">300</option>
+                                        <option value="500">500</option>
+                                        <option value="1000">1000</option>
+                                        <option value="3000">3000</option>
+                                        <option value="5000">5000</option>
+                                                        </select>&nbsp;
+                                                    </span>
+                                                    <span id="tab_3_pageInfo" style="margin-right: 10px;"></span>
+                                                    <div class="btn-group" id="tab_3_pager"></div>
+                                                </div>
+                                                <!--页码结束-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--财务统计-->
+                    <div id="tab-4" class="tab-pane">
+                        <div class="panel-body" style="padding-left: 25px;">
+                            <div class="wrapper wrapper-content">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12">
+                                        <div class="col-xs-4 col-sm-4 total">
+                                            <p>累计营收（元）</p>
+                                            <span id="money3"></span>
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 total">
+                                            <p>累计充值VIP金额（元）</p>
+                                            <span id="money1"></span>
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 total">
+                                            <p>累计购买刷新点金额（元）</p>
+                                            <span id="money2"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="mail-box-header" style="padding-top: 15px; padding-bottom: 5px;">
+                                        <div class="form-group">
+                                            <div class="col-xs-12 col-sm-12 col-lg-12" style="padding-left: 0; padding-right: 0; margin-bottom: 3px;">
+                                                <label class="col-xs-2 col-sm-2 control-label">时间段</label>
+                                                <div class="col-xs-3 col-sm-3" style="padding-left: 0; width: 165px;">
+                                                    <input type="text" class="form-control input-xs" id="tab_4_time1"/>
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3" style="padding-left: 0; width: 222px;">
+                                                    <div class="col-xs-12 col-sm-12 input-group">
+                                                        <input type="text" class="form-control input-xs" id="tab_4_time2"/>
+                                                        <span class="input-group-btn"><button type="submit" class="btn btn-primary" id="tab_4_find"> 搜 索 </button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="clear: both"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper wrapper-content" style="padding: 0;">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content">
+                                                <h3 style="margin-right: 10px;">财务统计</h3>
+                                                <div style="text-align: right; padding-right: 15px;">
+                                                    <span><a class="btn btn-xs btn-primary" id="tab_4_download" href="/plat.financial/exportStatisticsToExcel">导出表格</a></span>
+                                                    <!--<span><a class="btn btn-xs btn-primary" id="download" href="#">导出表格</a></span>-->
+                                                </div>
+                                                <!--列表开始-->
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th style="text-align: center;width:150px">日期</th>
+                                                            <th style="text-align: center;width:150px">新增营收（元）</th>
+                                                            <th style="text-align: center;width:150px">新增充值VIP（元）</th>
+                                                            <th style="text-align: center;width:150px">新增购买点数（元）</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tab_4_show" style="text-align: center"></tbody>
+                                                    </table>
+                                                </div>
+                                                <script id="tab_4_model" type="text/html">
+                                                    {{# var typeArr = {1:'充值VIP',2:'充值刷新点'}  }}
+                                                    {{# var payArr  = {1:'微信支付',2:'支付宝支付',3:'人工收费'}  }}
+                                                    {{# if(d.massageCode == 'success') { }}
+                                                    {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                                                    <tr>
+                                                        <td>
+                                                            <span>{{ list[i].time }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].money3 }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].money1 }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].money2 }}</span>
+                                                        </td>
+                                                    </tr>
+
+                                                    {{# } }}
+                                                    {{# }else{ }}
+                                                    <td colspan="4">
+                                                        <span>{{ d.massage }}</span>
+                                                    </td>
+                                                    {{# } }}
+                                                </script>
+                                                <!--列表结束-->
+                                                <!--页码开始-->
+                                                <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                                    <input hidden="hidden" value="1" id="tab_4_page"/>
+                                                    <span>每页显示
+                                                        <select id="tab_4_pageSize" onchange="getFinancialStatistics(1)">
+                                                            <option value="10"  selected="selected">10</option>
+                                        <option value="30" >30</option>
+                                        <option value="50" >50</option>
+                                        <option value="100">100</option>
+                                        <option value="300">300</option>
+                                        <option value="500">500</option>
+                                        <option value="1000">1000</option>
+                                        <option value="3000">3000</option>
+                                        <option value="5000">5000</option>
+                                                        </select>&nbsp;
+                                                    </span>
+                                                    <span id="tab_4_pageInfo" style="margin-right: 10px;"></span>
+                                                    <div class="btn-group" id="tab_4_pager"></div>
+                                                </div>
+                                                <!--页码结束-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <!--个人工资记录-->
+                    <div id="tab-5" class="tab-pane">
+                        <div class="panel-body" style="padding-left: 25px;">
+                            <div class="wrapper wrapper-content" style="padding: 0;">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content">
+                                                <h3 style="margin-right: 10px;cursor: pointer;" onclick="goBack()">&lt;&lt;返回 </h3>
+                                                <h3 style="margin-right: 10px;text-align: center;">员工个人工资记录 <span id="u_name"></span></h3>
+                                                <div style="text-align: right; padding-right: 15px;">
+                                                    <span><a class="btn btn-xs btn-primary" id="tab_5_download" href="javascript:void(0)">导出表格</a></span>
+                                                    <!--<span><a class="btn btn-xs btn-primary" id="download" href="#">导出表格</a></span>-->
+                                                </div>
+                                                <!--列表开始-->
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th style="text-align: center;width:150px">月份</th>
+                                                            <th style="text-align: center;width:150px">基本工资（元）</th>
+                                                            <th style="text-align: center;width:150px">补贴（元）</th>
+                                                            <th style="text-align: center;width:150px">修理厂使用频率提成（元）</th>
+                                                            <!--<th style="text-align: center;width:150px">汽修厂拨打数量提成（元）</th>-->
+                                                            <th style="text-align: center;width:150px">修理厂关联提成（元）</th>
+                                                            <th style="text-align: center;width:150px">新增关联汽修厂提成（元）</th>
+                                                            <th style="text-align: center;width:150px">关联经销商充值提成（元）</th>
+                                                            <th style="text-align: center;width:150px">合计工资（元）</th>
+                                                            <th style="text-align: center;width:240px">操作</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tab_5_show" style="text-align: center"></tbody>
+                                                    </table>
+                                                </div>
+                                                <script id="tab_5_model" type="text/html">
+                                                    {{# if(d.massageCode == 'success') { }}
+                                                    {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                                                    <tr>
+                                                        <td>
+                                                            <span>{{ list[i].time }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].base_wage }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].subsidies }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].repair_use_money }}</span>
+                                                        </td>
+                                                        <!--<td>
+                                                            <span>{{ list[i].repair_call_money }}</span>
+                                                        </td>-->
+
+                                                        <td>
+                                                            <span>{{ list[i].firm_comm }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].new_firm_comm }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].firm_recharge_comm }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].total }}</span>
+                                                        </td>
+                                                        <td style="text-align: center;">
+                                                            <span class="l">
+                                                                <p style="margin-bottom: 0;"><a onclick=getWageInfo('{{ list[i].uname }}',{{ list[i].id }})>[详情]</a></p>
+                                                                {{# if(list[i].is_show == 0){ }}
+                                                                <p style="margin-bottom: 0;"><a data-id="{{ list[i].id }}" data-type="2" onclick="editWage(this)">[编辑]</a></p>
+                                                                <p style="margin-bottom: 0;"><a data-id="{{ list[i].id }}" onclick="show_to_user(this)">[审核]</a></p>
+                                                                {{# } }}
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+
+                                                    {{# } }}
+                                                    {{# }else{ }}
+                                                    <td colspan="14">
+                                                        <span>{{ d.massage }}</span>
+                                                    </td>
+                                                    {{# } }}
+                                                </script>
+                                                <!--列表结束-->
+                                                <!--页码开始-->
+                                                <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                                    <input hidden="hidden" value="1" id="tab_5_page"/>
+                                                    <span>每页显示
+                                                        <select id="tab_5_pageSize">
+                                                            <option value="10"  selected="selected">10</option>
+                                        <option value="30" >30</option>
+                                        <option value="50" >50</option>
+                                        <option value="100">100</option>
+                                        <option value="300">300</option>
+                                        <option value="500">500</option>
+                                        <option value="1000">1000</option>
+                                        <option value="3000">3000</option>
+                                        <option value="5000">5000</option>
+                                                        </select>&nbsp;
+                                                    </span>
+                                                    <span id="tab_5_pageInfo" style="margin-right: 10px;"></span>
+                                                    <div class="btn-group" id="tab_5_pager"></div>
+                                                </div>
+                                                <!--页码结束-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/js/laytpl/laytpl.js"></script>
+
+<!--弹窗js-->
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+<!--分页插件-->
+<script src="/js/jquery.page.js"></script>
+<!--日期选择组件-->
+<script src="/js/layer/laydate/laydate.js"></script>
+<!--自定义js-->
+<script src="/js/plat/province.js"></script>
+<script src="/js/global.js"></script>
+<script>
+    //===============工资配置 开始======================
+    $(function(){
+        getSales(1);
+        $("#tab_1_find,#tab_1").click(function(){
+            getSales(1);
+        });
+        setProvince('tab_1_province','');
+    });
+    /**
+     * 获取数据
+     */
+    function getSales(page){
+        var data      = {};
+        data.province = $("#tab_1_province").val();
+        data.keywords = $("#tab_1_searchKey").val();//关键字
+        data.order    = '';
+        data.page     = page ? page : 1;
+        data.pageSize = $('#tab_1_pageSize').val();
+        var url = '/plat.financial/getSales';
+        var index = layer.load(2);
+        $.post(url,{data:data},function(rdata){
+
+            var href  = '/plat.financial/exportSalesToExcel/' ;
+            href     += '?province='+data.province+'&order='+data.order ;
+            href     += '&keywords='+data.keywords+'&page='+data.page+'&pageSize='+data.pageSize ;
+            $("#tab_1_download").attr('href',href);
+
+            layer.close(index);
+            var pageInfo = '';
+            var p     = rdata.page;
+            var pageSize = rdata.pageSize;
+            var count = rdata.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            $("#tab_1_pageInfo").text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+            $("#tab_1_pager").createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getSales(p);
+                }
+            });
+
+            var tpl = $('#tab_1_model').html();
+            laytpl(tpl).render(rdata, function(html){
+                $('#tab_1_show').html(html);
+            });
+        },'json');
+        $("#tab_1_page").val(page);
+    }
+    /**
+     * 返回
+     */
+    function goBack() {
+        $("#tab_1").parent().addClass('active');
+        $("#tab-1").addClass('active');
+        $("#tab_2").parent().removeClass('active');
+        $("#tab-5").removeClass('active');
+        $("#tab_5_down").attr('href','javascript:void(0)');
+    }
+    /**
+     * 个人工资记录
+     */ 
+    function getOneSaleWageLog(name, uid,page) {
+        $('#u_name').text('[ '+name+' ]') ;
+        $("#tab_1").parent().removeClass('active');
+        $("#tab-1").removeClass('active');
+        $("#tab_2").parent().addClass('active');
+        $("#tab-5").addClass('active');
+        $("#tab_5_download").attr('href','/plat.financial/exportWageToExcel/?uid='+uid);
+
+        var data      = {};
+        data.date     = '';
+        data.keywords = '';//关键字
+        data.uid      = uid;
+        data.order    = '';
+        data.page     = page ? page : 1;
+        data.pageSize = $('#tab_5_pageSize').val();
+        var url = '/plat.financial/getWage';
+        var index = layer.load(2);
+        $.post(url,{data:data},function(rdata){
+            layer.close(index);
+            var pageInfo = '';
+            var p     = rdata.page;
+            var pageSize = rdata.pageSize;
+            var count = rdata.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            $("#tab_5_pageInfo").text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+            $("#tab_5_pager").createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getOneSaleWageLog(name, uid,p);
+                }
+            });
+
+            var tpl = $('#tab_5_model').html();
+            laytpl(tpl).render(rdata, function(html){
+                $('#tab_5_show').html(html);
+            });
+            $("#tab_5_pageSize").change(function () {
+                getOneSaleWageLog(name, uid,1) ;
+            });
+        },'json');
+        $("#tab_5_page").val(page);
+
+    }
+    /**
+     * 编辑工资
+     */
+    function editWage(obj){
+        var id    = $(obj).attr('data-id');
+        var type  = $(obj).attr('data-type');
+        var title = "业务员基本工资配置";
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['550px', '350px'],
+            content: '/plat.financial/editWage/?type='+type+'&id='+id,
+            end:function () {
+                var p = $("#tab_1_page").val();
+                if(type == 1){
+                    getSales(p);
+                }else {
+                    p = $("#tab_2_page").val();
+                    getWages(p);
+                }
+            }
+        });
+    }
+    //===============工资记录 开始======================
+
+    $(function () {
+        $("#tab_2_find,#tab_2").click(function(){
+            getWages(1);
+        });
+
+    });
+
+    /**
+     * 获取数据
+     */
+    function getWages(page){
+        var data      = {};
+
+        data.date     = $("#tab_2_month").val();
+        data.keywords = $("#tab_2_searchKey").val();//关键字
+        data.uid      = '';
+        data.order    = '';
+        data.page     = page ? page : 1;
+        data.pageSize = $('#tab_2_pageSize').val();
+        var url = '/plat.financial/getWage';
+        var index = layer.load(2);
+        $.post(url,{data:data},function(rdata){
+
+            var href  = '/plat.financial/exportWageToExcel/' ;
+            href     += '?date='+data.date+'&uid='+data.uid +'&order='+data.order ;
+            href     += '&keywords='+data.keywords+'&page='+data.page+'&pageSize='+data.pageSize ;
+            $("#tab_2_download").attr('href',href);
+
+            layer.close(index);
+            var pageInfo = '';
+            var p     = rdata.page;
+            var pageSize = rdata.pageSize;
+            var count = rdata.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            $("#tab_2_pageInfo").text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+            $("#tab_2_pager").createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getWages(p);
+                }
+            });
+
+            var tpl = $('#tab_2_model').html();
+            laytpl(tpl).render(rdata, function(html){
+                $('#tab_2_show').html(html);
+            });
+        },'json');
+        $("#tab_2_page").val(page);
+    }
+
+    function show_to_user(obj) {
+        var data = {} ;
+        data.id  = $(obj).attr('data-id');
+        var tip = '是否展示给业务员 ? 展示之后无法恢复,无法再编辑！' ;
+        layer.confirm(tip,{shadeClose: true, title:'重要提示',area:['400px','170px']},function (index) {
+
+            var url = '/plat.financial/show_to_user';
+            $.post(url,{data:data},function(rv){
+                if(rv.massageCode == 'success'){
+                    layer.close(index);
+                    layer.msg(rv.massage) ;
+                    getWages(1);
+                }else {
+                    layer.msg(rv.massage) ;
+                }
+            },'json')
+        });
+    }
+    function getWageInfo(name,wid) {
+        var title = "工资详情—"+name ;
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['500px', '500px'],
+            content: '/plat.financial/getWageInfo/?wid='+wid
+        });
+    }
+    //===============财务流水 开始======================
+    $(function(){
+        $("#tab_3_find,#tab_3").click(function(){
+            getFinancialFlow(1);
+        });
+    });
+    /**
+     * 获取数据
+     */
+    function getFinancialFlow(page){
+        var data      = {};
+        data.payway   = $("#tab_3_pay_way").val();
+        data.type     = $("#tab_3_type").val();
+        data.keywords = $("#tab_3_searchKey").val();//关键字
+        data.order    = '';
+        data.page     = page ? page : 1;
+        data.pageSize = $('#tab_3_pageSize').val();
+        var url = '/plat.financial/getFinancialFlow';
+        var index = layer.load(2);
+        $.post(url,{data:data},function(rdata){
+            var href  = '/plat.financial/exportFlowToExcel/' ;
+            href     += '?payway='+data.payway+'&type='+data.type +'&order='+data.order ;
+            href     += '&keywords='+data.keywords+'&page='+data.page+'&pageSize='+data.pageSize ;
+            $("#tab_3_download").attr('href',href);
+
+            layer.close(index);
+            var pageInfo = '';
+            var p     = rdata.page;
+            var pageSize = rdata.pageSize;
+            var count = rdata.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            $("#tab_3_pageInfo").text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+            $("#tab_3_pager").createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getFinancialFlow(p);
+                }
+            });
+
+            var tpl = $('#tab_3_model').html();
+            laytpl(tpl).render(rdata, function(html){
+                $('#tab_3_show').html(html);
+            });
+        },'json');
+        $("#tab_3_page").val(page);
+    }
+
+    //===============财务统计 开始======================
+
+    $(function(){
+        //getAllFinancialMoney();
+        dateIni('tab_4_time1','tab_4_time2');
+        $("#tab_4_find,#tab_4").click(function(){
+            getAllFinancialMoney();
+            getFinancialStatistics(1);
+        });
+
+        /*setInterval(function () {
+            getAllFinancialMoney();
+        },5*60*1000)*/
+    });
+    function dateIni(id_start,id_end) {
+        var start1 = {
+            elem: '#'+id_start,//需显示日期的元素选择器
+            event: 'click', //触发事件
+            format: 'YYYY-MM-DD', //日期格式
+            //istime: false, //是否开启时间选择
+            isclear: true, //是否显示清空
+            istoday: true, //是否显示今天
+            //issure: true, //是否显示确认
+            festival: true, //是否显示节日
+            min: '2016-01-01', //最小日期
+            max: laydate.now('+30'), //最大日期
+            start: laydate.now(),  //开始日期,今天
+            fixed: false, //是否固定在可视区域
+            zIndex: 99999999, //css z-index
+            choose: function(datas){
+                start2.min = datas; //开始日选好后，重置结束日的最小日期
+                start2.start = datas; //将结束日的初始值设定为开始日
+            }
+        };
+        var start2 = {
+            elem: '#'+id_end,//需显示日期的元素选择器
+            event: 'click', //触发事件
+            format: 'YYYY-MM-DD', //日期格式
+            //istime: false, //是否开启时间选择
+            isclear: true, //是否显示清空
+            istoday: true, //是否显示今天
+            //issure: true, //是否显示确认
+            festival: true, //是否显示节日
+            min: '2016-01-01', //最小日期
+            max: laydate.now('+30'), //最大日期
+            start: laydate.now(),  //开始日期,今天
+            fixed: false, //是否固定在可视区域
+            zIndex: 99999999, //css z-index
+            choose: function(datas){
+                start1.max = datas; //结束日选好后，重置开始日的最大日期
+            }
+        };
+        laydate.skin('yd');//加载皮肤
+        laydate(start1);
+        laydate(start2);
+    }
+
+
+    /**
+     * 获取数据
+     */
+    function getFinancialStatistics(page){
+        var data      = {};
+        data.time1    = $("#tab_4_time1").val();
+        data.time2    = $("#tab_4_time2").val();
+        data.page     = page ? page : 1;
+        data.pageSize = $('#tab_4_pageSize').val();
+        var url = '/plat.financial/getFinancialStatistics';
+        var index = layer.load(2);
+        $.post(url,{data:data},function(rdata){
+            var href  = '/plat.financial/exportSalesToExcel/' ;
+            href     += '?time1='+data.time1+'&time2='+data.time2 ;
+            href     += '&page='+data.page+'&pageSize='+data.pageSize ;
+            $("#tab_4_download").attr('href',href);
+
+            layer.close(index);
+            var pageInfo = '';
+            var p     = rdata.page;
+            var pageSize = rdata.pageSize;
+            var count = rdata.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            $("#tab_4_pageInfo").text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+            $("#tab_4_pager").createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getFinancialStatistics(p);
+                }
+            });
+            var tpl = $('#tab_4_model').html();
+            laytpl(tpl).render(rdata, function(html){
+                $('#tab_4_show').html(html);
+            });
+        },'json');
+        $("#tab_4_page").val(page);
+    }
+
+    function getAllFinancialMoney() {
+        var url = '/plat.financial/getAllFinancialMoney';
+        $.post(url,{},function(rdata){
+
+            if(rdata.money3 || rdata.money3 == 0 ){
+                $('#money3').text(rdata.money3);
+            }else {
+                $('#money3').text('0.00');
+            }
+            if(rdata.money2 || rdata.money2 == 0 ){
+                $('#money2').text(rdata.money2);
+            }else {
+                $('#money2').text('0.00');
+            }
+            if(rdata.money1 || rdata.money1 == 0 ){
+                $('#money1').text(rdata.money1);
+            }else {
+                $('#money1').text('0.00');
+            }
+        },'json');
+
+    }
+
+</script>
+</body>
+</html>

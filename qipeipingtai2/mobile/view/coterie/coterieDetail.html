@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>动态详情</title>
+	<link href="../../css/mui.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8"/>
+	<script type="text/javascript" charset="utf-8">
+
+	</script>
+</head>
+<style> 
+	.sw-link{ 
+		color: #666;
+		border: 1px solid #efefef;
+		height: 48px;
+		line-height: 48px;
+		text-align: left;
+		width: 240px;
+		margin: auto; 
+		border-radius: 24px;
+		font-size: 14px; 
+		padding-left: 24px;
+	}
+	.sw-input-box{
+		width: 100%;background: #efefef;padding-top: 10px;text-align: center;
+	}
+	.sw-input-pen{
+		text-align: left;
+		height: 36px!important;
+		background: url(../../image/coterie/pen.png)no-repeat;
+		background-position: 16px 6px;
+		background-size: 16px;
+		padding-left: 38px!important;
+		padding-right: 8px!important;
+		width:92%!important;
+		margin-bottom: 0!important;
+		border-radius: 24px!important;
+	}
+	.sw-input-zx{
+		position: absolute;right: 42px;top: 22px;width: 24px;height: 24px;
+	}
+
+	.sw-box1{
+		background: #FFFFFF;margin-bottom: 20px;
+	}
+	.sw-box2{
+		background: #F5F5F5;padding: 10px;
+	}
+
+
+	.sw-card-header{
+
+	}
+	.sw-card-header:after{
+		background: none!important;
+	}
+	.sw-card-pingjia:last-child:after {
+		height: 0;
+	}
+	.sw-card-body{
+		background: #f5f5f5;margin-top: 4px;border: 1px solid #DDDDDD;border-radius: 6px;padding: 10px;
+	}
+	.sw-coterie-imgBox:before,.sw-coterie-imgBox:after{
+		height: 0;
+	}
+	.sw-card-cuBox3{
+		height: 60px;
+		white-space: normal;
+		color: #000000;
+		overflow-y: hidden;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		word-break: break-all;
+		font-size: 16px;
+	}
+	.sheying:active{
+		width: 46px!important;
+	}
+
+	.sw-coterie-box{
+		background: #FFFFFF;margin-bottom: 20px;
+	}
+	.sw-face{
+		border-radius: 50%;
+	}
+	.sw-nickName{
+		color:#FF534C;line-height: 24px;
+	}
+	.sw-table-text1{
+		color: #333333;line-height: 18px;
+	}
+	.sw-dingwei-img{
+		width: 16px;vertical-align: top;margin-right: 4px;
+	}
+
+	.sw-del-box{
+		width: 50%;float: left;line-height: 24px;
+	}
+	.sw-del-text{
+		font-size: 13px;color: #FF534C;margin-left: 16px
+	}
+
+	.sw-like-box{
+		width: 50%;float: right;line-height: 24px;text-align: right;
+	}
+	.sw-like-img{
+		height: 15px;width:17px;vertical-align: text-bottom;margin-right: 4px;
+	}
+	.sw-pj-img{
+		height: 15px;width:17px;vertical-align: text-bottom;margin-right: 4px;
+	}
+
+	.sw-card-li{
+		background: #e9e9e9;width: 90%;padding: 10px 12px;
+	}
+	.sw-card-img1{
+		height: 60px!important;max-width: 60px!important;
+	}
+	.sheying-box{
+		position: fixed;width: 40px;bottom: 30px;right: 12px;
+	}
+	.sheying-box img{
+		width: 40px;
+	}
+	.sheying{
+		transition: width 100ms;
+
+	}
+
+	.sw-sanjiao{
+		width: 0;height: 0;border-left:8px solid transparent;border-right: 8px solid transparent;border-bottom: 10px solid #F5F5F5;margin-left: 12px;
+	}
+	.sw-dateTime{
+		font-size: 12px;color: #999999;float: right;
+	}
+	.sw-del-text1{
+		font-size: 12px;color: #FF534C;float: right;margin-right: 16px;
+	}
+	.sw-pj-text1{
+		color: #333333;line-height: 18px;
+	}
+
+	.sw-hf-box{
+		padding: 6px;background: #DDDDDD;margin-top: 4px;
+	}
+	.sw-hf-text1{
+		float: left;display: inline;width: auto;margin-left: 65px;margin-top: -18px;
+	}
+	.sw-hf-text1 p{
+		color: #333333;
+	}
+	.sw-hf-text2{
+		color: #333333;font-size: 14px;
+	}
+
+	.sw-pingjia-bottom{
+		height: 45px;width: 100%;position: fixed;bottom:4px;background: #FFFFFF;border-top: 1px solid #EFEFEF;
+	}
+	.sw-pingjia-box{
+		padding-top: 8px;padding-bottom: 8px;
+	}
+	.sw-pingjia-input{
+		padding-right: 45px;
+	}
+			.mui-popup-button:after {
+    width: 0px;
+}
+.mui-popup-inner:after {
+    height: 0px;
+}
+.mui-popup-button:first-child:last-child {
+    border-radius: 4px;
+}
+.sw-popu-btn{
+	width:70%;height:36px;line-height:14px;border-radius: 1px;margin: auto;font-size: 16px;
+}
+</style>
+<script type="text/javascript" charset="utf-8">
+    //取消浏览器的所有事件，使得active的样式在手机上正常生效
+    document.addEventListener('touchstart',function(){
+        return false;
+    },true);
+    // 禁止选择
+    document.oncontextmenu=function(){
+        return false;
+    };
+    // H5 plus事件处理
+    var as='pop-in';// 默认窗口动画
+    // DOMContentLoaded事件处理
+    var _domReady=false;
+    document.addEventListener('DOMContentLoaded',function(){
+        _domReady=true;
+        compatibleAdjust();
+    },false);
+    // 兼容性样式调整
+    var _adjust=false;
+    function compatibleAdjust(){
+        if(_adjust||!window.plus||!_domReady){
+            return;
+        }
+        _adjust=true;
+        // iOS平台特效
+        if('iOS'==plus.os.name){
+            document.getElementById('content').className='scontent';	// 使用div的滚动条
+            if(navigator.userAgent.indexOf('StreamApp')>=0){	// 在流应用模式下显示返回按钮
+                document.getElementById('back').style.visibility='visible';
+            }
+        }
+        // 关闭启动界面
+        plus.navigator.setStatusBarBackground('#FF534C');
+        if(plus.navigator.isImmersedStatusbar()){
+            plus.navigator.setStatusBarStyle('UIStatusBarStyleBlackOpaque');
+        }
+        setTimeout(function(){
+            plus.navigator.closeSplashscreen();
+        },200);
+    }
+</script>
+<body style="background: #EFEFEF;">
+<header class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<h1 class="mui-title">动态详情</h1>
+</header>
+<div class="mui-content" style="background: #EFEFEF;margin-bottom: 45px;">
+	<!--主要内容-->
+	<div class="sw-box1" id="detailInfo">
+
+
+	</div>
+	<!--底部评价-->
+
+</div>
+
+<div class="sw-pingjia-bottom" id="pingjiaBottom" style="display: none;">
+	<ul class="mui-table-view">
+		<li class="mui-table-view-cell sw-pingjia-box">
+			<div class="mui-input-row sw-pingjia-input">
+				<input type="text" placeholder="写点什么" id="thisReply" maxlength="200" class="sw-input-pen" style="font-size: 14px;">
+			</div>
+			<button type="button" class="mui-btn mui-btn-tangerine" id="doComment" onclick="toCommentCircle(0)">
+				评论
+			</button>
+		</li>
+	</ul>
+</div>
+
+<script id="detail-list-tpl" type="text/html">
+	<div class="mui-card-header mui-card-media sw-card-header">
+		
+		<img src="{{ imgUrl+d.head_pic }}" class="sw-face"/>
+		<div class="mui-media-body">
+			<input type="hidden" name="circleId" value="{{ d.id }}">
+			<span class="sw-nickName">{{ d.uname }}</span>
+			<p class="sw-table-text1">{{ d.content }}</p>
+
+			{{# if(d.circle_type==2){ }}
+			<ul class="mui-table-view sw-coterie-imgBox" style="margin: 10px 0;">
+				<li class="mui-table-view-cell mui-media sw-card-li">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left sw-card-img1" src="{{ imgUrl+d.face_pic }}">
+						<div class="mui-media-body sw-card-cuBox3">
+							{{ d.companyname }}
+						</div>
+					</a>
+				</li>
+			</ul>
+			{{# }else{ }}
+			<ul class="mui-table-view mui-grid-view sw-coterie-imgBox" style="margin-left: -12px;">
+				{{# for(var j=0,len2=d.imgs.length;j<len2;j++){ }}
+				<li class="mui-table-view-cell mui-media mui-col-xs-4">
+					<img class="mui-media-object" src="{{ imgUrl+d.imgs[j] }}" data-preview-src="{{ imgUrl+d.imgs[j] }}" data-preview-group="{{ d.id }}" width="100%" height="{{ imgH }}px" style="height: {{ imgH }}px;">
+				</li>
+				{{# } }}
+			</ul>  
+			{{# } }}
+
+			<p style="color: #FF534C!important;">
+				<img src="../../image/coterie/dingwei.png" class="sw-dingwei-img"/>{{ d.area }}
+			</p>
+
+			<div style="width: 100%;">
+				<p class="sw-del-box">
+					{{ d.create_time }}
+					{{# if(d.can_delete){ }}
+					<span class="sw-del-text" onclick="delCircle('{{ d.id }}')">删除</span>
+					<input type="number" name="delStatus{{ d.id }}" id="delStatus{{ d.id }}" value="1" hidden="hidden" />
+					{{# } }}
+				</p>
+
+				<p class="sw-like-box">
+						<span style="margin-right: 32px;">
+							{{# if(d.is_collect){ }}
+							<img src="../../image/coterie/icon_dt_like_r.png" class="sw-like-img" id="like_this_{{ d.id }}" onclick="collectCircle('{{ d.id }}',0)"/>
+							{{# }else{ }}
+							<img src="../../image/coterie/icon_dt_like.png" class="sw-like-img" id="like_this_{{ d.id }}"  onclick="collectCircle('{{ d.id }}',1)"/>
+							{{# } }}
+							<span id="circle_collect_{{ d.id }}">{{ d.collection }}</span>
+						</span>
+					<span id="detail">
+							<img src="../../image/coterie/icon_dt_pingjia.png" class="sw-pj-img" onclick="toReply3()"/>{{ d.comments }}
+					</span>
+				</p>
+
+			</div>
+
+			<div style="clear: both;"></div>
+		</div>
+
+{{# if(d.pl.length>0){ }}
+		<div class="sw-sanjiao"></div>
+		
+		<div class="sw-box2">
+			{{# for(var k=0,len3=d.pl.length;k<len3;k++){ }}
+			<div class="mui-card-header mui-card-media sw-card-pingjia">
+				<img src="{{ imgUrl+d.pl[k].head_pic }}" class="sw-face"/>
+				<div class="mui-media-body">
+					<span class="sw-nickName"  style="word-break: break-all;">{{ d.pl[k].uname }}</span>
+					<span class="sw-dateTime">{{ d.pl[k].create_time }}</span>
+					{{# if(d.can_delete){ }}
+					<span class="sw-del-text1" onclick="delCircle('{{ d.pl[k].id }}')">删除</span>
+					<input type="hidden" id="delStatus{{ d.pl[k].id }}" value="1"/>
+					{{# } }}
+					<div>
+						{{# if(d.pl[k].reply.id){ }}
+
+						<p class="sw-pj-text1"  style="word-break: break-all;">回复
+							<span style="color: #FF534C;">{{ d.pl[k].uname }}</span>：{{ d.pl[k].content }}
+						</p>
+						<div class="sw-hf-box">
+						{{# if(d.pl[k].reply.is_delete==0){ }}
+							<div onclick="toReply2(this)" data-id="{{ d.pl[k].reply.id }}" data-name="{{ d.pl[k].reply.uname }}">
+								<p class=""  style="word-break: break-all;">回复
+									<span style="color: #FF534C;">{{ d.pl[k].reply.uname }}</span>：{{ d.pl[k].reply.content }}
+								</p>
+							</div>
+							<div style="clear: both;"></div>
+						{{# }else{ }}
+							<p class="sw-hf-text2">评论内容已被删除</p>
+						{{# } }}
+						</div>
+						{{# }else{ }}  
+						<div onclick="toReply2(this)" data-id="{{ d.pl[k].id }}" data-name="{{ d.pl[k].uname }}">
+							<p class="sw-pj-text1">{{ d.pl[k].content }}</p>
+						</div>
+						{{# } }}
+					</div>
+
+				</div>
+			</div>
+			{{# } }}
+		</div>
+		{{# mui.previewImage();  } }}
+	</div>
+</script>
+
+<script id="detail-no-tpl" type="text/html">
+<div style="text-align: center;margin-top: 120px;background: #EFEFEF;">
+	<img src="../../image/index/icon_qg_weikong.png" style="max-width: 120px;">
+	<p style="line-height: 48px;">动态不存在或已被删除</p>
+</div>
+</script>
+</body>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/global.js"></script>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/laytpl/laytpl.js"></script>
+<script src="../../js/mui.previewimage.js?v=1.0.6"></script>
+<script src="../../js/mui.zoom.js"></script>
+<script>
+    var imgH = parseInt((document.body.clientWidth-120)/3);
+    //mui初始化
+    mui.init();
+    //初始化
+    mui.plusReady(function() {
+        jiazaiCircleData();
+    });
+
+    function jiazaiCircleData() {
+        var self = plus.webview.currentWebview();
+        var	id = self.vid;
+        token    = plus.storage.getItem('token');
+        userType = JsonStorage.getItem('userType');	//2为业务员
+
+        loading('加载中...');
+        //获取数据
+        http.load('api.sev.circle','getOneCircle',{'id':id,'userType':userType,'token':token},function(rData){
+            sw.jcon(rData);
+            //关闭加载框
+            closeLoading(300);
+            if(rData.status==200){
+                //初始化信息
+                if(rData.is){
+                    var data = rData.data;
+                    var detailTpl   = $('#detail-list-tpl').html();
+                    laytpl(detailTpl).render(data,function(render){
+                        $('#detailInfo').html(render);
+                    });
+                    
+                     $("#pingjiaBottom").show();
+                }else {
+                    var detailTpl1   = $('#detail-no-tpl').html();
+                    laytpl(detailTpl1 ).render({},function(render){
+                        $('#detailInfo').html(render);
+                    });
+                    
+                   
+                }
+            }else{
+                var tips = '<p style="text-align:center">'+rData.msg+'</p>';
+                $('#detailInfo').html(tips);
+                sw.toast(rData.msg);
+            }
+
+        },function(xhr,type,errorThrown){
+            //关闭加载框
+            closeLoading();
+            //无网络提示
+            sw.toast('获取数据失败，请检查网络');
+        })
+    }
+    
+    function collectCircle(n,t) {
+        if(UserInfo.has_login()==false){
+            sw.toast('请重新登录');
+            return
+        }
+        var postData      = {};
+        postData.id       = n;
+        postData.type     = t;
+        postData.token    = plus.storage.getItem('token');
+        postData.userType = JsonStorage.getItem('userType');	//2为业务员
+        //如果已经登陆 获取登录后的数据
+        http.load('api.sev.circle','collectCircle',postData,function(rData){//请求成功
+            //关闭加载框
+            closeLoading();
+            sw.toast(rData.msg);
+            if(rData.status==200){//保存成功
+                if(t===1){
+					$('#like_this_'+n).attr('onclick','collectCircle('+n+',0)').attr('src','../../image/coterie/icon_dt_like_r.png');
+					$('#circle_collect_'+n).html(parseInt($('#circle_collect_'+n).html())+1);
+                }else {
+                    $('#like_this_'+n).attr('onclick','collectCircle('+n+',1)').attr('src','../../image/coterie/icon_dt_like.png');
+                    $('#circle_collect_'+n).html(parseInt($('#circle_collect_'+n).html())-1);
+                }
+            }
+        },function(xhr,type,errorThrown){//请求失败
+            $(delId).val(1)
+            //无网络提示 
+            sw.toast('请求失败，服务器或网络异常');
+        })
+    }
+
+    function toReply2(i) {
+		var uname1 = $(i).attr('data-name');
+		var punId = $(i).attr('data-id');
+		$('#thisReply').attr('placeholder','//回复'+uname1);
+		$('#doComment').attr('onclick','toCommentCircle('+punId+')');
+		$('#thisReply').focus();
+    }
+
+    function toReply3() {
+        $('#thisReply').attr('placeholder','写点什么');
+        $('#doComment').attr('onclick','toCommentCircle(0)');
+        $('#thisReply').focus();
+    }
+    
+    function toCommentCircle(m) {
+        //获取数据
+        var circleId = $('input[name="circleId"]').val();
+        var token    = plus.storage.getItem('token');
+        var userType = JsonStorage.getItem('userType');	//2为业务员
+        var content  = $('#thisReply').val();
+        http.load('api.sev.circle','firmComment',{circleId:circleId,'userType':userType,'token':token,punId:m,content:content},function(rData){
+            sw.jcon(rData);
+            //关闭加载框
+            closeLoading(300);
+            sw.toast(rData.msg);
+            if(rData.status==200){
+            	location.reload();
+            }
+        },function(xhr,type,errorThrown){
+            //关闭加载框
+            closeLoading();
+            //无网络提示
+            sw.toast('获取数据失败，请检查网络');
+        })
+
+    }
+    
+    function delCircle(n){
+        mui.confirm('确认删除？删除后不可恢复', '&nbsp;', ['<span class="mui-popup-button mui-btn sw-popu-btn" style="color:#333">确认</span>','<span class="mui-popup-button mui-btn mui-btn-blue sw-popu-btn">取消</span>' ], function(e) {
+			if (e.index == 1) {//确认
+				var delId = "#delStatus"+n;
+			    if($(delId).val()==1){
+					$(delId).val(0)
+					//加载弹窗
+
+					var postData      = {};
+					postData.circleId = n;
+					postData.token    = plus.storage.getItem('token');
+	    			postData.userType = JsonStorage.getItem('userType');	//2为业务员
+
+			        if(UserInfo.has_login()==false){
+			        	sw.toast('请重新登录');
+						return
+					}
+						//如果已经登陆 获取登录后的数据
+					http.load('api.sev.circle','delSelfCircleComment',postData,function(rData){//请求成功
+						//关闭加载框
+						closeLoading();
+						sw.toast(rData.msg);
+			 			if(rData.status==200){//保存成功
+			 				location.reload();
+			 			}
+			 		},function(xhr,type,errorThrown){//请求失败
+			 			$(delId).val(1)
+						//无网络提示
+						sw.toast('请求失败，服务器或网络异常');
+			 		})
+				}
+			}
+		},'div')
+		$('.mui-popup-button').css('font-size','16px');
+	}
+</script>
+</html>

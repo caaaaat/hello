@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>个人资料</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">
+      
+    </script>
+</head>
+<style>
+	.sw-link{
+		color: #666;
+		border: 1px solid #efefef;
+		height: 48px;
+		line-height: 48px;
+		text-align: left;
+		width: 240px;
+		margin: auto;
+		border-radius: 24px;
+		font-size: 14px;
+		padding-left: 24px;
+	}
+	.sw-input-phone{
+		text-align: left;height: 48px!important;
+		background: url(../../image/index/icon_wz_sousuo@3x.png)no-repeat;
+		background-position: 24px;
+		background-size: 16px;
+		padding-left: 42px!important;
+	}
+	.sw-card-li:after{
+		left: 0;
+	}
+	
+	.sw-info-title{
+		color: #666666;font-size: 14px;
+	}
+	.sw-info-text{
+		float: right;margin-right: 20px;font-size: 14px;color: #666666;
+	}
+</style>	
+<body style="background: #EFEFEF;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">个人资料</h1>
+	</header>
+	<div class="mui-content" style="background: #EFEFEF;">
+		
+		<ul class="mui-table-view" style="margin-bottom: 10px;">
+			<li class="mui-table-view-cell sw-card-li" onclick="showActionSheet(this);">
+				<span class="sw-info-title" style="line-height: 50px;">头像</span>
+				<span class="sw-info-text" style="margin-right: 0;">
+					<img id="faceUrl" src="../../../image/person/more/icon_chenggong_mrtx.png" width="50px" height="50px" style="border-radius: 25px;"/>
+				</span>
+			</li>
+			<li class="mui-table-view-cell sw-card-li" id="nickName">
+				<a class="mui-navigate-right">
+					<span class="sw-info-title">昵称</span>
+					<span class="sw-info-text" id="uname"></span>
+				</a>
+			</li>
+		</ul>
+		
+	   <ul class="mui-table-view">
+			<li class="mui-table-view-cell sw-card-li" id="editPwd">
+				<a class="mui-navigate-right">
+					<span class="sw-info-title">修改密码</span>
+				</a>
+			</li>
+			<li class="mui-table-view-cell sw-card-li" id="setTel">
+				<a class="mui-navigate-right">
+					<span class="sw-info-title">绑定手机</span>
+					<span class="sw-info-text" id="tel"></span> 
+				</a>
+			</li>
+		</ul>
+	</div>
+</body>
+ <script type="text/javascript" src="../../../js/mui.min.js"></script>
+ <script type="text/javascript" src="../../../js/global.js"></script>
+<script type="text/javascript" charset="utf-8">
+	//监听自定义事件
+	window.addEventListener('refresh', function(e) {  
+		var pIIIs = plus.storage.getItem('pIIIs');
+		if(pIIIs==1){
+			location.reload(); 
+			//刷新后清除刷新标记
+			plus.storage.removeItem('pIIIs');
+		}
+    }) 
+	//mui初始化
+	mui.init({  
+	    beforeback: function() {  
+	    //获得列表界面的webview  
+	    var personinfo = plus.webview.currentWebview().opener();  
+	    //触发列表界面的自定义事件（refresh）,从而进行数据刷新  
+	    mui.fire(personinfo, 'refresh');  
+	    //返回true，继续页面关闭逻辑  
+	    return true;  
+	    }  
+	});
+	
+	//mui plusReady
+	mui.plusReady(function() {
+		
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+
+			var token   = plus.storage.getItem('token');
+			
+			var postData = {};
+				postData.token = token;
+				
+			//如果已经登陆 获取登录后的数据
+			http.load('api.sev.user','getUserInfo',postData,function(rData){//请求成功
+	 			
+	 			if(rData.status==200){
+	 				sw.jcon(rData);  				
+	 				var data = rData.data;	
+	    			mui("#tel")[0].innerText = data.phone; 
+	    			mui("#uname")[0].innerText = data.uname; 
+	    			if(data.head_pic!=null&&data.head_pic!=''){
+	    				mui("#faceUrl")[0].src = imgUrl+data.head_pic;   
+	    			}	
+	    			 //将请求的数据保存到本地
+			        plus.storage.setItem('userInfo',JSON.stringify(data));
+	 			}else{
+	 				sw.toast(rData.msg); 	
+	 			}
+		
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+	 			var data = plus.storage.getItem('userInfo');
+	 				if(data){
+	 					data = JSON.parse(data);
+			 			mui("#tel")[0].innerText = data.phone; 
+		    			mui("#uname")[0].innerText = data.uname; 
+		    			if(data.head_pic!=null&&data.head_pic!=''){
+	    				mui("#faceUrl")[0].src = imgUrl+data.face_pic;  
+	    				}
+	 				}
+	 				//无网络提示
+	 				sw.toast('请求失败，请检查网络'); 
+	 		})
+
+		}else{//未登录显示未登录界面	 		
+
+		}
+	
+	})	
+	
+	//设置手机号
+	mui("#setTel")[0].addEventListener('tap',function(){
+		openView('../../../view/person/info/setTel.html','person_info_setTel','pop-in');
+	})
+	
+	//修改密码
+	mui("#editPwd")[0].addEventListener('tap',function(){
+		openView('../../../view/person/info/editPwd.html','editPwd','pop-in');
+	})
+	
+	//修改昵称
+	mui("#nickName")[0].addEventListener('tap',function(){
+		openView('../../../view/person/info/editNick.html','nickName','pop-in');
+	})
+	
+	
+	/*点击修改头像图片*/
+	function showActionSheet(conf){  
+	  var divid = conf.id;  
+	      var actionbuttons=[{title:"拍照"},{title:"相册选取"}];  
+	      var actionstyle={title:"选择照片",cancel:"取消",buttons:actionbuttons};  
+	      plus.nativeUI.actionSheet(actionstyle, function(e){  
+	            if(e.index==1){  
+	                appendByCamera();
+	            }else if(e.index==2){  
+	                appendByGallery();  
+	            }  
+	      } );  
+	} 
+	// 拍照添加文件
+	function appendByCamera(){
+		plus.camera.getCamera().captureImage(function(p){
+			appendFile(p);
+		});	
+	}
+	// 从相册添加文件
+	function appendByGallery(){
+		plus.gallery.pick(function(p){
+	        appendFile(p);
+	    });
+	}
+	var files={};
+	// 添加文件
+	function appendFile(p){
+		files = {name:"uploadkey",path:p};
+		upload();
+	}
+	// 上传文件
+	function upload(){
+		if(files.length<=0){ 
+			plus.nativeUI.alert("没有添加上传文件！");
+			return;
+		}
+		loading('上传中');
+		var task=plus.uploader.createUpload(imgUploadImg, 
+			{method:"POST"},
+			function(t,status){ //上传完成
+				closeLoading();			
+				if(status==200){
+					sw.jcon(t.responseText);	
+					var rData   = JSON.parse(t.responseText);
+						sw.toast(rData.msg);
+						
+					var rStatus = rData.status;
+						if(rStatus==200){
+							var headerImg = imgUrl+rData.url;
+							//如果已经登陆 获取登录后的数据
+							var token   = plus.storage.getItem('token');
+							var postData = {};
+								postData.token = token;
+								postData.headerImg = rData.url;          
+							http.load('api.sev.user','saveHeader',postData,function(rData){//请求成功
+					 			if(rData.status==200){
+					 				
+									document.getElementById("faceUrl").src=headerImg; 
+									plus.storage.setItem('pIIs','1');	//父级 父级							
+					 			}else{
+					 				sw.toast(rData.msg); 	
+					 			}
+						
+					 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+					 				//无网络提示
+					 				sw.toast('请求失败，请检查网络'); 
+					 		})
+								
+							}
+				}else{
+					sw.toast("上传失败："+status);				
+				}
+				
+			} 
+		);
+		task.addFile(files.path,{key:files.name});	
+		task.start();
+	}
+</script>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<link rel="stylesheet" href="/css/pc/person/card.css">
+<body>
+    <div class="rightDivScope">
+        <div class="titles" style="position: relative">
+            <div class="goBackDiv"><a href="javascript:history.back(-1)"><img src="/images/qpxm/pc/person/shopInfo/left.png" style="vertical-align: baseline" alt=""> 返回</a></div>
+            <span style="font-size: 24px;font-weight: 500;">选择模板</span>
+        </div>
+    </div>
+    <div class="padding30" style="height: 495px;">
+        <?php if($userInfo['type']==2){?>
+        <div class="floLeft" style="color: white">
+            <div class="cardInfoDivBody" style="background:  url('/images/qpxm/pc/person/card_q1.jpg');background-size:cover;">
+                <div class="padding15size18"><?php echo $userInfo['companyname'];?></div>
+                <div class="paddLeft15PaddRight15">联系人 ：<?php echo $userInfo['linkMan'];?></div>
+                <div class="fanWei"><?php echo $userInfo['major'];?></div>
+                <div class="paddLeft15PaddRight15Martop7">手机 : <?php echo $userInfo['linkPhone'];?></div>
+                <div class="paddLeft15PaddRight15Martop7">电话 : <?php echo $userInfo['linkTel'];?></div>
+                <div class="paddLeft15PaddRight15Martop7">QQ ：<?php echo $userInfo['qq'];?></div>
+                <div class="paddLeft15PaddRight15Martop7 liangHangHideen" style="height: 37px;">地址：<?php echo $userInfo['province'].$userInfo['city'].$userInfo['district'].$userInfo['address']?></div>
+                <div class="cardShengCheng">本名片由《汽配群》生成</div>
+                <div class="erWeiMaRight">
+                    <img src="<?php echo $firmsQR;?>" width="100px" alt="">
+                </div>
+            </div>
+            <div class="useCardSelect" tokenUse="1" onclick="use(this)">使用</div>
+        </div>
+        <div style="float: left;margin-left: 68px;color: white;">
+            <div class="cardInfoDivBody" style="background:  url('/images/qpxm/pc/person/card_q2.jpg');background-size:420px 260px;color: #000;">
+                <div class="padding15size18" style="padding: 12px;"><?php echo $userInfo['companyname'];?></div>
+                <div class="paddLeft15PaddRight15">联系人 ：<?php echo $userInfo['linkMan'];?></div>
+                <div class="fanWei" style="margin-bottom: 15px;"><?php echo $userInfo['major'];?></div>
+                <div class="paddLeft15PaddRight15Martop7" style="margin-left: 110px;">手机 : <?php echo $userInfo['linkPhone'];?></div>
+                <div class="paddLeft15PaddRight15Martop7" style="margin-left: 110px;">电话 : <?php echo $userInfo['linkTel'];?></div>
+                <div class="paddLeft15PaddRight15Martop7" style="margin-left: 110px;">QQ ：<?php echo $userInfo['qq'];?></div>
+                <div class="paddLeft15PaddRight15Martop7 liangHangHideen" style="margin-left: 110px;height: 37px">地址 : <?php echo $userInfo['province'].$userInfo['city'].$userInfo['district'].$userInfo['address']?></div>
+                <div class="cardShengCheng">本名片由《汽配群》生成</div>
+                <div class="erWeiMaLeft" style="bottom: 40px;">
+                    <img src="<?php echo $firmsQR;?>" width="100px" alt="">
+                </div>
+            </div>
+            <div class="useCardSelect" tokenUse="2" onclick="use(this)">使用</div>
+        </div>
+        <?php }else{?>
+        <div class="floLeft" style="color: white">
+            <div class="cardInfoDivBody" style="color: #000;">
+                <div class="padding15size18"><?php echo $userInfo['companyname'];?></div>
+                <div class="paddLeft15PaddRight15">
+                    <div style="float: left;width: 160px;">
+                        <?php if(isset($ico) && $ico){?>
+                        <?php foreach($ico as $k=>$v){?>
+                        <?php if($k<3){?>
+                        <div class="icoImgs">
+                            <img src="<?php echo $v['img'];?>" height="50px" width="50px" alt="">
+                        </div>
+                        <?php }?>
+                        <?php }}?>
+                    </div>
+                    <div style="float: left;margin-left: 20px;line-height: 50px;">联系人 ：<?php echo $userInfo['linkMan'];?></div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="paddLeft15PaddRight15Martop7" style="margin-top: 20px;">手机 ：<?php echo $userInfo['linkPhone'];?></div>
+                <div class="paddLeft15PaddRight15Martop7">电话 ：<?php echo $userInfo['linkTel'];?></div>
+                <div class="paddLeft15PaddRight15Martop7">QQ ：<?php echo $userInfo['qq'];?></div>
+                <div class="paddLeft15PaddRight15Martop7 liangHangHideen" style="height: 37px;">地址：<?php echo $userInfo['province'].$userInfo['city'].$userInfo['district'].$userInfo['address']?></div>
+                <div class="cardShengCheng">本名片由《汽配群》生成</div>
+                <div class="erWeiMaRight">
+                    <img src="<?php echo $firmsQR;?>" width="100px" alt="">
+                </div>
+            </div>
+            <div class="useCardSelect" tokenUse="1" onclick="use(this)">使用</div>
+        </div>
+        <div style="float: left;margin-left: 68px;color: white;">
+            <div class="cardInfoDivBody" style="background:  url('/images/qpxm/pc/person/card_y.jpg');background-size:cover;color: #000;">
+                <div class="padding15size18"><?php echo $userInfo['companyname'];?></div>
+                <div class="paddLeft15PaddRight15">
+                    <div style="float: left;line-height: 50px;margin-right: 20px;min-width: 160px;">联系人 ：<?php echo $userInfo['linkMan'];?></div>
+                    <div style="float: left;">
+                        <?php if(isset($ico) && $ico){?>
+                        <?php foreach($ico as $k=>$v){?>
+                        <?php if($k<3){?>
+                        <div class="icoImgs">
+                            <img src="<?php echo $v['img'];?>" height="50px" width="50px" alt="">
+                        </div>
+                        <?php }?>
+                        <?php }}?>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="paddLeft15PaddRight15Martop7" style="margin-left: 110px;margin-top: 20px;">手机 ：<?php echo $userInfo['linkPhone'];?></div>
+                <div class="paddLeft15PaddRight15Martop7" style="margin-left: 110px;">电话 ：<?php echo $userInfo['linkTel'];?></div>
+                <div class="paddLeft15PaddRight15Martop7" style="margin-left: 110px;">QQ ：<?php echo $userInfo['qq'];?></div>
+                <div class="paddLeft15PaddRight15Martop7 liangHangHideen" style="margin-left: 110px;height: 37px;">地址：<?php echo $userInfo['province'].$userInfo['city'].$userInfo['district'].$userInfo['address']?></div>
+                <div class="cardShengCheng">本名片由《汽配群》生成</div>
+                <div class="erWeiMaLeft">
+                    <img src="<?php echo $firmsQR;?>" width="100px" alt="">
+                </div>
+            </div>
+            <div class="useCardSelect" tokenUse="2" onclick="use(this)">使用</div>
+        </div>
+        <?php }?>
+    </div>
+
+<script>
+   function use(obj){
+       var tokenUse = $(obj).attr('tokenUse');
+       location.href = '/person/cardSave?tokenUse='+tokenUse;
+   }
+</script>
+</body>
+</html>

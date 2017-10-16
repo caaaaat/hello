@@ -1,0 +1,23 @@
+#newBie{width: 1200px;margin: 0 auto;}
+.newBieText{font-size: 22px;color: #555;margin-top: 18px;margin-bottom: 30px;}
+.souSuoNewDiv{width: 330px;margin: 0 auto;height: 42px;line-height: 42px;}
+.newInput{background: #F3F3F3;font-size: 16px;width: 270px;height: 42px;border: 1px solid #FF524B;line-height: 42px;padding-left: 10px;}
+.newButton{margin-right: 5px;float: right;width: 55px;height: 42px;border: none;background: #FF524B;}
+.verAliSub{vertical-align: sub;}
+#newList{margin: 0 auto;background: #FFF;width: 1200px;}
+.newList{height: 50px;border: 1px solid #DDD;padding-left: 30px;padding-right: 10px;line-height: 49px;font-size: 18px;margin-top: -1px;}
+.newTitle{float: left;max-width: 1140px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+.floRight{float: right;}
+.newSouSuoResult{background: #F3F3F3;font-size: 14px;margin-bottom: 20px;margin-top: 30px;}
+.newSouSuoText{color: #FE615C;}
+
+
+/*·ÖÒ³*/
+.btn-primary.active{background: #FFF;color: #2E2E2E;border: 1px solid #FE534B;border-top: none;border-bottom: none;box-shadow:none;}
+.btn-white{border: 1px solid #FE534B;color: #FE534B;}
+.btn:hover{border: 1px solid #FE534B;}
+.pager{height: 34px;min-width: 34px;display: inline-block;line-height: 34px;margin: 0;}
+#pager button{padding: 0;height: 34px;min-width: 34px;}
+
+
+

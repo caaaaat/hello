@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .content {  width: 220px;  display: inline-block;  overflow:hidden;  text-overflow:ellipsis;  white-space:nowrap;  padding-left: 10px;  }
+        #tab-3 .mail-box-header label{ height: 34px; line-height: 34px;width: 50px; margin-bottom: 0; padding-left: 0;padding-right: 0;}
+    </style>
+</head>
+<body>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true" id="tab_1"> 基础信息</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false" id="tab_2">圈子记录</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false" id="tab_3">关联厂商</a></li>
+                </ul>
+                <div class="tab-content">
+                    <input type="hidden" id="id" value="<?php echo isset($sale['id']) ? $sale['id'] : '' ;?>"/>
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+                            <h3 style="margin-right: 10px;">业务员信息</h3>
+                            <div style="text-align: right; padding-right: 15px;margin-bottom: 15px;">
+                                <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" id="sale-edit">编辑</button></span>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered">
+                                    <?php $sale =  isset($sale) ? $sale : '';?>
+                                    <?php if($sale) {?>
+
+                                    <tbody>
+                                    <tr>
+                                        <th style="text-align: center;width:120px;height: 60px;">头像</th>
+                                        <th style="" id="face"><img src="<?php echo $sale['facepic']?>" alt="业务员头像" style="height: 50px;"></th>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center;width:120px">业务员ID</th>
+                                        <th style=""><?php echo $sale['uId']?></th>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center;width:120px">昵称</th>
+                                        <th style="" id="uname"><?php echo $sale['uname']?></th>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center;width:120px">姓名</th>
+                                        <th style="" id="realname"><?php echo $sale['realname']?></th>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center;width:120px">联系电话</th>
+                                        <th style="" id="tel"><?php echo $sale['phone']?></th>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center;width:120px">管辖区域</th>
+                                        <th style="" id="area"><?php echo $sale['area']?></th>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center;width:120px">创建时间</th>
+                                        <th style=""><?php echo $sale['create_time'] ;?></th>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center;width:120px">最近登录时间</th>
+                                        <th style=""><?php echo $sale['last_time'] ? $sale['last_time'] : '' ;?></th>
+                                    </tr>
+                                    </tbody>
+                                    <?php }else{?>
+                                    <tr>
+                                        <td>获取业务员基本信息失败</td>
+                                    </tr>
+                                    <?php }?>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                        <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="mail-box-header" style="padding-top: 5px;padding-bottom: 5px; border: 0;">
+                                    <div class="form-group">
+                                        <div class="col-xs-6 col-sm-6" style="padding-right: 0; margin-bottom: 3px;">
+                                            <label class="col-xs-4 col-sm-4 control-label" style="width: 70px; height: 34px; line-height: 34px;font-size: 14px; margin-bottom: 0;">搜索:</label>
+                                            <div class="col-xs-8 col-sm-8">
+                                                <div class="col-xs-12 col-sm-12 input-group">
+                                                    <input type="text" class="form-control input-xs" id="tab_2_searchKey" placeholder="输入动态ID搜索"/>
+                                                    <span class="input-group-btn"><button type="submit" class="btn btn-primary" id="tab_2_find"> 搜 索 </button></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="clear: both"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wrapper wrapper-content">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="ibox float-e-margins">
+                                        <div class="ibox-content">
+
+                                            <!--列表开始-->
+                                            <div class="table-responsive">
+                                                <table class="table table-hover table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th style="text-align: center;width:90px">动态ID</th>
+                                                        <th style="text-align: center;width:150px">发布城市</th>
+                                                        <th style="text-align: center;width:250px">正文</th>
+                                                        <th style="text-align: center;width:70px">评论数</th>
+                                                        <th style="text-align: center;width:140px">发布时间</th>
+                                                        <th style="text-align: center;width:90px">操作</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="tab_2_show" style="text-align: center"></tbody>
+                                                </table>
+                                            </div>
+                                            <script id="tab_2_model" type="text/html">
+                                                {{# if(d.massageCode == 'success') { }}
+                                                {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                                                <tr>
+                                                    <td>
+                                                        <span>{{ list[i].vid }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{ list[i].area }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="content" title="{{ list[i].content }}">{{ list[i].content }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{ list[i].comments }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{{ list[i].create_time }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <span><a onclick="getOneCircle({{ list[i].id }})">[详情]</a>  <a onclick="comment({{ list[i].vid }})">[评论]</a> </span>
+                                                    </td>
+                                                </tr>
+
+                                                {{# } }}
+                                                {{# }else{ }}
+                                                <td colspan="6">
+                                                    <span>{{ d.massage }}</span>
+                                                </td>
+                                                {{# } }}
+                                            </script>
+
+                                            <!--列表结束-->
+                                            <!--页码开始-->
+                                            <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                                <input hidden="hidden" value="1" id="tab_2_page"/>
+                                                <span>每页显示
+                                                        <select name="pageSize" id="tab_2_pageSize" onchange="getCircle(1)">
+                                                            <option value="10"  selected="selected">10</option>
+                                                            <option value="30" >30</option>
+                                                            <option value="50" >50</option>
+                                                            <option value="100">100</option>
+                                                            <option value="300">300</option>
+                                                            <option value="500">500</option>
+                                                            <option value="1000">1000</option>
+                                                            <option value="3000">3000</option>
+                                                            <option value="5000">5000</option>
+                                                        </select>&nbsp;
+                                                    </span>
+                                                <span id="tab_2_pageInfo" style="margin-right: 10px;"></span>
+                                                <div class="btn-group" id="tab_2_pager"></div>
+                                            </div>
+                                            <!--页码结束-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div id="tab-3" class="tab-pane">
+                        <div class="panel-body">
+                            <div class="wrapper wrapper-content" style="padding: 0">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12">
+                                        <div class="mail-box-header">
+                                            <div class="form-group">
+                                                <div class="col-xs-6 col-sm-6 col-lg-3 " style="padding-left: 0; padding-right: 15px; margin-bottom: 3px;">
+                                                    <label class="col-xs-4 col-sm-4 control-label">状态</label>
+                                                    <div class="col-xs-8 col-sm-8" style="padding-left: 0;padding-right: 0;">
+                                                        <select id="tab_3_status" class="form-control">
+                                                            <option value=''>全部</option>
+                                                            <option value='1'>正常</option>
+                                                            <option value='2'>禁用</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-lg-3 " style="padding-left: 0; padding-right: 15px; margin-bottom: 3px;">
+                                                    <label class="col-xs-4 col-sm-4 control-label">类型</label>
+                                                    <div class="col-xs-8 col-sm-8" style="padding-left: 0;padding-right: 0;">
+                                                        <div class="col-xs-6 col-sm-6" style="padding-left: 0;padding-right: 0;">
+                                                            <select id="tab_3_type" class="form-control" style="padding-left: 5px;">
+                                                                <option value=''>全部</option>
+                                                                <option value='1'>经销商</option>
+                                                                <option value='2'>修理厂</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-xs-6 col-sm-6" style="padding-left: 0;padding-right: 0;">
+                                                            <select id="tab_3_class" class="form-control" style="padding-left: 5px;">
+                                                                <option value=''>全部</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>  <div class="col-xs-6 col-sm-6 col-lg-3 " style="padding-left: 0; padding-right: 15px; margin-bottom: 3px;">
+                                                    <label class="col-xs-4 col-sm-4 control-label">区域</label>
+                                                    <div class="col-xs-8 col-sm-8" style="padding-left: 0;padding-right: 0;">
+                                                        <div class="col-xs-4 col-sm-4" style="padding-left: 0;padding-right: 0;">
+                                                            <select id="tab_3_province" class="form-control" style="padding-left: 5px;">
+                                                                <option value=''>全部</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-xs-4 col-sm-4" style="padding-left: 0;padding-right: 0;">
+                                                            <select id="tab_3_city" class="form-control" style="padding-left: 5px;">
+                                                                <option value=''>全部</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-xs-4 col-sm-4" style="padding-left: 0;padding-right: 0;">
+                                                            <select id="tab_3_county" class="form-control" style="padding-left: 5px;">
+                                                                <option value=''>全部</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-lg-3" style="padding-left: 0; padding-right: 15px; margin-bottom: 3px;">
+                                                    <label class="col-xs-4 col-sm-4 control-label">关键字</label>
+                                                    <div class="col-xs-8 col-sm-8" style="padding-left: 0;padding-right: 0;">
+                                                        <div class="col-xs-12 col-sm-12 input-group">
+                                                            <input type="text" class="form-control input-xs" id="tab_3_searchKey" placeholder="企业ID/昵称/绑定手机号"/>
+                                                            <span class="input-group-btn"><button type="submit" class="btn btn-primary" id="tab_3_find"> 搜 索 </button></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="clear: both"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper wrapper-content" style="padding: 0;">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content">
+                                                <h3 style="margin-right: 10px;">业关联厂商列表</h3>
+                                                <!--<div style="text-align: right; padding-right: 15px;">
+                                                    <span><a class="btn btn-xs btn-primary" id="download" href="/plat.sales/exportToExcel">导出表格</a></span>
+                                                </div>-->
+                                                <!--列表开始-->
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th style="text-align: center;width:150px">企业ID</th>
+                                                            <th style="text-align: center;width:150px">昵称</th>
+                                                            <th style="text-align: center;width:150px">手机号</th>
+                                                            <th style="text-align: center;width:150px">企业名称</th>
+                                                            <th style="text-align: center;width:150px">企业类型</th>
+                                                            <th style="text-align: center;width:150px">企业分类</th>
+                                                            <th style="text-align: center;width:150px">关联时间</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tab_3_show" style="text-align: center"></tbody>
+                                                    </table>
+                                                </div>
+                                                <script id="tab_3_model" type="text/html">
+                                                    {{# if(d.massageCode == 'success') { }}
+                                                    {{# var typeArr = { 0:'',1:'经销商',2:'修理厂'} }}
+                                                    {{# var classArr = { 0:{0:'',1:'',2:'',3:'',4:'',5:'',6:''} , 1:{0:'',1:'轿车商家',2:'货车商家',3:'用品商家',4:'',5:'',6:''}, 2:{0:'',1:'',2:'',3:'',4:'修理厂',5:'快修保养',6:'美容店'}  }   }}
+                                                    {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+                                                    <tr>
+                                                        <td>
+                                                            <span>{{ list[i].EnterpriseID }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].uname == null ? '' : list[i].uname }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span style="word-break: break-all;">{{ list[i].phone }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].companyname == null ? '' : list[i].companyname  }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].type == null ? '' : typeArr[list[i].type] }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].classification == null ? '' : classArr[list[i].type][list[i].classification] }}</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>{{ list[i].create_time ? list[i].create_time : '' }}</span>
+                                                        </td>
+                                                    </tr>
+
+                                                    {{# } }}
+                                                    {{# }else{ }}
+                                                    <td colspan="7">
+                                                        <span>{{ d.massage }}</span>
+                                                    </td>
+                                                    {{# } }}
+                                                </script>
+                                                <!--列表结束-->
+                                                <!--页码开始-->
+                                                <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                                    <input hidden="hidden" value="1" id="tab_3_page"/>
+                                                    <span>每页显示
+                                                        <select id="tab_3_pageSize" onchange="getFirms(1)">
+                                                            <option value="10"  selected="selected">10</option>
+                                                            <option value="30" >30</option>
+                                                            <option value="50" >50</option>
+                                                            <option value="100">100</option>
+                                                            <option value="300">300</option>
+                                                            <option value="500">500</option>
+                                                            <option value="1000">1000</option>
+                                                            <option value="3000">3000</option>
+                                                            <option value="5000">5000</option>
+                                                        </select>&nbsp;
+                                                    </span>
+                                                    <span id="tab_3_pageInfo" style="margin-right: 10px;"></span>
+                                                    <div class="btn-group" id="tab_3_pager"></div>
+                                                </div>
+                                                <!--页码结束-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/js/laytpl/laytpl.js"></script>
+<!--弹窗js-->
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+<!--分页插件-->
+<script src="/js/jquery.page.js"></script>
+
+<!--自定义js-->
+<script src="/js/area.js"></script>
+<script src="/js/global.js"></script>
+<script>
+    $(function(){
+        $("#tab_2_find,#tab_2").click(function(){
+            getCircle(1);
+        });
+        $("#sale-edit").on('click',function(){
+            var id = $("#id").val() ;
+            editSale(id)  ;
+        });
+    });
+    function editSale(id) {
+        var title = "编辑业务员信息";
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['550px', '450px'],
+            content: '/plat.sales/editSale/?id='+id
+        });
+    }
+
+    //============== 圈子记录 ==================
+    /**
+     * 获取 圈子数据
+     */
+    function getCircle(page){
+        var id   = $("#id").val();
+        var keywords = $("#tab_2_searchKey").val();//关键字
+        page         = page ? page : 1;
+        pageSize     = $('#tab_2_pageSize').val();
+        var url = '/plat.sales/getSaleCircle';
+        var index = layer.load(2);
+        $.post(url,{
+            id:id,
+            keywords:keywords,
+            page:page,
+            pageSize:pageSize
+        },function(rdata){
+            layer.close(index);
+            var pageInfo = '';
+            var p     = rdata.page;
+            var pageSize = rdata.pageSize;
+            var count = rdata.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            $("#tab_2_pageInfo").text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+            $("#tab_2_pager").createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getCircle(p);
+                }
+            });
+            var tpl = $('#tab_2_model').html();
+            laytpl(tpl).render(rdata, function(html){
+                $('#tab_2_show').html(html);
+            });
+
+        },'json');
+        $("#tab_2_page").val(page);
+    }
+    function getOneCircle(id) {
+        var title = "动态详情";
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['600px', '420px'],
+            content: '/plat.sales/getOneCircle?cid='+id
+        });
+    }
+    function comment(id) {
+        var title = "评论列表";
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['80%', '80%'],
+            content: '/plat.sales/comment?cid='+id,
+            end:function () {
+                getCircle(1);
+            }
+        });
+    }
+
+    //============== 关联厂商 ==================
+    $(function(){
+        $("#tab_3_type") .change(function () {
+            ChangType(this);
+        });
+        setProvince('tab_3_province','','tab_3_city','tab_3_county');
+        $("#tab_3_province") .change(function () {
+            setCity($('#tab_3_province').val(),'tab_3_city','tab_3_county');
+            setCounty('','','tab_3_county');
+        });
+        $("#tab_3_city") .change(function () {
+            setCounty($('#tab_3_province').val(),$('#tab_3_city').val(),'tab_3_county');
+        });
+        $("#tab_3_find,#tab_3").click(function(){
+            getFirms(1);
+        });
+    });
+
+    function ChangType(obj) {
+        var op = '<option value="">全部</option>';
+        if($(obj).val() == 1){
+            op     += '<option value="1">轿车商家</option>' ;
+            op     += '<option value="2">货车商家</option>' ;
+            op     += '<option value="3">用品商家</option>' ;
+        }else if($(obj).val() == 2){
+            op     += '<option value="4">修理厂</option>' ;
+            op     += '<option value="5">快修保养</option>' ;
+            op     += '<option value="6">美容店</option>' ;
+        }else {
+
+        }
+
+        $("#tab_3_class").html(op);
+    }
+
+    function getFirms(page) {
+        var data      = {} ;
+        data.uid      = $("#id").val();
+        data.status   = $("#tab_3_status").val();
+        data.type     = $("#tab_3_type").val();
+        data.c_lass   = $("#tab_3_class").val();
+        data.province = $("#tab_3_province").val();
+        data.city     = $("#tab_3_city").val();
+        data.county   = $("#tab_3_county").val();
+        data.keywords = $("#tab_3_searchKey").val();//关键字
+        data.page     = page ? page : 1;
+        data.pageSize = $('#tab_3_pageSize').val();
+        var url = '/plat.sales/getFirms';
+        //var index = layer.load(2);
+        $.post(url,{data:data},function(rdata){
+            //layer.close(index);
+            var pageInfo = '';
+            var p     = rdata.page;
+            var pageSize = rdata.pageSize;
+            var count = rdata.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            $("#tab_3_pageInfo").text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+            $("#tab_3_pager").createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getFirms(p);
+                }
+            });
+
+
+            var tpl = $('#tab_3_model').html();
+            laytpl(tpl).render(rdata, function(html){
+                $('#tab_3_show').html(html);
+            });
+        },'json');
+        $("#tab_3_page").val(page);
+    }
+</script>
+</body>
+</html>

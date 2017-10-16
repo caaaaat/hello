@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <link href="/css/plat/upload_btn.css" rel="stylesheet">
+    <style>
+        #url_type .control-label{margin-bottom: 0;height: 34px;width: 90px;line-height: 34px; padding-left: 0; padding-top: 0;text-align: left; padding-right: 0; cursor: pointer;}
+        #url_type .form-group{margin-bottom: 3px;padding-left: 0;}
+        #url_type .pr0{padding-right: 0;}
+        .title_div{height: 34px;width: 100%; line-height: 34px; padding-right: 0;padding-left: 2px; }
+        .yh_span{  width: 225px;  display: inline-block;  overflow:hidden;  text-overflow:ellipsis;  white-space:nowrap;}
+    </style>
+</head>
+<body>
+<div class="col-xs-12">
+    <div class="ibox-content" style="border-width:0">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-xs-3 control-label" style="text-align: right;"><span style="color: red;">＊</span>活动图片:</label>
+                <input type="hidden" value="<?php echo $activity['face_img']?>" id="img_url"/>
+                <div class="col-xs-2" id="img" style="padding-left: 0;padding-right: 0;background-color: lightgrey; height: 60px;width: 120px;">
+                    <img src="<?php echo $activity['face_img']?>" alt="活动图片" style="height: 60px;width: 120px;">
+                </div>
+                <div class="col-xs-4">
+                    <span>
+                        <button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;margin-bottom: 15px; padding-left: 0;padding-right: 0;" id="_file">上传</button><br/>
+                        <button type="submit" class="btn btn-xs btn-danger" style="margin-left: 2px;" onclick="delPic()">删除</button>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-3 control-label"></label>
+                <span>仅支持jpg、png格式图片，建议尺寸w=750px，h=1336px，不得超过1M</span>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-3 control-label" style="text-align: right;"><span style="color: red;">＊</span>活动标题:</label>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <input type="text" value="<?php echo $activity['title']?>" id="title" class="form-control" placeholder="请输入活动标题">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label" style="text-align: right;"><span style="color: red;">＊</span>活动详情:</label>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <textarea id="content" style="resize: none;width: 100%;"><?php echo $activity['content'] ;?></textarea>
+                </div>
+
+            </div>
+            <div class="form-group" style="height: 25px;">
+                <div class="col-xs-3"></div>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <span id="tip" style="color: red;height: 25px;"></span>
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+                <div class="col-xs-12 col-xs-offset-4">
+                    <button class="btn btn-def" type="submit" onclick="parent.layer.closeAll()">取消</button>
+                    <button class="btn btn-primary" type="submit" onclick="saveActivity()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="id" value="<?php echo $activity['id'] ; ?>"/>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/webuploader/webuploader.js"></script>
+
+
+<script type="text/javascript" src="/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="/js/ueditor/ueditor.all.min.js"></script>
+
+<!--弹窗js-->
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+<script>
+    var myUeEditor;//设置在外部 用于全页面接收编辑器内容
+    $(function () {
+        //图片上传
+        var BASE_URL = '';
+        var uploader = WebUploader.create({
+            auto: true,
+            duplicate:true,
+            // swf文件路径
+            swf: BASE_URL + '/js/webuploader/Uploader.swf',
+
+            // 文件接收服务端。
+            server: '/tools/baiduUpload',
+
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#_file',
+
+            // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+            resize: false,
+            // 只允许选择图片文件。
+            accept: {
+                title: 'Images',
+                extensions: 'jpg,jpeg,png',
+                mimeTypes: 'jpg,jpeg,png'
+            }
+        });
+
+        //文件上传成功后的处理，在界面上的呈现，显示
+        uploader.on( 'uploadSuccess', function( file,response) {
+            var img       = $('#img');
+            $('#img_url').val(response.httpUrl);
+            img.html('<img src="'+response.httpUrl+'" alt="banner图片" style="height: 60px;width: 120px;"/>');
+
+        });
+
+        //富文本编辑器
+        myUeEditor = UE.getEditor('content',{
+            toolbars:[
+                ['fullscreen', 'source', '|', 'undo', 'redo', '|',
+                    'customstyle', 'paragraph', 'fontfamily', 'fontsize','|',
+                    'bold', 'italic', 'underline', 'fontborder',  'superscript', 'subscript', 'removeformat','|',
+                    'formatmatch', 'autotypeset', 'pasteplain', '|',
+                    'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+                    'rowspacingtop', 'rowspacingbottom', 'lineheight', 'indent','justifyleft', 'justifycenter', 'justifyright', 'justifyjustify','|',
+                    'touppercase', 'tolowercase', '|',
+                    'link', 'unlink', 'anchor', '|',
+                    'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+                    'simpleupload', 'emotion', 'scrawl', 'map', 'pagebreak', 'template', '|',
+                    'horizontal', 'date', 'time', 'spechars', '|',
+                    'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol','deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+                    'print', 'preview', 'searchreplace'
+                ]
+            ],
+            serverUrl:"/tools/UEditorUpload",//服务器统一请求接口路径
+            imageActionName: "uploadimage", /* 执行上传图片的action名称 */
+            imageFieldName: "ufile", /* 提交的图片表单名称 */
+            imageUrlPrefix:'',
+            imagePathFormat: "/data/upload/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
+            initialFrameHeight:300,
+            fontsize: [10, 11, 12, 14, 16, 18],
+            enableAutoSave:false,
+            autotypeset:{removeEmptyNode: false},
+            webAppKey:'ZBcSIHdvwjfx105K8jvQCj5W'
+        });
+
+
+    });
+    function delPic() {
+        $('#img_url').val('');
+        $('#img').html('<div style="width: 120px; height: 60px; background-color: lightgrey;text-align: center;line-height: 60px; font-size: 20px;">活动图片</div>');
+    }
+
+    function saveActivity() {
+        var data      = {} ;
+        data.id       = $.trim($("#id").val());
+        data.img      = $.trim($("#img_url").val());
+        data.title    = $.trim($("#title").val());
+        data.content  = UE.getEditor('content').getContent();
+        if(!data.img || data.img==''){
+            $("#tip").text('请上传活动图片');
+            return false;
+        }else  if(!data.title || data.title == ''){
+            $("#title").focus();
+            $("#tip").text('请输入活动标题');
+            return false;
+        }else  if(!data.content || data.content == ''){
+            $("#tip").text('请输入活动详情');
+            return false;
+        }else {
+            //console.log(data);return ;
+            $.post('/plat.activity/saveActivity',{data:data},function(Rv){
+                if(Rv.massageCode == 'success'){
+                    layer.msg(Rv.massage,{time:1500});
+                    setTimeout(function () {
+                        parent.layer.closeAll();
+                    },1500);
+                }else {
+                    layer.msg(Rv.massage,{time:1500});
+                }
+            },'json')
+        }
+    }
+
+
+
+</script>
+</body>
+</html>

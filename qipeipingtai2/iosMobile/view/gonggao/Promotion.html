@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>促销活动</title>
+		<link rel="stylesheet" type="text/css" charset="utf-8" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" charset="utf-8" href="../../css/common.css" />
+		<style>
+			html {
+				/*background: #F5F5F5;*/
+			}
+			
+			.sw-card-cuBox {
+				margin: -1px 0 10px 0;
+				box-shadow: none;
+				border-bottom: 1px solid #DDDDDD;
+				border-top: 1px solid #DDDDDD;
+			}
+			
+			.sw-card-cuBox1 {
+				width: 100%;
+				padding: 10px 15px;
+			}
+			
+			.sw-card-cuBox2 {
+				padding: 8px 0 0 0;
+			}
+			
+			.sw-card-img {
+				border: 1px solid #CCCCCC;
+				height: 180px;
+			}
+			
+			.sw-card-title {
+				color: #333;
+				margin-bottom: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">促销活动</h1>
+		</header>
+
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper" style="margin-top:44px;">
+				<div class="mui-scroll sw-coterie-box" id="loadList">
+					<ul class="mui-table-view" style="margin-top: 0;background: #EFEFF4;" id="cxList"></ul>
+				</div>
+			</div>
+		</div>
+		<input value="1" hidden="hidden" id="page" />
+
+		<!--列表模板-->
+		<script id="cx-list-tpl" type="text/html">
+			{{# var len = d.length }} {{# for(var i = 0;i
+			< len; i++){ }} <div class="mui-card sw-card-cuBox" onclick="goDetail('{{ d[i].art_ID }}','activity')">
+				<div class="sw-card-cuBox1">
+					<div class="mui-card-header mui-card-media sw-card-img" style="background-image:url({{ imgUrl+d[i].face_img }});"></div>
+					<div class="mui-card-content">
+						<div class="mui-card-content-inner sw-card-cuBox2">
+							<p class="sw-card-title sw-word-one">{{ d[i].title }}</p>
+						</div>
+					</div>
+				</div>
+				</div>
+				{{# } }}
+		</script>
+	</body>
+	<script type="text/javascript" src="../../js/mui.min.js"></script>
+	<script type="text/javascript" src="../../js/global.js"></script>
+	<script src="../../js/jquery.min.js"></script>
+	<script src="../../js/laytpl/laytpl.js"></script>
+	<script type="text/javascript" src="../../js/mui.pullToRefresh.js"></script>
+	<script type="text/javascript" src="../../js/mui.pullToRefresh.material.js"></script> 
+	<script type="text/javascript" charset="utf-8">
+	var showSelf;
+
+		mui.init();	
+		
+		mui.plusReady(function() {
+
+			//监控页面是否登录
+			if(UserInfo.has_login()) { //如果已经登录将新闻清空	
+				var token = plus.storage.getItem('token');
+				var postData = {};
+				postData.token = token;
+				postData.userType = JsonStorage.getItem('userType'); //2为业务员
+				//如果已经登陆 获取登录后的数据 
+				http.load('api.sev.article', 'clearActive', postData, function(rData) { //请求成功	 
+				})
+			}
+			
+			
+			(function($) {
+			//阻尼系数
+				var deceleration = mui.os.ios?0.003:0.009;
+				$('.mui-scroll-wrapper').scroll({		
+					bounce: false,   
+					indicators: true, //是否显示滚动条
+					deceleration:deceleration 
+				});
+			})
+			
+			mui("#loadList").pullToRefresh({ 
+			down: {
+				callback: function(){
+					location.href = location.href;
+				}
+			},
+			up: { 
+				auto: true,
+				offset: 50, //距离底部高度(到达该高度即触发)
+				contentnomore:contentnomoreStr,   
+				contentrefresh:contentrefreshStr,
+				callback: function() {  
+						showSelf = this;				
+						
+						var page = mui("#page")[0].value; //获取页数
+
+						var data = {};
+						var postData = {};
+
+						//请求的数据
+						postData.page = page; //请求的页码
+						postData.pageSize = 10; //每页显示数量
+
+						data.postData = postData;
+
+						//页面相关数据
+						data.mod = 'api.sev.article'; //模型
+						data.fun = 'getActivityList'; //方法
+						data.tpl = 'cx-list-tpl'; //列表模板
+						data.listId = 'cxList'; //列表容器  
+						data.pageId = 'page';//页码Id	
+						
+						//请求并处理数据
+						loadInfoArr(data,false,showSelf);	 
+						
+						}
+					}
+		});
+			
+
+		})
+
+		/**
+		 * 前往详情
+		 * @param {Object} art_ID
+		 * @param {Object} type
+		 */
+		function goDetail(art_ID, type) {
+			var extras = {
+				'art_ID': art_ID,
+				'type': type
+			};
+			var url = '../../view/gonggao/promotionDetail.html';
+			var id = 'gonggao_promotionDetail';
+			var aniShow = 'pop-in';
+			openView(url, id, aniShow, extras);
+		}
+	</script>
+
+</html>

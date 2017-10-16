@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>分享邀请</title>
+    <link rel="stylesheet" href="../../../css/mui.min.css" />
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	.sw-input{
+		text-align: left;
+		height: 48px!important;
+		font-size: 14px!important;
+		text-align: center;
+		}
+	
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.sw-payList:after,.sw-payList:before{
+			height: 0;
+		}
+	.sw-list-r:after{
+		right: 15px;
+	}
+	.sw-submit-btn{
+		font-size: 14px!important;float: right;margin-top: -55px;height: 40px;width: 60px;border-top-left-radius: 0;border-bottom-left-radius: 0;
+	}
+	.sw-invite-input{
+		font-size: 12px;padding-right: 60px;margin-bottom: 0;color: #666666;font-size: 14px;
+	}
+	.sw-goStore{
+		padding: 6px 12px;font-size: 12px!important;border-radius: 6px;margin-right:-15px;margin-top: -8px;position: relative;
+	}
+	.sw-face-img{
+		vertical-align: middle;margin-right: 4px;border-radius: 24px;
+	}
+	.sw-text-1{
+		line-height: 27px;padding-left: 0;padding-right: 0;padding-top: 0;
+	}
+	.sw-text-2{
+		padding: 4px 36px;border: 1px solid #FF534C;display: inline-block;color: #FF534C;border-radius: 15px;margin-top: 24px;letter-spacing: 2px;
+	}
+</style>
+<body style="background: #EFEFEF;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">分享邀请</h1>
+	</header>
+	
+	<div class="mui-content" style="background: #EFEFEF;" id="infoCon">
+	
+	</div>
+	
+	<script id="info-list-tpl" type="text/html">
+		
+		{{# if(d.isInvited==false){ }}
+		<div style="padding:15px 15px 5px;background: #FFFFFF;">
+			<p style="font-size: 14px;color: #333">我的邀请人</p>
+			<p style="padding: 10px 10%;">
+				<input type="text" name="inviteCode" id="inviteCode" maxlength="8" value="" placeholder="输入邀请码绑定分享人" class="sw-invite-input"/>
+				<button type="button" class="mui-btn mui-btn-tangerine sw-submit-btn" onclick="bindSharer()">绑定</button>
+			</p>
+	    </div>
+		{{# }else{ var inviteMe = d.inviteMe; var myInvite = d.myInvite; var myInviteCode = d.myInviteCode; }}		
+		<div style="padding:15px 15px 5px;background: #FFFFFF;">
+			<p style="font-size: 14px;color: #333">我的邀请人</p>
+			
+			<ul class="mui-table-view sw-payList" style="margin-top: 0;">
+				 <li class="mui-table-view-cell sw-payList sw-no-active sw-text-1">
+			 		<p style="font-size: 14px;color: #666;padding-right: 80px;position: relative;" class="sw-word-one"><img src="{{ imgUrl+inviteMe.face_pic }}" height="48px" width="48px" class="sw-face-img"/>{{ inviteMe.uname }}</p>			 		
+			 		{{# if(inviteMe.type==1){ }}	
+			 		<button type="button" class="mui-btn mui-btn-tangerine sw-goStore"  onclick="openJx('{{ inviteMe.EnterpriseID }}','{{ inviteMe.companyname }}')">进入店铺</button>
+					 {{# }else{ }}	
+					 <button type="button" class="mui-btn mui-btn-tangerine sw-goStore" onclick="openQx('{{ inviteMe.EnterpriseID }}','{{ inviteMe.companyname }}')">进入店铺</button>
+					 {{# } }} 			 		
+			 	</li>
+			</ul>		
+	    </div>
+			
+		<div style="margin-top: 10px;padding:15px 15px 5px;background: #FFFFFF;text-align: center;">		
+			<p style="font-size: 14px;color: #666666;margin-bottom: 0;">我的邀请码</p>
+			<p style="font-size: 12px;color: #999999;margin-bottom: 0;">成功绑定邀请码，邀请人及被邀请人都将获得刷新点</p>
+			<p class="sw-text-2">{{ myInviteCode.invite_code }}</p>
+			<input hidden="hidden" type="text" name="invite_code" id="invite_code" value="{{ myInviteCode.invite_code }}" />
+		</div>
+				
+	    <ul class="mui-table-view mui-grid-view mui-grid-5 sw-no-img sw-payList" style="padding:0 0 20px;">
+		            
+	        <!--<li class="mui-table-view-cell mui-media mui-col-sm-20" onclick="shareAction('weixin', 'WXSceneSession');">
+	        	<img class="mui-media-object" src="../../../image/person/more/icon_more_wechat.png">
+	        	<span style="font-size: 12px;color: #666666;" class="sw-word-one">微信</span>
+	        </li>
+	        
+	        <li class="mui-table-view-cell mui-media mui-col-sm-20">
+	        	<img class="mui-media-object" src="../../../image/person/more/icon_more_fri.png" onclick="shareAction('weixin', 'WXSceneTimeline');">
+	        	<span style="font-size: 12px;color: #666666;" class="sw-word-one">朋友圈</span>
+	        </li>-->
+	        
+	        <li class="mui-table-view-cell mui-media mui-col-sm-20" onclick="window.open('http://connect.qq.com/widget/shareqq/index.html?url='+encodeURIComponent(document.location.href)+'&desc=&title=我的邀请码是{{ myInviteCode.invite_code }}快来注册吧&summary=我的邀请码是{{ myInviteCode.invite_code }}快来注册吧&pics=&flash=&site=&style=101&width=112&height=24&showcount=');return false;">
+	        	<img class="mui-media-object" src="../../../image/person/more/icon_more_qq.png">
+	        	<span style="font-size: 12px;color: #666666;" class="sw-word-one">QQ好友</span>
+	        </li>
+	        
+	        <li class="mui-table-view-cell mui-media mui-col-sm-20">
+	        	<img class="mui-media-object" src="../../../image/person/more/icon_more_qqkj.png" onclick="sharesQQZ()">	
+	        	<span style="font-size: 12px;color: #666666;" class="sw-word-one">QQ空间</span>
+	        </li>
+	        
+	        <li class="mui-table-view-cell mui-media mui-col-sm-20">
+	        	<img class="mui-media-object" src="../../../image/person/more/icon_chenggong_mrtx.png" onclick="sharePublish()">	
+	        	<span style="font-size: 12px;color: #666666;" class="sw-word-one">圈子</span>
+	        </li>
+		            
+		</ul> 
+		
+		{{# var myInviteLen = myInvite.length; if(myInviteLen>0){ }}
+		
+		<ul class="mui-table-view" style="margin-top: 10px;margin-bottom: 20px;">
+					
+			 {{# for(var i=0;i<myInviteLen;i++){ }}
+			 {{# if(myInvite[i].type==1){ }}		
+			 <li class="mui-table-view-cell sw-list-r" onclick="openJx('{{ myInvite[i].EnterpriseID }}','{{ myInvite[i].companyname }}')">
+			 {{# }else{ }}	
+			 <li class="mui-table-view-cell sw-list-r" onclick="openQx('{{ myInvite[i].EnterpriseID }}','{{ myInvite[i].companyname }}')">
+			 {{# } }}  
+			 	<a class="mui-navigate-right">
+			 	<p><img src="{{ imgUrl+myInvite[i].face_pic }}" height="48px" width="48px" style="border-radius:24px;"/></p>
+			 	
+			 	<div style="margin-left: 56px;margin-top: -50px;">
+			 		<p style="margin-right: 14px;" class="sw-word-one sw-ctheme">
+			 		<span style="font-size: 14px;" class="sw-ctheme">{{ myInvite[i].uname }}</span>
+			 	   </p>
+			 		<p style="margin-right: 14px;">
+			 		<span style="font-size: 12px;color: #999;">{{ myInvite[i].create_time }}</span>
+			 	   </p>
+			 	</div>
+			 	</a>
+			 </li>
+			 {{# } }}	
+		</ul>
+		
+		{{# } }}	
+		
+		{{# } }}	  			
+	</script>		
+</body>
+<script src="../../../js/mui.min.js"></script>
+<script src="../../../js/global.js"></script>
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/laytpl/laytpl.js"></script>
+<script type="text/javascript">
+	//mui初始化
+	mui.init(); 	
+	
+	 var Intent = null,
+        File = null,
+        Uri = null,
+        main = null;
+    var shares = null;
+    var shareImageUrl = '';
+	//mui plusReady
+	$(function() {
+		
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+		
+			var token  = JsonStorage.getItem('token');
+				
+			var postData = {};
+				postData.token = token;
+			//加载弹窗
+			loading('加载中...'); 	
+			//如果已经登陆 获取登录后的数据
+			http.load('api.sev.invite','getInviteInfo',postData,function(rData){//请求成功
+	 			sw.jcon(rData)
+	 			//关闭加载框 
+				closeLoading(300);
+				
+	 			if(rData.status==200){
+	 				var info = rData.data;						       							
+					//初始化公司信息					 	 				
+				 	var infoTpl   = $('#info-list-tpl').html();	 		
+			        laytpl(infoTpl).render(info,function(render){            
+			            $('#infoCon').html(render);    
+			        });
+	 					 				
+	 			}else{
+	 				sw.toast(rData.msg); 	
+	 			}		
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+		 			//关闭加载框
+					closeLoading();	
+	 				//无网络提示
+	 				sw.toast('获取数据失败，服务器或网络异常'); 
+		 		})
+			
+			}else{
+				sw.toast('您还未登录，请登录后重试'); 
+			}
+			
+			//获取分享
+			updateSerivces();
+			if(plus.os.name=="Android"){
+				main = plus.android.runtimeMainActivity();
+				Intent = plus.android.importClass("android.content.Intent");
+				File = plus.android.importClass("java.io.File");
+				Uri = plus.android.importClass("android.net.Uri");
+			}
+			
+	})
+	
+	
+		/**
+         * 更新分享服务
+         */
+        function updateSerivces() {
+            plus.share.getServices(function(s) {
+                shares = {};
+                for (var i in s) {
+                    var t = s[i];
+                    shares[t.id] = t;
+                }
+//              outSet("获取分享服务列表成功");
+            }, function(e) {
+//              outSet("获取分享服务列表失败：" + e.message);  
+            });
+        }
+        /**
+         * 分享操作
+         */
+        function shareAction(id, ex) {
+    
+            var s = null;
+            if (!id || !(s = shares[id])) {
+                sw.toast("无效的分享服务！");
+                return;
+            }
+            if (s.authenticated) {
+//              sw.toast("---已授权---");
+                shareMessage(s, ex);
+            } else {
+//              sw.toast("---未授权---");
+                s.authorize(function() {
+                    shareMessage(s, ex);
+                }, function(e) {
+//                  sw.toast("认证授权失败");
+                });
+            }
+        }
+        /**
+         * 发送分享消息
+         */
+        function shareMessage(s,ex) {                 
+        	var invite_code = $("#invite_code").val();
+            var msg = {
+                href: apkUrl,//分享链接 apk 下载地址               
+                title: '分享邀请-我的邀请码是'+invite_code+'快来注册吧',        
+                content: '我的邀请码是'+invite_code+'快来注册吧',
+                thumbs: [logBg], 
+                pictures: [logBg],
+                extra: {
+                    scene: ex
+                }
+            };
+            s.send(msg, function() {
+				sw.toast('分享成功！')
+            }, function(e) {
+                sw.toast("取消分享");
+            });
+        }
+	
+	//分享到qq空间
+	function sharesQQZ(){
+		
+		var invite_code = $("#invite_code").val();
+		var shareUrl = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=';
+			shareUrl += encodeURIComponent(document.location.href);
+			shareUrl += '&title=我的邀请码是'+invite_code+'快来注册吧&summary=我的邀请码是'+invite_code+'快来注册吧';	
+			openBrowser(shareUrl); 
+			return false;
+	}
+	
+	
+	
+	//绑定分享人
+	function bindSharer(){
+		
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+		
+			var token  = JsonStorage.getItem('token');
+			var inviteCode  = $("#inviteCode").val();
+			
+			if(inviteCode==''){
+				sw.toast('请输入分享人绑定码');
+				$("#inviteCode").focus()
+				return;
+			}
+					
+			var postData = {};
+				postData.token = token;
+				postData.inviteCode = inviteCode;
+				
+			//加载弹窗
+			loading('绑定中...'); 	
+			//如果已经登陆 获取登录后的数据
+			http.load('api.sev.invite','bindInviteId',postData,function(rData){//请求成功
+	 			sw.jcon(rData)
+	 			//关闭加载框 
+				closeLoading(300);
+				sw.toast(rData.msg);
+	 			if(rData.status==200){
+					plus.webview.getWebviewById("share").reload(true);	 				
+	 			}		
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+		 			//关闭加载框
+					closeLoading();	
+	 				//无网络提示
+	 				sw.toast('获取数据失败，服务器或网络异常'); 
+		 		})
+			
+			}else{
+				sw.toast('您还未登录，请登录后重试');  
+			}			
+	}
+	
+	//页面跳转
+	function openJx(EnterpriseID,jxName){		
+		var postData = {'EnterpriseID':EnterpriseID,'jxName':jxName};
+		//打开窗口
+		openView('../../../view/index/shangjia/jingxiao.html','index_shangjia_jingxiao','pop-in',postData);
+	}
+	 //页面跳转
+	function openQx(EnterpriseID,qxName){
+		//监控页面是否登录
+		if(UserInfo.has_login()){		
+			var token   = JsonStorage.getItem('token');
+			var postData = {};
+				postData.token = token;
+			//如果已经登陆 获取登录后的数据
+			http.load('api.sev.user','getUserInfo',postData,function(rData){//请求成功
+	 						
+	 			if(rData.status==200){ 	
+	 				dy(rData);
+	 				var data = rData.data;	
+	 				//前往汽修厂确认 
+		        	  	qxConfirm(data.is_showfactry,EnterpriseID,qxName)      
+	 			}else{ 
+	 				sw.toast(rData.msg); 	 
+	 			}
+		
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+				//无网络提示
+				sw.toast('请求失败，服务器或网络异常'); 
+	 		})
+	
+		}else{//未登录显示未登录界面
+			//顶部 
+		  sw.toast('您还未登录，请登录后重试'); 
+		}	
+	}
+	
+	//汽修提示
+	function qxConfirm(is_showfactry,EnterpriseID,qxName){
+		if(is_showfactry==1){
+			var postData = {'EnterpriseID':EnterpriseID,'qxName':qxName};
+			openView('../../../view/person/repair/detail.html','person_repair_detail','pop-in',postData);
+		}else{
+			mui.confirm('您无访问权限，可咨询客服了解详情', '&nbsp;', ['<span class="mui-popup-button mui-btn sw-popu-btn" style="color:#333">关闭</span>','<span class="mui-popup-button mui-btn mui-btn-blue sw-popu-btn">客服</span>' ], function(e) {				
+				if (e.index == 3&&kefuStatus==1) {//确认
+					kefuStatus = 0;
+					setTimeout(function(){
+						kefuStatus = 1;
+						window.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin=821273766&version=1&src_type=web&web_src=qq.com';				
+					},300)										
+				}	  			
+			},'div')
+			$('.mui-popup-button').css('font-size','16px');	 
+		}
+	}
+
+/**
+ * 分享发布到圈子
+ */
+function sharePublish(){
+	
+	var postData = {'publishType':2};  
+	
+		openView('../../../view/person/share/publish.html','person_share_publish','pop-in',postData);
+	
+}
+	
+</script>
+</html>

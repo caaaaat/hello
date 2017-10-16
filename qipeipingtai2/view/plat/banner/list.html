@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .content {  width: 220px;  display: inline-block;  overflow:hidden;  text-overflow:ellipsis;  white-space:nowrap;  padding-left: 10px;  }
+        .vid{width: 45px;text-align: center;}
+        .p_t_m_2{padding-top: 2px; padding-bottom: 2px;}
+        .l a{ color: #0066ff;}
+    </style>
+</head>
+<body>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true" onclick="getBanner(1,1)">顶部banner</a></li>
+                    <li class="" onclick=""><a data-toggle="tab" href="#tab-2" aria-expanded="false" onclick="getBanner(2,1)">腰部banner</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+                            <h3 style="margin-right: 10px;">顶部banner</h3>
+                            <div style="text-align: right; padding-right: 15px;margin-bottom: 15px;">
+                                <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" onclick="getBanner(1,1)">刷新列表</button></span>
+                                <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" data-id="0" data-type="1" data-style="1" id="topBanner">添加banner</button></span>
+                            </div>
+                            <div class="wrapper wrapper-content">
+                                <div class="ibox-content">
+                                    <!--列表开始-->
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th style="text-align: center;width:90px">排序</th>
+                                                <th style="text-align: center;width:90px">图片</th>
+                                                <th style="text-align: center;width:90px">标题</th>
+                                                <th style="text-align: center;width:90px">类型</th>
+                                                <th style="text-align: center;width:90px">关联页面</th>
+                                                <th style="text-align: center;width:90px">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="show_banner_top" style="text-align: center"></tbody>
+                                        </table>
+                                    </div>
+                                    <script id="banner_top_model" type="text/html">
+                                        {{# var url_typeArr = {  0:'其他', 1:'促销活动',2:'新闻资讯',3:'新手上路',4:'外部链接',5:'无连接',6:'其他' }  }}
+                                        {{# if(d.massageCode == 'success') { }}
+                                        {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+                                        <tr>
+                                            <td>
+                                                <span><input class="vid" data-id="{{ list[i].id }}" data-type="1" onchange="saveVID(this)" value="{{ list[i].vid }}" /></span>
+                                            </td>
+                                            <td class="p_t_m_2">
+                                                {{# if (list[i].img) { }}
+                                                <span><img src="{{ list[i].img }}" style="width: 120px;height: 60px;"></span>
+                                                {{# }else{ }}
+                                                <span></span>
+                                                {{# } }}
+                                            </td>
+                                            <td>
+                                                <span class="content" title="{{ list[i].title }}">{{ list[i].title }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ url_typeArr[list[i].url_type] }}</span>
+                                            </td>
+                                            <td>
+                                                {{# if(list[i].url_type == 5){ }}
+                                                <span></span>
+                                                {{# }else if(list[i].url_type == 4){ }}
+                                                <span class="content"><a target="_blank" href="{{ list[i].url }}"> 查看详情 </a></span>
+                                                {{# }else{ }}
+                                                <span class="content" title="{{ list[i].art_title }}"><a target="_blank" href="{{ list[i].url }}">【ID:{{ list[i].art_ID }}】{{ list[i].art_title }}</a></span>
+                                                {{# } }}
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span class="l">
+                                                    <a data-id="{{ list[i]['id'] }}" data-type="1" data-style="2" onclick="banner(this)">[ 编辑 ]</a> <br/>
+                                                    <a data-id="{{ list[i].id }}" data-type="1" onclick="delBanner(this)" style="margin-left: -4px;">[ 删除 ]</a>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        {{# } }}
+                                        {{# }else{ }}
+                                        <td colspan="10">
+                                            <span>{{ d.massage }}</span>
+                                        </td>
+                                        {{# } }}
+                                    </script>
+                                    <!--table end-->
+                                    <!--page-->
+                                    <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                        <input hidden="hidden" value="1" id="banner_top_page"/>
+                                        <span>每页显示
+                                    <select id="banner_top_pageSize" onchange="getBanner(1,1)">
+                                        <option value="10"  selected="selected">10</option>
+                                        <option value="30">30</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>&nbsp;
+                                </span>
+                                        <span id="banner_top_pageInfo" style="margin-right: 10px;"></span>
+                                        <div class="btn-group" id="banner_top_pager"></div>
+                                    </div>
+                                    <!--页码结束-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                        <div class="panel-body">
+                            <h3 style="margin-right: 10px;">腰部banner</h3>
+                            <div style="text-align: right; padding-right: 15px;margin-bottom: 15px;">
+                                <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" onclick="getBanner(2,1)">刷新列表</button></span>
+                                <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" data-id="0" data-type="2" data-style="1" id="middleBanner">添加banner</button></span>
+                            </div>
+                            <div class="wrapper wrapper-content">
+                                <div class="ibox-content">
+                                    <!--列表开始-->
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th style="text-align: center;width:90px">排序</th>
+                                                <th style="text-align: center;width:90px">图片</th>
+                                                <th style="text-align: center;width:90px">标题</th>
+                                                <th style="text-align: center;width:90px">类型</th>
+                                                <th style="text-align: center;width:90px">关联页面</th>
+                                                <th style="text-align: center;width:90px">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="show_banner_middle" style="text-align: center"></tbody>
+                                        </table>
+                                    </div>
+                                    <script id="banner_middle_model" type="text/html">
+                                        {{# var url_typeArr = {  0:'其他', 1:'促销活动',2:'新闻资讯',3:'新手上路',4:'外部链接',5:'无连接',6:'其他' }  }}
+                                        {{# if(d.massageCode == 'success') { }}
+                                        {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+                                        <tr>
+                                            <td>
+                                                <span><input class="vid" data-id="{{ list[i].id }}" data-type="2" onchange="saveVID(this)" value="{{ list[i].vid }}"/></span>
+                                            </td>
+                                            <td class="p_t_m_2">
+                                                {{# if (list[i].img) { }}
+                                                <span><img src="{{ list[i].img }}" style="width: 240px;height: 60px;"></span>
+                                                {{# }else{ }}
+                                                <span></span>
+                                                {{# } }}
+                                            </td>
+                                            <td>
+                                                <span class="content" title="{{ list[i].title }}">{{ list[i].title }}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{ url_typeArr[list[i].url_type] }}</span>
+                                            </td>
+                                            <td>
+                                                {{# if(list[i].url_type == 5){ }}
+                                                <span></span>
+                                                {{# }else if(list[i].url_type == 4){ }}
+                                                <span class="content l"><a target="_blank" href="{{ list[i].url }}"> 查看详情 </a></span>
+                                                {{# }else{ }}
+                                                <span class="content l" title="{{ list[i].art_title }}"><a target="_blank" href="{{ list[i].url }}">【ID:{{ list[i].art_ID }}】{{ list[i].art_title }}</a></span>
+                                                {{# } }}
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <span class="l">
+                                                    <a data-id="{{ list[i].id }}" data-type="2" data-style="2" onclick="banner(this)">[ 编辑 ]</a> <br/>
+                                                    <a data-id="{{ list[i].id }}" data-type="2" onclick="delBanner(this)" style="margin-left: -4px;">[ 删除 ]</a>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        {{# } }}
+                                        {{# }else{ }}
+                                        <td colspan="10">
+                                            <span>{{ d.massage }}</span>
+                                        </td>
+                                        {{# } }}
+                                    </script>
+                                    <!--table end-->
+                                    <!--page-->
+                                    <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                                        <input hidden="hidden" value="1" id="banner_middle_page"/>
+                                        <span>每页显示
+                                    <select id="banner_middle_pageSize" onchange="getBanner(2,1)">
+                                        <option value="10"  selected="selected">10</option>
+                                        <option value="30">30</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select>&nbsp;
+                                </span>
+                                        <span id="banner_middle_pageInfo" style="margin-right: 10px;"></span>
+                                        <div class="btn-group" id="banner_middle_pager"></div>
+                                    </div>
+                                    <!--页码结束-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/js/laytpl/laytpl.js"></script>
+<!--弹窗js-->
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+<!--分页插件-->
+<script src="/js/jquery.page.js"></script>
+
+<!--自定义JS-->
+<script src="/js/global.js"></script>
+<script>
+    $(function(){
+        getBanner(1,1);
+        $('#topBanner,#middleBanner').click(function () {
+            banner(this);
+        })
+
+    });
+
+    //===============Banner 开始======================
+    function getBanner(type,page) {
+        var data    = {} ;
+        data.type   = type ? type : 1 ;
+        data.page   = page ? page : 1 ;
+        data.pageSize = type == 1 ?  $("#banner_top_pageSize").val() : $("#banner_middle_pageSize").val() ;
+        var url = '/plat.banner/getBanner';
+        //var index = layer.load(2);
+        $.post(url,{data:data},function(rv){
+            var pagerObj  = $("#banner_top_pager") ;
+            var modelObj  = $("#banner_top_model") ;
+            var bannerObj = $("#show_banner_top") ;
+            var pInfoObj  = $("#banner_top_pageInfo") ;
+            if(type == 2){
+                pagerObj  = $("#banner_middle_pager") ;
+                modelObj  = $("#banner_middle_model") ;
+                bannerObj = $("#show_banner_middle") ;
+                pInfoObj  = $("#banner_middle_pageInfo") ;
+            }
+            var p        = rv.page;
+            var pageSize = rv.pageSize;
+            var count    = rv.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            pInfoObj.text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+
+            pagerObj.createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getBanner(type,p);
+                }
+            });
+            var tpl = modelObj.html();
+            laytpl(tpl).render(rv, function(html){
+                bannerObj.html(html);
+            });
+
+        },'json');
+    }
+    function saveVID(obj) {
+        var data = {} ;
+        data.id  = $(obj).attr('data-id');
+        data.vid = $(obj).val();
+        data.type= $(obj).attr('data-type');
+        var url = '/plat.banner/saveVID';
+        $.post(url,{data:data},function(rv){
+            if(rv.massageCode == 'success'){
+                getBanner(data.type,1)
+            }
+
+        },'json')
+    }
+    function delBanner(obj) {
+        layer.confirm('是否删除 ? 删除之后无法恢复!',{shadeClose: true, title:'重要提示'},function (index) {
+            var data = {} ;
+            data.id  = $(obj).attr('data-id');
+            data.type= $(obj).attr('data-type');
+            var url = '/plat.banner/delBanner';
+            $.post(url,{data:data},function(rv){
+                if(rv.massageCode == 'success'){
+                    layer.close(index);
+                    getBanner(data.type,1)
+                }
+            },'json')
+        });
+    }
+
+    function banner(obj) {
+        var id   = $(obj).attr('data-id');
+        var type = $(obj).attr('data-type');
+        var style= $(obj).attr('data-style');
+
+        var title = "新增 Banner";
+        if(style == 2){
+            title = "编辑 Banner";
+        }
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: false,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['700px', '560px'],
+            content: '/plat.banner/banner/?id='+id+'&type='+type+'&style='+style
+        });
+    }
+
+</script>
+</body>
+</html>

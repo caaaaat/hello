@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>重置密码</title>
+    <link href="../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">
+      
+    </script>
+</head>
+<style>
+	.sw-link{
+		color: #666;
+		border: 1px solid #efefef;
+		height: 48px;
+		line-height: 48px;
+		text-align: left;
+		width: 240px;
+		margin: auto;
+		border-radius: 24px;
+		font-size: 14px;
+		padding-left: 24px;
+	}
+	
+	.sw-input-mima{
+		text-align: left;height: 48px!important;
+		background: url(../../image/login/icon_suo.png)no-repeat;
+		background-position: 8px;
+		background-size: 14px;
+		padding-left: 30px!important;
+	}
+	
+	.sw-input-code{
+		text-align: left;height: 48px!important;
+		background: url(../../image/login/icon_tuxing.png)no-repeat;
+		background-position: 8px;
+		background-size: 14px;
+		padding-left: 30px!important;
+		margin-right:20px;
+		float: left;
+		font-size: 14px;
+	}
+	.weui-vcode-img{
+		height: 48px;width: 100px;
+	}
+	.vcode-img-div{
+		padding: 0;height: 48px;position: absolute;right: 0;
+	}
+	.sw-input-code-con{
+		overflow: hidden;padding-right: 120px;position: relative;margin-right: 0;
+	}
+	
+	.sw-check{
+		width: 12px;height: 12px;vertical-align:middle;margin-bottom:0;display: inline-block;background: url(../../image/login/icon_weixuan.png) no-repeat;background-size: contain;cursor: pointer;
+	}
+	.sw-check-active{
+		width: 12px;height: 12px;vertical-align:middle;margin-bottom:0;display: inline-block;background: url(../../image/login/icon_yixuan.png) no-repeat;background-size: contain;cursor: pointer;
+	}
+</style>
+<body style="background: #FFFFFF;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">重置密码</h1>
+	</header>
+	<div class="mui-content" style="padding: 0 20px;background: #FFFFFF;">
+	   
+	    <div class="sw-input-code-con" style="padding-top: 80px;">
+	       <input type="text" maxlength="6" id="smsCode" placeholder="请输入短信验证码" class="sw-input-code">
+			<div class="vcode-img-div">
+				<button type="button" id="getCode" class="mui-btn mui-btn-tangerine" style="height: 48px;width: 96px;">
+					获取验证码
+				</button>
+			 </div>
+	    </div>
+	    
+	    <div class="mui-input-row" style="border: 1px solid #CCCCCC;margin-bottom: 30px;border-radius: 4px;">
+	    	
+	       <input type="password" id="newPwd" class="sw-input-mima" placeholder="请设置密码，6-16位数字、字母或字符" maxlength="16"  style="margin-bottom: 0;border: none;font-size: 14px;">
+	       	<p style="height: 1px;background: #CCCCCC;margin-bottom: 0;margin-left: 30px;"></p>
+	       <input type="password" id="newPwdTest" class="sw-input-mima" placeholder="请再次输入密码" maxlength="16" style="margin-bottom: 0;border: none;font-size: 14px;">
+	       
+	    </div>
+	    
+	    <button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" onclick="setPwd()">完成</button>
+	</div>
+</body>
+ <script src="../../js/mui.min.js"></script>
+  <script src="../../js/global.js"></script>
+ <script src="../../js/jquery.min.js"></script>
+ <script type="text/javascript">
+ 	 	//mui初始化
+	mui.init();
+	var	phone = '';	
+	//mui plusReady
+	mui.plusReady(function() {		
+		var self  = plus.webview.currentWebview();	
+		    phone = self.phone;	
+		//进入后检查手机短信验证码  未发送进行发送手机验证码
+		getSmsCode();	
+	})
+ 	
+ 	
+ 	/**
+	 * 注册设置密码
+	 */
+	function setPwd(){
+        //获取填入的信息
+        var smsCode    = $.trim($("#smsCode").val());
+        var newPwd     = $.trim($("#newPwd").val());
+        var newPwdTest = $.trim($("#newPwdTest").val());
+        //判断输入的值是否正确
+ 		if(smsCode==''){
+ 			sw.toast('请输入手机验证码');
+ 			return;
+ 		}else{
+ 			if(smsCode.length!=6){
+ 			sw.toast('手机验证码输入有误'); 
+ 			return;
+ 		    }
+ 		}
+             
+        if(newPwd){                	
+        	if(newPwd.length < 6 || newPwd.length > 16){
+        		sw.toast('密码格式错误');
+        		return;
+        	}else{ 
+            	if(newPwdTest){
+                    if(newPwdTest!=newPwd){
+                    	sw.toast('两次密码不同，请检查');
+                        return;
+                    }
+                }else{
+                    sw.toast('请确认您的密码');
+                    return;
+                }
+        	}         
+        }else{
+            sw.toast('请输入您的密码');
+            return;
+        }
+			
+	 	//提交数据
+	 	http.load('api.sev.login','resetPwd',{'phone':phone,'smsCode':smsCode,'pwd':newPwd},function(rData){//请求成功
+	 			//请求成功后判断样式处理 
+	 			sw.toast(rData.msg);
+				if(rData.status==200){//密码重置成功 
+					setTimeout(function(){	
+						//关闭父级
+						plus.webview.close( 'login_viPhone', 'slide-out-bottom');
+						plus.webview.close( 'login_resetPwd', 'slide-out-bottom');
+					},1000)	
+				}
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+				//无网络提示
+				//sw.toast('请求失败，请检查您网络设置');
+	 	})	
+	}
+	
+ 	//获取短信验证码
+ 	function getSmsCode(){		
+ 		http.load('api.sev.register','sendCode',{'phone':phone},function(rData){//请求成功
+				sw.jcon(rData);
+	 			//请求成功后判断样式处理
+	 			sw.toast(rData.msg);
+	 			//处理倒计时事件
+	 			if(rData.status==200){
+	 				setTimeCode(rData.time);   
+	 			}
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+				//无网络提示
+				//sw.toast('请求失败，请检查您网络设置');
+	 		}) 
+ 	}
+ 	
+ 	//短信验证码倒计时
+ 	function setTimeCode(s){   		
+		s--;
+		if (s == 0) {
+			$("#getCode").removeClass('mui-btn-gray').addClass('mui-btn-tangerine');
+			$("#getCode").text('获取验证码');
+			$("#getCode").attr('onclick','getSmsCode()');			
+		}else {
+			$("#getCode").removeClass('mui-btn-tangerine').addClass('mui-btn-gray');
+			$("#getCode").attr('onclick','');
+			$("#getCode").text(s+'s')
+			setTimeout(function() { 
+				setTimeCode(s)
+			}, 1000)
+		}		
+ 	}
+ </script>
+</html>

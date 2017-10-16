@@ -1,0 +1,78 @@
+/*第一步*/
+#logo{width: 1200px;margin: 0 auto;margin-top: 20px}
+.logo{height: 100px;}
+.logoImg{height: 80px;max-width: 140px;}
+#captcha_img{width: 100px;height: 50px;}
+.zuCeText{font-size: 18px;color: #FE5248;font-weight: bold;margin-left: 30px}
+#zuCeDIv{border: 1px solid #DDD;width: 1200px;height: 520px;margin: 0 auto;background: #FFF}
+.zuCeDIv{padding: 55px 270px;padding-top: 30px}
+.phoneDiv{text-align: center;margin-top: 85px}
+.phone{width: 440px;height: 50px;padding-left: 15px;padding-right: 15px;font-size: 18px}
+.yanZMDiv{margin-top: 30px;padding-left: 110px;padding-right: 110px}
+.yanZM{width: 235px;height: 50px;padding-left: 15px;padding-right: 15px;font-size: 18px;float: left;}
+.floRight{float: right}
+.margTop42{margin-top: 42px}
+.dengLuBtn{width: 440px;height: 58px;background: #FF524B;border-radius: 8px;font-size: 18px}
+input{border: 1px solid #DDD}
+/*第二步*/
+.phoneDivEr{margin-top: 40px;padding-left: 110px;padding-right: 110px;}
+.erPasswrod{padding: 0 25px;width: 440px;height: 50px;font-size: 18px;margin-left: 110px;margin-top: 25px}
+.zuCeDIvEr{padding: 55px 270px;padding-top: 30px}
+.yanZMEr{font-size: 18px;padding: 0 25px;width: 275px;height: 50px;}
+.btnYanZMEr{border: none;float: right;border-radius: 0;border-color: #BBB;background: #FF524B;width: 150px;height: 50px;font-size: 18px;}
+/*.btnYanZMEr:hover{background: #FF524B;}*/
+.isAgree{margin-left: 110px;margin-top: 15px;color: #333}
+.agreeImg{vertical-align: sub}
+.fuWu{color: #FD726B}
+.tiJiaoEr{border-radius: 7px;background: #FF524B;font-size: 18px;margin-left: 110px;margin-top: 40px;width: 440px;height: 50px;}
+/*第三步*/
+#s_province,#s_city,#s_county{height: 30px;border: 1px solid #DDD;border-radius: 5px;}
+#zuCeDIvSan{border: 1px solid #DDD;width: 1200px;margin: 0 auto;background: #FFF;height: auto}
+#info{width: 630px;margin: 0 auto;margin-top: 30px;}
+.fontSize15{font-size: 15px}
+.threeListDiv{float: left;width: 20%;font-size: 17px;}
+.colorRed{color: red}
+.left20{float: left;width: 20%}
+.marTop20{margin-top: 20px;}
+.width60{float: left;width: 60%;overflow: hidden;word-break:keep-all;white-space:nowrap;}
+.threeBtn{width: 65px;margin-top: -5px;background: #FF524B;}
+.left80{float: left;width: 80%;}
+.threeInput{width: 100%;height: 30px;border-radius: 5px;padding-left: 15px;padding-right: 15px;}
+.marTop30{margin-top: 30px;}
+.left60{float: left;width: 60%;}
+.map{height: 150px;margin-top: 15px;overflow: hidden;border: 1px solid #DDD}
+.weiZi{margin-top: -5px;background: #FF524B;}
+.textareaInfo{border: 1px solid #DDD;border-radius: 5px;padding: 10px 15px;height: 100px;width: 100%;max-height: 100px;max-width: 100%}
+.coverImg{height: 85px;max-width: 85px;}
+.upCover{width: 65px;margin-top: 20px;background: #FF524B;}
+.present{margin-top: 30px;padding-left: 20%;}
+.threeBtnTiJiao{border-radius: 7px;width: 390px;height: 50px;margin-top: 20px;background: #FF524B;font-size: 18px;font-weight: bold}
+/*弹出框*/
+#alertDiv{width: 600px;border: 1px solid #E4E4E4;margin: 0 auto;border-radius: 5px;}
+.titleName{height: 40px;background: #F2F2F2;line-height: 40px;text-align: center;padding-right: 15px;}
+.typeDiv{background: #FFF;padding-bottom: 50px;}
+.hei50line50{height: 50px;line-height: 50px;}
+.typeName{float: left;width: 50%;text-align: center;}
+.typeNameActive{color: #0099FF}
+.tableDiv{padding: 0 20px;}
+.tableBor{width: 100%;border: 1px solid black}
+.tableTr{width: 100%;border: 1px solid #E4E4E4;height: 40px;}
+.tableTrTd{padding-left: 15px;padding-right: 20px;}
+.tableLabel{width: 100%;line-height: 40px;margin-bottom: 0;}
+.floLeft{float: left;}
+.alertBottom{height: 40px;background: #F2F2F2;line-height: 40px;text-align: center;padding-right: 15px;}
+.quXiao{border-radius: 7px;width: 80px;height: 30px;;background: #FFF;color: black;margin-right: 20px;}
+.nextBu{border-radius: 7px;background: #00CC33;color: #FFF;width: 80px;height: 30px;}
+.fenLei{position: relative;padding: 0 25px;}
+.xiangYou{position: absolute;right: 10px;top: 0;padding-top: 5px;z-index: 50;width: 10px;}
+.xiangZuo{position: absolute;left: 10px;top: 0;padding-top: 5px;z-index: 50;width: 10px;}
+.height30{height: 30px;}
+.listType{width: 80px;text-align: center;border: 1px solid #E4E4E4;height: 30px!important;line-height: 30px!important;}
+.listTypeActive{color: #0099FF}.listTypeActive{color: #0099FF}
+.swiper-slide-active{color: #0099FF}.listTypeActive{color: #0099FF}
+.pading10{padding: 10px;}
+.upImgsListDiv{float: left;width: 80px;height: 100px;position: relative;margin-right: 14px;margin-bottom: 15px}
+.upImgs{height: 80px;max-width: 80px;}
+.textCenter{text-align: center}
+.xuanZhong{position: absolute;top: 0;left: 3px;}
+.inputs{width: 15px;height: 15px;}

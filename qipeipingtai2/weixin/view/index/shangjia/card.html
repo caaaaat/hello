@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="../../../css/mui.min.css" />
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	.sw-input{
+		text-align: left;
+		height: 48px!important;
+		font-size: 14px!important;
+		text-align: center;
+		border: none!important;
+	}
+	.sw-title-1{
+		width: 50%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+	}
+	.card-box{
+		width: 100%;height: 160px;max-width:300px;background: #FFFFFF;border-radius: 4px;margin: auto;text-align: center;line-height:160px;
+	}
+	.card-box1{
+		width: 100%;height: 160px;max-width:300px;background: #FFFFFF;border-radius: 4px;margin: auto;
+	}
+</style>
+<body style="background: #efefef;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">企业名片</h1>
+	    <!--<button class="mui-btn mui-btn-link mui-pull-right">企业名片</button>-->
+	</header>
+	<div class="mui-content" style="padding: 0 20px;background: #efefef;">
+		
+	    <div class="mui-input-row" style="margin-bottom: 30px;padding-top: 80px;">
+	        
+	        <div class="card-box" style="display: none;">
+	        	<span style="color: #999999;">未设置名片</span>
+	        </div>
+	        
+	         <div class="card-box1">
+	        	<img src="../../../image/person/card/card.png" width="100%" height="100%" style="border-radius: 4px;"/>
+	        </div>
+	        
+	    </div>
+	    
+	    <button style="display: none;" type="button" class="mui-btn mui-btn-tangerine mui-btn-block">编辑名片</button>
+	    
+	    
+	    <div class="sw-list-box">
+			<div class="sw-title-1" style="padding-right: 10px;">
+				<button type="button" class="mui-btn mui-btn-tangerine" style="font-size: 12px;width: 120px;">保存到相册</button>
+			</div>
+			<div class="sw-title-1" style="padding-right: 5px;padding-left: 5px;">
+				<button type="button" class="mui-btn mui-btn-tangerine" style="font-size: 12px;width: 120px;" id="share">分享</button>
+			</div>
+		</div>
+
+	</div>
+
+ <div id="popover" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;">
+	<div style="width: 100%;padding: 20px 0;">
+		
+		<p style="text-align: center;padding: 0 15px;">
+			<span style="color: #333;font-weight: 700;">分享</span>
+			<span style="float: right;" id="closePopover">
+				<img src="../../../image/person/purchase/icon_qg_c.png" height="12px">
+			</span>
+		</p>
+		
+		 <ul class="mui-table-view mui-grid-view mui-grid-5 sw-no-img sw-payList" style="padding:0 0 20px;">
+			            
+            <li class="mui-table-view-cell mui-media mui-col-sm-20">
+            	<img class="mui-media-object" src="../../../image/person/more/icon_more_wechat.png">
+            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">微信</span>
+            </li>
+            
+            <li class="mui-table-view-cell mui-media mui-col-sm-20">
+            	<img class="mui-media-object" src="../../../image/person/more/icon_more_fri.png">
+            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">朋友圈</span>
+            </li>
+            
+            <li class="mui-table-view-cell mui-media mui-col-sm-20">
+            	<img class="mui-media-object" src="../../../image/person/more/icon_more_qq.png">
+            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">QQ好友</span>
+            </li>
+            
+            <li class="mui-table-view-cell mui-media mui-col-sm-20">
+            	<img class="mui-media-object" src="../../../image/person/more/icon_more_qqkj.png">	
+            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">QQ空间</span>
+            </li>
+            
+            <li class="mui-table-view-cell mui-media mui-col-sm-20">
+            	<img class="mui-media-object" src="../../../image/person/more/icon_chenggong_mrtx.png">	
+            	<span style="font-size: 12px;color: #666666;" class="sw-word-one">圈子</span>
+            </li>
+			            
+		</ul>
+		
+	</div>    	
+</div>
+
+</body>
+ <script src="../../../js/mui.min.js"></script>
+  <script src="../../../js/global.js"></script>
+  <script>
+  	mui("#share")[0].addEventListener('tap',function(){
+		mui('#popover').popover('show');
+	})
+  	mui("#closePopover")[0].addEventListener('tap',function(){
+		mui('#popover').popover('hide');
+	})  
+  </script>
+</html>

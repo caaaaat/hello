@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的刷新点</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	.sw-link{
+		border: 1px solid #efefef;
+		height: 48px;
+		line-height: 48px;
+		text-align: left;
+		width: 240px;
+		margin: auto;
+		border-radius: 24px;
+		font-size: 14px;
+		padding-left: 24px;
+		background: #FFFFFF;
+		margin-top: 10px;
+		margin-bottom: 20px;
+		color: #CDB07C!important;
+	}
+	
+	.sw-shuaxin{
+		-webkit-font-smoothing: antialiased;
+		font-size: 24px;
+		margin-top: -100px;
+		text-align: center;
+		color: #ff7100;
+		font-weight: 700;
+		text-shadow: -1px 1px 2px #666,0 0 2px #ff7100;
+	}
+</style>
+<body style="background: #EFEFEF;">
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">我的刷新点</h1>
+	</header>
+	
+	<div class="mui-content" style="padding: 0 20px;background: #EFEFEF;padding-top: 60px;">
+	   
+	   <div style="width: 100%;margin-bottom: 100px;height: 120px;text-align: center;">
+	   		<img src="../../../image/person/refresh/background.png" width="100%" style="max-height: 180px;max-width: 340px;"/>
+	   		<p class="sw-shuaxin">我的刷新点：<span id="point">0</span>次</p>
+		</div> 
+	     
+	   	<div style="width: 100%;padding: 0 6%;">
+	   		<button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" id="pay">购买刷新点</button>
+	   	</div>
+	    <p style="text-align: center;font-size: 14px;" id="payHistory">刷新点记录</p>
+	    
+	    <p style="text-align: center;font-size: 14px;margin-top: 60px;" class="sw-ctheme">刷新点说明</p>
+	    <p style="text-align: center;font-size: 12px;width: 238px;margin: auto;" class="sw-ctheme">刷新点可用于刷新产品，刷新后的产品排列顺序将会靠前</p>
+	    
+	    <div class="sw-extra-area" onclick="severQQ()" >
+	        <div class="sw-link">
+	        	<input type="number" name="serverNum" id="serverNum" value="" hidden=""/>
+	        	<img src="../../../image/person/vip/qq@3x.png" style="width: 24px;height: 24px;vertical-align: middle;" /> 
+	        	客服QQ：<span id="serverQQ">未设置</span>
+	        </div>
+	        
+      	</div>
+	    
+	</div>
+	
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+ <script src="../../../js/jquery.min.js"></script>
+ <script>
+ 	//mui初始化
+	mui.init(); 	
+	//mui plusReady
+	mui.plusReady(function() {
+		
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+		
+			var token  = plus.storage.getItem('token');
+				
+			var postData = {};
+				postData.token = token;
+				
+			//如果已经登陆 获取登录后的数据
+			http.load('api.sev.user','getUserInfo',postData,function(rData){//请求成功
+	 			sw.jcon(rData)
+	 			if(rData.status==200){   
+	 				mui("#point")[0].innerHTML =  rData.data.refresh_point;
+	 				//客服qq
+	 				if(rData.telQq.status==200){
+	 					var qq = JSON.parse(rData.telQq.data.value).qq;
+	 					$("#serverNum").val(qq);
+	 					$("#serverQQ").text(qq);  
+	 				}
+	 			}else{
+	 				sw.toast(rData.msg); 	
+	 			}
+		
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+	 				//无网络提示
+	 				sw.toast('获取数据失败，请检查网络链接'); 
+	 		})
+		
+		}
+ 	})
+ 	
+ 	
+ 	//刷新点充值
+	mui("#pay")[0].addEventListener('tap',function(){
+		openView('../../../view/person/refresh/pay.html','person_refresh_pay','pop-in');
+	})
+	
+	//充值记录
+	mui("#payHistory")[0].addEventListener('tap',function(){
+		openView('../../../view/person/refresh/payHistory.html','payHistory','pop-in');
+	})
+	
+	//拨打客服qq
+	function severQQ(){
+		var serverNum = $("#serverNum").val();	
+		if(serverNum){
+			document.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin='+serverNum+'&version=1&src_type=web&web_src=qq.com;';		
+		}		
+	}
+ </script>
+</html>

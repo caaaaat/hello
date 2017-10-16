@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .control-label{margin-bottom: 0;height: 34px;line-height: 34px; padding-right: 0;}
+    </style>
+</head>
+<body>
+<div class="col-xs-1"></div>
+<div class="col-xs-10">
+    <div class="ibox-content" style="border-width:0">
+
+        <div class="form-horizontal" style="margin-bottom: 10px;height: 36px;">
+            <div class="col-xs-2 " style="width: 50px;height: 36px; text-align: center;line-height: 36px; padding-top: 2px;">
+                <span style="display: inline-block;width: 20px;height: 20px; line-height:20px;border-radius: 10px;background-color: red; color: white;font-size: 20px;">!</span>
+            </div>
+            <div class="col-xs-10" style="padding-left: 0;height: 36px; line-height: 36px;">
+                <p style="color: #0099FF;">
+                    初始密码统一为123456，若遗忘密码，请重置为初始密码
+                </p>
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-xs-4 control-label"><span style="color: red;">＊</span>旧密码:</label>
+                <div class="col-xs-7 input-group" style="padding-left: 0;">
+                    <input type="password" id="oldPwd" class="form-control" placeholder="请输入旧密码">
+                    <span class="input-group-btn" style="width: 30px; color: red"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 control-label"><span style="color: red;">＊</span>新密码:</label>
+                <div class="col-xs-7 input-group" style="padding-left: 0;">
+                    <input type="password" id="newPwd" class="form-control" placeholder="请输入新密码">
+                    <span class="input-group-btn" style="width: 30px;"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-4 control-label"><span style="color: red;">＊</span>重复新密码:</label>
+                <div class="col-xs-7 input-group" style="padding-left: 0;">
+                    <input type="password" id="rPwd" class="form-control" placeholder="请重复新密码">
+                    <span class="input-group-btn" style="width: 30px;"></span>
+                </div>
+            </div>
+
+            <div class="form-group" style="height: 25px;">
+                <div class="col-xs-4"></div>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <span id="tip" style="color: red;height: 25px;"></span>
+                </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+                <div class="col-xs-12 col-xs-offset-4">
+                    <button class="btn btn-primary" type="submit" onclick="savePwd()">确认修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<!--弹窗js-->
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+<script>
+
+    function savePwd() {
+
+        var oldPwd = $.trim($("#oldPwd").val());
+        var newPwd = $.trim($("#newPwd").val());
+        var rPwd   = $.trim($("#rPwd").val());
+        if(!oldPwd || oldPwd==''){
+            $("#oldPwd").focus();
+            $("#oldPwd").next().html('<img src="/images/plat/main/u62.png" style="width: 25px; border-radius: 15px; margin-left: 5px;">');
+
+            $("#tip").text('请输入旧密码');
+            //layer.msg('请输入旧密码',{time:1500});
+            return false;
+        }else {
+            $("#oldPwd").next().html('<img src="/images/plat/main/u64.png" style="width: 25px; border-radius: 15px; margin-left: 5px;">');
+        }
+
+        if (!newPwd || newPwd==''){
+            $("#newPwd").focus();
+            $("#newPwd").next().html('<img src="/images/plat/main/u62.png" style="width: 25px; border-radius: 15px; margin-left: 5px;">');
+            $("#tip").text('请输入新密码');
+            //layer.msg('请输入新密码',{time:1500});
+            return false;
+        }else {
+            $("#newPwd").next().html('<img src="/images/plat/main/u64.png" style="width: 25px; border-radius: 15px; margin-left: 5px;">');
+        }
+
+        if (!rPwd || rPwd==''){
+            $("#rPwd").focus();
+            $("#rPwd").next().html('<img src="/images/plat/main/u62.png" style="width: 25px; border-radius: 15px; margin-left: 5px;">');
+            $("#tip").text('请重复新密码');
+            //layer.msg('请重复新密码',{time:1500});
+            return false;
+        }else if (newPwd != rPwd){
+            $("#rPwd").focus();
+            $("#rPwd").next().html('<img src="/images/plat/main/u62.png" style="width: 25px; border-radius: 15px; margin-left: 5px;">');
+            $("#tip").text('两次密码不一致');
+            //layer.msg('两次密码不一致',{time:1500});
+            return false;
+        }else {
+            $("#rPwd").next().html('<img src="/images/plat/main/u64.png" style="width: 25px; border-radius: 15px; margin-left: 5px;">');
+
+        }
+
+        $.post('/suAdmin/savePwd',{oldPwd:oldPwd,newPwd:newPwd,rPwd:rPwd},function(Rv){
+            if(Rv.massageCode == 'success'){
+                layer.msg(Rv.massage,{time:1500});
+
+                setTimeout(function () {
+                    layer.closeAll();
+                },1500);
+            }else {
+                $(Rv.massageId).next().html(Rv.massageInfo);
+                //Rv.massageInfo ;
+                layer.msg(Rv.massage,{time:1500});
+            }
+        },'json')
+
+    }
+
+</script>
+</body>
+</html>

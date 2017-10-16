@@ -1,0 +1,13 @@
+/*修改密码*/
+.titles{height: 90px;line-height: 90px;margin-top: 15px;text-align: center;font-size: 20px;font-weight: bold;color: #5D5D5D}
+.oldPWD{margin: auto;text-align: center;margin-bottom: 20px;}
+.oldInput{width: 440px;height: 50px;border: 1px solid #DDD;line-height: 50px;padding-left: 10px;}
+.newPWD{margin: auto;text-align: center;margin-bottom: 20px;}
+.newInput{width: 440px;height: 50px;border: 1px solid #DDD;line-height: 50px;padding-left: 10px;}
+.saveDiv{margin: auto;text-align: center;margin-bottom: 20px;}
+.saveBtn{background: #FF524B;width: 440px;height: 60px;font-size: 20px;border-radius: 7px;}
+/*绑定手机*/
+
+
+
+

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>验证手机号</title>
+    <link href="../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">
+      
+    </script>
+</head>
+<style>
+	.sw-link{
+		color: #666;
+		border: 1px solid #efefef;
+		height: 48px;
+		line-height: 48px;
+		text-align: left;
+		width: 240px;
+		margin: auto;
+		border-radius: 24px;
+		font-size: 14px;
+		padding-left: 24px;
+	}
+	.sw-input-phone{
+		text-align: left;height: 48px!important;
+		background: url(../../image/login/icon_phone.png)no-repeat;
+		background-position: 8px;
+		background-size: 14px;
+		padding-left: 30px!important;
+		font-size: 14px;
+	}
+	.sw-input-code{
+		text-align: left;height: 48px!important;
+		background: url(../../image/login/icon_tuxing.png)no-repeat;
+		background-position: 8px;
+		background-size: 14px;
+		padding-left: 30px!important;
+		margin-right:20px;
+		float: left;
+		font-size: 14px;
+	}
+	.weui-vcode-img{
+		height: 48px;width: 100px;
+	}
+	.vcode-img-div{
+		padding: 0;height: 48px;position: absolute;right: 0;
+	}
+	.sw-input-code-con{
+		overflow: hidden;padding-right: 120px;position: relative;margin-right: 0;
+	}
+</style>
+<body style="background: #FFFFFF;">
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">验证手机号</h1>
+	</header>
+	<div class="mui-content" style="padding: 0 20px;background: #FFFFFF;">
+	    <div class="mui-input-row" style="padding-top: 80px;">
+	        <input type="text" placeholder="请输入手机号" class="sw-input-phone">
+	    </div>
+	    <div class="sw-input-code-con">
+	        <input type="text" maxlength="4" placeholder="请输入图形验证码" class="sw-input-code">
+			<div class="vcode-img-div">
+				<img class="weui-vcode-img" src="../../image/login/vcode.png">
+			 </div>
+	    </div>
+	    <button type="button" class="mui-btn mui-btn-tangerine mui-btn-block" id="setPwd">下一步</button>
+	</div>
+</body>
+ <script src="../../js/mui.min.js"></script>
+  <script src="../../js/global.js"></script>
+ <script>
+ 	 //消息列表
+	mui("#setPwd")[0].addEventListener('tap',function(){
+		openView('../../view/register/setPwd.html','selectAddress','pop-in');
+	})
+ </script>
+
+</html>

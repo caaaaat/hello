@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>验证厂商</title>
+    <link href="../../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8"/>
+    <link href="../../../../css/mui.picker.all.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="utf-8">   
+    </script>
+</head>
+<style>
+	.sw-payList:after{
+		left: 0;
+	}
+	.sw-title{
+		font-size: 14px;color: #666;
+	}
+	.sw-money-box{
+		float: right;font-weight: 700;font-size: 16px;	
+	}
+	.sw-date{
+		font-size: 12px;display:inline-block;color: #999;width: 40%;text-align: left;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	.sw-text{
+		float: right;font-size: 12px;color: #666;width: 50%;text-align: right;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	.sw-payList p{
+		height: 21px;line-height: 24px;
+	}
+	.sw-no-active:active{
+		background: #FFFFFF;
+	}
+	.sw-input-search{
+		text-align: left;
+		height: 36px!important;
+		background: url(../../../image/index/icon_wz_sousuo@3x.png)no-repeat;
+		background-position: 24px;
+		background-size: 16px;
+		padding-left: 42px!important;
+		font-size: 14px;
+		border-color:#FFFFFF!important;
+		border-radius: 24px!important;
+	}
+	.sw-header-liebiao{
+		display: inline-block;background: url(../../../../image/person/repair/icon_liebiao.png) no-repeat;width: 21px;height: 21px;background-size:contain ;margin-bottom: 0;background-position: center;
+	}
+	.sw-header-ditu{
+		display: inline-block;background: url(../../../../image/person/repair/icon_ditu@3x.png) no-repeat;width: 21px;height: 21px;background-size:contain ;margin-bottom: 0;background-position: center;
+	}
+	
+	
+	.sw-title-box{
+		width: 100%;height: 42px;border-bottom: 1px solid #DDDDDD;background: #FFFFFF;  
+	}
+	.sw-title-2{
+		width: 50%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+	}
+	.sw-rafter:after{
+		content: '';
+		height: 24px;
+		background: #EFEFEF;
+		margin-top: 9px;
+		width: 1px;
+		float: right;
+	}
+	.sw-biao-lei1{
+		display:inline-block;border: 1px solid #3EB7FF;font-size: 10px;color: #3EB7FF;height: 18px;line-height: 19px!important;width:58px;border-radius: 9px;text-align: center;
+	}
+	.sw-biao-lei2{
+		display:inline-block;border: 1px solid #41dd62;font-size: 10px;color: #41dd62;height: 18px;line-height: 19px!important;width:58px;border-radius: 9px;text-align: center;
+	}
+	.sw-biao-lei3{
+		display:inline-block;border: 1px solid #ff7a9f;font-size: 10px;color: #ff7a9f;height: 18px;line-height: 19px!important;width:58px;border-radius: 9px;text-align: center;
+	}
+	.sw-renz{
+		padding: 1px 8px;background: url(../../../../image/person/renzheng2.png) no-repeat;background-size: contain;background-position: center;margin-left: 4px;
+	}
+	.sw-dingwei{
+		padding:1px 8px;background: url(../../../../image/person/repair/icon_dingwei.png) no-repeat;background-size: 10px;background-position: center;margin-left: 4px;
+	}
+	.sw-text-r{
+		float: right;font-size: 12px;color: #666;
+	}
+	.sw-fanye{
+			padding:1px 8px;background: url(../../../../image/person/repair/icon_fanye_1.png) no-repeat;background-size: 10px;background-position: center;margin-left: 4px;
+	
+	}
+	.sw-search-p{  
+	    background: url(../../../../image/index/icon_wz_sousuo@3x.png)no-repeat;
+	    width: 45px;
+	    height: 36px;
+	    margin: 0!important;
+	    background-size: 17px;
+	    position: absolute;
+	    top: 3px;
+	    background-position: center;
+	    right: 0px; 
+	}
+	.sw-after-no:after{
+		height: 0;
+	}
+    .coverImg{width: 90px;height: 90px;max-width: 90px;margin-right: 7px;}
+	.rightBottomDiv{margin-top: 8px;color: #666;font-size: 10px;}
+	.floLeftW70{float: left;width: 70%;}
+	.floatLeftW22{width: 22%;float: left;}
+	.floLeftW28{width: 28%;float: left;}
+	.floRightW30{float: right;width: 30%;text-align: right;}
+	.size12px{font-size: 12px!important;}
+	.mui-table-view-cell:after,.mui-table-view:before{background-color: #EBEBEB;}
+	.sw-popu-btn{width:70%;height:36px;line-height:14px;border-radius: 1px;margin: auto;font-size: 16px;}	
+	.mui-popup-inner{padding-bottom: 35px;border-radius:7px 7px 0 0;padding-top: 25px;}
+	.mui-popup-inner:after{height: 0;display: none;;}
+	.mui-popup-button:first-child:last-child{border-radius: 5px;}
+	.mui-popup-button:after{width: 0;}
+	.mui-popup{border-radius: 5px!important;}
+	.mui-popup-button:last-child{border-radius:0 0 5px}
+	.mui-popup-button:first-child{border-radius:0 0 0 5px}
+	.sw-text1{
+		margin-left: 38px;margin-top: -20px;color: #666666;line-height: 18px;
+	}
+	.sw-biao-lei1{
+		display:inline-block;float: right;border: 1px solid #3EB7FF;font-size: 10px;color: #3EB7FF;height: 18px;line-height: 18px;padding: 0 4px;border-radius: 9px;
+	}
+	.sw-biao-lei2{
+		display:inline-block;float: right;border: 1px solid #18C839;font-size: 10px;color: #18C839;height: 18px;line-height: 18px;padding: 0 4px;border-radius: 9px;
+	}
+	.sw-renz-img{
+		width: 16px;vertical-align: middle;margin-left: 4px;
+	}
+	.sw-title-1{
+		width: 50%;float: left;text-align: center;line-height: 42px;font-size: 14px;
+	}
+	.sw-title-box{
+		width: 100%;height: 42px;border-bottom: 1px solid #DDDDDD;background: #FFFFFF;
+	} 
+	.sw-card-cuBox3{
+		white-space: normal; 
+		 color: #000000;
+	    overflow: hidden;
+	    display: -webkit-box;
+	    -webkit-line-clamp: 2;
+	    -webkit-box-orient: vertical;
+	    word-break: break-all;
+	} 
+
+	.vipIco{background: url(../../../../image/person/renzheng.png) no-repeat;background-size: 16px;}
+	.renZhengIco{background: url(../../../../image/person/renzheng2.png) no-repeat;background-size: 16px;}
+	.right80{position: absolute;right: 80px;top: 1px;height: 16px;width: 16px;}
+	.right60{position: absolute;right: 60px;top: 1px;height: 16px;width: 16px;}
+	.ooo{background: url(../../../../image/person/renzheng.png) no-repeat right;background-size: 16px;padding-right: 20px;}
+	
+	#allJia{width: 40%;height: 25px;line-height: 25px;color: white;background:rgba(0, 0, 0, 0.5);position: absolute;top: 100px;left: 30%;text-align: center;border-radius:12px;z-index: 600;}
+	
+</style>
+<body style="background: #EFEFEF;">
+	
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">
+	    	<p style="margin-bottom: 0;">
+	   		   <input type="text" id="keywords" placeholder="输入手机号、厂商名称查询" class="sw-input-search">	
+	   		   <p class="sw-search-p" onclick="keywords()"></p>
+	   		</p> 
+	    </h1>
+	    <a class="mui-icon mui-pull-right" onclick="searchKey()">
+	    	<p id="qieHuanImg" class="sw-header-liebiao"></p>
+	    </a>
+	</header>
+	
+	<div class="mui-content" style="background: #EFEFEF;">
+	   
+	 	<div class="sw-title-box" style="position: fixed;top: 44px;z-index: 50;">
+	   		<div class="sw-title-2 sw-rafter" style="width: 25%;" id="showCityPicker"><span class="sw-word-one" style="max-width: 50px;display: inline-block;line-height: 20px;height: 20px;vertical-align: middle;" id="cityStr">全部</span><span class="sw-fanye"></span></div>
+	   		<div class="sw-title-2 sw-rafter" style="width: 25%;" id="qixiu"><span class="qixiu">全部厂商</span><span class="sw-fanye"></span></div>
+	   		<div class="sw-title-2 sw-rafter" style="width: 25%;" id="showJiShu"><span class="jiShu">级数</span><span class="sw-fanye"></span></div>
+	   		<div class="sw-title-2 sw-rafter" style="width: 25%;" id="showShaiXuan"><span class="shaiXuan">筛选</span><span class="sw-fanye"></span></div>
+	   	</div>
+	   
+	   	<div style="height: 100%;width: 100%;position: relative;margin-top: 42px;" id="allmap">
+	   		<p style="text-align: center;margin-top: 20px;">地图加载中...</p>
+	   	</div>
+	    <!--<div class="mui-table-view" style="margin-top: 42px;border-bottom: 1px solid #EFEFEF;display: none;background: #EFEFEF;" id="listCon"></div>--> 
+	    
+	    <!--<div class="mui-scroll sw-coterie-box" id="loadList">  
+			<div class="mui-table-view " id="listCon">
+
+			</div>
+		</div> -->
+		
+	    
+	   	<!--<ul class="mui-table-view" style="margin-top: 0;display: none;">
+			 <li class="mui-table-view-cell sw-payList sw-no-active">
+			 	<p><span style="font-size: 14px;color: #666;">汽修厂企业名称<span class="sw-renz"></span></span></p>
+			 	<div style="clear: both;"></div>
+			 	<div style="margin-top: 8px;">
+			 		<p class="sw-biao-lei1">快修保养</p>
+			 		<span class="sw-text-r"><span class="sw-dingwei"></span>1.3km</span>
+			 	</div>
+			 </li>	
+			 <li class="mui-table-view-cell sw-payList sw-no-active">
+			 	<p><span style="font-size: 14px;color: #666;">汽修厂企业名称<span class="sw-renz"></span></span></p>
+			 	<div style="clear: both;"></div>
+			 	<div style="margin-top: 8px;">
+			 		<p class="sw-biao-lei2">修理店</p>
+			 		<span class="sw-text-r"><span class="sw-dingwei"></span> 1.3km</span>
+			 	</div>
+			 </li>
+			  <li class="mui-table-view-cell sw-payList sw-no-active">
+			 	<p><span style="font-size: 14px;color: #666;">汽修厂企业名称<span class="sw-renz"></span></span></p>
+			 	<div style="clear: both;"></div>
+			 	<div style="margin-top: 8px;">
+			 		<p class="sw-biao-lei3">美容店</p>
+			 		<span class="sw-text-r"><span class="sw-dingwei"></span> 1.3km</span>
+			 	</div>
+			 </li>
+	 	</ul>-->
+	    <div class="mui-content aaa" style="display: none;">
+			<div class="mui-scroll-wrapper" style="margin-top: 82px;">    
+				<div class="mui-scroll sw-coterie-box" id="loadList" style="background: #EFEFEF;">  
+					<div class="mui-table-view" id="show-list"> 
+	
+					</div>
+				</div>   
+			</div>
+		</div>
+	    
+	    <div id="popover" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;">
+	    	
+	    	<ul class="mui-table-view" style="margin-top: 0;text-align: center;font-size: 14px;color: #666666;">
+				 <li style="background: #FFFFFF;" onclick="selectClass('','全部厂商')" class="mui-table-view-cell sw-after-no" > 全部厂商</li>	
+				 <li style="background: #FFFFFF;" onclick="selectClass('1','经销商')" class="mui-table-view-cell sw-after-no">经销商</li>
+				 <li style="background: #FFFFFF;" onclick="selectClass('2','汽修厂')" class="mui-table-view-cell sw-after-no">汽修厂</li>
+	 		</ul>
+	    	
+	    </div>
+	    <!--级数-->
+	    <div id="popoverJiShu" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;">
+	    	<ul class="mui-table-view" style="margin-top: 0;text-align: center;font-size: 14px;color: #666666;">
+				 <li style="background: #FFFFFF;" onclick="jiShu('','全部')" class="mui-table-view-cell sw-after-no" >全部</li>	
+				 <li style="background: #FFFFFF;" onclick="jiShu(1,'1级')" class="mui-table-view-cell sw-after-no">1级</li>
+				 <li style="background: #FFFFFF;" onclick="jiShu(2,'2级')" class="mui-table-view-cell sw-after-no">2级</li>
+				 <li style="background: #FFFFFF;" onclick="jiShu(3,'3级')" class="mui-table-view-cell sw-after-no">3级</li>
+	 		</ul>
+	    </div>  
+	    <!--筛选-->
+	    <div id="popoverShaiXuan" class="mui-popover" style="width: 100%;bottom: 0;border-radius: 0;position: fixed;">
+	    	<ul class="mui-table-view" style="margin-top: 0;text-align: center;font-size: 14px;color: #666666;">
+				 <li style="background: #FFFFFF;" onclick="shaiXuan('','全部')" class="mui-table-view-cell sw-after-no" >全部</li>	
+				 <li style="background: #FFFFFF;" onclick="shaiXuan(1,'未认证厂商')" class="mui-table-view-cell sw-after-no">未认证厂商</li>
+				 <li style="background: #FFFFFF;" onclick="shaiXuan(2,'已关联厂商')" class="mui-table-view-cell sw-after-no">已关联厂商</li>
+				 <li style="background: #FFFFFF;" onclick="shaiXuan(3,'未关联厂商')" class="mui-table-view-cell sw-after-no">未关联厂商</li>
+	 		</ul>
+	    </div>  
+	</div>
+	
+	<input value="1" hidden="hidden" id="page" />
+	<!--<div id="loadList" style="display: none;"><input value="1" hidden="hidden" id="page"/></div>-->   
+	<input type="number" name="showType" id="showType" value="1" hidden="hidden" />
+	<input type="hidden" id="city" value="" />   
+	<input type="hidden" id="district" value="" /> 
+	<input type="text" name="classification" id="classification" value="" hidden="hidden" />
+	<input type="hidden" id="jiShu" value="" />
+	<input type="hidden" id="shaiXuan" value="" />
+	<script id="repair-list-tpl" type="text/html">
+	{{# var len = d.length }}  
+	{{# if(len>0){ }}    
+	{{# for(var i = 0;i < len; i++){ }}     
+	<ul class="mui-table-view" style="margin-top: 10px;" data_type="{{ d[i].type}}" data_id="{{ d[i].EnterpriseID}}" data_name="{{ d[i].companyname}}" onclick="storeInfos(this)">
+		 <li class="mui-table-view-cell mui-media sw-card-li sw-no-active" style="padding: 10px;">
+			<img class="mui-pull-left coverImg" src="{{ imgUrl+d[i].face_pic }}">
+			
+			{{# var vipImg = '' }}	
+			{{# var paddin='' }}	
+			{{# if(d[i].vip == 1 && d[i].is_check==1){ }}
+			{{# var vipImg='<div class="vipIco right80"></div><div class="renZhengIco right60"></div>' }}   
+			{{# paddin='padding-right: 90px;' }}
+			{{# }else if(d[i].vip == 1){ }}
+			{{# var vipImg='<div class="vipIco right60"></div>' }} 
+			{{# paddin='padding-right: 60px;' }}  
+			{{# }else if(d[i].is_check==1){ }}
+			{{# var vipImg='<div class="renZhengIco right60"></div>' }}
+			{{# paddin='padding-right: 60px;' }} 
+			{{# }else{ }} 
+			{{# paddin='padding-right: 60px;' }}
+			{{# } }}
+			
+			{{# var companyType='' }}
+			{{# if(d[i].classification==1){ }}
+			{{# companyType='<p class="sw-biao-lei2" style="color: #0099FF;border-color: #0099FF;position: absolute;right: 0;top: 0;">轿车商家</p>' }}
+			{{# }else if(d[i].classification==2){ }}
+			{{# companyType='<p class="sw-biao-lei2" style="position: absolute;right: 0;top: 0;">货车商家</p>' }}  
+			{{# }else if(d[i].classification==3){ }}
+			{{# companyType='<p class="sw-biao-lei2" style="color: #FF6699;border-color: #FF6699;position: absolute;right: 0;top: 0;">用品商家</p>' }}
+			{{# }else if(d[i].classification==4){ }}
+			{{# companyType='<p class="sw-biao-lei2" style="position: absolute;right: 0;top: 0;">修理厂</p>' }}
+			{{# }else if(d[i].classification==5){ }}
+			{{# companyType='<p class="sw-biao-lei2" style="color: #0099FF;border-color: #0099FF;position: absolute;right: 0;top: 0;">快修保养</p>' }} 
+			{{# }else if(d[i].classification==6){ }}
+			{{# companyType='<p class="sw-biao-lei2" style="color: #FF6699;border-color: #FF6699;position: absolute;right: 0;top: 0;">美容店</p>' }}
+			{{# } }} 
+			
+			<div style="white-space:nowrap;width: 100%;position: relative;padding-left: 97px;{{ paddin }}">
+				<div style="width: 100%;overflow: hidden;text-overflow: ellipsis;">{{ d[i].companyname}}</div>
+				{{ vipImg }} 
+				{{ companyType }} 
+			</div>
+			<div class="mui-media-body sw-card-cuBox3" style="min-height: 34px;">
+				{{# if(!d[i].major){ }}
+				{{# d[i].major='暂无介绍' }}
+				{{# } }}
+				<span class="size12px">[主营]</span><p class="sw-text1" style="font-size: 12px;">{{ d[i].major }}</p>
+			</div>
+			<div class="mui-media-body rightBottomDiv">
+				<div class="floLeftW70"> 
+					<div class="floatLeftW22">
+						{{# if(d[i].linkPhone){ }}
+						<a href="tel:{{ d[i].linkPhone[0] }}" onclick="addTel({{ d[i].firmId }})">
+							<img style="width: 18px;" src="../../../../image/salesman/red_phone.png">
+						</a>		
+						{{# }else{ }}
+						<a href="tel:{{ d[i].linkPhone }}" onclick="sw.toast('该公司未填写手机号码')">
+							<img style="width: 18px;" src="../../../../image/salesman/red_phone.png">
+						</a>
+						{{# } }}
+					</div>
+					<div class="floatLeftW22">
+						{{# if(d[i].qq){ }}
+						<a class="mui-tab-items" onclick="document.location.href = 'mqqwpa://im/chat?chat_type=wpa&uin={{ d[i].qq[0] }}&version=1&src_type=web&web_src=qq.com;'">
+							<img style="width: 18px;" src="../../../../image/salesman/red_qq.png">
+						</a>		
+						{{# }else{ }}
+						<a class="mui-tab-items" onclick="sw.toast('该公司未填写QQ号码');">
+							<img style="width: 18px;" src="../../../../image/salesman/red_qq.png">
+						</a>	
+						{{# } }}
+					</div>
+					<div class="floLeftW28">  
+						<img style="width: 7px;" src="../../../../image/salesman/red_ren.png">
+						{{# if(!d[i].qqCount){d[i].qqCount=0} }}	
+						<span>{{ d[i].qqNum }}</span>	
+					</div>
+					
+					<div class="floLeftW28"> 
+						<img style="width: 7px;" src="../../../../image/salesman/red_tel.png">
+						{{# if(!d[i].telCount){d[i].telCount=0} }}	
+						<span>{{ d[i].telNum }}</span>	
+					</div>
+				</div>
+				{{# if(!d[i].distance){ }}  
+				{{# d[i].distance='未知' }}
+				{{# } }}
+				<div class="floRightW30">
+					<img style="height: 9px;" src="../../../../image/salesman/red_dingwei.png">
+					<span style="color: #F84841;">{{ d[i].distance }}</span>	
+				</div>
+			</div>	
+		 </li>
+	 </ul>
+	{{# } }}  
+	{{# } }}
+</script>   
+</body>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZBcSIHdvwjfx105K8jvQCj5W"></script>   
+<script src="../../../../js/laytpl/laytpl.js"></script>
+<script src="../../../../js/jquery.min.js"></script> 
+ <script src="../../../../js/mui.min.js"></script>    
+ <script src="../../../../js/global.js"></script>
+<script src="../../../../js/mui.picker.js"></script> 
+<script src="../../../../js/mui.poppicker.js"></script>
+<script src="../../../../js/yeWu.city.data-3.js"></script>
+<script src="../../../../js/mui.pullToRefresh.js"></script>
+<script src="../../../../js/mui.pullToRefresh.material.js"></script>
+
+ <script>
+ //mui初始化	
+//mui.init({
+//pullRefresh : {
+//  container:'#loadList',//待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
+//  up : {    
+//    height:50,//可选.默认50.触发上拉加载拖动距离
+//    auto:true,//可选,默认false.自动上拉加载一次 
+//    contentrefresh : "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+//    contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+//    callback :function(){	     	    
+//    	getStartList();		  	 		
+//    } //必选，刷新函数   
+//  }
+//}
+//});    
+var lng = '';
+var lat = '';
+var showSelf;
+	
+mui.init(); 
+mui.plusReady(function() {
+	(function($) {
+		//阻尼系数
+		var deceleration = mui.os.ios?0.003:0.009;
+		$('.mui-scroll-wrapper').scroll({		
+			bounce: false,   
+			indicators: true, //是否显示滚动条
+			deceleration:deceleration 
+		});
+	})
+		
+	mui("#loadList").pullToRefresh({ 
+		down: {
+			callback: function(){
+				location.href = location.href;
+			}
+		},
+		up: { 
+			auto: false,   
+			offset: 50, //距离底部高度(到达该高度即触发)
+			contentnomore:contentnomoreStr,   
+			contentrefresh:contentrefreshStr, 
+			callback: function() {   
+				showSelf = this;	
+				getStartList(showSelf);			
+			} 
+			}
+	});  
+	
+	mui("#loadList").pullToRefresh().pullUpLoading(true);  
+})	
+
+//从新开始加载数据 
+ function getStartList(showSelf){
+ 	var page = mui("#page")[0].value;//获取页数
+// 	dy('页数:'+page); 
+  	var data = {};    
+  	var postData = {};
+  		var classification = $("#classification").val();          //修理厂类型
+  		var searchKey = $.trim($("#searchKey").val());            //关键字
+  		//请求的数据
+//		alert(page);
+  		postData.page     = page;	//请求的页码
+  		postData.pageSize = 10;		//每页显示数量
+  		
+        var userType= JsonStorage.getItem('userType');	//2为业务员
+		var token   = plus.storage.getItem('token');
+		if(userType != 2){
+			sw.toast('请使用业务员账号登录');  
+			return false;  
+		}   
+		if(!token){
+			sw.toast('您还没有登录，请登录后重试');  
+			return false; 
+		}   
+		if(!lng || !lat){ 
+//			sw.toast('定位获取失败'); 
+		} 
+        postData.token = token;		
+        postData.city  = document.getElementById("city").value; //市
+        if(postData.city){
+        	postData.district = document.getElementById("district").value;  	//区 
+        }else{ 
+        	postData.district = ''  	     					//区
+        }
+        var yeWuInfo = JsonStorage.getItem('yeWuInfo');	//记录业务详细信息	
+		if(yeWuInfo){
+			cityCode = yeWuInfo.area;
+		}else{
+			sw.toast('获取业务员信息失败，请重新登录');  
+			return;          
+		} 
+		if(!cityCode){
+			sw.toast('获取业务员管辖身份失败,请重新登录'); 
+			return;    
+		}
+		postData.keywords  = $('#keywords').val();              //搜索关键字
+        postData.classType = $("#classification").val();		//厂商类型
+        postData.jiShu     = $('#jiShu').val();                 //级数  
+        postData.shaiXuan  = $('#shaiXuan').val();              //筛选  
+        postData.cityCode  = cityCode;							//管辖省份
+  		postData.lng	   = lng;
+  		postData.lat	   = lat;    
+  		data.postData = postData;   
+		dy(data);          
+  		//页面相关数据  
+  		data.mod      = 'api.sev.salesman';//模型
+  		data.fun      = 'getAllListZuoBiao';//方法 
+  		data.tpl      = 'repair-list-tpl';//列表模板 
+  		data.listId   = 'show-list';//列表容器   
+  		data.pageId   = 'page';//页码Id	 
+//		loadInfo(data,true);
+		loadInfoArr(data,true,showSelf);	 
+ }   
+ 
+ 
+var province  = '';
+var city      = '';
+var city1     = '';
+var district  = ''; 
+var cityCode  = '';
+var seleceCity= '';
+(function($, doc) {	   
+	 //创建子页面，首个选项卡页面显示，其它均隐藏；
+	 // 扩展API加载完毕后调用onPlusReady回调函数   
+	document.addEventListener( "plusready", onPlusReady, false );
+	// 扩展API加载完毕，现在可以正常调用扩展API
+	function onPlusReady() {
+		//设置地图高度
+		var allHeight = document.body.clientHeight;	
+		var mapHight  = (allHeight -86)+'px'; 
+		document.getElementById('allmap').style.height = mapHight; 
+		greatMap();
+	} 
+	mui("#qixiu")[0].addEventListener('tap',function(){
+		mui('#popover').popover('show');
+	})
+	//级数
+	mui("#showJiShu")[0].addEventListener('tap',function(){
+		mui('#popoverJiShu').popover('show');
+	}) 
+	//筛选
+	mui("#showShaiXuan")[0].addEventListener('tap',function(){
+		mui('#popoverShaiXuan').popover('show');
+	})
+	
+	//初始化城市选择
+	var cityPicker = new $.PopPicker({
+		layer: 2,
+		title:'选择城市',
+	});
+	
+	JsonStorage.setItem('allZuoBiao','');
+		var yeWuInfo = JsonStorage.getItem('yeWuInfo');	//记录业务详细信息	
+		if(yeWuInfo){
+			cityCode = yeWuInfo.area;
+		}else{
+			sw.toast('获取业务员信息失败，请重新登录');  
+			return;  
+		}
+		if(!cityCode){
+			sw.toast('获取业务员管辖身份失败,请重新登录');
+			return;  
+		}
+		document.getElementById("cityStr").innerText = cityCode
+
+	var cityData1 =  { 
+						value: '0',
+					 	text: '全部',  
+						children: [{
+				                value: "0",
+				                text: "全部" 
+				        }]
+					};
+					
+	var cityData2 =  { 
+					value: '0',
+				 	text: '全部'
+					};
+		
+		mui.each(cityData3,function(index,item){
+			
+		  if(item.text==cityCode){
+		  
+		  	var cityData  = item.children;
+		  	var arr = [];
+		  	mui.each(cityData,function(index1,item1){	  	
+		  		dy(item1)
+		  		if(index1==0){ 
+		  			city1 = item1.text;
+		  		}
+		  		if(item1.children){
+		  			item1.children.unshift(cityData2);  
+		  		}else{
+		  			item1.children = [];
+		  			item1.children.unshift(cityData2);  
+		  		}
+		  				 
+		  	});	 
+		  	dy(cityData2)  
+		  	cityData.unshift(cityData1);
+		  	cityPicker.setData(cityData); 
+		  }
+		}) 
+	
+	var showCityPickerButton = document.getElementById('showCityPicker');	
+		document.getElementById('showCityPicker').addEventListener('tap', function(event) {
+			cityPicker.show(function(items) {
+				var cityStr = province;
+				if((items[0] || {}).text!='全部'){ 
+					cityStr = (items[0] || {}).text; 
+					city = (items[0] || {}).text;
+					document.getElementById("city").value=city;
+					if((items[1] || {}).text!='全部'){
+						cityStr += (items[1] || {}).text;	
+						district = (items[1] || {}).text;
+						document.getElementById("district").value=district; 
+					}else{
+						document.getElementById("district").value='';
+					}
+				}else{
+					document.getElementById("city").value='';
+				}
+				if(!cityStr){
+					cityStr = cityCode;
+				}
+				document.getElementById("cityStr").innerText = cityStr;
+				var showType = document.getElementById("showType").value;
+				var c = cityStr.charAt(cityStr.length -1);
+	            if(c == '省'){
+	                var i = cityStr.lastIndexOf('省');
+	                cityStr = ''
+	            }
+				if(showType==1){
+					JsonStorage.setItem('allZuoBiao','');  
+//					getAllZuoBiao();
+					greatMap(cityStr)
+				}else{
+					//列表模式 
+					seleceCity = cityStr;
+					listKong();  
+				} 
+			}); 
+		}, false);   
+})(mui, document);	  
+var map = new BMap.Map("allmap");
+function greatMap(c){
+	var str = '<img class="dwYuanDian" src="../../../../image/salesman/person/dingWei.png" style="position: absolute;bottom: 20px;right: 20px" onclick="backWeiZhi()" alt="">';
+	if($('#allJia').length<1){
+		var s   = "<div id='allJia'>共<span></span>家</div>"; 
+		$('body').append(s);
+	}
+	
+	$('body').append(str);
+	
+	var point = new BMap.Point(116.331398,39.897445);
+	if(c){
+		// 创建地址解析器实例
+			var myGeo = new BMap.Geocoder();
+			// 将地址解析结果显示在地图上,并调整地图视野
+			myGeo.getPoint(c, function(poin){
+				if (poin) {
+					lng = poin.lng;
+					lat = poin.lat;
+					map.centerAndZoom(poin, 12);
+		//			map.addOverlay(new BMap.Marker(poin));
+					var mk = new BMap.Marker(poin);
+					map.addOverlay(mk);
+					map.panTo(poin);
+					getAllZuoBiao();
+				}else{
+					alert("您选择地址没有解析到结果!");
+				}
+			}, c);
+	}else{ 
+		if(city1){
+			var yeWuInfo = JsonStorage.getItem('yeWuInfo');	//记录业务详细信息	
+			if(yeWuInfo){
+				cityCode = yeWuInfo.area;
+				// 创建地址解析器实例
+				var myGeo = new BMap.Geocoder();
+				// 将地址解析结果显示在地图上,并调整地图视野
+				myGeo.getPoint(city1, function(poin){
+					if (poin) {
+						lng = poin.lng;
+						lat = poin.lat;
+						map.centerAndZoom(poin, 12);
+						var mk = new BMap.Marker(poin);
+						map.addOverlay(mk);
+						map.panTo(poin);
+						getAllZuoBiao(); 
+					}else{
+						alert("您选择地址没有解析到结果!");
+					}
+				}, cityCode);
+			}else{
+				sw.toast('获取业务员信息失败，请重新登录');  
+				return;  
+			}
+		}else{
+			setTimeout(function(){
+				greatMap()
+			},1000)
+		}
+	}
+	
+	
+//	var geolocation = new BMap.Geolocation();
+//	geolocation.getCurrentPosition(function(r){
+//		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+//			lng = r.point.lng;
+//			lat = r.point.lat;
+//			var mk = new BMap.Marker(r.point);
+//			map.addOverlay(mk);
+//			map.panTo(r.point);
+//			getAllZuoBiao();
+//		}
+//		else {
+//			alert('failed'+this.getStatus());
+//		}        
+//	},{enableHighAccuracy: true})
+}
+
+ 
+/*获取所有修理厂坐标*/
+function getAllZuoBiao(){ 
+    map.clearOverlays();        //清除之前所有标注 lan_ dw_shi.png
+    var allZuoBiao = JsonStorage.getItem('allZuoBiao');
+    var center = map.getCenter();
+    var circle = new BMap.Circle(center,10000,{fillColor:"#333", strokeWeight: 1 ,fillOpacity: 0.1, strokeOpacity: 0.1}); //创建圆
+    map.addOverlay(circle);
+    var c = circle.getCenter();
+    var r = circle.getRadius(10000);  
+    var allJia = 0;
+    if(allZuoBiao){
+    	if(allZuoBiao.length>0){
+    		for(var i=0; i<allZuoBiao.length; ++i){
+	            var point = new BMap.Point(allZuoBiao[i].longitude,allZuoBiao[i].latitude);   //获取坐标对象
+	            var dis = map.getDistance(point, c); 
+	            if(dis <= r){ 
+	            	var dwIcon = '';
+	            	if(allZuoBiao[i].type==1){		
+	            		//经销商
+	            		if(allZuoBiao[i].isGuanLian==1){
+	            			//与业务员关联的
+	            			if(allZuoBiao[i].level==1){
+	            				dwIcon = '../../../../image/salesman/person/lan_dw_k.png';		//一级
+	            			}else if(allZuoBiao[i].level==2){
+	            				dwIcon = '../../../../image/salesman/person/lan_dw_k.png';		//二级
+	            			}else if(allZuoBiao[i].level==3){
+	            				dwIcon = '../../../../image/salesman/person/lan_dw_k.png';		//三级
+	            			}
+	            		}else{
+	            			//没有与业务员关联的
+	            			if(allZuoBiao[i].level==1){
+	            				dwIcon = '../../../../image/salesman/person/lan_dw_s.png';		//一级
+	            			}else if(allZuoBiao[i].level==2){
+	            				dwIcon = '../../../../image/salesman/person/lan_dw_s.png';		//二级
+	            			}else if(allZuoBiao[i].level==3){
+	            				dwIcon = '../../../../image/salesman/person/lan_dw_s.png';		//三级
+	            			}
+	            		}
+	            	}else{
+	            		//汽修厂
+	            		if(allZuoBiao[i].isGuanLian==1){
+	            			//与业务员关联的
+	            			if(allZuoBiao[i].level=='大' || allZuoBiao[i].level=='中'){
+	            				//汽修厂为大型或中型，图标为黑边
+	            				if(allZuoBiao[i].level==1){
+	            					dwIcon = '../../../../image/salesman/person/lvh_dw_k1.png';		//一级
+		            			}else if(allZuoBiao[i].level==2){
+		            				dwIcon = '../../../../image/salesman/person/lvh_dw_k2.png';		//二级
+		            			}else if(allZuoBiao[i].level==3){
+		            				dwIcon = '../../../../image/salesman/person/lvh_dw_k3.png';		//三级
+		            			}
+	            			}else{
+	            				//汽修厂为小型，图标为白边
+	            				if(allZuoBiao[i].level==1){
+	            					dwIcon = '../../../../image/salesman/person/lv_dw_k1.png';		//一级
+		            			}else if(allZuoBiao[i].level==2){
+		            				dwIcon = '../../../../image/salesman/person/lv_dw_k2.png';		//二级
+		            			}else if(allZuoBiao[i].level==3){
+		            				dwIcon = '../../../../image/salesman/person/lv_dw_k3.png';		//三级
+		            			}
+	            			}
+	            			
+	            		}else{
+	            			//没有与业务员关联的
+	            			if(allZuoBiao[i].level=='大' || allZuoBiao[i].level=='中'){
+	            				//汽修厂为大型或中型，图标为黑边
+	            				if(allZuoBiao[i].level==1){
+	            					dwIcon = '../../../../image/salesman/person/lvh_dw_s1.png';		//一级
+	            				}else if(allZuoBiao[i].level==2){
+	            					dwIcon = '../../../../image/salesman/person/lvh_dw_s2.png';		//二级
+	            				}else if(allZuoBiao[i].level==3){
+	            					dwIcon = '../../../../image/salesman/person/lvh_dw_s3.png';		//三级
+	            				}
+	            			}else{
+	            				//汽修厂为小型，图标为白边
+	            				if(allZuoBiao[i].level==1){
+	            					dwIcon = '../../../../image/salesman/person/lv_dw_s1.png';		//一级
+	            				}else if(allZuoBiao[i].level==2){
+	            					dwIcon = '../../../../image/salesman/person/lv_dw_s2.png';		//二级
+	            				}else if(allZuoBiao[i].level==3){
+	            					dwIcon = '../../../../image/salesman/person/lv_dw_s3.png';		//三级
+	            				}
+	            			} 
+	            		}  
+	            	}
+	            	var myIcon = new BMap.Icon(dwIcon, new BMap.Size(30,71));
+	                addMarker(point,allZuoBiao[i].companyname,allZuoBiao[i].EnterpriseID,myIcon,allZuoBiao[i].EnterpriseID,allZuoBiao[i].type);
+	                allJia += 1;
+	            }
+        	} 
+    		$('#allJia').find('span').text(allJia);
+    	} 
+         
+    }else{
+        var classification = $('#selectType option:selected').val();         //修理厂类型
+        var url = '/api.sev.salesman/getAllZuoBiao';
+        var userType= JsonStorage.getItem('userType');	//2为业务员
+		var token   = plus.storage.getItem('token');
+		if(userType != 2){    
+			sw.toast('请使用业务员账号登录');    
+			return false;  
+		}        
+		if(!token){   
+			sw.toast('您还没有登录，请登录后重试');   
+			return false; 
+		}   
+        var data = {}; 
+        data.token = token;		
+        data.city  = document.getElementById("city").value; //市
+        if(data.city){
+        	data.district = document.getElementById("district").value;  	//区 
+        }else{ 
+        	data.district = ''  	    					//区 
+        }
+        var yeWuInfo = JsonStorage.getItem('yeWuInfo');	//记录业务详细信息	
+		if(yeWuInfo){
+			cityCode = yeWuInfo.area;
+		}else{
+			sw.toast('获取业务员信息失败，请重新登录');  
+			return;  
+		}
+		if(!cityCode){
+			sw.toast('获取业务员管辖身份失败,请重新登录');
+			return;  
+		}
+		data.keywords  = $('#keywords').val();              //搜索关键字
+        data.classType = $("#classification").val();		//厂商类型
+        data.jiShu     = $('#jiShu').val();                 //级数  
+        data.shaiXuan  = $('#shaiXuan').val();              //筛选    
+        data.cityCode  = cityCode;							//管辖省份 
+        http.load('api.sev.salesman','getAllZuoBiao',data,function(rData){//请求成功
+		  	if(rData.status==200){  	  
+		  		JsonStorage.setItem('allZuoBiao',rData.list); 
+                if(rData.list.length>0){ 
+                	var allZuoBiao = rData.list;
+                	for (var i = 0; i < allZuoBiao.length; i ++) {
+	                    var point = new BMap.Point(allZuoBiao[i].longitude,allZuoBiao[i].latitude);   //获取坐标对象
+	                    var dis = map.getDistance(point, c);
+		                    if(dis <= r){
+		                    	var dwIcon = '';
+			            	if(allZuoBiao[i].type==1){		    
+			            		//经销商  
+			            		if(allZuoBiao[i].isGuanLian==1){   
+			            			//与业务员关联的 
+			            			if(allZuoBiao[i].level==1){
+			            				dwIcon = '../../../../image/salesman/person/lan_dw_k.png';		//一级
+			            			}else if(allZuoBiao[i].level==2){
+			            				dwIcon = '../../../../image/salesman/person/lan_dw_k.png';		//二级
+			            			}else if(allZuoBiao[i].level==3){
+			            				dwIcon = '../../../../image/salesman/person/lan_dw_k.png';		//三级
+			            			}
+			            		}else{
+			            			//没有与业务员关联的
+			            			if(allZuoBiao[i].level==1){
+			            				dwIcon = '../../../../image/salesman/person/lan_dw_s.png';		//一级
+			            			}else if(allZuoBiao[i].level==2){
+			            				dwIcon = '../../../../image/salesman/person/lan_dw_s.png';		//二级
+			            			}else if(allZuoBiao[i].level==3){
+			            				dwIcon = '../../../../image/salesman/person/lan_dw_s.png';		//三级
+			            			}
+			            		}
+			            	}else{
+			            		//汽修厂
+			            		if(allZuoBiao[i].isGuanLian==1){
+			            			//与业务员关联的
+			            			if(allZuoBiao[i].level=='大' || allZuoBiao[i].level=='中'){
+			            				//汽修厂为大型或中型，图标为黑边
+			            				if(allZuoBiao[i].level==1){
+			            					dwIcon = '../../../../image/salesman/person/lvh_dw_k1.png';		//一级
+				            			}else if(allZuoBiao[i].level==2){
+				            				dwIcon = '../../../../image/salesman/person/lvh_dw_k2.png';		//二级
+				            			}else if(allZuoBiao[i].level==3){
+				            				dwIcon = '../../../../image/salesman/person/lvh_dw_k3.png';		//三级
+				            			}
+			            			}else{
+			            				//汽修厂为小型，图标为白边
+			            				if(allZuoBiao[i].level==1){
+			            					dwIcon = '../../../../image/salesman/person/lv_dw_k1.png';		//一级
+				            			}else if(allZuoBiao[i].level==2){
+				            				dwIcon = '../../../../image/salesman/person/lv_dw_k2.png';		//二级
+				            			}else if(allZuoBiao[i].level==3){
+				            				dwIcon = '../../../../image/salesman/person/lv_dw_k3.png';		//三级
+				            			}
+			            			}
+			            			
+			            		}else{
+			            			//没有与业务员关联的
+			            			if(allZuoBiao[i].level=='大' || allZuoBiao[i].level=='中'){
+			            				//汽修厂为大型或中型，图标为黑边
+			            				if(allZuoBiao[i].level==1){
+			            					dwIcon = '../../../../image/salesman/person/lvh_dw_s1.png';		//一级
+			            				}else if(allZuoBiao[i].level==2){
+			            					dwIcon = '../../../../image/salesman/person/lvh_dw_s2.png';		//二级
+			            				}else if(allZuoBiao[i].level==3){
+			            					dwIcon = '../../../../image/salesman/person/lvh_dw_s3.png';		//三级
+			            				}
+			            			}else{
+			            				//汽修厂为小型，图标为白边
+			            				if(allZuoBiao[i].level==1){
+			            					dwIcon = '../../../../image/salesman/person/lv_dw_s1.png';		//一级
+			            				}else if(allZuoBiao[i].level==2){
+			            					dwIcon = '../../../../image/salesman/person/lv_dw_s2.png';		//二级
+			            				}else if(allZuoBiao[i].level==3){
+			            					dwIcon = '../../../../image/salesman/person/lv_dw_s3.png';		//三级
+			            				}
+			            			}
+			            		}
+			            	}
+			            	var myIcon = new BMap.Icon(dwIcon, new BMap.Size(30,71)); 
+			                addMarker(point,allZuoBiao[i].companyname,allZuoBiao[i].EnterpriseID,myIcon,allZuoBiao[i].EnterpriseID,allZuoBiao[i].type);
+			                allJia += 1;
+		                } 
+               		} 
+               		$('#allJia').find('span').text(allJia); 
+                }else{
+                	$('#allJia').find('span').text(0); 
+		            sw.toast('没有获取到厂商数据'); 
+		        }
+		  	}else{
+		  		sw.toast(rData.msg); 
+		  		return;
+		  	}
+        },function(xhr,type,errorThrown){//请求失败 将之前的数据填入		
+			//无网络提示
+			sw.toast('请求失败，请检查网络'); 
+		}) 	
+    }
+}
+/*创建标注*/
+function addMarker(new_point,info,id,myIcon,EnterpriseID,type){
+    var marker = new BMap.Marker(new_point,{icon:myIcon});  // 创建标注
+    map.addOverlay(marker);                 // 将标注添加到地图中
+    if(info){
+        addClickHandler(info,marker,EnterpriseID,type);
+    }
+}
+/*标注内容窗口*/ 
+function addClickHandler(qxName,marker,EnterpriseID,type){
+    var content = "</br><a href='javascript:;' data_type='"+ type +"' data_id="+EnterpriseID+" data_name="+qxName+" onclick='storeInfos(this)' style='color:#8E8E8E'>"+qxName+"<img src='../../../../image/salesman/person/right.png' style='height:12px;'></a>";
+    marker.addEventListener("click",function(e){ 
+        openInfo(content,e)}
+    );
+}
+/*跳转厂商详情*/
+function storeInfos(obj){   
+	var EnterpriseID = $(obj).attr('data_id');
+	var qxName       = $(obj).attr('data_name');
+	var type		 = $(obj).attr('data_type');
+	var postData = {'EnterpriseID':EnterpriseID,'name':qxName,'type':type};
+//	alert(1);   
+	openView('../../../../view/person/salesman/store/index.html','person_salesman_store_index','pop-in',postData);  
+}
+/*初始化标注窗口*/
+var opts = {
+    width:200,
+    height:0
+};
+function openInfo(content,e){
+    var p = e.target;
+    var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+    var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象
+    map.openInfoWindow(infoWindow,point); //开启信息窗口
+}
+/*拖动地图结束后加载完成后*/
+map.addEventListener("dragend",function(){  
+    getAllZuoBiao();              //调用检索并添加标注
+}); 
+
+/*点击回到当前定位*/
+function backWeiZhi(){
+	var geolocation = new BMap.Geolocation();
+	geolocation.getCurrentPosition(function(r){
+		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			map.centerAndZoom(r.point, 12);
+			var mk = new BMap.Marker(r.point);
+			map.addOverlay(mk);
+			map.panTo(r.point);
+			
+			getAllZuoBiao();
+		}
+		else {
+			alert('failed'+this.getStatus());
+		}        
+	},{enableHighAccuracy: true})
+}
+
+//选择汽修厂类型 
+function selectClass(classType,str){
+	$("#classification").val(classType);
+	$(".qixiu").text(str);
+	mui('#popover').popover('hide');  
+	var showType = $("#showType").val();
+	if(showType==1){
+		JsonStorage.setItem('allZuoBiao','');
+		getAllZuoBiao();
+	}else{
+		//列表模式  
+		listKong();
+	}
+} 
+//选择级数
+function jiShu(numbers,text){
+	$('#jiShu').val(numbers);
+	$(".jiShu").text(text);  
+	mui('#popoverJiShu').popover('hide');  
+	var showType = $("#showType").val();
+	if(showType==1){
+		JsonStorage.setItem('allZuoBiao','');
+		getAllZuoBiao();
+	}else{
+		//列表模式 
+		listKong();
+	}
+}
+//筛选
+function shaiXuan(numbers,text){ 
+	$('.shaiXuan').text(text);
+	$('#shaiXuan').val(numbers);
+	mui('#popoverShaiXuan').popover('hide');  
+	var showType = $("#showType").val();
+	if(showType==1){
+		JsonStorage.setItem('allZuoBiao','');
+		getAllZuoBiao();
+	}else{
+		//列表模式 
+		listKong();
+	}
+}
+ 
+ //切换厂商列表形式
+ function searchKey(){
+ 	var showType = $("#showType").val();
+	if(showType==1){
+		$('#qieHuanImg').removeClass().addClass('sw-header-ditu');
+		$('#allmap').hide();
+		$('#show-list').show();  
+		$('.dwYuanDian').hide();
+		$('#allJia').hide();
+		$('.aaa').show();
+		//列表模式 
+		listKong(); 
+	}else{
+		$('#qieHuanImg').removeClass().addClass('sw-header-liebiao');
+		$('#allmap').show();
+		$('#show-list').hide();
+		$('.dwYuanDian').show();
+		$('#allJia').show();
+		$('.aaa').hide();
+		//地图模式
+		JsonStorage.setItem('allZuoBiao','');
+		showType = $("#showType").val(1);
+		if(seleceCity){
+			greatMap(seleceCity); 
+		}else{
+			greatMap(); 
+		}
+	} 
+ }
+ //点击搜索    
+ function keywords(){
+ 	var showType = $("#showType").val();
+ 	if(showType==1){
+ 		//地图模式
+		JsonStorage.setItem('allZuoBiao','');
+		greatMap();
+ 	}else{
+ 		listKong(); 
+ 	}
+ }
+ //清空列表数据,并重新加载
+ function listKong(){
+	//清空数据
+	$("#show-list").html('');
+	$("#page").val(1);
+	showType = $("#showType").val(2);
+	
+showSelf.refresh(true);  
+showSelf.pullUpLoading(true);  
+ }
+ 
+ /*存入拨打记录表*/
+function addTel(companyId){
+	if(UserInfo.has_login()){
+		var userType= JsonStorage.getItem('userType');	//2为业务员 
+		var token   = plus.storage.getItem('token');
+		if(userType != 2){
+			sw.toast('请使用业务员账号登录');  
+			return false; 
+		}
+		if(!token){
+			sw.toast('您还未登录,请登录后重试');  
+			return false; 
+		}
+		if(!companyId){
+			sw.toast('数据缺失，操作失败');  
+			return false; 
+		}
+		var visit_type = 3;
+		var browser = {
+            versions: function() {
+                var u = navigator.userAgent,
+                app = navigator.appVersion;
+                return {
+  
+                    android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1,
+
+                    iPhone: u.indexOf('iPhone') > -1 ,                      
+
+                    iPad: u.indexOf('iPad') > -1,
+                    iPod: u.indexOf('iPod') > -1,
+   
+                    };
+                } (),
+                language: (navigator.browserLanguage || navigator.language).toLowerCase()
+            }
+            if (browser.versions.iPhone||browser.versions.iPad||browser.versions.iPod){
+                 var visit_type = 4;
+        	}
+		
+		var postData = {};
+		postData.token = token;
+		postData.companyId = companyId;
+		postData.visit_type= visit_type;
+		http.load('api.sev.salesman','addYeWuBoDaJiLu',postData,function(rData){//请求成功
+        	
+        },function(xhr,type,errorThrown){//请求失败 将之前的数据填入		
+				//无网络提示
+				sw.toast('请求失败，请检查网络'); 
+		}) 
+	}else{//未登录显示未登录界面	 		
+	//无网络提示
+	sw.toast('您还未登录,请登录后重试');    
+	}	
+}
+
+ </script>
+</html>

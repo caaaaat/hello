@@ -1,0 +1,15 @@
+.titles{height: 90px;line-height: 90px;margin-top: 15px;text-align: center;font-size: 20px;font-weight: bold;color:#5D5D5D}
+.goBackDiv{position: absolute;top: -20px;left: 30px;font-weight: normal}
+#renZhengList{margin-top: 15px;padding-left: 28px;padding-right: 28px;padding-bottom: 20px;}
+#renZhengList table{width: 100%;color: #333}
+#renZhengList table tr{height: 40px;line-height: 40px;border: 1px solid #DDD;font-size: 18px;}
+#renZhengList table tr td{padding-left: 5px;padding-right: 5px;}
+img{vertical-align: text-top;}
+.yesImg{float: right;margin-top: 2px;}
+.renZhengImgDiv{padding-top: 28px;padding-bottom: 28px;}
+.renZhengImgListDiv{width: 140px;float: left;margin-left: 26px;margin-right: 26px;}
+.zhiZhaoImg{height: 130px;width: 140px;}
+.zhengShuText{text-align: center;font-size: 18px;}
+.renZhengDivBtn{text-align: center;margin-top: 73px;margin-bottom: 50px;}
+.renZhengBtnDiv{font-size: 20px;border-radius: 10px;border: none;background: #FF524B;width: 440px;height: 60px;line-height: 60px;color: #FFF;}
+

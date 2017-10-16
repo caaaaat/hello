@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>厂商列表</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .mail-box-header label{ height: 34px; line-height: 34px;width: 70px; margin-bottom: 0; padding-left: 0;padding-right: 0;}
+        .mt5{margin-bottom: 5px; padding-right: 0;}
+        .lr{padding-left: 0;padding-right: 0;}
+        th{text-align: center;}
+        .pro_name{width: 200px;  display: inline-block;  overflow:hidden;  text-overflow:ellipsis;  white-space:nowrap;  padding-left: 10px;}
+        .com_name{width: 180px;  display: inline-block;  overflow:hidden;  text-overflow:ellipsis;  white-space:nowrap;  padding-left: 10px;}
+        .left_-4{margin-left: -4px;}
+        .l a{ color: #0066ff;}
+    </style>
+</head>
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content" style="padding: 0">
+    <!--搜索-->
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <div class="mail-box-header">
+                <div class="form-group">
+                    <div class="col-xs-6 col-sm-4 col-lg-4 mt5">
+                        <label class="col-xs-4 col-sm-4 col-lg-4 control-label">状态</label>
+                        <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="">
+                            <select id="pro_status" class="form-control">
+                                <option value=''>全部</option>
+                                <option value='1'>上架中</option>
+                                <option value='2'>未上架</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-lg-4 mt5">
+                        <label class="col-xs-4 col-sm-4 col-lg-4 control-label">产品类型</label>
+                        <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="">
+                            <select id="pro_type" class="form-control">
+                                <option value=''>全部</option>
+                                <option value='新品促销'>新品促销</option>
+                                <option value='库存清仓'>库存清仓</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-lg-4 mt5">
+                        <label class="col-xs-4 col-sm-4 col-lg-4 control-label">类别</label>
+                        <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="">
+                            <div class="col-xs-6 col-sm-6 col-lg-6 lr">
+                                <select id="pro_cate_lv1" class="form-control" onchange="ChangeCate(this)">
+                                    <option value=''>全部</option>
+                                    <?php $cate1 = isset($cate['lv1']) ? $cate['lv1'] : '' ;?>
+                                    <?php foreach ($cate1 as $v){?>
+                                    <option value="<?php echo $v['id'] ;?>"><?php echo $v['name'] ;?></option>
+                                    <?php }?>
+                                </select>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-lg-6 lr">
+                                <select id="pro_cate_lv2" class="form-control">
+                                    <option value=''>全部</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-lg-4 mt5">
+                        <label class="col-xs-4 col-sm-4 col-lg-4 control-label">企业类型</label>
+                        <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="">
+                            <select id="com_type" class="form-control">
+                                <option value=''>全部</option>
+                                <option value='1'>经销商</option>
+                                <option value='2'>汽修厂</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-4 col-lg-4 mt5">
+                        <label class="col-xs-4 col-sm-4 col-lg-4 control-label">关键字</label>
+                        <div class="col-xs-8 col-sm-8 col-lg-8 lr" style="padding-left: 0;">
+                            <div class="col-xs-12 col-sm-12 input-group">
+                                <input type="text" class="form-control input-xs" id="keywords" placeholder="产品ID/产品名称/企业名称"/>
+                                <span class="input-group-btn"><button type="submit" class="btn btn-primary" id="pro_find"> 搜 索 </button></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="clear: both"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrapper wrapper-content" style="padding: 0">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <h3 style="margin-right: 10px;">产品列表</h3>
+                    <div style="text-align: right; padding-right: 15px;">
+                        <span><a class="btn btn-xs btn-primary" onclick="getProduct(1)">刷新列表</a></span>
+                        <span><a class="btn btn-xs btn-primary" id="download" href="/plat.product/exportProToExcel">导出表格</a></span>
+                    </div>
+                    <!--列表开始-->
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th>产品ID</th>
+                                <th style="width: 220px;">产品名称</th>
+                                <th>类型</th>
+                                <th>类别</th>
+                                <th>分类</th>
+                                <th>价格（元）</th>
+                                <th>今日刷新数</th>
+                                <th>上架时间</th>
+                                <th>刷新时间</th>
+                                <th>所属企业</th>
+                                <th>企业ID</th>
+                                <th>区域</th>
+                                <th>企业类型</th>
+                                <th>状态</th>
+                                <th style="min-width: 165px;">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="pro_show" style="text-align: center"></tbody>
+                        </table>
+                    </div>
+                    <script id="pro_model" type="text/html">
+                        {{# if(d.massageCode == 'success') { }}
+                        {{# var list     = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                        <!--{{# var comType = { 0:'',1:'经销商',2:'修理厂'} }}-->
+                        <!--{{# var classArr = { 0:{0:'',1:'',2:'',3:'',4:'',5:'',6:''} , 1:{0:'',1:'轿车商家',2:'货车商家',3:'用品商家',4:'',5:'',6:''}, 2:{0:'',1:'',2:'',3:'',4:'修理厂',5:'快修保养',6:'美容店'}  }   }}-->
+                        <tr>
+                            <td>
+                                <span>{{ list[i].proId }}</span>
+                            </td>
+                            <td>
+                                <span class="pro_name">{{ list[i].proName }}</span>
+                            </td>
+                            <td>
+                                <span>{{ list[i].pro_type }}</span>
+                            </td>
+                            <td>
+                                <span>{{ list[i].cate_name1  }}</span>
+                            </td>
+                            <td>
+                                <span>{{ list[i].cate_name2 == null ? '' : list[i].cate_name2 }}</span>
+                            </td>
+                            <td>
+                                <span>{{ list[i].pro_price == null ? '' : list[i].pro_price }}</span>
+                            </td>
+                            <td>
+                                <span>{{ list[i].pro_refresh }}</span>
+                            </td>
+                            <td>
+                                <span>{{ list[i].shelve_time == null ? '' : list[i].shelve_time }}</span>
+                            </td>
+                            <td>
+                                <span>{{ list[i].refresh_time == null ? '' : list[i].refresh_time }}</span>
+                            </td>
+                            <td>
+                                <span class="com_name" title="{{ list[i].companyname }}">{{ list[i].companyname }}</span>
+                            </td>
+                            <td>
+                                <span>{{ list[i].EnterpriseID }}</span>
+                            </td>
+                            <td>
+                                <span>{{ list[i].area }}</span>
+                            </td>
+                            <td>
+                                <span>{{ list[i].type == 1 ? '经销商' : '修理厂' }}</span>
+                            </td>
+                            <td>
+                                <span>{{ list[i].pro_status == 1 ? '上架中' : '未上架' }}</span>
+                            </td>
+
+                            <td>
+                                <span class="l">
+                                    {{# if(list[i].pro_status == 1){ }}
+                                    <a onclick="getOnePro('{{ list[i].id }}' ,'{{ list[i].proName }}')">[ 详情 ]</a>
+                                    <a onclick="changeStatus({{ list[i].pro_status }},{{ list[i].id }})">[ 下架 ]</a>
+                                    <a onclick="delProduct({{ list[i].id }})">[ 删除 ]</a>
+                                    {{# }else{ }}
+                                    <a onclick="getOnePro('{{ list[i].id }}' ,'{{ list[i].proName }}')">[ 详情 ]</a>
+                                    <a onclick="changeStatus({{ list[i].pro_status }},{{ list[i].id }})">[ 上架 ]</a>
+                                    <a onclick="delProduct({{ list[i].id }})">[ 删除 ]</a>
+                                    {{# } }}
+                                </span>
+                            </td>
+                        </tr>
+                        {{# } }}
+                        {{# }else{ }}
+                        <td colspan="14">
+                            <span>{{ d.massage }}</span>
+                        </td>
+                        {{# } }}
+                    </script>
+
+                    <!--列表结束-->
+                    <!--页码开始-->
+                    <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                        <input hidden="hidden" value="1" id="pro_page"/>
+                        <span>每页显示
+                        <select id="pro_pageSize" onchange="getProduct(1)">
+                            <option value="10"  selected="selected">10</option>
+                            <option value="30" >30</option>
+                            <option value="50" >50</option>
+                            <option value="100">100</option>
+                            <option value="300">300</option>
+                            <option value="500">500</option>
+                            <option value="1000">1000</option>
+                            <option value="3000">3000</option>
+                            <option value="5000">5000</option>
+                        </select>&nbsp;
+                    </span>
+                        <span id="pro_pageInfo" style="margin-right: 10px;"></span>
+                        <div class="btn-group" id="pro_pager"></div>
+                    </div>
+                    <!--页码结束-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script  type="text/javascript" src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+
+<script src="/js/laytpl/laytpl.js"></script>
+<!--自定义js-->
+<script src="/js/area.js"></script>
+<!--分页插件-->
+<script src="/js/jquery.page.js"></script>
+<!--自定义JS-->
+<script src="/js/global.js"></script>
+<script>
+    $(function(){
+        getProduct(1);
+        $('#pro_find').click(function () {
+            getProduct(1) ;
+        })
+    });
+
+    /**
+     *产品搜索类别改变
+     */
+    function ChangeCate(obj){
+        var cateEnLv2 = '<?php echo isset($cateEnLv2) ? urlencode($cateEnLv2) : "" ;?>';
+        cateEnLv2     = eval(decodeURIComponent(cateEnLv2));
+        var lv1       = $(obj).val() ;
+        var obj_cate_lv2  = $('#pro_cate_lv2') ;
+        var option = "<option value=''>全部</option>";
+        if(lv1 != ''){
+            for (var i=0;i<cateEnLv2.length;i++){
+                if(lv1 == cateEnLv2[i]['pid']){
+                    option  += "<option value='"+cateEnLv2[i]['id']+"'>"+cateEnLv2[i]['name']+"</option>" ;
+                }
+            }
+        }
+        obj_cate_lv2.html(option)
+    }
+    /**
+     * 获取数据
+     */
+    function getProduct(page){
+        var data      = {} ;
+        data.status   = $("#pro_status").val();
+        data.pro_type = $("#pro_type").val();
+        data.cate_lv1 = $("#pro_cate_lv1").val();
+        data.cate_lv2 = $("#pro_cate_lv2").val();
+        data.com_type = $("#com_type").val();
+        data.keywords = $("#keywords").val();//关键字
+        data.page     = page ? page : 1;
+        data.pageSize = $('#pro_pageSize').val();
+        var url = '/plat.product/getProduct';
+        var index = layer.load(2);
+        $.post(url,{data:data},function(rdata){
+            var href  = '/plat.product/exportProToExcel/' ;
+            href     += '?status='+data.status+'&type='+data.pro_type+'&cate_lv1='+data.cate_lv1+'&cate_lv2='+data.cate_lv2 ;
+            href     += '&com_type='+data.com_type ;
+            href     += '&keywords='+data.keywords+'&page='+data.page+'&pageSize='+data.pageSize ;
+            $("#download").attr('href',href);
+
+            layer.close(index);
+            var pageInfo = '';
+            var p        = rdata.page;
+            var pageSize = rdata.pageSize;
+            var count    = rdata.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            $("#pro_pageInfo").text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+            $("#pro_pager").createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getProduct(p);
+                }
+            });
+            var tpl = $('#pro_model').html();
+            laytpl(tpl).render(rdata, function(html){
+                $('#pro_show').html(html);
+            });
+        },'json');
+        $("#pro_page").val(page);
+    }
+
+    /**
+     * 上下架
+     * @param j
+     * @param proId
+     */
+    function changeStatus(j,proId){
+        //alert(1);
+        var tip = '是否下架 ?' ;
+        if(j == 2){
+            tip = '是否上架 ?' ;
+        }
+        layer.confirm(tip,{shadeClose: true, title:'重要提示'},function (index) {
+            var url = '/plat.product/changeStatus';
+            var postData = {};
+            postData.status = j == 1 ? 2 : 1 ;
+            postData.proId  = proId;
+            $.post(url,postData,function(rv){
+                if(rv.massageCode == 'success'){
+                    getProduct(1);
+                    layer.close(index);
+                    layer.msg(rv.massage);
+                }else {
+                    layer.msg(rv.massage);
+                }
+            },'json')
+        });
+    }
+    /**
+     * 删除产品
+     */
+    function delProduct(id) {
+        layer.confirm('是否删除 ? 删除之后无法恢复!',{shadeClose: true, title:'重要提示'},function (index) {
+            var url = '/plat.product/delProduct';
+            $.post(url,{id:id},function(rv){
+                if(rv.massageCode == 'success'){
+                    getProduct(1);
+                    layer.close(index);
+                    layer.msg(rv.massage);
+                }else {
+                    layer.msg(rv.massage);
+                }
+            },'json')
+        });
+    }
+
+    /**
+     *产品详情
+     * @param id
+     * @param name
+     */
+    function getOnePro(id,name) {
+        top.addTabWin('产品详情-'+name,'/plat.product/getOnePro?id='+id)
+    }
+
+</script>
+</html>

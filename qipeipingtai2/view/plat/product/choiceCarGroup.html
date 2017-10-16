@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>厂商列表</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <style>
+
+        .firm span{display: inline-block;width: 30%;height: 34px;font-size: 16px;line-height: 34px; padding-left: 75px;margin-bottom: 15px;}
+        #third li{list-style: none}
+
+        .float{ float: left ;width:75px;height: 25px;list-style: none; text-align: center;border: 1px solid lightgrey;}
+        .floatLeft { float: left ;width: 8px;height: 27px; border: none; line-height: 27px;margin-right: 3px;}
+        .floatRight{ float: right ;width: 8px;height: 27px; border: none; line-height: 27px;margin-left: 3px;}
+        .type_a{ display: inline-block; height: 23px; padding: 3px; color: black ; width:73px; overflow:hidden;  text-overflow:ellipsis; white-space:nowrap;}
+        .car_lv2 { float: left;cursor: pointer;list-style: none; width: 73px; height: 93px; margin-right: 5px; margin-bottom: 5px; border: 1px solid lightgrey;}
+        .checkbox{position: relative;top: -95px;left: 2px;}
+        .img{width: 71px;height: 73px;border: none;cursor: pointer;}
+        .car_type_lv2_name{display: inline-block;width: 73px;padding: 3px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content" style="padding: 0">
+    <input type="hidden" value="<?php echo $s ;?>" id="car_group_id"/>
+
+    <div class="col-xs-12" id="first">
+        <div class="col-xs-12 firm" style="height: 70px; padding-top: 15px;">
+            <span style="color: #0099ff">1 商家类型</span>
+            <span>2 分类</span>
+            <span>3 车系</span>
+        </div>
+        <div style="clear: both;"></div>
+        <div class="col-xs-12">
+            <span class="form-control" style="margin-bottom: 2px; cursor: pointer;" onclick="checked(this)"><span style="padding-left: 15px;">轿车商家</span><span style="float: right; padding-right: 15px;"><input type="radio" name="firm_type" value="1" checked/></span></span>
+            <span class="form-control" style="margin-bottom: 2px; cursor: pointer;" onclick="checked(this)"><span style="padding-left: 15px;">货车商家</span><span style="float: right; padding-right: 15px;"><input type="radio" name="firm_type" value="2" /></span></span>
+            <span class="form-control" style="margin-bottom: 2px; cursor: pointer;" onclick="checked(this)"><span style="padding-left: 15px;">用品商家</span><span style="float: right; padding-right: 15px;"><input type="radio" name="firm_type" value="3" /></span></span>
+        </div>
+        <div style="clear: both;"></div>
+        <div class="hr-line-dashed" style="margin: 55px 20px 5px 20px;"></div>
+        <div class="form-group" style="">
+            <div class="col-xs-12" style="text-align: center;padding-bottom: 20px;">
+                <button class="btn btn-default" type="submit" style="width: 80px;" onclick="parent.layer.closeAll()">取消</button>
+                <button class="btn btn-primary" type="submit" style="width: 80px;" data-type="1" onclick="go_next(this)">下一步</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 hidden" id="second">
+        <div class="col-xs-12 firm" style="height: 70px; padding-top: 15px;">
+            <span>1 商家类型</span>
+            <span style="color: #0099ff">2 分类</span>
+            <span>3 车系</span>
+        </div>
+        <div style="clear: both;"></div>
+        <div id="car_lv1_show"> </div>
+        <script id="car_lv1_model" type="text/html">
+            {{# if(d.length > 0) { }}
+
+                <div class="mail-box-header col-xs-12">
+                    <div class="floatLeft" id="left" style="cursor: pointer;margin-right: 10px;" onclick="rightScroll(this)">
+                        <img src="/images/qpxm/pc/register/left.png">
+                    </div>
+                    <div style="float: left;overflow: hidden; height: 26px;width: 525px;">
+                        <div style="float: left;overflow: hidden; height: 25px;width: 10000px;">
+                            <ul id="car_lv1" style="float: left; margin-bottom: 0;overflow: hidden;height: 27px; padding-left: 0;">
+                                <!--style='background-color:lightgrey'-->
+
+                                {{# var list = d; for(var i = 0, len = list.length; i < len; i++){ }}
+                                <li class="float" title="{{ list[i].name }}" style="{{ i == 0 ? 'background-color:lightgrey' : '' }}">
+                                    <a data-val="group_{{ list[i].id }}" data-id="{{ list[i].id }}" class="type_a" href="javascript:void (0);">
+                                        <span>{{ list[i].name }}</span>
+                                    </a>
+                                </li>
+                                {{# } }}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="floatRight" style="cursor: pointer" onclick="leftScroll(this)">
+                        <img src="/images/qpxm/pc/register/right.png">
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="wrapper wrapper-content" style="padding: 0" id="main">
+                    {{#  for(var i = 0; i < list.length; i++){ }}
+
+                    <div class="row {{ i == 0 ? '' : 'hidden' }}" data-name="child" style="padding: 10px;" id="group_{{ list[i].id }}">
+                        <ul>
+                            {{# var child = list[i]['child'] }}
+                            {{# for(var j = 0; j < child.length; j++){ }}
+                            <li class="car_lv2">
+                                <div style="width: 73px; height: 73px;">
+                                    <label for="group_{{ child[j].id }}">
+                                        <img class="img" src="{{ child[j].img }}">
+                                    </label>
+                                </div>
+                                <div title="{{ child[j].name }}" style="width: 73px; height: 20px; text-align: center;"><span class="car_type_lv2_name">{{ child[j].name }}</span></div>
+                                <input type="radio" name="car_lv2" data-value="{{ list[i].name }}" data-v="{{ child[j].name }}"  value="{{ child[j].id }}" class="checkbox" id="group_{{ child[j].id }}"/>
+                            </li>
+                            {{# } }}
+                        </ul>
+                    </div>
+
+                    {{# } }}
+                </div>
+
+            <div style="clear: both;"></div>
+            <div class="hr-line-dashed" style="margin: 55px 20px 5px 20px;"></div>
+            <div class="form-group" style="">
+                <div class="col-xs-12" style="text-align: center;padding-bottom: 20px;">
+                    <button class="btn btn-default" type="submit" style="width: 80px;" data-type="2" onclick="go_back(this)">上一步</button>
+                    <button class="btn btn-primary" type="submit" style="width: 80px;" data-type="2" onclick="go_next(this)">下一步</button>
+                </div>
+            </div>
+
+            {{# }else{ }}
+            <div style="font-size: 15px; text-align: center;padding-top: 15px;"> 该类型下还未添加任何分类 </div>
+            {{# } }}
+
+        </script>
+
+
+
+
+    </div>
+    <div class="col-xs-12 hidden" id="third">
+
+        <div class="col-xs-12 firm" style="height: 70px; padding-top: 15px;">
+            <span>1 商家类型</span>
+            <span>2 分类</span>
+            <span style="color: #0099ff">3 车系</span>
+        </div>
+        <div style="clear: both;"></div>
+
+        <div id="car_lv2_show">
+
+        </div>
+        <script id="car_lv2_model" type="text/html">
+            {{# if(d.length > 0) { }}
+            <div class="col-xs-12">
+                <table class="table">
+                {{# var list = d; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                {{# var child = list[i]['child'] }}
+
+                    <tr style="background-color: #E4E4E4;">
+                        <th>{{ list[i].name }}</th>
+                    </tr>
+                    {{# for(var j = 0; j < child.length; j++){ }}
+                    <tr style="cursor: pointer;" onclick="checked(this)">
+                        <td style="padding-left: 25px;">
+                            <span>{{ child[j].name }}</span>
+                            <span style="float: right;padding-right: 15px;">
+                                <input type="radio" name="car_lv4" data-value="{{ list[i].name }}" data-v="{{ child[j].name }}" value="{{ child[j].id }}" />
+                            </span>
+                        </td>
+                    </tr>
+                    {{# } }}
+                {{# } }}
+                </table>
+            </div>
+            {{# }else{ }}
+            <div style="font-size: 15px; text-align: center;padding-top: 15px;"> 该分类下还没有添加任何车系 </div>
+            {{# } }}
+        </script>
+
+        <div style="clear: both;"></div>
+        <div class="hr-line-dashed" style="margin: 55px 20px 5px 20px;"></div>
+        <div class="form-group" style="">
+            <div class="col-xs-12" style="text-align: center;padding-bottom: 20px;">
+                <button class="btn btn-default" type="submit" style="width: 80px;" data-type="3" onclick="go_back(this)">上一步</button>
+                <button class="btn btn-primary" type="submit" style="width: 80px;" data-type="3" onclick="go_ok(this)">确 认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script  type="text/javascript" src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+<script src="/js/laytpl/laytpl.js"></script>
+<!--自定义JS-->
+<script src="/js/global.js"></script>
+<script>
+    $(function () {
+        $('.type_a').click(function () {
+            hidden(this);
+        });
+    });
+
+    /**
+     * 选中
+     * @param obj
+     */
+    function checked(obj) {
+        var radio = $(obj).find('input[type=radio]');
+        $(radio).prop('checked',true);
+    }
+
+    function go_next(obj) {
+        var s = $(obj).attr('data-type') ;
+        var data  = {} ;
+        data.group= $("#car_group_id").val();
+        if(s == 1){
+            data.type = $("#first").find('input[type=radio]:checked').val();
+            if(data.type){
+                var url   = '/plat.product/getCarClass' ;
+                $.post(url,{data:data},function (rv) {
+                    var tpl = $('#car_lv1_model').html();
+                    laytpl(tpl).render(rv, function(html){
+                        $('#car_lv1_show').html(html);
+                    });
+                    $('.type_a').click(function () {
+                        hidden(this);
+                    });
+                },'json');
+
+                $("#first").addClass('hidden');
+                $("#second").removeClass('hidden');
+            }else {
+                layer.msg('请选择商家分类')
+            }
+
+        }else if(s == 2){
+            var car_lv_2 = $("#main").find('input[type=radio]:checked').val();
+
+            if(car_lv_2){
+                data.p_id    = car_lv_2 ;
+                url   = '/plat.product/getCarGroup' ;
+                $.post(url,{data:data},function (rv) {
+                    var tpl = $('#car_lv2_model').html();
+                    laytpl(tpl).render(rv, function(html){
+                        $('#car_lv2_show').html(html);
+                    });
+
+                },'json');
+
+                $("#second").addClass('hidden');
+                $("#third").removeClass('hidden');
+            }else {
+                layer.msg('请选择二级分类')
+            }
+
+        }else {
+
+        }
+
+    }
+
+
+    function go_back(obj) {
+        var s = $(obj).attr('data-type') ;
+        if(s == 3){
+            $("#third").addClass('hidden');
+            $("#second").removeClass('hidden');
+
+        }else if(s == 2){
+            $("#second").addClass('hidden');
+            $("#first").removeClass('hidden');
+
+        }else {
+
+        }
+    }
+    function leftScroll(obj){
+        var lv1_obj = $("#car_lv1") ;
+        var rightOffset  = $(obj).offset();
+        var lastOffset = $(lv1_obj.find('li:last')).offset() ;
+        if(rightOffset.left-lastOffset.left < 50){
+            lv1_obj.animate({marginLeft:'-=75px'},20);
+        }
+    }
+    function rightScroll(obj){
+        var lv1_obj = $("#car_lv1") ;
+        var leftOffset  = $('#left').offset();
+        var firstOffset = $(lv1_obj.find('li:first')).offset() ;
+        if(leftOffset.left-firstOffset.left > 0){
+            lv1_obj.animate({marginLeft:'+=75px'},20)
+        }
+    }
+    function hidden(obj) {
+        $('#car_lv1').find('li a').each(function () {
+            $(this).attr('style','background-color:#ffffff');
+        });
+        $(obj).attr('style','background-color:lightgrey') ;
+        var _group = $(obj).attr('data-val') ;
+
+        $('#main').find('div[data-name=child]').each(function () {
+
+            if($(this).attr('id') == _group){
+                $(this).removeClass('hidden');
+            }else {
+                $(this).addClass('hidden');
+            }
+        })
+    }
+    function go_ok() {
+        var second = $('#second').find('input[type=radio]:checked') ;
+        var third  = $('#third' ).find('input[type=radio]:checked') ;
+        var checked= third.val() ;
+        if(checked){
+            var lv1 = second.attr('data-value');
+            var lv2 = second.attr('data-v');
+            var lv3 = third.attr('data-value');
+            var lv4 = third.attr('data-v');
+            var str = lv1+'/ '+lv2+'/ '+lv3+'/ '+lv4 ;
+
+            var span= '<span title="'+str+'" data-value="'+checked+'" class="badge badge-info car_group" style="margin-right: 5px;">'+str+'<span onclick="delGroup(this)" title="删除此车系" style="display: inline-block;width: 13px;height: 13px;border-radius: 6px; background-color: red;position: relative;left: 5px;cursor: pointer;">x</span></span>';
+
+            $(parent.document.getElementById('car_group')).append(span);
+            parent.layer.closeAll();
+        }else {
+
+            layer.msg('请选择适用车系');
+
+        }
+
+    }
+
+</script>
+</html>

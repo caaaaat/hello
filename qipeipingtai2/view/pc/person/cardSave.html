@@ -1,0 +1,544 @@
+<link rel="stylesheet" href="/css/pc/person/card.css">
+<style>
+    .inputLiangGe{border: 1px solid #DDD;float: left;width: 155px;height:35px;margin-left: 20px;line-height: 35px;}
+    .zhuYinTextDiv{font-size: 16px;margin-left: 20px;resize:none;border: 1px solid #DDD;width: 812px;height: 80px;padding: 10px;background: white;}
+    input{background: white;}
+    .save{color: #FFF;font-size: 18px;background: #FF5349;width: 440px;height: 60px;border: none;border-radius: 7px;}
+    .cardInfoDivBody{width: 520px;height: 320px;margin-top: 0;}
+    #upImgToken1:last-child div{width: 70px;height: 30px;}
+    #upImgToken2:last-child div{width: 70px;height: 30px;}
+    #upImgToken3:last-child div{width: 70px;height: 30px;}
+    #upImgToken3 div:last-child input{display: none;}
+    #upImgToken2 div:last-child input{display: none;}
+    #upImgToken1 div:last-child input{display: none;}
+    #upImgToken1 label{display: none;}
+    #upImgToken2 label{display: none;}
+    #upImgToken3 label{display: none;}
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button{
+        -webkit-appearance: none !important;
+        margin: 0;
+    }
+</style>
+
+<div class="rightDivScope">
+    <div class="titles" style="position: relative">
+        <div class="goBackDiv"><a href="javascript:history.back(-1)"><img src="/images/qpxm/pc/person/shopInfo/left.png" style="vertical-align: baseline" alt=""> 返回</a></div>
+        <span style="font-size: 24px;font-weight: 500;">编辑名片</span>
+    </div>
+    <img src="/images/qpxm/pc/person/card.png" alt="" style="display: none">
+    <div class="cardImgDiv">
+        <!--经销商-->
+        <?php if($userInfo['type']==1){?>
+        <?php if($tokenUse==1){?>
+        <!--模板一-->
+        <div class="floLeft" style="color: white">
+            <div class="cardInfoDivBody" style="color: #000;">
+                <div class="padding15size18" style="font-size: 20px;"><?php echo $userInfo['companyname'];?></div>
+                <div class="paddLeft15PaddRight15">
+                    <div style="float: left;width: 160px;">
+                        <?php if(isset($ico) && $ico){?>
+                        <?php foreach($ico as $v){?>
+                        <div class="icoImgs">
+                            <img src="<?php echo $v['img'];?>" height="50px" width="50px" alt="">
+                        </div>
+                        <?php }}?>
+                    </div>
+                    <div style="float: left;margin-left: 40px;line-height: 50px;font-size: 17px;">联系人 ：<?php echo $userInfo['linkMan'];?></div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="paddLeft15PaddRight15Martop7" style="margin-top: 40px;font-size: 17px;">手机 ：<?php echo $userInfo['linkPhone'];?></div>
+                <div class="paddLeft15PaddRight15Martop7" style="font-size: 17px;">电话 ：<?php echo $userInfo['linkTel'];?></div>
+                <div class="paddLeft15PaddRight15Martop7" style="font-size: 17px;">QQ ：<?php echo $userInfo['qq'];?></div>
+                <div class="paddLeft15PaddRight15Martop7 liangHangHideen" style="height: 37px;font-size: 17px;width: 400px;height: 46px;">地址：<?php echo $userInfo['province'].$userInfo['city'].$userInfo['district'].$userInfo['address']?></div>
+                <div class="cardShengCheng">本名片由《汽配群》生成</div>
+                <div class="erWeiMaRight" style="bottom: 90px;">
+                    <img src="<?php echo $firmsQR;?>" width="100px" alt="">
+                </div>
+            </div>
+        </div>
+        <?php }else{?>
+        <!--模板二-->
+        <div style="float: left;color: white;">
+            <div class="cardInfoDivBody" style="background:  url('/images/qpxm/pc/person/card_y.jpg');background-size:cover;color: #000;">
+                <div class="padding15size18" style="font-size: 20px;"><?php echo $userInfo['companyname'];?></div>
+                <div class="paddLeft15PaddRight15">
+                    <div style="float: left;line-height: 50px;margin-right: 20px;min-width: 160px;font-size: 18px;">联系人 ：<?php echo $userInfo['linkMan'];?></div>
+                    <div style="float: left;">
+                        <?php if(isset($ico) && $ico){?>
+                        <?php foreach($ico as $v){?>
+                        <div class="icoImgs">
+                            <img src="<?php echo $v['img'];?>" height="50px" width="50px" alt="">
+                        </div>
+                        <?php }}?>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <div class="paddLeft15PaddRight15Martop7" style="margin-left: 110px;margin-top: 20px;font-size: 18px;">手机 ：<?php echo $userInfo['linkPhone'];?></div>
+                <div class="paddLeft15PaddRight15Martop7" style="margin-left: 110px;font-size: 18px;">电话 ：<?php echo $userInfo['linkTel'];?></div>
+                <div class="paddLeft15PaddRight15Martop7" style="margin-left: 110px;font-size: 18px;">QQ ：<?php echo $userInfo['qq'];?></div>
+                <div class="paddLeft15PaddRight15Martop7 liangHangHideen" style="margin-bottom: 15px;width: 400px;margin-left: 110px;height: 46px;font-size: 18px;">地址：<?php echo $userInfo['province'].$userInfo['city'].$userInfo['district'].$userInfo['address']?></div>
+                <div class="cardShengCheng">本名片由《汽配群》生成</div>
+                <div class="erWeiMaLeft" style="bottom: 90px;">
+                    <img src="<?php echo $firmsQR;?>" width="100px" alt="">
+                </div>
+            </div>
+        </div>
+        <?php }?>
+        <!--汽修厂-->
+        <?php }else{?>
+        <?php if($tokenUse==1){?>
+        <!--模板一-->
+        <div class="floLeft" style="color: white">
+            <div class="cardInfoDivBody" style="background:  url('/images/qpxm/pc/person/card_q1.jpg');background-size:cover;">
+                <div class="padding15size18"><?php echo $userInfo['companyname'];?></div>
+                <div class="paddLeft15PaddRight15">联系人 ：<?php echo $userInfo['linkMan'];?></div>
+                <div class="fanWei"><?php echo $userInfo['major'];?></div>
+                <div class="paddLeft15PaddRight15Martop7">手机 : <?php echo $userInfo['linkPhone'];?></div>
+                <div class="paddLeft15PaddRight15Martop7">电话 : <?php echo $userInfo['linkTel'];?></div>
+                <div class="paddLeft15PaddRight15Martop7">QQ ：<?php echo $userInfo['qq'];?></div>
+                <div class="paddLeft15PaddRight15Martop7 liangHangHideen" style="height: 37px;">地址：<?php echo $userInfo['province'].$userInfo['city'].$userInfo['district'].$userInfo['address']?></div>
+                <div class="cardShengCheng">本名片由《汽配群》生成</div>
+                <div class="erWeiMaRight" style="bottom: 90px;">
+                    <img src="<?php echo $firmsQR;?>" width="100px" alt="">
+                </div>
+            </div>
+        </div>
+        <?php }else{?>
+        <!--模板二-->
+        <div style="float: left;color: white;">
+            <div class="cardInfoDivBody" style="background:  url('/images/qpxm/pc/person/card_q2.jpg');background-size:520px 320px;color: #000;">
+                <div class="padding15size18" style="padding-top: 20px;"><?php echo $userInfo['companyname'];?></div>
+                <div class="paddLeft15PaddRight15" style="padding-top: 6px;padding-bottom: 6px;">联系人 ：<?php echo $userInfo['linkMan'];?></div>
+                <div class="fanWei" style="margin-bottom: 25px;"><?php echo $userInfo['major'];?></div>
+                <div class="paddLeft15PaddRight15Martop7" style="margin-left: 110px;">手机 : <?php echo $userInfo['linkPhone'];?></div>
+                <div class="paddLeft15PaddRight15Martop7" style="margin-left: 110px;">电话 : <?php echo $userInfo['linkTel'];?></div>
+                <div class="paddLeft15PaddRight15Martop7" style="margin-left: 110px;">QQ ：<?php echo $userInfo['qq'];?></div>
+                <div class="paddLeft15PaddRight15Martop7 liangHangHideen" style="margin-left: 110px;height: 37px">地址 : <?php echo $userInfo['province'].$userInfo['city'].$userInfo['district'].$userInfo['address']?></div>
+                <div class="cardShengCheng">本名片由《汽配群》生成</div>
+                <div class="erWeiMaLeft" style="bottom: 80px;">
+                    <img src="<?php echo $firmsQR;?>" width="100px" alt="">
+                </div>
+            </div>
+        </div>
+        <?php }?>
+        <?php }?>
+    </div>
+    <div id="a" style="margin: 0 auto;width:520px;height: 320px;display: none;margin-top: 20px;">
+        <canvas id="myCanvas" width="520" height="320"></canvas>
+    </div>
+
+    <!--详细信息-->
+    <div class="padLeft15right20">
+        <div class="marTop30" style="padding-bottom: 50px;">
+            <!--企业名称-->
+            <div class="marBottom18">
+                <div class="floLeftW450">
+                    <div class="cardName">企业名称:</div>
+                    <input type="text" disabled="disabled" class="cardInput firms_name" value="<?php if(isset($userInfo) && $userInfo){echo $userInfo['companyname'];}?>">
+                </div>
+                <div class="floRightW450">
+                    <div class="cardName">联系人:</div>
+                    <input type="text" class="cardInput firms_linkMan" value="<?php if(isset($userInfo) && $userInfo){echo $userInfo['linkMan'];}?>">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <!--手机号-->
+            <div class="marBottom18">
+                <div class="floLeftW450">
+                    <div class="cardName">手机号:</div>
+                    <input type="number" class="firms_phone inputLiangGe" value="">
+                    <input type="number" class="firms_phone inputLiangGe" value="">
+                </div>
+                <div class="floRightW450">
+                    <div class="cardName">电话:</div>
+                    <input type="text" class="firms_tel inputLiangGe" value="">
+                    <input type="text" class="firms_tel inputLiangGe" value="">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <!--QQ-->
+            <div class="marBottom18">
+                <div class="floLeftW450">
+                    <div class="cardName">QQ:</div>
+                    <input type="number" class="firms_QQ inputLiangGe" value="">
+                    <input type="number" class="firms_QQ inputLiangGe" value="">
+                </div>
+                <div class="floRightW450">
+                    <div class="cardName">地址:</div>
+                    <input type="text" disabled="disabled" class="cardInput firms_address" value="<?php if(isset($userInfo) && $userInfo){echo $userInfo['province'].$userInfo['city'].$userInfo['district'].$userInfo['address'];}?>">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <?php if($userInfo['type']==2){?>
+            <!--主营-->
+            <div class="marBottom18">
+                <div class="floLeftW450" style="width: auto;">
+                    <div class="cardName">主营:</div>
+                    <textarea class="zhuYinTextDiv" disabled="disabled"><?php if(isset($userInfo) && $userInfo && $userInfo['major']){echo $userInfo['major'];}?></textarea>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <?php }?>
+
+            <!--二维码-->
+            <div class="marBottom18">
+                <div class="floLeftW450 firms_QR">
+                    <div class="cardName">二维码:</div>
+                    <?php if(isset($firmsQR) && $firmsQR){?>
+                    <div class="erWeiMaImgDiv" style="position: relative;float: left;margin-left: 20px;width: 70px;height: 70px;">
+                        <img src="<?php echo $firmsQR;?>" style="width: 70px;height: 70px;" alt="">
+                    </div>
+                    <?php }?>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <?php if($userInfo['type']==1){?>
+            <!--主营图标-->
+            <div class="marBottom18">
+                <div class="floLeftW450">
+                    <div class="cardName">主营图标:</div>
+                    <div class="cardImgXDiv">
+                        <?php if($ico && isset($ico[0]) && isset($ico[0]['img'])){?>
+                        <div class="main_icon_1" style="width: 70px;height: 70px;">
+                            <img src="<?php echo $ico[0]['img'];?>" style="width: 70px;height: 70px;" alt="">
+                            <a href="javascript:;" onclick="delImgs(this)"><img src="/images/qpxm/pc/person/shopInfo/x.png" class="xImg" alt=""></a>
+                        </div>
+                        <?php }else{?>
+                        <div class="main_icon_1" style="width: 70px;height: 70px;background: url('/images/qpxm/pc/person/shopInfo/tianjiazp_s.png');background-size: cover;">
+
+                        </div>
+                        <?php }?>
+                    </div>
+                    <div class="floLeftPadTop20">
+                        <div class="shangChuan" id="upImgToken1" style="width: 70px;text-align: center;line-height: 30px;">上传</div>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <!--主营图标-->
+            <div class="marBottom18">
+                <div class="floLeftW450">
+                    <div class="cardName">主营图标:</div>
+                    <div class="cardImgXDiv">
+                        <?php if($ico && isset($ico[1]) && isset($ico[1]['img'])){?>
+                        <div class="main_icon_2" style="width: 70px;height: 70px;">
+                            <img src="<?php echo $ico[1]['img'];?>" style="width: 70px;height: 70px;" alt="">
+                            <a href="javascript:;" onclick="delImgs(this)"><img src="/images/qpxm/pc/person/shopInfo/x.png" class="xImg" alt=""></a>
+                        </div>
+                        <?php }else{?>
+                        <div class="main_icon_2" style="width: 70px;height: 70px;background: url('/images/qpxm/pc/person/shopInfo/tianjiazp_s.png');background-size: cover;">
+
+                        </div>
+                        <?php }?>
+                    </div>
+                    <div class="floLeftPadTop20">
+                        <div class="shangChuan" id="upImgToken2" style="width: 70px;text-align: center;line-height: 30px;">上传</div>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <!--主营图标-->
+            <div class="marBottom18">
+                <div class="floLeftW450">
+                    <div class="cardName">主营图标:</div>
+                    <div class="cardImgXDiv">
+                        <?php if($ico && isset($ico[2]) && isset($ico[2]['img'])){?>
+                        <div class="main_icon_3" style="width: 70px;height: 70px;">
+                            <img src="<?php echo $ico['main_icon_3'];?>" style="width: 70px;height: 70px;" alt="">
+                            <a href="javascript:;" onclick="delImgs(this)"><img src="/images/qpxm/pc/person/shopInfo/x.png" class="xImg" alt=""></a>
+                        </div>
+                        <?php }else{?>
+                        <div class="main_icon_3" style="width: 70px;height: 70px;background: url('/images/qpxm/pc/person/shopInfo/tianjiazp_s.png');background-size: cover;">
+
+                        </div>
+                        <?php }?>
+                    </div>
+                    <div class="floLeftPadTop20">
+                        <div class="shangChuan" id="upImgToken3" style="width: 70px;text-align: center;line-height: 30px;">上传</div>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <?php }?>
+            <div style="margin: 0 auto;width: 440px;">
+                <?php if($userInfo['type']==1){?>
+                <button onclick="save()" class="save">保存</button>
+                <?php }else{?>
+                <button onclick="saveQiXiu()" class="save">保存</button>
+                <?php }?>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="upImg" style="display: none;"></div>
+<input type="hidden" id="tokenType" value="<?php if($userInfo['type']==1 && $tokenUse==1){echo 1;}elseif($userInfo['type']==1 && $tokenUse!=1){echo 2;}elseif($userInfo['type']!=1 && $tokenUse==1){echo 3;}elseif($userInfo['type']!=1 && $tokenUse!=1){echo 4;}?>">
+<input type="hidden" id="classToken" value="erWeiMaImgDiv">
+<input type="hidden" id="tokenUse" value="<?php if($tokenUse==1){echo 1;}else{echo 2;}?>">
+<script src="/js/pc/layer/layer.js"></script>
+<script src="/js/pc/card.js?v=4"></script>
+<!--<script type="text/javascript" src="/js/webuploader/webuploader.custom.min.xcm.js"></script>-->
+<script type="text/javascript" src="/js/webuploader-0.1.5/webuploader.js"></script>
+<script>
+    $(function(){
+        for(var i=1; i<4; ++i){
+            upImg(i);        //图片上传
+        }
+        setCard();      //初始化画布
+    });
+
+    /*经销商提交保存*/
+    function save(){
+        var data = {};
+        data.firms_name       = $('.firms_name').val();                 //企业名称
+        data.firms_linkMan    = $('.firms_linkMan').val();             //联系人
+        var firms_phoneArr = [];
+        for(var i=0; i<2; ++i){
+            var firms_phone      = '';
+            firms_phone = $('.firms_phone').eq(i).val();
+            if(firms_phone){
+                if(!/^1[34578]\d{9}$/.test(firms_phone)){
+                    layer.msg('请正确填写手机号码');
+                    return false;
+                }
+                firms_phoneArr.push(firms_phone);
+            }
+        }
+        if(firms_phoneArr && firms_phoneArr.length>0){
+            data.firms_phone = firms_phoneArr.join(",");                    //联系人手机号码
+        }else{
+            data.firms_phone = '';
+        }
+
+        var firms_telArr = [];
+        for(var i=0; i<2; ++i){
+            var firms_tel = '';
+            firms_tel = $('.firms_tel').eq(i).val();
+            if(firms_tel){
+                if(!/^$|(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/.test(firms_tel)){
+                    layer.msg('请正确填写座机号码');
+                    return false;
+                }
+                firms_telArr.push(firms_tel);
+            }
+        }
+        if(firms_telArr && firms_telArr.length>0){
+            data.firms_tel = firms_telArr.join(',');                       //联系人电话号码
+        }else{
+            data.firms_tel = '';
+        }
+
+        var firms_QQArr = [];
+        for(var i=0; i<2; ++i){
+            var firms_QQ = '';
+            firms_QQ += $('.firms_QQ').eq(i).val();
+            if(firms_QQ){
+                if(!/^[1-9]\d{4,9}$/.test(firms_QQ)){
+                    layer.msg('请正确填写qq号码');
+                    return false;
+                }
+                firms_QQArr.push(firms_QQ);
+            }
+        }
+        if(firms_QQArr && firms_QQArr.length>0){
+            data.firms_QQ = firms_QQArr.join(',');                           //联系人qq
+        }else{
+            data.firms_QQ = '';
+        }
+        data.firms_address    = $('.firms_address').val();             //地址
+        data.firms_QR          = $('.firms_QR').find('.erWeiMaImgDiv').find('img').attr('src');//二维码图片
+        data.main_icon_1       = $('.main_icon_1').find('img').attr('src'); //主营图标1
+        data.main_icon_2       = $('.main_icon_2').find('img').attr('src'); //主营图标2
+        data.main_icon_3       = $('.main_icon_3').find('img').attr('src'); //主营图标3
+        if(!data.firms_name){
+            layer.msg('没有企业名称，提交失败');
+            return false;
+        }
+        if(!data.firms_linkMan){
+            layer.msg('没有联系人名称，提交失败');
+            return false;
+        }
+        if(!data.firms_phone){
+            layer.msg('请至少填写一个手机号码');
+            return false;
+        }
+        if(!data.firms_QQ){
+            layer.msg('请至少填写一个QQ号码');
+            return false;
+        }
+        if(!data.firms_address){
+            layer.msg('没有企业地址信息，提交失败');
+            return false;
+        }
+        if(!data.firms_QR){
+            layer.msg('没有二维码图片，提交失败');
+            return false;
+        }
+        if(!data.main_icon_1 && !data.main_icon_2 && !data.main_icon_3){
+            layer.msg('请至少上传一张主营图标');
+            return false;
+        }
+        $('.cardImgDiv').hide(500);
+        $('.save').attr('onclick','');
+        $('#a').show();
+        var tokenUse = $('#tokenUse').val();        //选择的模板 (1:二维码在右边，2:二维码在左边)
+
+        var cardImg = '';
+        var tokenType = $('#tokenType').val();
+        if(tokenType==1){       //经销商类型1
+            cardImg = '/images/qpxm/pc/person/card.png';
+        }else if(tokenType==2){//经销商类型2
+            cardImg = '/images/qpxm/pc/person/card_y.jpg';
+        }else if(tokenType==3){//汽修厂类型1
+            cardImg = '/images/qpxm/pc/person/card_q1.jpg';
+        }else if(tokenType==4){//汽修厂类型1
+            cardImg = '/images/qpxm/pc/person/card_q2.jpg';
+        }
+        setCard(cardImg,data.firms_QR,data.firms_name,data.firms_linkMan,data.firms_phone,data.firms_tel,data.firms_QQ,data.firms_address,data.main_icon_1,data.main_icon_2,data.main_icon_3,tokenUse);
+        var myCanvas = document.getElementById("myCanvas");
+        var base64 = myCanvas.toDataURL("image/png");        //获取base64字符串
+            $.ajax({
+            url: "/pc.card/ceartCard",    //请求的url地址
+            dataType: "json",   //返回格式为json
+            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+            data: {"base64": base64,"data":data},    //参数值
+            type: "POST",   //请求方式
+            success: function (req) {
+                $('.save').attr('onclick','save()');
+                if(req.status==1){
+                    layer.msg('保存成功');
+                    setTimeout(function(){
+                        location.href = '/person/card?a='+Math.round(Math.random()*9+1)+Math.round(Math.random()*9+1);
+                    },1000);
+                }else{
+                    layer.msg(req.msg);
+                }
+            }
+        })
+    }
+
+    /*汽修厂提交保存*/
+    function saveQiXiu(){
+        var data = {};
+        data.firms_name       = $('.firms_name').val();                 //企业名称
+        data.firms_linkMan    = $('.firms_linkMan').val();             //联系人
+        var firms_phoneArr = [];
+        for(var i=0; i<2; ++i){
+            var firms_phone      = '';
+            firms_phone = $('.firms_phone').eq(i).val();
+            if(firms_phone){
+                if(!/^1[34578]\d{9}$/.test(firms_phone)){
+                    layer.msg('请正确填写手机号码');
+                    return false;
+                }
+                firms_phoneArr.push(firms_phone);
+            }
+        }
+        if(firms_phoneArr && firms_phoneArr.length>0){
+            data.firms_phone = firms_phoneArr.join(",");                    //联系人手机号码
+        }else{
+            data.firms_phone = '';
+        }
+
+        var firms_telArr = [];
+        for(var i=0; i<2; ++i){
+            var firms_tel = '';
+            firms_tel = $('.firms_tel').eq(i).val();
+            if(firms_tel){
+                if(!/^$|(0[0-9]{2,3}\-)?([2-9][0-9]{6,7})+(\-[0-9]{1,4})?$/.test(firms_tel)){
+                    layer.msg('请正确填写座机号码');
+                    return false;
+                }
+                firms_telArr.push(firms_tel);
+            }
+        }
+        if(firms_telArr && firms_telArr.length>0){
+            data.firms_tel = firms_telArr.join(',');                       //联系人电话号码
+        }else{
+            data.firms_tel = '';
+        }
+
+        var firms_QQArr = [];
+        for(var i=0; i<2; ++i){
+            var firms_QQ = '';
+            firms_QQ += $('.firms_QQ').eq(i).val();
+            if(firms_QQ){
+                if(!/^[1-9]\d{4,9}$/.test(firms_QQ)){
+                    layer.msg('请正确填写qq号码');
+                    return false;
+                }
+                firms_QQArr.push(firms_QQ);
+            }
+        }
+        if(firms_QQArr && firms_QQArr.length>0){
+            data.firms_QQ = firms_QQArr.join(',');                           //联系人qq
+        }else{
+            data.firms_QQ = '';
+        }
+        data.firms_address    = $('.firms_address').val();             //地址
+        data.firms_QR          = $('.firms_QR').find('.erWeiMaImgDiv').find('img').attr('src');//二维码图片
+        data.major             = $('.zhuYinTextDiv').val();             //主营
+        if(!data.firms_name){
+            layer.msg('没有企业名称信息，提交失败');
+            return false;
+        }
+        if(!data.firms_linkMan){
+            layer.msg('没有联系人名称，提交失败');
+            return false;
+        }
+        if(!data.firms_phone){
+            layer.msg('请至少填写一个手机号码');
+            return false;
+        }
+        if(!data.firms_QQ){
+            layer.msg('请至少填写一个QQ号码');
+            return false;
+        }
+        if(!data.firms_address){
+            layer.msg('没有地址信息，提交失败');
+            return false;
+        }
+        if(!data.major){
+            layer.msg('没有主营内容，提交失败');
+            return false;
+        }
+        $('.cardImgDiv').hide();
+        $('.save').attr('onclick','');
+        $('#a').show();
+        var tokenUse = $('#tokenUse').val();        //选择的模板 (1:二维码在右边，2:二维码在左边)
+        var cardImg = '';
+        var tokenType = $('#tokenType').val();
+        if(tokenType==1){       //经销商类型1
+            cardImg = '/images/qpxm/pc/person/card.png';
+        }else if(tokenType==2){//经销商类型2
+            cardImg = '/images/qpxm/pc/person/card_y.jpg';
+        }else if(tokenType==3){//汽修厂类型1
+            cardImg = '/images/qpxm/pc/person/card_q1.jpg';
+        }else if(tokenType==4){//汽修厂类型1
+            cardImg = '/images/qpxm/pc/person/card_q2.jpg';
+        }
+        setCardQiXiu(cardImg,data.firms_QR,data.firms_name,data.firms_linkMan,data.firms_phone,data.firms_tel,data.firms_QQ,data.firms_address,data.major,tokenUse,tokenType);
+        var myCanvas = document.getElementById("myCanvas");
+        var base64 = myCanvas.toDataURL("image/png");        //获取base64字符串
+        $.ajax({
+            url: "/pc.card/ceartCard",    //请求的url地址
+            dataType: "json",   //返回格式为json
+            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+            data: {"base64": base64,"data":data},    //参数值
+            type: "POST",   //请求方式
+            success: function (req) {
+                $('.save').attr('onclick','saveQiXiu()');
+                if(req.status==1){
+                    layer.msg('保存成功');
+                    setTimeout(function(){
+                        location.href = '/person/card?a='+Math.round(Math.random()*9+1)+Math.round(Math.random()*9+1);
+                    },1000);
+                }else{
+                    layer.msg(req.msg);
+                }
+            }
+        })
+    }
+</script>

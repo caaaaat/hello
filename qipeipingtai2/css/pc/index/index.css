@@ -1,0 +1,96 @@
+.xinShou{height: 60px;margin-top: 10px;background: #999;margin-left: 10px}
+.gongGao{width: 35%;float: left;font-family: 'Î¢ÈíÑÅºÚ Regular', 'Î¢ÈíÑÅºÚ';height: 410px}
+.gongGaoDiv{height: 340px;margin-left: 10px;background: #FFF;padding: 15px}
+.luoBo{height: 410px;width: 1200px;margin: 0 auto;margin-top: 10px;}
+.lunBoDiv{width: 820px;height: 410px;float: left;position: relative}
+.gongGaoList{padding-bottom: 10px;padding-top: 10px;color: #666;font-family: 'Î¢ÈíÑÅºÚ Regular', 'Î¢ÈíÑÅºÚ'}
+.cheMenu{font-size: 14px;width: 100%;margin-left: 0;text-align: center;height: 65px;line-height: 65px;margin-bottom: 10px;}
+.cheMenuClass{width: 11%;float: right;font-weight: bold;position: absolute;right: 0;top: 0;}
+.handEr{cursor:pointer;padding: 10px 5px}
+
+/*.cheMenuClassActive{color: #FE534B}*/
+.merchant{width: 1200px;margin: 0 auto;margin-top: 10px;}
+.upMerchant{float: left;height: 815px}
+.carDiv{width: 820px;border: 1px solid #DDDDDD;height: 400px;background: #FFF;}
+.carText{line-height: 65px;padding-left: 20px;padding-right: 20px}
+.carTextT{font-size: 17px;font-weight: bold;border-bottom: 1px solid silver}
+.bottmActive{border-bottom: 3px solid #FF524B;height: 50px;width: 50px;margin-left: 13px;position: absolute}
+.carListDiv{width: 100%;margin: 0 auto}
+.carList{width: 11%;float: left;margin-bottom: 30px}
+.carImg{width: 80px;height: 80px;overflow: hidden;margin: 0 auto;line-height: 80px;}
+.carImg img{width: 80px;max-height: 80px;}
+.carName{margin-top: 5px;text-align: center}
+.leftShuX{float: left;height: 65px;line-height: 65px}
+.tongGTitle{font-size: 14px;color: #666}
+.tongGTitle:hover{color: #FF524B}
+.swiper-pagination-bullet{width: 20px!important;height: 20px!important;}
+.gunDongCaiD{overflow: hidden;width: 90%;margin: 0}
+.gunDongCaiD1 .swiper-wrapper .swiper-slide-active{color: #FE534B;}
+.gunDongCaiD0 .swiper-wrapper .swiper-slide-active{color: #FE534B;}
+.gunDongCaiD1 .swiper-wrapper .swiper-slide-active .handEr{border-bottom: 3px solid #FE534B}
+.gunDongCaiD0 .swiper-wrapper .swiper-slide-active .handEr{border-bottom: 3px solid #FE534B}
+/*ÐÂÆ·¿ªÊ¼*/
+.newDiv{width: 380px;height: 810px;padding-left: 10px;float: left;}
+.xinPDiv{border: 1px solid #DDD;height: 810px;background: #FFF;}
+.xinPDivTop{height: 60px;line-height: 60px;margin: 0 auto}
+.xinPDivBody{width: 50%;float: left;text-align: center;font-size: 17px;font-family: 'Î¢ÈíÑÅºÚ Regular', 'Î¢ÈíÑÅºÚ'}
+.xinPName{color: #666;float: left;width: 50%;}
+.xinPNameActive{font-weight: bold;color: #FF524B;}
+.xinPMore{width: 50%;float: right;padding-right: 20px;color: #999;font-size: 13px;font-family: 'Î¢ÈíÑÅºÚ Regular', 'Î¢ÈíÑÅºÚ'}
+.xinPListDiv{color: #666;width: 330px;height: 115px;border: 1px solid #DDD;margin: 0 auto;position: relative;overflow: hidden;margin-bottom: 10px}
+.xinPDivImg{width: 98px;height: 98px;border: 1px solid #DDD;float: left;margin-top: 8px;margin-left: 10px;overflow: hidden}
+.xinPDivInfo{float: left;height: 98px;margin-left: 15px;margin-top: 8px;font-size: 13px;font-family: 'Î¢ÈíÑÅºÚ Regular', 'Î¢ÈíÑÅºÚ'!important;line-height: 22px}
+.xinPDivInfoName{font-size: 15px;font-weight: bold}
+.xinPBiaoQian{position: absolute;right: 0}
+/*ÍÆ¼ö¾­ÏúÉÌ*/
+.tuiJianDiv{border: 1px solid #DDD;width: 1200px;height: 235px;margin: 0 auto;background: #FFF;margin-top: 7px}
+.tuiJianDivBoby{height: 60px;line-height: 60px}
+.tuiJianList{overflow-y: hidden;margin:0 auto;position: relative}
+.tuiJianShang{font-size: 17px;font-weight: bold;margin-left: 20px}
+.shangJHide{position: absolute;top: 0;height: 156px;width: 156px;display: none}
+.shangJiaBack{background: black;opacity: 0.5;height: 156px;width: 156px;position: absolute}
+.shangJiaDivT{color:white!important;padding: 10px 10px 10px 13px;position: relative;max-height: 156px;overflow: hidden;}
+.shangJiaCheN{font-size: 15px;font-weight: bold;margin-bottom: 0}
+.shangJShow{float: left;width: 145.429px;position: relative}
+.shangJShow:hover .shangJHide{display: block}
+/*Ñü²¿banner*/
+.yaoBanner{width: 1200px;height: 100px;margin: 0 auto;margin-top: 15px}
+/*×îÐÂÇó¹º*/
+.zuiXGDiv{width: 1200px;height: 325px;margin: 0 auto;}
+.zuiXGDivL{height: 55px;line-height: 55px;}
+.zuiXGDivImgs{height:30px}
+.zuiXGWD{float: left;}
+.zuiXGWDR{float: right}
+.zuiXGWMore{color: #999;margin-bottom: 0}
+.zuiXText{font-weight: bold;font-size: 17px}
+.qiuGList{color: #666;margin-right: 15px;float: left;width: 390px;height: 100%;border: 1px solid #DDD;background: #FFF}
+.qiuGListDiv{width: 100%;height: 85px;padding: 8px 10px 5px 6px}
+.zuiXDiv{height: 75px;float: left}
+.zuiXGDivImg{width: 70px;height: 70px;}
+.zuiXinInfo{float: left;padding: 6px;width: 290px;padding-right: 0}
+.zuiXinText{font-size: 16px;font-weight: bold}
+.zuiXinInfoT{float: right;margin-top: -3px}
+.zuiXinYouX{width: 88px;height: 26px;background: #FF524B;color: #FFF;text-align: center;line-height: 26px;border-radius: 8px}
+.zuiXinInfoD{padding-top: 10px;width: 100%}
+.peiJ{float: right;}
+.peiJianS{color: #FF524B}
+.smallImgDiv{height: 80px;padding-left: 6px;padding-right: 6px;margin-top: 10px}
+.smallImg{float: left;width: 80px;height: 80px;margin-right: 10px}
+.smallDivs{padding-left: 6px;padding-right: 6px;margin-top: 10px}
+.smallDivSty{height: 28px;line-height: 28px}
+.smallName{margin-right: 10px}
+.smallDivDiv{height: 28px;line-height: 28px}
+.smallMar{margin-right: 10px}
+/*´ÙÏú»î¶¯*/
+.cuXiaoDiv{color: #666;float: left;margin-right: 16px;width: 288px;height: 270px;font-size: 15px;background: #FFF;border: 1px solid #DDD}
+.cuXiaoDivImg{width: 288px;height: 220px}
+.cuXiaoTitle{line-height: 50px;padding-left: 10px}
+/*ÐÂÎÅ×ÊÑ¶*/
+.xinWenDiv{height: 150px;}
+.xinWenBor{background: #FFF;border: 1px solid #DDD;height: 150px;width: 390px;margin-right: 15px;padding: 15px;float: left}
+.xinWenBorD{width: 120px;height: 120px;float: left}
+.xinWenText{color: #666;margin-top:20px;height: 80px;float: right;;padding-left: 15px;width: 238px;font-size: 15px;overflow: hidden}
+.zuiXGDiv a:last-child div{margin-right: 0;!important;}
+.qiuGouListDivs a:last-child div{margin-right: 0;!important;}
+/*.cuXiaoLists a:last-child div{margin-right: 0;!important;}*/
+

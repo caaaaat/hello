@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>注册(第三步)</title>
+</head>
+<link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/bootstrap/style.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/pc/login/register.css">
+<link rel="stylesheet" href="/js/webuploader/webuploader.css">
+<!--<link rel="stylesheet" href="/css/swiper2/idangerous.swiper.css" crossorigin="anonymous">-->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=<?php echo 'MasrxSBSfRTUNMnck3fejCBc7amXYjPn';?>"></script>
+<script src="/js/jquery1.12.4.min.js"></script>
+<script src="/css/swiper2/idangerous.swiper.min.js"></script>
+<style>
+    *{font-family: '微软雅黑 Regular', '微软雅黑';}
+    body{background: #F3F3F3;height: auto}
+    a{color: inherit}
+</style>
+<body>
+<!--模态框-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div id="alertDiv">
+                <div class="titleName">
+                    <span>经营范围</span>
+                    <div class="floRight"></div>
+                </div>
+                <div class="oneBu">
+                    <div class="typeDiv">
+                        <div class="hei50line50">
+                            <div class="typeName typeNameActive">1、商家类型</div>
+                            <div class="typeName">2、分类</div>
+                        </div>
+                        <div class="tableDiv">
+                            <table class="tableBor">
+                                <tr class="tableTr">
+                                    <td class="tableTrTd">
+                                        <label class="tableLabel">
+                                            <div class="floLeft">轿车商家</div>
+                                            <div class="floRight"><input name="type" type="radio" data-v="1" class="carTypes"></div>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr class="tableTr">
+                                    <td class="tableTrTd">
+                                        <label class="tableLabel">
+                                            <div class="floLeft">货车商家</div>
+                                            <div class="floRight"><input name="type" type="radio" data-v="2" class="carTypes"></div>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr class="tableTr">
+                                    <td class="tableTrTd">
+                                        <label class="tableLabel">
+                                            <div class="floLeft">物流运输</div>
+                                            <div class="floRight"><input name="type" type="radio" data-v="3" class="carTypes"></div>
+                                        </label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="alertBottom">
+                        <button type="button" class="btn btn-default quXiao" onclick="quXiao()">取消</button>
+                        <button type="button" class="btn btn-default nextBu" onclick="nextBu()">下一步</button>
+                    </div>
+                </div>
+                <!--第二步开始-->
+                <div class="twoBu" style="display: none"><div class="typeDiv"><div class="hei50line50">
+                    <div class="typeName typeNameActive">1、商家类型</div>
+                    <div class="typeName typeNameActive">2、分类</div></div>
+                    <!--分类选择-->
+                    <div class="fenLei">
+                        <a href="javascript:;"><div class="xiangYou" onclick="xiangYou()"><img src="/images/qpxm/pc/register/right.png" alt=""></div></a>
+                        <a href="javascript:;"><div class="xiangZuo" onclick="xiangZuo()"><img src="/images/qpxm/pc/register/left.png" alt=""></div></a>
+                            <div id="aaa" style="overflow: hidden">
+                                <div class="swiper-wrapper">
+                                    <!--轿车一级分类-->
+                                    <?php if($car_cate['cate_1']){?>
+                                    <?php foreach($car_cate['cate_1'] as $v){?>
+                                    <div class="swiper-slide listType carsTypes<?php echo $v['type']?>" data_type="<?php $v['type']?>" data_id="<?php echo $v['id']?>" style="float: left;display: none;"><a href="javascript:;" onclick="activeDiv(this)"><?php echo $v['name'];?></a></div>
+                                    <?php }}?>
+                                    <!--货车一级分类-->
+                                    <?php if($van_cate['cate_1']){?>
+                                    <?php foreach($van_cate['cate_1'] as $v){?>
+                                    <div class="swiper-slide listType carsTypes<?php echo $v['type']?>" data_type="<?php $v['type']?>" data_id="<?php echo $v['id']?>" style="float: left;display: none;"><a href="javascript:;" onclick="activeDiv(this)"><?php echo $v['name'];?></a></div>
+                                    <?php }}?>
+                                    <!--物流一级分类-->
+                                    <?php if($tra_cate['cate_1']){?>
+                                    <?php foreach($tra_cate['cate_1'] as $v){?>
+                                    <div class="swiper-slide listType carsTypes<?php echo $v['type']?>" data_type="<?php $v['type']?>" data_id="<?php echo $v['id']?>" style="float: left;display: none;"><a href="javascript:;" onclick="activeDiv(this)"><?php echo $v['name'];?></a></div>
+                                    <?php }}?>
+                                </div>
+                                <div style="clear: both;"></div>
+                            </div>
+                    </div>
+                    <div class="pading10">
+                        <!--轿车二级分类-->
+                        <?php if($car_cate['cate_2']){?>
+                        <?php foreach($car_cate['cate_2'] as $v){?>
+                        <div class="upImgsListDiv carsErType<?php echo $v['type']?>" style="display: none;">
+                            <img src="<?php echo $v['img']?>" class="upImgs" alt="">
+                            <div class="textCenter"><?php echo $v['name'];?></div>
+                            <div class="xuanZhong">
+                                <input type="checkbox" data_pid="<?php echo $v['pid'];?>" data_id="<?php echo $v['id'];?>" name="img[]" class="inputs">
+                            </div>
+                        </div>
+                        <?php }}?>
+                        <!--货车二级分类-->
+                        <?php if($van_cate['cate_2']){?>
+                        <?php foreach($van_cate['cate_2'] as $v){?>
+                        <div class="upImgsListDiv carsErType<?php echo $v['type']?>" style="display: none;">
+                            <img src="<?php echo $v['img']?>" class="upImgs" alt="">
+                            <div class="textCenter"><?php echo $v['name'];?></div>
+                            <div class="xuanZhong">
+                                <input type="checkbox" data_pid="<?php echo $v['pid'];?>" data_id="<?php echo $v['id'];?>" name="img[]" class="inputs">
+                            </div>
+                        </div>
+                        <?php }}?>
+                        <!--物流二级分类-->
+                        <?php if($tra_cate['cate_2']){?>
+                        <?php foreach($tra_cate['cate_2'] as $v){?>
+                        <div class="upImgsListDiv carsErType<?php echo $v['type']?>" style="display: none;">
+                            <img src="<?php echo $v['img']?>" class="upImgs" alt="">
+                            <div class="textCenter"><?php echo $v['name'];?></div>
+                            <div class="xuanZhong">
+                                <input type="checkbox" data_pid="<?php echo $v['pid'];?>" data_id="<?php echo $v['id'];?>" name="img[]" class="inputs">
+                            </div>
+                        </div>
+                        <?php }}?>
+                        <div style="clear: both"></div>
+                    </div>
+                </div>
+                <div class="alertBottom">
+                    <button type="button" class="btn btn-default quXiao" onclick="prevBu()">上一步</button>
+                    <button type="button" class="btn btn-default nextBu" onclick="checkType()">完成</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="logo">
+        <div class="logo">
+            <a href="/def/index"><img src="/images/qpxm/pc/index/logo.png" class="logoImg" alt=""></a>
+            <span class="zuCeText">注册</span>
+        </div>
+    </div>
+    <!--注册框-->
+    <div id="zuCeDIvSan">
+        <div class="zuCeDIvEr">
+            <div>
+                <img src="/images/qpxm/pc/register/one1.png" alt="">
+                <img src="/images/qpxm/pc/register/two2.png" alt="">
+                <img src="/images/qpxm/pc/register/three3.png" alt="">
+            </div>
+            <!--详细信息-->
+            <div id="info">
+                <div class="fontSize15">
+                    <!--企业类型-->
+                    <input type="hidden" name="phone" value="<?php echo $phone;?>">
+                    <input type="hidden" name="passwd" value="<?php echo $psd;?>">
+                    <div class="companyType">
+                        <div class="threeListDiv">
+                            <span class="colorRed">*</span>企业类型：
+                        </div>
+                        <div class="left20">
+                            <a href="javascript:;" class="companyType007" token="1" data-v="1" tokenType="dealer" onclick="companyType(this)"><img src="/images/qpxm/pc/login/isRendMi.png" alt="">&nbsp;经销商</a>
+                        </div>
+                        <div class="left20">
+                            <a href="javascript:;" class="companyType007" token=""  data-v="2" tokenType="garage" onclick="companyType(this)"><img src="/images/qpxm/pc/login/noRendMi.png" alt="">&nbsp;汽修厂</a>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <!--企业分类-->
+                    <div class="marTop20 companyClassify">
+                        <div class="threeListDiv">
+                            <span class="colorRed">*</span>企业分类：
+                        </div>
+                        <!--经销商分类-->
+                        <div class="dealer">
+                            <div class="left20"><a class="dealer007" href="javascript:;" token="1" data-v="1" onclick="companyClassify(this)"><img src="/images/qpxm/pc/login/isRendMi.png" alt="">&nbsp;轿车商家</a></div>
+                            <div class="left20"><a class="dealer007" href="javascript:;" token=""  data-v="2" onclick="companyClassify(this)"><img src="/images/qpxm/pc/login/noRendMi.png" alt="">&nbsp;货车商家</a></div>
+                            <div class="left20"><a class="dealer007" href="javascript:;" token=""  data-v="3" onclick="companyClassify(this)"><img src="/images/qpxm/pc/login/noRendMi.png" alt="">&nbsp;货运物流</a></div>
+                            <div style="clear: both"></div>
+                        </div>
+                        <!--汽修厂分类-->
+                        <div class="garage" style="display: none">
+                            <div class="left20"><a class="garage007" href="javascript:;" token="1" data-v="4" onclick="companyClassify(this)"><img src="/images/qpxm/pc/login/isRendMi.png" alt="">&nbsp;修理厂</a></div>
+                            <div class="left20"><a class="garage007" href="javascript:;" token=""  data-v="5" onclick="companyClassify(this)"><img src="/images/qpxm/pc/login/noRendMi.png" alt="">&nbsp;快修保养</a></div>
+                            <div class="left20"><a class="garage007" href="javascript:;" token=""  data-v="6" onclick="companyClassify(this)"><img src="/images/qpxm/pc/login/noRendMi.png" alt="">&nbsp;美容店</a></div>
+                            <div style="clear: both"></div>
+                        </div>
+                    </div>
+                    <!--经营范围-->
+                    <div class="marTop20 scope">
+                        <div class="threeListDiv">
+                            <span class="colorRed">*</span>经营范围：
+                            <input type="hidden" name="business" value="">
+                        </div>
+                        <div class="width60 jingYinFanWei">
+
+                        </div>
+                        <div class="floRight">
+                            <button type="button" class="btn btn-danger threeBtn" onclick="bbb()">选择</button>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <!--企业名称-->
+                    <div class="marTop20">
+                        <div class="threeListDiv">
+                            <span class="colorRed">*</span>企业名称：
+                        </div>
+                        <div class="left80">
+                            <input type="text" class="threeInput" name="companyname">
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <!--所属地区-->
+                    <div class="marTop30">
+                        <div class="threeListDiv">
+                            <span class="colorRed">*</span>所属地区：
+                        </div>
+                        <div class="left80">
+                            <select id="s_province" name="s_province" onclick="theLocation(this)"></select>  
+                            <select id="s_city" name="s_city" onclick="theLocation(this)"></select>  
+                            <select id="s_county" name="s_county" onchange="theLocation(this)"></select>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <!--企业坐标-->
+                    <div class="marTop30">
+                        <div class="threeListDiv">
+                            <span class="colorRed">*</span>企业坐标：
+                        </div>
+                        <div class="left60">
+                            <input type="text" class="threeInput" id="qiyeposition" name="coordinate">
+                            <input type="hidden" name="longitude" value="">
+                            <input type="hidden" name="latitude" value="">
+                            <div id="allmap" class="map">
+
+                            </div>
+                        </div>
+                        <div class="floRight">
+                            <button type="button" class="btn btn-danger weiZi" onclick="myPosition()">获取位置</button>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <!--详细地址-->
+                    <div class="marTop30">
+                        <div class="threeListDiv">
+                            <span class="colorRed">*</span>详细地址：
+                        </div>
+                        <div class="left80">
+                            <textarea name="address" class="textareaInfo" placeholder="坐标地址不计入详细地址中，需手动填写"></textarea>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <!--封面-->
+                    <style>
+                        .webuploader-pick{background: #FF524B;}
+                    </style>
+                    <div class="marTop20">
+                        <div class="threeListDiv">封面：</div>
+                        <div class="width60">
+                            <input type="hidden" name="face_img" value="">
+                            <img src="/images/qpxm/pc/index/tuiJianS.png" id="face_img007" class="coverImg" alt="">
+                        </div>
+                        <div class="floRight">
+                            <div type="button" id="shangchuanpic">上传</div>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <!--主营-->
+                    <div class="marTop30">
+                        <div class="threeListDiv">主营：</div>
+                        <div class="left80">
+                            <textarea name="major" class="textareaInfo" placeholder="例：三菱越野,猎豹越野,广汽越野系列,整车件批发,零售"></textarea>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <!--联系人-->
+                    <div class="marTop30">
+                        <div class="threeListDiv">联系人：</div>
+                        <div class="left80">
+                            <input type="text" class="threeInput" name="linkMan">
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <!--手机-->
+                    <div class="marTop30">
+                        <div class="threeListDiv">手机：</div>
+                        <div class="left80">
+                            <input type="text" class="threeInput" name="linkPhone">
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <!--座机-->
+                    <div class="marTop30">
+                        <div class="threeListDiv">座机：</div>
+                        <div class="left80">
+                            <input type="text" class="threeInput" name="linkTel">
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <!--QQ-->
+                    <div class="marTop30">
+                        <div class="threeListDiv">QQ：</div>
+                        <div class="left80">
+                            <input type="text" class="threeInput" name="linkQQ">
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <!--提交-->
+                    <div class="present">
+                        <button type="button" class="btn btn-danger threeBtnTiJiao" onclick="saveFirm()">提交</button>
+                    </divcl>
+                    <div style="clear: both"></div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div style="height: 100px"></div>
+<input type="hidden" id="checkClass" value="">
+<input type="hidden" id="oneType" value="">
+<!--<script src="/js/layer/layer.js" type="text/javascript"></script>-->
+<script src="/js/pc/layer/layer.js" type="text/javascript"></script>
+<script src="/js/global.js" type="text/javascript"></script>
+<!--三级联动    -->
+<script class="resources library" src="/js/pc/area.js" type="text/javascript"></script>
+
+<script src="/css/bootstrap/bootstrap.min.js"></script>
+<script>
+    //    初始化三级联动
+    _init_area();
+    /*选择企业类型*/
+    function companyType(obj){
+        var token = $(obj).attr('token');
+        if(!token){
+            var tokenType = $(obj).attr('tokenType');
+            if(tokenType == 'dealer'){
+//                经销商
+                $('.scope').show();
+                $('.dealer').show();
+                $('.garage').hide();
+            }else{
+//                汽修厂
+                $('.dealer').hide();
+                $('.scope').hide();
+                $('.garage').show();
+            }
+            $('.companyType').find('a').attr('token','');
+            $('.companyType').find('img').attr('src','/images/qpxm/pc/login/noRendMi.png');
+            $(obj).attr('token',1);
+            $(obj).find('img').attr('src','/images/qpxm/pc/login/isRendMi.png');
+        }
+    }
+    /*企业分类*/
+    function companyClassify(obj){
+        var token = $(obj).attr('token');
+        if(!token){
+            $('.companyClassify').find('a').attr('token','');
+            $('.companyClassify').find('img').attr('src','/images/qpxm/pc/login/noRendMi.png');
+            $(obj).attr('token',1);
+            $(obj).find('img').attr('src','/images/qpxm/pc/login/isRendMi.png');
+        }
+    }
+    /*点击下一步*/
+    function nextBu(){
+        $('.oneBu').hide();
+        $('.twoBu').show();
+        var length = $('.carTypes').length;
+        $('.swiper-slide').hide();  //隐藏所有一级分类
+        $('.upImgsListDiv').hide(); //隐藏所有二级分类
+        var pids = [];
+        var pid  = '';
+        for(var i=0; i<length; ++i){
+            if($('.carTypes').eq(i).is(':checked')){
+                var data_v = $('.carTypes').eq(i).attr('data-v');
+                var classOneShow = '.carsTypes'+data_v;
+
+                pid = $(classOneShow).attr('data_id');
+                var oneName = $(classOneShow).find('a').text();
+                var classTwoShow = '.carsErType'+data_v;
+                $('#checkClass').val(classTwoShow);     //将所有符合条件的二级分类class到隐藏域
+                $(classOneShow).show();
+                showThree(pid);
+                break;
+            }
+        }
+        mySwiper = new Swiper('#aaa',{
+            autoplay : false,//可选选项，自动滑动
+            loop : false,//可选选项，开启循环
+            slidesPerView : 7,//个数
+            nextButton: '.xiangYou',
+            prevButton: '.xiangZuo'
+        });
+        $('.swiper-slide').css('line-height','40px');
+    }
+    /*根据二级分类，显示对应的三级分类*/
+    function showThree(pid){
+        var checkClass = $('#checkClass').val();
+        for(var i=0; i<$(checkClass).length; ++i){
+            if($(checkClass).eq(i).find('input').attr('data_pid')==pid){
+                $(checkClass).eq(i).show();
+            }
+        }
+    }
+    /*点击上一步*/
+    function prevBu(){
+        $('.oneBu').show();
+        $('.twoBu').hide();
+    }
+    /*点击完成*/
+    function checkType(){
+        var checkClass = $('#checkClass').val();
+        var len = $(checkClass).length;
+        var ids = ',';
+        var names = '';
+        var count = 0;
+
+        var classOneShow = '';
+        for(var i=0; i<3; ++i){
+            if($('.carTypes').eq(i).is(':checked')){
+                var data_v = $('.carTypes').eq(i).attr('data-v');
+                var classOneShow = '.carsTypes'+data_v;
+                break;
+            }
+        }
+        var lens = $(classOneShow).length;
+        for(var i=0 ;i<len; ++i){
+            var data_id = '';
+            var childParentId = $(checkClass).eq(i).find('input').attr('data_pid');
+            if($(checkClass).eq(i).find('input').is(':checked')){
+                count += 1;
+                data_id = $(checkClass).eq(i).find('input').attr('data_id');
+                var data_name = $(checkClass).eq(i).find('.textCenter').text();
+                ids += data_id+',';
+                for(var j=0; j<lens; ++j){
+                    var parent_id = $(classOneShow).eq(j).attr('data_id');
+                    if(parent_id == childParentId){
+                        var parent_name = $(classOneShow).eq(j).find('a').text();
+                        names += parent_name+'/'+data_name+'&nbsp;&nbsp;';
+                    }
+                }
+            }
+        }
+        if(count>3){
+            layer.msg('最多只能选择三个');
+            return false;
+        }
+        if(!ids || count<1){
+            layer.msg('请至少选择一个');
+            return false;
+        }
+        $('input[name="business"]').val(ids);
+        $('.jingYinFanWei').html(names);
+        $('#myModal').modal('hide')
+    }
+    function bbb(){
+        var len = $('.dealer007').length;
+        var cls = '';
+        for(var i=0; i<len; ++i){
+            if($('.dealer007').eq(i).attr('token')==1){
+                cls = $('.dealer007').eq(i).attr('data-v');
+                break;
+            }
+        }
+        var length = $('.tableBor').find('.tableTr').length;
+        for(var i=0; i<length; ++i){
+            if($('.tableBor').find('.tableTr').eq(i).find('.carTypes').attr('data-v')==cls){
+                $('.tableBor').find('.tableTr').eq(i).find('.carTypes').attr('checked',true);
+                break;
+            }
+        }
+        $('#myModal').modal('show');
+    }
+    /*点击取消*/
+    function quXiao(){
+        $('#myModal').modal('hide')
+    }
+
+function xiangZuo(){
+    var oldL = activeWZ();
+    mySwiper.swipePrev();
+    var newL = activeWZ();
+    $('.listType').removeClass('swiper-slide-active');
+    if(oldL < (newL+7)){
+        $('.listType').eq(oldL).addClass('swiper-slide-active');
+    }else{
+        $('.listType').eq(newL+6).addClass('swiper-slide-active');
+    }
+}
+function xiangYou(){
+    var oldL = activeWZ();
+    mySwiper.swipeNext();
+    var newL = activeWZ();
+    if(oldL > newL){
+        $('.listType').removeClass('swiper-slide-active');
+        $('.listType').eq(oldL).addClass('swiper-slide-active');
+    }
+}
+    function activeDiv(obj){
+        $('.upImgsListDiv').hide();
+        var pid = $(obj).parent().attr('data_id');
+        showThree(pid);
+        $('.listType').removeClass('swiper-slide-active');
+        $(obj).parent().addClass('swiper-slide-active');
+    }
+
+    /*获取当前选中的位置*/
+    function activeWZ(){
+        var len = $('.listType').length;
+        var l   = '';
+        for(var i=0; i<len; ++i){
+            if($('.listType').eq(i).hasClass('swiper-slide-active')){
+                l = i;
+                break;
+            }
+        }
+        return l;
+    }
+
+</script>
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");    // 创建Map实例
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+
+    function theLocation(n){
+        var city = $(n).val();
+        //console.log(city);
+        if(city != ""){
+            map.centerAndZoom(city,12);      // 用城市名设置地图中心点
+        }
+    }
+    function myPosition(){
+        var keyword = $('#qiyeposition').val();
+        var city = $('#s_city').val();
+        var myCity = new BMap.LocalCity();
+        var cityName = myCity.get(myFun);
+        if(city){
+            cityName = city;
+        }
+        // 创建地址解析器实例
+        var myGeo = new BMap.Geocoder();
+// 将地址解析结果显示在地图上，并调整地图视野
+        myGeo.getPoint(keyword, function(point){
+            if (point) {
+                map.clearOverlays();
+                map.centerAndZoom(point, 16);
+                map.addOverlay(new BMap.Marker(point));
+                $('input[name="longitude"]').val(point['lng']);
+                $('input[name="latitude"]').val(point['lat']);
+                console.log(point);
+            }
+        }, cityName);
+        /*var myCity = new BMap.LocalCity();
+        myCity.get(myFun);*/
+    }
+    function myFun(result){
+        //var cityName = result.name;
+        //map.setCenter(cityName);
+        //return cityName;
+        //$('#qiyeposition').val(cityName);
+        return result.name;
+    }
+
+</script>
+<script type="text/javascript" src="/js/webuploader/webuploader.custom.min.js"></script>
+<script>
+    //图片上传
+    var BASE_URL = '';
+    var wordUploader = WebUploader.create({
+        // 选完文件后，是否自动上传。
+        auto: true,
+        // swf文件路径
+        swf: BASE_URL + '/js/webuploader/Uploader.swf',
+        // 文件接收服务端。
+        server: '/tools/baiduUploadForeRegister',
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#shangchuanpic',
+        sendAsBinary: true,
+        // 只允许选择文件类型。
+        accept: {
+            title: 'Applications',
+            extensions: 'jpg,png,jpeg,png',
+            mimeTypes: '.jpg,.png,.jpeg,.png'
+        }
+    });
+
+    //文件上传成功后的处理，在界面上的呈现，显示
+    wordUploader.on('uploadSuccess', function (file, response) {
+        imgrl007 = response.httpUrl;
+        //成功提示
+        $("#face_img007").attr("src", imgrl007);
+        $("input[name='face_img']").val(imgrl007);
+        $(".webuploader-pick").html('上传');
+        layer.alert('上传成功',{icon:1,skin: 'layui-layer-rim'});
+    });
+    //文件上传失败
+    wordUploader.on('uploadError', function (file, response) {
+        //失败提示
+        var text = '上传失败';
+        layer.alert(text,{icon:2,skin: 'layui-layer-rim'});
+    });
+
+    //文件上中
+    wordUploader.on('uploadProgress', function (file, percentage) {
+        //console.log(percentage);
+        $(".webuploader-pick").html('文件上传中');
+    });
+
+    function saveFirm() {
+        var phone    = $('input[name="phone"]').val();
+        var password = $('input[name="passwd"]').val();
+
+        var companyType = $('.companyType007[token="1"]').attr('data-v');
+        //console.log(companyType);
+        if(companyType==1){
+            var classification = $('.dealer007[token="1"]').attr('data-v');
+        }else {
+            var classification = $('.garage007[token="1"]').attr('data-v');
+        }
+        //console.log(classification);
+        var business    = $('input[name="business"]').val();   //经营范围
+        var companyname = $('input[name="companyname"]').val();//企业名称
+        var province    = $('#s_province').val();
+        var city        = $('#s_city').val();
+        var district    = $('#s_county').val();
+        var address     = $('textarea[name="address"]').val();
+        var coordinate  = $('input[name="coordinate"]').val();
+        //经纬度
+        var longitude   = $('input[name="longitude"]').val();
+        var latitude    = $('input[name="latitude"]').val();
+        var face_pic    = $('input[name="face_img"]').val();//封面
+        var major       = $('textarea[name="major"]').val();//主营
+        var linkMan     = $('input[name="linkMan"]').val(); //联系人
+        var linkPhone   = $('input[name="linkPhone"]').val();//手机
+        var linkTel     = $('input[name="linkTel"]').val();//座机
+        var qq          = $('input[name="linkQQ"]').val();//QQ
+        //console.log(business);
+
+        var postData ={
+                      step:'three',
+                     phone:phone,
+                  password:password,
+               companyType:companyType,
+            classification:classification,
+                  business:business,
+               companyname:companyname,
+                  province:province,
+                      city:city,
+                  district:district,
+                   address:address,
+                coordinate:coordinate,
+                 longitude:longitude,
+                  latitude:latitude,
+                  face_pic:face_pic,
+                     major:major,
+                   linkMan:linkMan,
+                 linkPhone:linkPhone,
+                   linkTel:linkTel,
+                        qq:qq
+        };
+
+        var index = layer.load(2);
+        api.load('login','register',postData,function (data) {
+            layer.alert(data['msg'],{icon: data['status'],skin: 'layui-layer-rim'},function(){
+                if(data['status']===1){
+                    window.location.href="/login";
+                }else if(data['status']===3){
+                    window.location.href="/register";
+                }
+                layer.closeAll();
+            });
+
+
+
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="/css/pc/person/vip.css">
+<div style="">
+    <div class="titles">
+        <span id="payRecord">充值记录</span>
+    </div>
+    <!--充值记录列表-->
+    <div style="min-height: 463px;">
+    <?php
+    $paywayArr = array('','微信支付','支付宝支付','人工收费');
+    if($vipHis){
+    foreach($vipHis as $item){?>
+    <div class="pad1040">
+        <div class="recordList">
+            <div>
+                <div class="floLeft">充值<?php echo $item['status']==1?'成功':'失败';?></div>
+                <div class="floRight"><?php echo $item['money'];?>元</div>
+                <div style="clear: both;"></div>
+            </div>
+            <div>
+                <div class="floLeft"><?php echo $item['create_time'];?></div>
+                <div class="floRight"><?php echo $paywayArr[$item['payway']];?></div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+    <?php }
+    }else{?>
+    <div style="text-align: center">没有记录</div>
+    <?php }?>
+    </div>
+    <!--分页开始-->
+    <div class="text-right" style="margin-right: 25px;margin-top: 37px;margin-bottom: 27px;">
+        <span style="color: #999"></span>
+        <span id="pageInfo" style="margin-right: 10px;"><?php echo $pageHtml['countStr'];?></span>
+        <div class="btn-group" id="pager"><?php if($vipHis){ ?><?php echo $pageHtml['key'];?><?php } ?></div>
+    </div>
+</div>

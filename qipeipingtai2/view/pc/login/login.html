@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+<link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/bootstrap/style.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/pc/login/login.css">
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+    input[type="number"]{
+        -moz-appearance: textfield;
+    }
+</style>
+<script src="/js/jquery1.12.4.min.js"></script>
+<body>
+    <div id="logo">
+        <div class="logo">
+            <a href="/def/index">
+                <img src="/images/qpxm/pc/index/logo.png" class="logoImg" alt="">
+            </a>
+        </div>
+    </div>
+    <div id="login">
+        <img src="/images/qpxm/pc/login/beijing.png" class="bgImg" alt="">
+        <div class="loginDivEr">
+            <div style="position: relative;">
+                <div class="login">
+                    <div class="loginText">登录</div>
+                    <div class="hint" id="msg007"></div>
+                    <div class="loginDiv">
+                        <!--手机号-->
+                        <div class="bottom20">
+                            <div class="floLeft"><img src="/images/qpxm/pc/login/tel.png" alt=""></div>
+                            <div class="floLeft">
+                                <input type="number" placeholder="请输入手机号" class="phone" name="phone" value="<?php echo $accounts;?>">
+                            </div>
+                            <div style="clear: both"></div>
+                            <div class="borBottom"></div>
+                        </div>
+                        <!--密码-->
+                        <div class="bottom20">
+                            <div class="floLeft"><img src="/images/qpxm/pc/login/passWrod.png" alt=""></div>
+                            <div class="floLeft">
+                                <input type="password" placeholder="请输入密码" class="passWord" name="password">
+                            </div>
+                            <div style="clear: both"></div>
+                            <div class="borBottom"></div>
+                        </div>
+                        <!--验证码-->
+                        <div class="bottom10">
+                            <div class="floLeft"><img src="/images/qpxm/pc/login/yanZM.png" alt=""></div>
+                            <div class="floLeft">
+                                <input type="text" placeholder="输入验证码" class="yanZM" name="code">
+                            </div>
+                            <div class="floRight">
+                                <a href="javascript:;" onclick="$('#captcha_img').attr('src','/?m=tools&a=imgCode&t='+Math.random())">
+                                    <img id="captcha_img" alt="验证码" title="点击更换" src="/?m=tools&a=imgCode">
+                                </a>
+                                <a href="javascript:;" onclick="$('#captcha_img').attr('src','/?m=tools&a=imgCode&t='+Math.random())"><span style="color: red">点击重新刷新</span></a>
+                            </div>
+                            <div style="clear: both"></div>
+                            <div class="bor_btom"></div>
+                        </div>
+                        <!--记住账号-->
+                        <div style="margin-top: 25px;">
+                            <input type="hidden" name="remember" value="0">
+                            <a href="javascript:;" token="" onclick="rendMi(this)">
+                                <span><img src="/images/qpxm/pc/login/noRendMi.png" class="rendMImg" alt=""></span>
+                                <span style="color: #333">记住账号</span>
+                            </a>
+                        </div>
+                        <!--登陆按钮-->
+                        <div class="pading25">
+                            <button type="button" class="btn btn-danger btnDengL" onclick="toLogin()">登录</button>
+                            <div class="margin10">
+                                <a href="/login/register" class="zuCe"><span>注册</span></a>
+                                <a href="/login/forget" class="wanJi"><span>忘记密码</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        /*点击记住我*/
+        function rendMi(obj){
+            var token = $(obj).attr('token');
+            if(!token){
+                $('input[name="remember"]').val(1);
+                $(obj).attr('token',1);
+                $(obj).find('img').attr('src','/images/qpxm/pc/login/isRendMi.png');
+            }else{
+                $('input[name="remember"]').val(0);
+                $(obj).attr('token','');
+                $(obj).find('img').attr('src','/images/qpxm/pc/login/noRendMi.png');
+            }
+        }
+    </script>
+</body>
+<script src="/js/global.js" type="text/javascript"></script>
+<script src="/js/pc/layer/layer.js"></script>
+<script>
+    var url = "<?php echo $last_page?$last_page:'/';?>"
+</script>
+<script>
+    function toLogin() {
+        var phone    = $('input[name="phone"]').val();
+        var password = $('input[name="password"]').val();
+        var code     = $('input[name="code"]').val();
+        var remember = $('input[name="remember"]').val();
+        if (phone.match(/^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/)) {
+            if(code){
+                if(password){
+                    api.load('login','login',{phone:phone,password:password,code:code,remember:remember},function (data) {
+                        $('#msg007').html(data['msg']);
+                        if(data['status']===1){
+                            setTimeout(function () {
+                                window.location.href = url;
+                            },1000)
+                        }
+                    })
+                }else {
+                    $('#msg007').html("请输入密码");
+                }
+            }else {
+                $('#msg007').html("请输入验证码");
+            }
+        }else {
+            $('#msg007').html("手机号码格式不正确！");
+        }
+    }
+</script>
+</html>

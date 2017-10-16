@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <link href="/js/hplus/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <style>
+         .control-label{padding-top: 0; padding-right: 0;}
+        #auth .ck_label {
+            width: 110px;
+            display: inline-block;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="col-xs-1"></div>
+<div class="col-xs-10">
+    <div class="ibox-content" style="border-width:0">
+
+        <div class="form-horizontal" id="authBox">
+            <input type="hidden" id="uId" value="<?php echo isset($uId) ? $uId : 0 ;?>"/>
+            <?php $myAuthItem    = isset( $myAuthItem )   ? $myAuthItem   : "" ;?>
+            <!--<?php $userAuthItem  = isset( $userAuthItem ) ? $userAuthItem : "" ;?>-->
+            <?php $myAuth        = isset( $myAuth )       ? $myAuth       : "" ;?>
+
+            <?php if( $myAuth ){?>
+
+
+
+            <div class="form-group" style="margin-bottom: 0;" id="auth">
+
+                <div class="col-xs-12 radio i-checks" style="padding-left: 10px;">
+                    <?php foreach( $myAuth as $k => $v){?>
+                    <?php $check = in_array($v['id'],$userAuthItem) ? 'checked':''?>
+
+
+                    <!--<?php if($v['funName'] == '管理员配置'){?>
+                        <?php if($suProv['province'] == '') { ?>
+
+                        <label class="ck_label" title="<?php echo $v['funName'] ;?>">
+                            <input type="checkbox" value="<?php echo $v['id'] ;?>" name="auth[]" <?php echo $check ;?>><?php echo $v['funName'] ;?>
+                        </label>
+
+                        <?php } else { ?>
+                        <label class="ck_label hidden" title="<?php echo $v['funName'] ;?>">
+                            <input type="checkbox" value="<?php echo $v['id'] ;?>" name="auth[]" <?php echo $check ;?>><?php echo $v['funName'] ;?>
+                        </label>
+                        <?php }?>
+                    <?php } else { ?>
+
+                    <label class="ck_label" title="<?php echo $v['funName'] ;?>">
+                        <input type="checkbox" value="<?php echo $v['id'] ;?>" name="auth[]" <?php echo $check ;?>><?php echo $v['funName'] ;?>
+                    </label>
+                    <?php }?>-->
+
+                    <label class="ck_label" title="<?php echo $v['funName'] ;?>">
+                        <input type="checkbox" value="<?php echo $v['id'] ;?>" name="auth[]" <?php echo $check ;?>><?php echo $v['funName'] ;?>
+                    </label>
+
+                    <?php }?>
+                </div>
+            </div>
+
+
+            <?php }?>
+
+        </div>
+
+    </div>
+    <div class="form-group hidden" style="padding-left: 25px;">
+        <label class="col-xs-4 control-label" style="width: 70px;padding: 0;margin-bottom: 0;height: 22px;line-height: 22px;"><span style="display: inline-block;"></span>管辖区域:</label>
+        <div class="col-xs-7" style="padding-left: 0;width: 270px;">
+            <select class="control-label" style="width: 100%;font-size: 14px;height: 22px;" id="province"> <!--  onchange="provChange(this)" -->
+                <option value="<?php echo $suProv['province'] ;?>"><?php echo $suProv['province'] ;?></option>
+            </select>
+        </div>
+    </div>
+</div>
+
+
+
+<div style="clear: both;"></div>
+<div class="hr-line-dashed"></div>
+<div class="form-group">
+    <input type="hidden" value="<?php echo $suProv['province'] ; ?>" id="prov"/>
+    <div class="col-xs-12" style="text-align: center;">
+        <button class="btn btn-primary" type="submit" onclick="saveAuth()">保存权限</button>
+    </div>
+</div>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/hplus/js/plugins/iCheck/icheck.min.js"></script>
+<!--弹窗js-->
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+<!--自定义JS-->
+<script src="/js/global.js"></script>
+<script src="/js/plat/province.js"></script>
+
+
+<script>
+    $(function () {
+        var province = $('#province').val() ;
+        if( province == '' || province == '0'  ){
+            setProvince('province',province);
+        }
+
+    });
+    $(document).ready(function(){$(".i-checks").iCheck({checkboxClass:"icheckbox_square-green",radioClass:"iradio_square-green"})});
+    function saveAuth() {
+
+        var uId  = $.trim($("#uId").val());
+        var auth = getChecked('auth');
+        var prov = $('#province').val() ;
+        if(auth.length == 0){
+            layer.msg('请只是选择一个权限',{time:1500});
+            return false;
+        }else {
+            $.post('/?m=plat.suUser&a=saveAuth',{uId:uId,auth:auth,prov:prov},function(Rv){
+                if(Rv.massageCode == 'success'){
+                    layer.msg(Rv.massage,{time:1500},function () {
+                        var p = $(parent.document.getElementById('page')).val();
+                        parent.getList(p) ;
+                        parent.layer.closeAll();
+                    });
+
+                }else {
+                    layer.msg(Rv.massage,{time:1500});
+                }
+            },'json')
+        }
+    }
+
+    function provChange(obj) {
+        var prov = $(obj).val() ;
+        var label = $('#auth').find('.ck_label') ;
+
+        if(prov != ''){
+
+            for (var i = 0; i < label.length; i++){
+                var title = $(label[i]).attr('title') ;
+                if(title == '管理员配置'){
+
+                    $(label[i]).find('.icheckbox_square-green').removeClass('checked') ;
+                    $(label[i]).find('input').prop('checked',false) ;
+                    $(label[i]).addClass('hidden') ;
+                }
+            }
+        }else {
+            label.each(function () {
+                $(this).removeClass('hidden') ;
+            })
+        }
+    }
+
+
+</script>
+</body>
+</html>

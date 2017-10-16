@@ -1,0 +1,94 @@
+<link rel="stylesheet" href="/css/pc/index/message.css">
+<div id="message">
+    <!--发布消息-->
+    <div class="messageList">
+        <div class="floLeft">
+            <img src="/images/qpxm/pc/product/logo.png" alt="">
+        </div>
+        <div class="messageDiv">
+            消息文字……消息文字……自动换行……消息文字……消息文字……自动换行……消息文字……消息文字……消息文字……自动换行……消息文字……消息文字……自动换行……消息文字……
+            <div style="font-size: 14px;color: #A0A0A0;margin-top: 30px;">2017-12-03 16:05</div>
+        </div>
+
+        <div style="clear: both;"></div>
+    </div>
+    <!--求购消息-->
+    <div class="messageList">
+        <div class="floLeft">
+            <img src="/images/qpxm/pc/product/emali.png" alt="">
+        </div>
+        <div class="messageDiv">
+            <span>您有一条求购信息</span>
+            <div class="messageInfoDiv">
+                <div>英菲尼迪</div>
+                <div class="color999">英菲尼迪Q70L(进口)</div>
+                <div class="numBers">配件数 : 1</div>
+                <div class="messgeXian"></div>
+                <div class="size14color999">
+                    <span>2017-03-12 15:55</span>
+                    <span class="messgeYouXiao">有效期1天</span>
+                </div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--评论消息-->
+    <div class="messageList">
+        <div class="floLeft">
+            <img src="/images/qpxm/pc/product/emali.png" alt="">
+        </div>
+        <div class="messageDiv">
+            <span>某某评论了你的动态</span>
+            <div class="messageInfoDiv">
+                <div><span style="color: #FE534B;">昵称 </span>: 评论的文字内容……</div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--店铺被经销商访问-->
+    <div class="messageList">
+        <div class="floLeft">
+            <img src="/images/qpxm/pc/product/emali.png" alt="">
+        </div>
+        <div class="messageDiv">
+            <span>您的店铺被该经销商访问</span>
+            <div class="messageInfoDiv">
+                <div style="color: #FE514A">三和英菲尼迪</div>
+                <div>[主营]一汽丰田：卡罗拉 锐志 皇冠 RAV4 威驰 花冠 普拉多 兰德酷路泽 广汽丰田 卡罗拉 锐志 皇冠</div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--店铺被汽修厂/美容院访问-->
+    <div class="messageList">
+        <div class="floLeft">
+            <img src="/images/qpxm/pc/product/emali.png" alt="">
+        </div>
+        <div class="messageDiv">
+            <span>您的店铺被该汽修厂/美容店访问</span>
+            <div class="messageInfoDiv">
+                <div style="color: #FE514A">汽修厂/美容店名称</div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+    <div class="moreDate">
+        <a href="javascript:;" onclick="moreData()"><div class="moreText">查看更多</div></a>
+        <div style="clear: both;"></div>
+    </div>
+
+</div>
+
+<script>
+    function moreData(){
+        var str = '';
+        str += '<div class="messageList">';
+        str += '<div class="floLeft">';
+        str += '<img src="/images/qpxm/pc/product/emali.png" alt=""></div>';
+        str += '<div class="messageDiv"><span>某某评论了你的动态</span>';
+        str += '<div class="messageInfoDiv"><div><span style="color: #FE534B;">昵称 </span>: 评论的文字内容……</div>';
+        str += '</div></div><div style="clear: both;"></div></div>';
+        $('.messageList:last').after(str);
+    }
+</script>

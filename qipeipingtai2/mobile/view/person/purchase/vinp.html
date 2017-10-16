@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>VIN照片</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">   
+    </script>
+</head>
+<style>
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.sw-list-title1{
+		line-height:80px;font-size: 14px;color: #999;
+	}
+	.sw-img{
+		width: 80px;height: 80px;float: right;
+	}
+	.sw-icon-ca{
+		position: absolute;right: 16px;top: 12px;width: 14px;height: 14px;background: url(../../../image/person/purchase/icon_zp_cha.png) no-repeat;background-size: contain;
+	}
+</style>
+<body style="background: #EFEFEF;">
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">VIN照片</h1>
+	</header>
+	
+	<div class="mui-content" style="background: #EFEFEF;">   
+		 <ul class="mui-table-view" style="margin-top:10px;">
+			 <li class="mui-table-view-cell sw-after-no sw-no-active" id="showCon" style="display: none;">		
+				<span class="sw-list-title1">VIN照片</span>
+				<img src="../../../image/person/purchase/tianjiazp.png" class="sw-img" id="showImg"/>
+				<p class="sw-icon-ca" onclick="delImg()"></p>
+			</li>
+			<li class="mui-table-view-cell sw-after-no" id="uploadCon">		
+				<span class="sw-list-title1">VIN照片</span>
+				<img src="../../../image/person/purchase/tianjiazp.png" class="sw-img" id="F_CKJLB" onclick="showActionSheet(this);"/>
+			</li>
+		</ul>    
+	</div>
+	
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+ <script src="../../../js/jquery.min.js"></script>
+ <script type="text/javascript">
+ 	//mui初始化
+	mui.init({  
+	    beforeback: function() {  
+	    //获得列表界面的webview  
+	    var info = plus.webview.currentWebview().opener();  
+	    //触发列表界面的自定义事件（refresh）,从而进行数据刷新  
+	    mui.fire(info, 'vinpUpload');  
+	    //返回true，继续页面关闭逻辑  
+	    return true;  
+	    }  
+	});
+	
+ 	 var procinstid = 0;  
+    //初始化页面执行操作  
+    function plusReady() {  
+        //Android返回键监听事件  
+        plus.key.addEventListener('backbutton',function(){},false);
+        
+        var vinp_pic = plus.storage.getItem('vinp_pic');
+ 	 	if(vinp_pic!=undefined){
+ 	 		$("#showCon").css('display','block');
+			$("#uploadCon").css('display','none');
+			
+			$("#showImg").attr('src',imgUrl+vinp_pic);
+
+ 	 	}
+ 	 	
+    }  
+    if (window.plus) {  
+        plusReady();  
+    } else {  
+        document.addEventListener('plusready', plusReady, false);  
+    } 
+    
+    /**
+     * 取消上传的图片
+     */
+	function delImg(){
+		$("#showCon").css('display','none');
+		$("#uploadCon").css('display','block');
+		
+		$("#showImg").attr('src','../../../image/person/purchase/tianjiazp.png');
+		//将数据保存到本地 
+		plus.storage.removeItem('vinp_pic');
+	}
+    
+    
+    //选取图片的来源，拍照和相册  
+function showActionSheet(conf){  
+  var divid = conf.id;  
+      var actionbuttons=[{title:"拍照"},{title:"相册选取"}];  
+      var actionstyle={title:"选择照片",cancel:"取消",buttons:actionbuttons};  
+      plus.nativeUI.actionSheet(actionstyle, function(e){  
+            if(e.index==1){  
+                appendByCamera();
+            }else if(e.index==2){  
+                appendByGallery();  
+            }  
+      } );  
+       }  
+
+var files={};
+// 上传文件
+function upload(){
+	if(files.length<=0){
+		plus.nativeUI.alert("没有添加上传文件！");
+		return;
+	}
+	loading('上传中');
+	var task=plus.uploader.createUpload(imgUploadImg, 
+		{method:"POST"},
+		function(t,status){ //上传完成
+			closeLoading();			
+			if(status==200){
+				sw.jcon(t.responseText);	
+				var rData   = JSON.parse(t.responseText);
+					sw.toast(rData.msg);
+					
+				var rStatus = rData.status;
+					if(rStatus==200){
+						$("#showCon").css('display','block');
+						$("#uploadCon").css('display','none');
+						
+						$("#showImg").attr('src',imgUrl+rData.url);
+						//将数据保存到本地 
+						plus.storage.setItem('vinp_pic',rData.url);
+					}
+			}else{
+				sw.toast("上传失败："+status);				
+			}
+			
+		}
+	);
+	task.addFile(files.path,{key:files.name});	
+	task.start();
+}
+// 拍照添加文件
+function appendByCamera(){
+	plus.camera.getCamera().captureImage(function(p){
+		appendFile(p);
+	});	
+}
+// 从相册添加文件
+function appendByGallery(){
+	plus.gallery.pick(function(p){
+        appendFile(p);
+    });
+}
+// 添加文件
+function appendFile(p){
+	files = {name:"uploadkey",path:p};
+	upload();
+}
+// 产生一个随机数
+function getUid(){
+	return Math.floor(Math.random()*100000000+10000000).toString();
+}
+ </script>
+</html>

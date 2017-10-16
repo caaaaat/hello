@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员列表</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.32x32.ico">
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/js/hplus/css/animate.min.css" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <link href="/js/hplus/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <style>
+        .mail-box-header label{ height: 34px; line-height: 34px;width: 50px; margin-bottom: 0; padding-left: 0;padding-right: 0;}
+        .l a{ color: #0066ff;}
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content" style="padding-bottom: 0">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <div class="mail-box-header">
+                <div class="form-group">
+
+                    <div class="col-xs-6 col-sm-4 col-lg-4 " style="padding-left: 0; padding-right: 15px; margin-bottom: 3px;max-width: 145px;">
+                        <label class="col-xs-4 col-sm-4 control-label">状态</label>
+                        <div class="col-xs-8 col-sm-8" style="padding-left: 0;padding-right: 0; width: 75px;">
+                            <select id="status" class="form-control">
+                                <option value=''>不限</option>
+                                <option value='1'>正常</option>
+                                <option value='2'>停用</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-lg-4 " style="padding-left: 0; padding-right: 0; margin-bottom: 3px;max-width: 160px;">
+                        <label class="col-xs-4 col-sm-4 control-label">区域</label>
+                        <div class="col-xs-8 col-sm-8" style="padding-left: 0;padding-right: 0;">
+                            <select id="province" class="form-control" style="padding-left: 5px; width: 100px;">
+                                <option value=''>全部</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-lg-4" style="padding-left: 0; padding-right: 0; margin-bottom: 3px;">
+                        <label class="col-xs-4 col-sm-4 control-label">关键字</label>
+                        <div class="col-xs-8 col-sm-8" style="padding-left: 0;">
+                            <div class="col-xs-12 col-sm-12 input-group">
+                                <input type="text" class="form-control input-xs" id="searchKey" placeholder="业务员ID/昵称/姓名"/>
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary" id="find"> 搜 索 </button>
+                                    <!---->
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+                <div style="clear: both"></div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <h3 style="margin-right: 10px;">管理员列表</h3>
+                    <div style="text-align: right; padding-right: 15px;">
+                        <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" id="btn-mod-edit">添加子管理员</button></span>
+                    </div>
+                    <!--列表开始-->
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th style="text-align: center;width:150px">序号</th>
+                                <th style="text-align: center;width:150px">帐号名称</th>
+                                <th style="text-align: center;width:150px">帐号</th>
+                                <th style="text-align: center;width:150px">管辖区域</th>
+                                <th style="text-align: center;width:150px">状态</th>
+                                <th style="text-align: center;width:240px">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="listObj" style="text-align: center"></tbody>
+                        </table>
+                    </div>
+                    <script id="showList" type="text/html">
+                        {{# var list = d.list; var page = d.page; var pageSize = d.pageSize; for(var i = 0, len = list.length; i < len; i++){ }}
+
+                        <tr>
+                            <td>{{ ((page-1)*pageSize)+i+1 }}</td>
+                            <td>
+                                <span class="su-text">{{ list[i].name }}</span>
+                            </td>
+                            <td>
+                                <span>{{ list[i].code }}</span>
+                            </td>
+                            <td>
+                                <span>{{ list[i].province }}</span>
+                            </td>
+                            <td>
+                                <span>{{ list[i].status == 1 ? '正常' : '停用' }}</span>
+                            </td>
+                            <td>
+
+                                <span class="l">
+                                    <!--{{ list[i].id != 1 ? (list[i].status == 1 ? ' <a>[设置权限]</a>  <a onclick=resetName("管理员",2)>[编辑]</a>  <a onclick="resetPassword( 2)">[重置密码]</a>  <a onclick="changeStatus( 1,2)">[停用]</a>  ' : '<a>[启用]</a>'): "&#45;&#45;" }}-->
+                                    {{# if(list[i].id == 1){ }}
+                                        --
+                                    {{# }else{ }}
+                                        {{# if(list[i].status == 1){ }}
+                                            {{# if(list[i].is_me == 'true'){ }}
+                                                <a onclick="layer.msg('不能编辑自己的权限')">[设置权限]</a>
+                                            {{# }else{ }}
+                                                <a onclick="superAuth({{ list[i].id }})">[设置权限]</a>
+                                            {{# } }}
+                                            <a data-id="{{ list[i].id }}" onclick=resetSupp(this)>[编辑]</a>
+                                            <a data-id="{{ list[i].id }}" onclick="resetPassword(this)">[重置密码]</a>
+                                            <a onclick="changeStatus({{ list[i].status }},{{ list[i].id }})">[停用]</a>
+                                        {{# }else{ }}
+                                            <a onclick="changeStatus({{ list[i].status }},{{ list[i].id }})">[启用]</a>
+                                        {{# } }}
+                                    {{# } }}
+                                </span>
+
+                            </td>
+                        </tr>
+
+                        {{# } }}
+                    </script>
+
+                    <script id="showNo" type="text/html">
+                        <tr>
+                            <td colspan="9" style="text-align: center">{{ d.massage }}</td>
+                        </tr>
+                    </script>
+                    <!--列表结束-->
+                    <!--页码开始-->
+                    <div class="text-right" style="margin-bottom: 20px;margin-right: 40px;">
+                        <input hidden="hidden" value="1" id="page"/>
+                        <span>每页显示
+                        <select name="pageSize" id="pageSize" onchange="getList(1)">
+                            <option value="5">5</option>
+                            <option value="10"  selected="selected">10</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>&nbsp;
+                    </span>
+                        <span id="pageInfo" style="margin-right: 10px;"></span>
+                        <div class="btn-group" id="pager"></div>
+                    </div>
+                    <!--页码结束-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script  type="text/javascript" src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script  type="text/javascript" src="/js/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+<script  type="text/javascript" src="/js/hplus/js/content.min.js?v=1.0.0"></script>
+<script  type="text/javascript" src="/js/hplus/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+<!--<script  type="text/javascript" src="/js/hplus/js/plugins/layer/layer.min.js"></script>-->
+<script  type="text/javascript" src="/js/hplus/js/plugins/layer/layer-3.0.3.min.js"></script>
+
+<script src="/js/laytpl/laytpl.js"></script>
+<!--分页插件-->
+<script src="/js/jquery.page.js"></script>
+<!--自定义js-->
+<script src="/js/plat/province.js"></script>
+<!--自定义JS-->
+<script src="/js/global.js"></script>
+<script>
+    $(function(){
+        getList(1);
+        $("#find").click(function(){
+            getList(1);
+        });
+        //添加子管理员
+        $("#btn-mod-edit").on('click',function(){
+            addSuper() ;
+        });
+        setProvince('province','');
+    });
+    /**
+     * 获取数据
+     */
+    function getList(page){
+        var status   = $("#status").val();
+        var province = $("#province").val();
+        var keywords = $("#searchKey").val();//关键字
+        page         = page ? page : 1;
+        pageSize     = $('#pageSize').val();
+        var url = '/plat.suUser/getSuUser';
+        var index = layer.load(2);
+        $.post(url,{
+            status:status,
+            province:province,
+            keywords:keywords,
+            page:page,
+            pageSize:pageSize
+        },function(rdata){
+            layer.close(index);
+            var pageInfo = '';
+            var p     = rdata.page;
+            var pageSize = rdata.pageSize;
+            var count = rdata.count;
+            if(count > 0){
+                var startPage= (p-1)*pageSize+1;
+                var endPage  = ((p*pageSize)>count) ? count : (p*pageSize);
+                pageInfo = '显示 '+startPage+' 到 '+endPage+' 项，共 '+count+' 项';
+            }else{
+                pageInfo = '共 0 项';
+            }
+            $("#pageInfo").text(pageInfo);
+            //分页处理
+            var totalPage = count/pageSize;
+            //总页码
+            totalPage     = Math.ceil(totalPage);
+            $("#pager").createPage({
+                pageCount:totalPage,
+                current:p,
+                backFn:function(p){
+                    getList(p);
+                }
+            });
+            showData(rdata);
+            $("#page").val(p);
+        },'json');
+
+    }
+
+    /**
+     * 展示数据
+     */
+    function showData(data) {
+        if(data.massageCode == 'success'){
+            if(data.list.length>0){
+                var tpl2 = $('#showList').html();
+                laytpl(tpl2).render(data, function(html){
+                    $('#listObj').html(html);
+                });
+                return false
+            }
+        }else {
+            var tpl1 = $('#showNo').html();
+            laytpl(tpl1).render(data, function(html){
+                $('#listObj').html(html);
+            });
+        }
+
+    }
+
+    /**
+     * 改变状态
+     * @param j
+     * @param userId
+     */
+    function changeStatus(j,userId){
+        //alert(1);
+        var tip = '是否停用 ? 停用之后无法登录!' ;
+        if(j == 2){
+            tip = '是否启用 ?' ;
+        }
+        layer.confirm(tip,{shadeClose: true,title:'重要提示'},function () {
+
+            var postData = {};
+            postData.status = j == 1 ? 2 : 1 ;
+            postData.userId  = userId;
+            console.log(postData);
+            api.load('plat.suUser','changeStatus',postData,function(rData){
+                if(rData.massageCode == 'success'){
+                    layer.msg(rData.massage,{time:1500},function () {
+                        getList(1);
+                    });
+                }else {
+                    layer.msg(rData.massage);
+                }
+
+            });
+            }
+        );
+    }
+
+    /**
+     * 重置密码
+     * @param obj
+     */
+    function resetPassword(obj){
+        var userId = $(obj).attr('data-id') ;
+        layer.confirm('是否将密码重置为初始密码 123456',{area: ['300px', '160px'],shadeClose: true,title:'重要提示'},function () {
+            api.load('plat.suUser','resetPassword',{userId:userId},function(rData){
+                layer.msg(rData.massage);
+            });
+            }
+        );
+    }
+
+    /**
+     * 修改名称
+     * @param obj
+     */
+    function resetSupp(obj){
+        var userId = $(obj).attr('data-id') ;
+        var title = "编辑管理员";
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['550px', '380px'],
+            content: '/plat.suUser/resetSupp/?userId='+userId
+        });
+    }
+
+    /**
+     * 添加子管理员
+     */
+    function addSuper(){
+        var title = "添加子管理员";
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['550px', '380px'],
+            content: '/plat.suUser/addSuper'
+        });
+    }
+    /**
+     * 管理员权限
+     */
+    function superAuth(id){
+        var title = "权限设置";
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shift:2,
+            scrollbar: false, //是否允许浏览器出现滚动条
+            maxmin: false, //开启最大化最小化按钮
+            area: ['490px', '380px'],
+            content: '/plat.suUser/superAuth/?id='+id
+        });
+    }
+</script>
+</html>

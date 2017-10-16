@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>选择车型</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <link href="../../../css/swiper.css" rel="stylesheet"/>
+</head>
+<style>
+	.sw-payList:after{
+		height: 0;
+	}
+	.sw-after-l:after{
+		left: 0;
+	}
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.sw-title-1{
+		width: 33.3%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+	}
+	.sw-title-box{
+		width: 100%;height: 42px;border-bottom: 1px solid #DDDDDD;background: #FFFFFF;
+	}
+	.sw-no-img:after,.sw-no-img:before{
+		height: 0;
+	}
+	
+	.sw-header {
+		width: 100%;
+		height: 48px;
+		overflow: hidden;
+		font-size: 12px;
+		line-height: 48px;
+		background: #FFFFFF;
+		border-bottom: 1px solid #ccc;
+	}
+	.sw-header .swiper-slide {
+	    padding: 0 10px;
+	    margin: 0 4px;
+	    width: auto;
+	}
+	
+	.sw-header .swiper-slide.active{
+	  border-bottom: 1px solid #FF534C;
+	  color: #FF534C;
+	}
+	
+	.sw-scope-box{
+		background: none;
+	}
+	.sw-scope-box:after{
+		height: 0;
+	}
+	.sw-table-text3{
+		margin-top: 0!important;font-size: 12px!important;
+	}
+	.sw-icon-gou{
+		position: absolute;right: 2px;top: 12px;width: 14px;height: 14px;background: url(../../../image/login/icon_gou.png) no-repeat;background-size: contain;
+	}
+	.sw-icon-quan{
+		position: absolute;right: 2px;top: 12px;width: 14px;height: 14px;background: url(../../../image/login/icon_quan.png) no-repeat;background-size: contain;
+	}
+	
+</style>
+<body style="background: #F5F5F5;">
+	
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">选择车型</h1>
+	</header>
+	
+	<div class="mui-content" style="background: #F5F5F5;">
+	    <div class="sw-title-box" style="position: fixed;z-index: 99;top: 44px;">
+	   		<div class="sw-title-1">商家类型</div>
+	   		<div class="sw-title-1">分类</div>
+	   		<div class="sw-title-1 sw-ctheme">车系</div>
+	    </div>
+	    		
+		<ul class="mui-table-view" style="margin-top: 42px;" id="seriesList"></ul>	
+	</div>
+<script id="series-list-tpl" type="text/html">
+	{{# var len = d.length }} 
+	
+	{{# if(len>0){ }}
+	{{# for(var i = 0;i < len; i++){ }}
+	
+	{{# var child=d[i].child; var childLen = child.length; }}	
+	
+	{{# if(childLen>0){ }}
+	<li class="mui-table-view-cell sw-no-active sw-after-l" style="background: #f5f5f5!important;">
+	 	<span style="color: #999999;font-size: 14px;">{{ d[i].name }}</span>
+	 </li>
+		
+	{{# for(var j = 0;j < childLen; j++){ }}
+	<li class="mui-table-view-cell sw-after-l" onclick="selectSeries('{{ child[j].id }}','{{ d[i].name }}','{{ child[j].name }}')">
+	  	<a class="mui-navigate-right">
+	 		<span style="color: #666666;font-size: 14px;">{{ child[j].name }}</span>
+	 	</a>
+	</li>
+	{{# } }}
+	
+	{{# } }}	
+	
+	{{# } }}
+	
+	{{# }else{ }}
+	<li class="mui-table-view-cell sw-no-active sw-after-l" style="background: #f5f5f5!important;text-align: center;">
+		<span style="color: #999999;font-size: 14px;">该分类无相关车系</span>
+	</li>
+	{{# } }}
+</script>
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+  <script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/laytpl/laytpl.js"></script>
+ <script type="text/javascript" charset="utf-8">
+//mui初始化
+	mui.init({  
+	    beforeback: function() {  
+	    //获得列表界面的webview  
+	    var info = plus.webview.getWebviewById('person_purchase_publish');
+	    //触发列表界面的自定义事件（refresh）,从而进行数据刷新  
+	    mui.fire(info, 'refreshSeries');  
+	    //返回true，继续页面关闭逻辑  
+	    return true;  
+	    }  
+	})
+	
+	var cat_12_name = '';
+	var typeName    = '';
+	//mui plusReady
+	mui.plusReady(function() { 
+			
+			var self = plus.webview.currentWebview();		
+			var	cid  = self.cid;
+			 cat_12_name = self.cat_12_name;
+			 typeName    = self.typeName;
+			 
+			//加载弹窗
+			loading('加载中...'); 
+			//如果已经登陆 获取登录后的数据 
+			http.load('api.sev.purchase','getCarSeries',{'cid':cid},function(rData){//请求成功
+				//关闭加载框
+				closeLoading();	
+				sw.jcon(rData)    
+	 			if(rData.status==200){    	  
+		 			//父级将数据输出到页面     
+					var data      = rData.data;	 	 				
+				 	var seriesTpl = $('#series-list-tpl').html();	 		
+			        laytpl(seriesTpl).render(data,function(render){           
+			            $('#seriesList').html(render);   
+			        });	  	 					 			 				  
+	 			}else{
+	 				sw.toast(rData.msg); 	
+	 			}
+		
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入 
+		 			//关闭加载框
+					closeLoading();	
+	 				//无网络提示
+	 				sw.toast('请求失败，服务器或网络异常'); 
+	 		})				
+	})
+	
+	//选择数据后 回到发布页面
+	function selectSeries(carGroupId,cat_3_name,cat_4_name){
+		var cat_1234_name = cat_12_name+'/'+cat_3_name+'/'+cat_4_name;
+		var series = {'carGroupId':carGroupId,'cat_1234_name':cat_1234_name,'typeName':typeName};
+			plus.storage.setItem('series',JSON.stringify(series));		
+			//关闭无关弹窗
+			plus.webview.close( 'person_purchase_type');
+			plus.webview.close( 'person_purchase_carClass');
+			mui.back();
+	}
+</script>
+</html>

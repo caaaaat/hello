@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>选择车型</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <link href="../../../css/swiper.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="utf-8">
+      
+    </script>
+</head>
+<style>
+	.sw-payList:after{
+		height: 0;
+	}
+	.sw-after-l:after{
+		left: 0;
+	}
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.sw-title-1{
+		width: 33.3%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+	}
+	.sw-title-box{
+		width: 100%;height: 42px;border-bottom: 1px solid #DDDDDD;background: #FFFFFF;
+	}
+	.sw-no-img:after,.sw-no-img:before{
+		height: 0;
+	}
+	
+	.sw-header {
+		width: 100%;
+		height: 48px;
+		overflow: hidden;
+		font-size: 12px;
+		line-height: 48px;
+		background: #FFFFFF;
+		border-bottom: 1px solid #ccc;
+	}
+	.sw-header .swiper-slide {
+	    padding: 0 10px;
+	    margin: 0 4px;
+	    width: auto;
+	}
+	
+	.sw-header .swiper-slide.active{
+	  border-bottom: 1px solid #FF534C;
+	  color: #FF534C;
+	}
+	
+	.sw-scope-box{
+		background: none;
+	}
+	.sw-scope-box:after{
+		height: 0;
+	}
+	.sw-table-text3{
+		margin-top: 0!important;font-size: 12px!important;
+	}
+	.sw-icon-gou{
+		position: absolute;right: 2px;top: 12px;width: 14px;height: 14px;background: url(../../../image/login/icon_gou.png) no-repeat;background-size: contain;
+	}
+	.sw-icon-quan{
+		position: absolute;right: 2px;top: 12px;width: 14px;height: 14px;background: url(../../../image/login/icon_quan.png) no-repeat;background-size: contain;
+	}
+	
+</style>
+<body style="background: #F5F5F5;">
+	
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">选择车型</h1>
+	</header>
+	
+	<div class="mui-content" style="background: #F5F5F5;">
+	   <div class="sw-title-box">
+	   		<div class="sw-title-1 sw-ctheme">商家类型</div>
+	   		<div class="sw-title-1">分类</div>
+	   		<div class="sw-title-1">车系</div>
+	   </div>
+	    
+	    <div style="padding-top: 40px;">
+	    	<div style="width: 45%;float: left;">
+	    		<p style="width:50%;float: right;text-align: center;">
+	    			<img src="../../../image/person/purchase/icon_chexing_car.png" width="100%" style="max-width: 80px;" onclick="goCarClass(1,'轿车商家')"/>
+	    			<span style="color: #333333;">轿车商家</span>
+	    		</p>
+	    	</div>
+			<div style="width: 10%;float: left;">&nbsp;</div>
+	    	<div style="width: 45%;float: left;">
+	    		<p style="width:50%;float: left;text-align: center;">
+	    			<img src="../../../image/person/purchase/icon_chexing_huoche.png" width="100%" style="max-width: 80px;" onclick="goCarClass(2,'货车商家')"/>
+	    			<span style="color: #333333;">货车商家</span>
+	    		</p>
+	    	</div>
+	    </div>
+	</div>
+	
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+ <script type="text/javascript" charset="utf-8">
+	/**
+	 * 选择轿车分类体系
+	 */
+	function goCarClass(type,typeName){
+		openView('../../../view/person/purchase/carClass.html','person_purchase_carClass','pop-in',{'type':type,'typeName':typeName});		
+	}
+</script>
+</html>

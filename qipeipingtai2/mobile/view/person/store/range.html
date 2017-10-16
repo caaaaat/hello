@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>经营范围</title>
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="../../../css/mui.min.css" />
+    <link rel="stylesheet" type="text/css" charset="utf-8" href="../../../css/common.css" />
+</head>
+<style>
+	.sw-payList:after{
+		left: 0;
+	}
+	.sw-title{
+		font-size: 14px;color: #666;
+	}
+	.sw-money-box{
+		float: right;font-weight: 700;font-size: 16px;	
+	}
+	.sw-date{
+		font-size: 12px;display:inline-block;color: #999;width: 40%;text-align: left;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	.sw-text{
+		float: right;font-size: 12px;color: #666;width: 50%;text-align: right;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	
+	.sw-no-active,.sw-no-active:active{  
+		background: #FFFFFF!important;  
+	}
+</style>
+<body style="background: #EFEFEF;">
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">经营范围</h1>
+	</header>
+	<div class="mui-content" style="background: #EFEFEF;">   
+	 <ul class="mui-table-view" style="margin-top: 0;" id="rangeCon">
+		
+	 </ul>	    
+	</div>	
+	
+	<!--经营范围列表模板-->
+	<script id="range-list-tpl" type="text/html">
+	{{# var len = d.length }} 	
+	{{# for(var i = 0;i < len; i++){ }}
+		<li class="mui-table-view-cell sw-payList sw-no-active" style="line-height: 27px;" >		 	
+	 		<span style="font-size: 14px;color: #999;">经营范围：</span>
+	 		<div style="margin-left: 70px;margin-top: -29px;">
+	 			<span style="font-size: 14px;color: #666;">{{ d[i].pName }}/{{ d[i].name }}</span>	
+	 			<button type="button" onclick="editRange({{ d[i].id }})" class="mui-btn mui-btn-tangerinec" style="padding: 4px 12px;font-size: 12px!important;border-radius: 6px;float: right;">车系管理</button>
+	 		</div>
+		</li>  
+	{{# } }} 
+	</script>
+<body>
+<script type="text/javascript" src="../../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../../js/global.js"></script>
+<script type="text/javascript" src="../../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/laytpl/laytpl.js"></script>
+<script type="text/javascript">
+	//mui初始化
+	mui.init();
+
+	//mui plusReady
+	mui.plusReady(function() {	
+		//获取经营范围
+		var token  = plus.storage.getItem('token');
+		//加载弹窗
+		loading('加载中...'); 
+		//获取数据
+		http.load('api.sev.user','getRange',{'token':token},function(rData){
+			//关闭加载框
+			closeLoading();	                                
+	 		sw.jcon(rData);
+	 		
+	 		var data = rData.data;
+	 		//数据读取
+	 		var rangeTpl = $('#range-list-tpl').html();			
+	        laytpl(rangeTpl).render(data,function(render){           
+	            $("#rangeCon").append(render); 
+	        });			
+		},function(xhr,type,errorThrown){
+		 		//关闭加载框
+				closeLoading();		
+				//无网络提示
+				sw.toast('获取数据失败，服务器或网络异常'); 	
+		}) 
+	})
+	
+	//编辑经营范围
+	function editRange(cid){
+		openView('../../../view/person/store/rangeList.html','person_store_rangeList','pop-in',{'cid':cid});	
+	}
+	
+</script>
+</html>

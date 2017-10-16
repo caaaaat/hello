@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的工资</title>
+    <link href="../../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+.mui-table-view-cell:after{right: 15px;}
+.companyNameDiv{color: #777;font-size: 16px;}
+
+</style>
+<body>
+	
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">新增关联厂商明细</h1>
+	</header>
+	
+	<!--<div class="mui-content" style="background: #F5F5F5;font-size: 14px;">
+		<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed" style="margin-top: 0;" id="List">
+
+		</ul>        
+	</div>-->
+	
+	<div class="mui-content">
+		<div class="mui-scroll-wrapper" style="margin-top:44px;">    
+			<div class="mui-scroll sw-coterie-box" id="loadList">  
+				<div class="mui-table-view " id="show-list" style="background: #fff;">
+
+				</div>
+			</div>   
+		</div>
+	</div>
+	<input value="1" hidden="hidden" id="page" />
+	<!--<div id="loadList"><input value="1" hidden="hidden" id="page"/></div>-->    
+	<script id="pay-list-tpl" type="text/html">
+		{{# var len = d.length }} 
+		{{# if(len>0){ }} 
+		{{# for(var i = 0;i < len; i++){ }}  
+			<li class="mui-table-view-cell">
+	            <div class="mui-table">   
+	                <div class="mui-table-cell mui-col-xs-10">
+	                    <h5 class="mui-ellipsis companyNameDiv">{{ d[i].companyname }}</h5>
+	                    <p class="mui-h6 mui-ellipsis" style="margin: 5px 0;">关联时间：{{ d[i].create_time }}</p>
+	                </div> 
+	            </div> 
+	        </li>
+		{{# } }}
+		{{# } }}	
+	</script>	
+	
+</body>
+<script src="../../../../js/jquery.min.js"></script> 
+ <script src="../../../../js/mui.min.js"></script>
+ <script src="../../../../js/laytpl/laytpl.js"></script>
+ <script src="../../../../js/global.js"></script> 
+ <script src="../../../../js/mui.pullToRefresh.js"></script>
+ <script src="../../../../js/mui.pullToRefresh.material.js"></script>
+ <script type="text/javascript" charset="utf-8">
+ 	 //mui初始化  
+// mui.init({        
+//pullRefresh : {
+//  container:'#loadList',//待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
+//	up : {
+//	  height:50,//可选.默认50.触发上拉加载拖动距离
+//	  auto:true,//可选,默认false.自动上拉加载一次
+//	  contentrefresh : "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+//	  contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+//	  callback :function(){	
+//	  	showLoda();
+//	  } //必选，刷新函数   
+//	}  
+//}
+// });
+ 
+  var showSelf;
+  mui.init();
+ 
+ //初始化 
+	mui.plusReady(function() {
+		(function($) {
+				//阻尼系数
+				var deceleration = mui.os.ios?0.003:0.009;
+				$('.mui-scroll-wrapper').scroll({		
+					bounce: false,   
+					indicators: true, //是否显示滚动条
+					deceleration:deceleration 
+				});
+			})
+		
+		
+			mui("#loadList").pullToRefresh({ 
+				down: {
+					callback: function(){
+						location.href = location.href;
+					}
+				},
+				up: { 
+					auto: true,
+					offset: 50, //距离底部高度(到达该高度即触发)
+					contentnomore:contentnomoreStr,   
+					contentrefresh:contentrefreshStr,
+					callback: function() {  
+						showSelf = this;				
+						showLoda(showSelf);			
+						}
+					}
+			});  
+	})
+	
+function showLoda(showSelf){  
+	if(UserInfo.has_login()){
+		var self = plus.webview.currentWebview();		//获取传递的参数
+		dy(self)
+		var	id 	 = self.wageId;							//业务员工资表ID
+		dy(id);
+		if(!id){
+			id = '';   
+		}
+		var userType= JsonStorage.getItem('userType');	//2为业务员
+		var token   = plus.storage.getItem('token');
+		if(userType != 2){
+			sw.toast('请使用业务员账号登录');  
+			return false; 
+		}    
+		if(!token){  
+			sw.toast('您还没有登录，请登录后重试');  
+			return false; 
+		}
+		var page = mui("#page")[0].value;//获取页数
+	  	var data = {};  
+	  	var postData = {};  
+	  	//请求的数据   
+  		postData.page     = page;//请求的页码
+  		postData.pageSize = 10;  //每页显示数量
+  		postData.token    = token;
+  		postData.id		  = id; 
+  		data.postData     = postData;  
+  		  dy(data);
+  		//页面相关数据
+  		data.mod      = 'api.sev.salesman';//模型 
+  		data.fun      = 'beforeMonthList';     //方法 
+  		data.tpl      = 'pay-list-tpl';	   //列表模板  
+  		data.listId   = 'show-list';			   //列表容器
+  		data.pageId   = 'page';//页码Id	 
+		//请求并处理数据  
+//		loadInfo(data,true); 
+		loadInfoArr(data,true,showSelf);
+  	}else{//未登录显示未登录界面	 		
+		//无网络提示
+		sw.toast('您还未登录,请登录后重试');  
+	}	
+}  	
+ 
+ 
+ </script>
+</html>
+
+

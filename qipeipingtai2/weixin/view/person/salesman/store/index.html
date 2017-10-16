@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>个人中心</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../../../css/mui.min.css">
+		<link rel="stylesheet" href="../../../../css/common.css" type="text/css" charset="utf-8"/>
+		<style>
+
+			html,
+			body {
+				background-color: #F5F5F5;
+			}
+			 
+			.mui-content img{  
+				width: 100%;  
+			}
+			.mui-bar{
+				background: none;
+			}
+			
+			.sw-header-con{
+				width: 100%;height: 170px;background: url(../../../../image/person/store/beijing.png) no-repeat;background-size: cover;
+			}
+			.sw-person-face{
+				width: 60px!important;height: 60px!important;margin-top: -12px;margin-right: 8px;border-radius: 30px;
+			}
+			.sw-card-header{
+				padding-top:38px!important;
+			}
+			.sw-card-header1{
+				padding-top:28px!important; 
+			}
+			.sw-card-header:after{
+				height: 0;
+			}
+			.sw-card-con:after{
+				height: 0;
+			}
+			.sw-media-body{
+				margin-left: 68px!important;
+			}
+			.sw-card-list{
+				width: 100%;margin-top: 10px;margin-bottom: 20px;
+			}
+			.sw-card-list ul{
+				background: #FFFFFF!important;border: none;
+			}
+			.sw-meida-text{
+				font-size: 14px!important;color: #666!important;line-height: 18px!important;
+			}
+			.sw-biao-vip{
+				width:40px;height: 40px;background: url(../../../../image/person/biao_vip@2x.png) no-repeat;background-size: contain;position: absolute;right: -3px;top: 0;
+			}
+			.sw-biao-weirz{
+				width:40px;height: 40px;background: url(../../../../image/person/biao_weirz@2x.png) no-repeat;background-size: contain;position: absolute;right:-3px;top: 0;
+			}
+			.sw-first{
+				color: #FFFFFF;font-size: 16px;
+			}
+			.sw-ch{
+				font-size: 12px;float: right;
+			}
+			.sw-company{
+				color: #FFFFFF;line-height: 36px;border-bottom: 1px solid #FFFFFF;font-size: 14px;
+			}
+			.sw-two{
+				color: #FFFFFF;line-height: 36px;font-size: 12px;
+			}
+			.sw-vip-text{
+				margin-left: 28px;
+			}
+			.sw-title-img2{
+				width: 18px!important;
+			}
+			.sw-title-badge{
+				left: 22px;
+				top: 14px!important;
+			}
+			
+			
+					//下拉加载
+.mui-bar~.mui-content .mui-fullscreen {
+	top: 44px;
+	height: auto;
+}
+.mui-pull-top-tips {
+	position: absolute;
+	top: -20px;
+	left: 50%;
+	margin-left: -25px;
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+	z-index: 1;  
+}
+.mui-bar~.mui-pull-top-tips {
+	top: 24px;
+}
+.mui-pull-top-wrapper {
+	width: 42px;
+	height: 42px;
+	display: block;
+	text-align: center;
+	background-color: #efeff4;
+	border-radius: 25px;
+	background-clip: padding-box; 
+	overflow: hidden; 
+} 
+.mui-pull-top-tips.mui-transitioning {
+	-webkit-transition-duration: 200ms;
+	transition-duration: 200ms;
+}
+.mui-pull-top-tips .mui-pull-loading {
+	/*-webkit-backface-visibility: hidden;
+	-webkit-transition-duration: 400ms;
+	transition-duration: 400ms;*/
+	
+	margin: 0;
+}
+.mui-pull-top-wrapper .mui-icon,
+.mui-pull-top-wrapper .mui-spinner {
+	margin-top: 7px;
+}
+.mui-pull-top-wrapper .mui-icon.mui-reverse {
+	/*-webkit-transform: rotate(180deg) translateZ(0);*/
+}
+.mui-pull-bottom-tips {
+	text-align: center;
+	background-color: #efeff4;
+	font-size: 15px;
+	line-height: 40px;
+	color: #777;
+}
+.mui-pull-top-canvas {
+	overflow: hidden;
+	background-color: #fafafa;
+	border-radius: 40px;
+	width: 40px;
+	height: 40px;
+	margin: 0 auto;
+}
+.mui-pull-top-canvas canvas {
+	width: 40px;
+}
+.mui-slider-indicator.mui-segmented-control {
+	background-color: #F5F5F5;
+} 
+.jiLuList:active{background: #DBDBDB;}
+.jiLuTongJi{width: 100%;background: #FEFEFE;font-size: 15px;color: #737373;margin-top: 10px;border-top: 1px solid #F1EFEF;border-bottom: 1px solid #F1EFEF;}
+.fangWenTongJi{padding: 10px 0;width: 50%;height: 50px;float: left;text-align: center;line-height: 30px;}
+.boDaTongJi{padding: 10px 0;width: 50%;height: 50px;float: left;text-align: center;line-height: 30px;}
+	.mui-tab-items{
+		    display: table-cell;
+		    overflow: hidden;
+		    width: 1%;
+		    height: 50px;
+		    text-align: center;
+		    vertical-align: middle;
+		    white-space: nowrap;
+		    text-overflow: ellipsis;
+		    color: #929292;
+	}
+	.mui-bar-tab .mui-tab-items .mui-icon {
+	    top: 3px;
+	    width: 24px;
+	    height: 24px;
+	    padding-top: 0;
+	    padding-bottom: 0;
+		}
+	.mui-bar-tab .mui-tab-items .mui-icon~.mui-tab-label {
+	    font-size: 11px;
+	    display: block;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	}   
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content" style="background: #F5F5F5;">
+			<nav class="mui-bar mui-bar-tab" style="background: #FFFFFF;box-shadow: none;">
+				<a class="mui-tab-items mui-active" style="display: none;" href="../../../view/person/salesman/store/index.html">
+					<span class="mui-icon sw-geren">
+					</span>
+					<span class="mui-tab-label">店铺</span>
+				</a>  
+				<a id="defaultTab" class="mui-tab-items" href="../../../../view/index/index.html">
+					<span class="mui-icon sw-home">
+					</span>
+					<span class="mui-tab-label">首页</span>
+				</a>
+				<a class="mui-tab-items" href="../../../../view/vin/index.html">
+					<span class="mui-icon sw-vin">
+					</span> 
+					<span class="mui-tab-label">VIN查询</span>
+				</a>
+				<a class="mui-tab-items" href="../../../../view/coterie/list.html">
+					<span class="mui-icon sw-quanzi">
+					</span>
+					<span class="mui-tab-label">圈子</span>
+				</a>
+				<a class="mui-tab-items" href="../../../../view/gonggao/notice.html">
+					<span class="mui-icon sw-gonggao">
+					</span>
+					<span class="mui-tab-label">通知公告</span>    
+				</a>        
+				<a class="mui-tab-items" href="../../../../view/person/index.html">
+					<span class="mui-icon sw-geren">
+					</span> 
+					<span class="mui-tab-label">个人中心</span>
+				</a>
+
+			</nav>
+			<!--顶部板块-->
+			<div class="sw-header-con">
+				<button class="mui-btn mui-btn-link mui-pull-right" id='msgList' onclick="xiaoXi()">
+			    	<span class="mui-badge sw-title-badge"></span>
+			    	<img src="../../../../image/index/icon_xiaoxi@3x.png" class="sw-title-img2"/>
+		    	</button>
+		    	<div style="clear: both;"></div>
+		    	<!--//顶部信息盒子-->
+		    	<div id="info">
+		    		
+		    	</div>
+			</div>
+			<div id="jiLuTongJi">
+				
+			</div>
+			
+			<!--模板盒子-->
+			<div class="sw-card-list">
+				
+				<ul class="mui-table-view mui-grid-view mui-grid-9 sw-card-con" id="banList">
+			
+				</ul>
+				
+			</div>
+			
+		</div>
+
+
+
+<!--已登录个人中心头部模板-->
+<script id="top-list-tpl" type="text/html">
+	<!--//已登录--> 
+	<div class="mui-card-header mui-card-media sw-card-header" onclick="infoIndex()">  
+    	{{# if(d.head_pic!=null&&d.head_pic!=''){ }} 			
+		<img src="{{ imgUrl+d.head_pic }}" class="sw-person-face"/>
+		{{# }else{ }} 
+		<img src="../../../../image/person/more/icon_chenggong_mrtx.png" class="sw-person-face"/>
+		{{# } }}   
+		<div class="mui-media-body sw-media-body">			
+			 <p class="sw-first">{{ d.uname }}<span class="sw-ch">{{ d.companyType }}</span></p>
+			 <p class="sw-company">{{ d.companyname }}</p>
+			 <p class="sw-two">刷新点：{{ d.refresh_point }}
+			 	{{# if(d.vip==1 && d.type==1){ }} 
+			 	<span class="sw-vip-text">VIP：{{ d.vip_time }}</span> 
+			 	{{# } }}  
+			 </p> 
+		</div>	   
+	</div> 
+</script>
+<script id="jiLu-list-tpl" type="text/html">
+	<!--//已登录-->
+	<div class="jiLuTongJi">
+		<div class="jiLuList fangWenTongJi" onclick="jiLuView(1)">
+			<div style="border-right: 1px solid #F5F5F3;">  
+				<img src="../../../../image/salesman/red_ren.png" style="width: 12px;vertical-align: middle" alt="" />
+				<span>访问数：<span style="color: #FE524A;">{{ d.fangWen }}</span></span>
+			</div>
+		</div>  
+		<div class="jiLuList boDaTongJi" onclick="jiLuView(2)">
+			<img src="../../../../image/salesman/red_tel.png" style="width: 14px;vertical-align: middle" alt="" />
+			<span>拨打数：<span style="color: #FE524A;">{{ d.boDa }}</span></span>
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+</script>
+
+<!--个人中心板块模板-->
+<script id="ban-list-tpl" type="text/html">
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" data_company_id="{{ d.tokenId }}" id="store" onclick="storeView()">   
+		<img src="../../../../image/person/icon_dianpu@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body sw-meida-text">店铺管理</div>
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="guiji" data_company_id="{{ d.tokenId }}" onclick="guiJi()">
+		<img src="../../../../image/salesman/guiJi.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">轨迹</div>    
+	</li>
+	{{# if(d.type==1){ }}
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="vipView()">
+		{{# if(d.vip==1){ }}
+		<p class="sw-biao-vip"></p>
+		{{# } }}
+		<img src="../../../../image/person/icon_vip@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">VIP会员</div>
+	</li>
+	{{# } }} 
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" id="refresh" onclick="refreshs()">
+		<img src="../../../../image/person/icon_shuaxindian@2x.png" style="max-width: 60px;"/>
+		<div class="mui-media-body  sw-meida-text">我的刷新点</div>  
+	</li>
+	
+	<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4" onclick="renZheng()">
+		{{# if(d.is_check!=1){ }} 
+		<p class="sw-biao-weirz"></p>
+		{{# } }}
+		<img src="../../../../image/person/icon_renzheng@2x.png" style="max-width: 60px;" id="auth"/>
+		<div class="mui-media-body sw-meida-text">认证</div>
+	</li>
+	
+</script>
+
+<script type="text/javascript" src="../../../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../../../js/global.js"></script>
+<script src="../../../../js/jquery.min.js"></script>
+<script src="../../../../js/laytpl/laytpl.js"></script>
+<script src="../../../../js/mui.pullToRefresh.js"></script>
+<script src="../../../../js/mui.pullToRefresh.material.js"></script> 
+<script type="text/javascript" charset="utf-8">
+	//mui初始化
+	mui.init(); 
+	$(function() {
+		getUserInfo();
+	});	
+	 //当前激活选项
+		var activeTab = subpages[0];
+		var title = document.getElementById("title");
+		 //选项卡点击事件
+		mui('.mui-bar-tab').on('tap', 'a', function(e) {
+			var self = sw.getQueryVariable();
+			var targetTab = this.getAttribute('href');
+			if (targetTab == activeTab) {
+				return;
+			}
+			
+			//更换标题
+//				title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+			//显示目标选项卡
+			//若为iOS平台或非首次显示，则直接显示
+			if(mui.os.ios||aniShow[targetTab]){
+				plus.webview.show(targetTab);
+			}else{
+				//否则，使用fade-in动画，且保存变量
+				var temp = {};
+				temp[targetTab] = "true";
+				mui.extend(aniShow,temp);
+				plus.webview.show(targetTab,"fade-in",300);
+			}
+			//隐藏当前;
+			plus.webview.hide(activeTab);
+			//更改当前活跃的选项卡
+			activeTab = targetTab;
+		});
+	
+	
+	function getUserInfo(){	      	
+		//监控页面是否登录
+		if(UserInfo.has_login()){
+			loading('加载中...'); 
+			var self = sw.getQueryVariable();		//获取传递的参数
+			var	EnterpriseID = self.EnterpriseID;			//业务员工资表ID
+			var name		 = self.name;					//厂商名称 
+			var companyType  = self.type;					//1为经销商，2为汽修厂
+			var token   = JsonStorage.getItem('token');
+			var postData = {};
+			postData.token = token;
+			postData.EnterpriseID = EnterpriseID;
+			var url = 'storeVeiwData';
+			//如果已经登陆 获取登录后的数据
+			http.load('api.sev.salesmanSouCang',url,postData,function(rData){//请求成功 
+				closeLoading();	
+	 			if(rData.status==200){
+	 				sw.jcon(rData); 
+	 				var data = rData.data;	  
+	 				//初始化页面数据
+					setInfo(data);			   
+			        	                                  
+	 			}else{ 
+	 				sw.toast(rData.msg); 	 
+	 			} 
+		
+	 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+	 				//无网络提示
+	 				sw.toast('请求失败，请检查网络'); 
+	 		})
+  
+		}else{//未登录显示未登录界面
+			//顶部 
+			var topTpl = $('#noTop-list-tpl').html();	 		
+	        laytpl(topTpl).render({},function(render){           
+	            mui('#info')[0].innerHTML = render;   
+	        });			  
+		}	
+	} 
+	
+	//将用户数据填入
+	function setInfo(data){
+		//顶部 
+		var topTpl = $('#top-list-tpl').html();	 		
+        laytpl(topTpl).render(data,function(render){           
+            mui('#info')[0].innerHTML = render;   
+        });
+			 
+		//拨打及访问记录 
+		var topTpl = $('#jiLu-list-tpl').html();	 		
+        laytpl(topTpl).render(data,function(render){           
+            mui('#jiLuTongJi')[0].innerHTML = render;   
+        });	 
+			 
+        //模块
+		var banTpl = $('#ban-list-tpl').html();	 		
+        laytpl(banTpl).render(data,function(render){           
+            mui('#banList')[0].innerHTML = render;   
+        });
+		
+	}
+//跳转消息页面	
+function xiaoXi(){
+	openView('../../../../view/msg/index.html','view_msg_index','pop-in');
+}
+//跳转访问记录/拨打记录	
+function jiLuView(t){
+	var self    = sw.getQueryVariable();		//获取传递的参数
+	var	tokenId = self.EnterpriseID;						    //业务员工资表ID
+	var extras  = {'tokenId':tokenId,'typeJiLu':t}; 
+	openView('../../../../view/person/salesman/store/info/fangWenJiLu2.html','person_salesman_store_info_fangWenJiLu2','pop-in',extras);
+}   
+//店铺管理页面
+function storeView(){
+	var tokenId = $('#store').attr('data_company_id');
+	var self = sw.getQueryVariable();		//获取传递的参数
+	var EnterpriseID = self.EnterpriseID;		   
+	var name = self.name; 
+	var type = self.type;
+	var extras = {'EnterpriseID':EnterpriseID,'tokenId':tokenId,'name':name,'type':type}; 
+	openView('../../../../view/person/salesman/store/guanLiIndex.html','person_store_guanLiIndex','pop-in',extras);
+}
+//轨迹  页面
+function guiJi(){
+	var tokenId = $('#guiji').attr('data_company_id');
+	var self = sw.getQueryVariable();		//获取传递的参数
+	var EnterpriseID = self.EnterpriseID;		    //业务员工资表ID
+	var extras = {'EnterpriseID':EnterpriseID,'tokenId':tokenId}; 
+	openView('../../../../view/person/salesman/store/guiJi/index.html','person_salesman_store_guiJi_index','pop-in',extras);
+}
+//VIP页面
+function vipView(){
+	var self = sw.getQueryVariable();		//获取传递的参数
+	var EnterpriseID = self.EnterpriseID;		    //业务员工资表ID
+	var extras = {'EnterpriseID':EnterpriseID}; 
+	openView('../../../../view/person/salesman/store/vip/index.html','person_salesman_store_vip_index','pop-in',extras);
+}
+//我的刷新点
+function refreshs(){
+	var self = sw.getQueryVariable();		//获取传递的参数
+	var EnterpriseID = self.EnterpriseID;		    //业务员工资表ID 
+	var extras = {'EnterpriseID':EnterpriseID}; 
+	openView('../../../../view/person/salesman/store/refresh/index.html','person_salesman_store_refresh_index','pop-in',extras);
+}
+//认证
+function renZheng(){
+	var self = sw.getQueryVariable();		//获取传递的参数
+	var EnterpriseID = self.EnterpriseID;		    
+	var extras = {'EnterpriseID':EnterpriseID}; 
+	openView('../../../../view/person/salesman/store/renZheng/index.html','person_salesman_store_renZheng_index','pop-in',extras);
+}
+</script>  
+
+	</body>
+</html>

@@ -1,0 +1,345 @@
+<link rel="stylesheet" href="/css/pc/person/approve.css">
+<!--三级联动    -->
+<script class="resources library" src="/js/pc/area.js" type="text/javascript"></script>
+<style>
+    #upImgToken1 div:last-child input{display: none;}
+    #upImgToken2 div:last-child input{display: none;}
+    #upImgToken3 div:last-child input{display: none;}
+    #upImgToken4 div:last-child input{display: none;}
+    #upImgToken5 div:last-child input{display: none;}
+</style>
+<div class="titles">
+    <span style="font-size: 24px;">认证</span>
+</div>
+<?php $userInfo['linkPhone'] = explode(',',$userInfo['linkPhone']);?>
+<div id="approveInfo">
+    <div class="hint">经销商需认证后才会被搜索到，汽修厂需认证后才能上架清仓商品</div>
+    <div class="companyInfoText">
+        公司信息 <span class="biTian">( 必填 )</span>
+    </div>
+    <!--公司全称-->
+    <div class="marBottom32">
+        <div class="approveText">公司全称:</div>
+        <div style="float: left;">
+            <input type="text" name="name" value="<?php if(isset($userInfo) && $userInfo){echo $userInfo['companyname'];}?>" class="approveInput">
+        </div>
+        <div class="approveRightText">联系人:</div>
+        <div style="float: left;">
+            <input type="text" name="firmsMan" value="<?php if(isset($userInfo) && $userInfo){echo $userInfo['linkMan'];}?>" class="approveInput">
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--手机号码-->
+    <div class="marBottom32">
+        <div class="approveText">手机号码:</div>
+        <div style="float: left;">
+            <input type="text" name="firmsTel" value="<?php if(isset($userInfo) && $userInfo){echo $userInfo['linkPhone'][0];}?>" class="approveInput">
+        </div>
+        <div class="approveRightText">所在城市:</div>
+        <div style="float: left;">
+            <select id="s_province" name="s_province"></select>  
+            <select id="s_city" name="s_city"></select>  
+            <select id="s_county" name="s_county"></select>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <!--详细地址-->
+    <div class="marBottom32">
+        <div class="approveText">详细地址:</div>
+        <div style="float: left;">
+            <textarea name="address" class="approveTextarea"><?php echo $userInfo['address'];?></textarea>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <div class="ziZhiZhaoPian">资质照片 <span class="biTian">( 至少上传1张 )</span></div>
+    <div>
+        <!--上传营业执照-->
+        <div class="ziZhiImgDiv">
+            <img src="/images/qpxm/pc/person/approveInfo/bgImg.png" token="" data_name="licence_pic" class="moRenImg" alt="">
+            <div class="imgInfo">上传营业执照</div>
+            <div class="marTop10">
+                <div type="button" class="btn btn-primary shangChuanBtn" id="upImgToken1">上传</div>
+                <button type="button" class="btn btn-danger shanChuBtn" onclick="delImgs(this)">删除</button>
+            </div>
+        </div>
+        <!--上传纳税认证-->
+        <div class="ziZhiImgDiv">
+            <img src="/images/qpxm/pc/person/approveInfo/bgImg.png" token="" data_name="taxes_pic" class="moRenImg" alt="">
+            <div class="imgInfo">上传纳税认证</div>
+            <div class="marTop10">
+                <div type="button" class="btn btn-primary shangChuanBtn" id="upImgToken2">上传</div>
+                <button type="button" class="btn btn-danger shanChuBtn" onclick="delImgs(this)">删除</button>
+            </div>
+        </div>
+        <!--上传实地认证-->
+        <div class="ziZhiImgDiv">
+            <img src="/images/qpxm/pc/person/approveInfo/bgImg.png" token="" data_name="field_pic" class="moRenImg" alt="">
+            <div class="imgInfo">上传实地认证</div>
+            <div class="marTop10">
+                <div type="button" class="btn btn-primary shangChuanBtn" id="upImgToken3">上传</div>
+                <button type="button" class="btn btn-danger shanChuBtn" onclick="delImgs(this)">删除</button>
+            </div>
+        </div>
+        <!--上传商标认证-->
+        <div class="ziZhiImgDiv">
+            <img src="/images/qpxm/pc/person/approveInfo/bgImg.png" token="" data_name="brand_pic" class="moRenImg" alt="">
+            <div class="imgInfo">上传商标认证</div>
+            <div class="marTop10">
+                <div type="button" class="btn btn-primary shangChuanBtn" id="upImgToken4">上传</div>
+                <button type="button" class="btn btn-danger shanChuBtn" onclick="delImgs(this)">删除</button>
+            </div>
+        </div>
+        <!--上传产品代理认证-->
+        <div class="ziZhiImgDiv">
+            <img src="/images/qpxm/pc/person/approveInfo/bgImg.png" token="" data_name="agents_pic" class="moRenImg" alt="">
+            <div class="imgInfo">上传产品代理认证</div>
+            <div class="marTop10">
+                <div type="button" class="btn btn-primary shangChuanBtn" id="upImgToken5">上传</div>
+                <button type="button" class="btn btn-danger shanChuBtn" onclick="delImgs(this)">删除</button>
+            </div>
+        </div>
+    </div>
+    <div id="up" style="display: none;">上传</div>
+    <div style="clear: both;"></div>
+    <!--提交审核-->
+    <div class="shenHeDiv">
+        <!--<button type="button" class="btn btn-danger shenHe" onclick="location.href='/person/approveAgain'">提交审核</button>-->
+        <button type="button" id="save" class="btn btn-danger shenHe" onclick="save()">提交审核</button>
+    </div>
+</div>
+<!--右侧固定定位QQ、电话-->
+<div class="fixedDinWei">
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="showF(this)">
+            <div class="fixedYuan"><img src="/images/qpxm/pc/index/phone.png" alt=""></div>
+        </a>
+        <div class="fixedQQ">123456</div>
+    </div>
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="showF(this)" target="_blank">
+            <div style="float: right;"><img src="/images/qpxm/pc/index/rQQ.png" alt=""></div>
+        </a>
+        <div class="fixedQQ">123456</div>
+    </div>
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="goTop()">
+            <div style="float: right;"><img src="/images/qpxm/pc/index/rUp.png" alt=""></div>
+        </a>
+    </div>
+</div>
+<input type="hidden" value="" id="upImgToken">
+
+<script src="/js/pc/layer/layer.js"></script>
+<!--<script type="text/javascript" src="/js/webuploader/webuploader.custom.min.xcm.js"></script>-->
+<script type="text/javascript" src="/js/webuploader-0.1.5/webuploader.js"></script>
+<script>
+    //    初始化三级联动
+    _init_area();
+    $(function(){
+        for(var i=1; i<6; ++i){
+            upImg(i);    //初始化图片上传
+        }
+
+        checkAdress();   //自动选中地区
+    });
+    /*自动选中地区*/
+    function checkAdress(){
+        var len = $('#s_province').find('option').length;
+        var shen= "<?php echo $userInfo['province'];?>";
+        for(var i=0; i<len; ++i){
+            var shenName = $('#s_province').find('option').eq(i).val();
+            if(shenName == shen){
+                $('#s_province').find('option').eq(i).attr('selected',true);
+                new Function(change(1));
+                break;
+            }
+        }
+        var len = $('#s_city').find('option').length;
+        var shi = "<?php echo $userInfo['city'];?>";
+        for(var i=0; i<len; ++i){
+            var shiName = $('#s_city').find('option').eq(i).val();
+            if(shi == shiName){
+                $('#s_city').find('option').eq(i).attr('selected',true);
+                new Function(change(2));
+                break;
+            }
+        }
+        var len = $('#s_county').find('option').length;
+        var qu  = "<?php echo $userInfo['district'];?>";
+        for(var i=0; i<len; ++i){
+            var quName = $('#s_county').find('option').eq(i).val();
+            if(qu == quName){
+                $('#s_county').find('option').eq(i).attr('selected',true);
+                new Function(change(3));
+                break;
+            }
+        }
+    }
+
+    /*点击删除图片*/
+    function delImgs(obj){
+        var token = $(obj).parent().parent().find('img').attr('token');
+        if(!token){
+            layer.msg('您还没有上传图片');
+            return false;
+        }
+        layer.confirm('真的要删除吗？', {
+            btn: ['再想想','删除'] //按钮
+        }, function(){
+            layer.closeAll();
+        }, function(){
+            $(obj).parent().parent().find('img').attr('src','/images/qpxm/pc/person/approveInfo/bgImg.png');
+            $(obj).parent().parent().find('img').attr('token','');
+            $(obj).parent().parent().find('.imgInfo').show();
+        });
+    }
+
+    /*点击提交*/
+    function save(){
+        var data = {};
+        data.firmsName = $('input[name="name"]').val();       //企业名称
+        data.firmsMan  = $('input[name="firmsMan"]').val();  //公司联系人
+        data.firmsTel  = $('input[name="firmsTel"]').val();  //联系人电话
+        data.province  = $('#s_province option:selected').val(); //所在省份
+        data.city      = $('#s_city option:selected').val();     //所在市
+        data.district  = $('#s_county option:selected').val();  //所在区
+        data.address   = $('textarea[name="address"]').val();   //详细地址
+        data.licence_pic = '';                                    //营业执照
+        data.taxes_pic   = '';                                    //纳税认证
+        data.field_pic   = '';                                    //实地认证
+        data.brand_pic   = '';                                    //商标认证
+        data.agents_pic  = '';                                    //产品代理认证
+        var len = $('.ziZhiImgDiv').length;
+        for(var i=0; i<len; ++i){
+            var token = $('.ziZhiImgDiv').eq(i).find('img').attr('token');
+            if(token == 1){
+                var data_name = $('.ziZhiImgDiv').eq(i).find('img').attr('data_name');
+                if(data_name == 'licence_pic'){
+                    data.licence_pic = $('.ziZhiImgDiv').eq(i).find('img').attr('src');
+                }else if(data_name == 'taxes_pic'){
+                    data.taxes_pic = $('.ziZhiImgDiv').eq(i).find('img').attr('src');
+                }else if(data_name == 'field_pic'){
+                    data.field_pic = $('.ziZhiImgDiv').eq(i).find('img').attr('src');
+                }else if(data_name == 'brand_pic'){
+                    data.brand_pic = $('.ziZhiImgDiv').eq(i).find('img').attr('src');
+                }else if(data_name == 'agents_pic'){
+                    data.agents_pic = $('.ziZhiImgDiv').eq(i).find('img').attr('src');
+                }
+            }
+        }
+        if(!data.firmsName){
+//            $('#save').attr('onclick','save()');
+            layer.msg('请填写公司全称');
+            return false;
+        }
+        if(!data.firmsMan){
+            layer.msg('请填写联系人名称');
+            return false;
+        }
+        if(!data.firmsTel){
+            layer.msg('请填写手机号码');
+            return false;
+        }
+        if(!/^1[34578]\d{9}$/.test(data.firmsTel)){
+            layer.msg('请正确填写手机号码');
+            return false;
+        }
+        if(!data.province || data.province=='省份'){
+            layer.msg('请选择所在省份');
+            return false;
+        }
+        if(!data.city || data.city=='地级市'){
+            layer.msg('请选择所在地级市');
+            return false;
+        }
+        if(!data.district || data.district=='市、县级市'){
+            layer.msg('请选择所在县/区');
+            return false;
+        }
+        if(!data.address){
+            layer.msg('请填写详细地址');
+            return false;
+        }
+        if(!data.licence_pic && !data.taxes_pic && !data.field_pic && !data.brand_pic && !data.agents_pic){
+            layer.msg('请填至少上传一张资质照片');
+            return false;
+        }
+        $.ajax({
+            url: "/pc.product/approveing",    //请求的url地址
+            dataType: "json",   //返回格式为json
+            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+            data: {"data": data},    //参数值
+            type: "POST",   //请求方式
+            success: function (req) {
+                console.log(req);
+                if(req.status==1){
+                    location.href='/person/approveResult';
+                }else{
+                    layer.msg('审核失败');
+                }
+            }
+        });
+    }
+
+    function upImg(i) {
+        var id = '#upImgToken'+i;
+        //图片上传
+        var wordUploader = WebUploader.create({
+            // 选完文件后，是否自动上传。
+            auto: true,
+            // swf文件路径
+            swf: '/js/webuploader/Uploader.swf',
+            // 文件接收服务端。
+            server: '/tools/baiduUploadForHome',
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: id,
+            sendAsBinary: true,
+            // 只允许选择文件类型。
+            accept: {
+                title: 'Applications',
+                extensions: 'jpg,png,jpeg,png',
+                mimeTypes: '.jpg,.png,.jpeg,.png'
+            }
+        });
+
+        //文件上传成功后的处理，在界面上的呈现，显示
+        wordUploader.on('uploadSuccess', function (file, response) {
+            layer.closeAll('loading'); //关闭加载层
+            if(id == '#upImgToken1'){
+                $('.ziZhiImgDiv').eq(0).find('img').attr('src',response.httpUrl);
+                $('.ziZhiImgDiv').eq(0).find('img').attr('token',1);
+                $('.ziZhiImgDiv').eq(0).find('.imgInfo').hide();
+            }else if(id == '#upImgToken2'){
+                $('.ziZhiImgDiv').eq(1).find('img').attr('src',response.httpUrl);
+                $('.ziZhiImgDiv').eq(1).find('img').attr('token',1);
+                $('.ziZhiImgDiv').eq(1).find('.imgInfo').hide();
+            }else if(id == '#upImgToken3'){
+                $('.ziZhiImgDiv').eq(2).find('img').attr('src',response.httpUrl);
+                $('.ziZhiImgDiv').eq(2).find('img').attr('token',1);
+                $('.ziZhiImgDiv').eq(2).find('.imgInfo').hide();
+            }else if(id == '#upImgToken4'){
+                $('.ziZhiImgDiv').eq(3).find('img').attr('src',response.httpUrl);
+                $('.ziZhiImgDiv').eq(3).find('img').attr('token',1);
+                $('.ziZhiImgDiv').eq(3).find('.imgInfo').hide();
+            }else if(id == '#upImgToken5'){
+                $('.ziZhiImgDiv').eq(4).find('img').attr('src',response.httpUrl);
+                $('.ziZhiImgDiv').eq(4).find('img').attr('token',1);
+                $('.ziZhiImgDiv').eq(4).find('.imgInfo').hide();
+            }
+            layer.msg('上传成功');
+        });
+        //文件上传失败
+        wordUploader.on('uploadError', function (file, response) {
+            layer.closeAll('loading'); //关闭加载层
+            //失败提示
+            layer.msg('上传失败');
+        });
+
+        //文件上中
+        wordUploader.on('uploadProgress', function (file, percentage) {
+            layer.load(0, {shade: false});
+        });
+    }
+
+</script>

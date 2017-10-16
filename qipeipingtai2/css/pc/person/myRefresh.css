@@ -1,0 +1,43 @@
+.titles{height: 90px;line-height: 90px;margin-top: 15px;text-align: center;font-size: 20px;font-weight: 500;color: #5D5D5D}
+.vipBGImg{margin: auto;height: 400px;width: 706px;border-radius: 10px;overflow: hidden;background: url('/images/qpxm/pc/person/myRefresh/bg.png')}
+.vipKaiTongDiv{text-align: center;margin-top: 48px;margin-bottom: 50px;}
+.vipKaiTong{font-size: 18px;color: #FFF;background: #FF524B;width: 440px;height: 62px;border:none;border-radius: 7px;line-height: 62px;}
+.refreshCount{line-height: 400px;text-align: center;text-shadow:1px 1px 3px hsl(10,35%,35%);font-size: 55px;font-weight: bold;color: #FD7505;}
+
+/*刷新点充值*/
+.goBackDiv{position: absolute;top: -20px;left: 30px;font-weight: normal}
+#recharge{padding: 40px;font-size: 18px;}
+.marLeft150W570{width: 570px;margin-left: 150px;}
+.rechargeList{height: 50px;line-height: 50px;border-bottom: 1px solid #DDD;}
+.floLeftMarLeft70{float: left;margin-left: 70px;}
+.floRightMarRight25{float: right;margin-right: 25px;}
+.marTop55{margin-top: 55px;}
+.payDiv{margin: 0 auto;width: 395px;margin-top: 30px;}
+.floLeftW86{float: left;width: 86px;}
+.payImgDiv{text-align: center;margin-top: 15px;}
+.floRightW86{float: right;width: 86px;}
+.payBtnDiv{width: 440px;margin: 0 auto;margin-top: 80px;margin-bottom: 50px;}
+.payBtn{font-size: 20px;width: 100%;height: 64px;background: #FF524B;border: none;border-radius: 7px;color: #FFF;}
+.jinEInput{line-height: 50px;text-align: center;width: 520px;height: 50px;border: 1px solid #DDD;padding-left: 10px;border-radius: 5px;}
+.floLeft{float: left;}
+.gouMai{float: left;width: 180px;line-height: 50px;}
+.marBottom15{margin-bottom: 15px;}
+.biLi{float: left;width: 215px;}
+.marBottom50{margin-bottom: 50px;}
+
+
+
+/*固定定位QQ、电话*/
+.fixedQQ{display: none;color: #FFF;text-align:center;float: right;height: 40px;margin-top: 10px;width: 150px;border: 2px solid #FAA29E;border-radius: 30px;line-height: 40px;background: #FAA29E}
+.fixedDiv{height: 60px;margin-top: 20px;}
+.fixedDinWei{position: fixed;width: 260px;height: 260px;top: 300px;right: 15px;z-index: 100}
+.fixedYuan{float: right;height: 60px;width: 60px;text-align: center;line-height: 52px}
+
+
+
+
+
+
+
+
+

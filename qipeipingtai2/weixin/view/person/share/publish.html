@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>发布动态</title>
+    <link rel="stylesheet" href="../../../css/mui.min.css" />
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+</head>
+<style>
+	html{
+		background: #FFFFFF;
+	}
+	.sw-grid-view:after{
+		height: 0;
+	}
+	.sw-img-view:after,.sw-img-view:before{
+		height: 0;
+	}	
+	.sw-icon-dt{
+		position: absolute;right: 4px;top: 14px;width: 18px;height: 18px;background: url(../../../image/coterie/icon_dt_c.png) no-repeat;background-size: contain;
+	}
+	.sw-publish-img{
+		width: 13px;height: 13px;margin-right: 4px;vertical-align: middle;display: inline-block;margin-top: -2px;
+	}
+	.sw-publish-text1{
+		padding: 0;text-align: left!important;font-size: 13px!important;color: #999;
+	}
+	.sw-publish-text2{
+		padding: 0;text-align: right!important;font-size: 13px!important;color: #999;
+	}
+	.sw-publish-area{
+		border: none;font-size: 14px;margin-bottom: 0!important;
+	}
+	.sw-publish-areabox{
+		margin:0!important;border-bottom: 1px solid #EFEFEF!important;
+	}
+	.sw-publish-tips{
+		padding: 4px 15px 0;border-bottom: 0!important;background: #EFEFEF;
+	}
+	
+	.sw-company-show{
+		padding-left: 15px;padding-right: 15px; background: #EFEFEF;
+	}
+	.sw-company-show:after,.sw-company-show:before{
+		height: 0;
+	}
+	.sw-dp-img1{
+		width: 110px!important;max-width:110px!important;height: 110px!important;
+	}
+</style>	
+<body style="background: #EFEFEF;">
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">发布动态</h1>
+	    <button class="mui-btn mui-btn-link mui-pull-right" onclick="topushCircle()">发布</button>
+	</header>
+	
+	<div class="mui-content" style="background: #FFFFFF;">
+		<input type="number" name="publishType" id="publishType" value="" style="display: none;" />
+		<input type="text" name="EnterpriseID" id="EnterpriseID" value="" style="display: none;" />
+		<input type="number" name="cardId" id="cardId" value="" style="display: none;" />
+		<div class="mui-input-row sw-publish-areabox">
+			<textarea id="textarea" rows="5" class="sw-publish-area" placeholder="写点什么？"></textarea>
+			<script type="text/javascript">
+			
+			</script>
+		</div>
+		<div></div>
+		
+		<ul class="mui-table-view mui-grid-view sw-grid-view sw-publish-tips">
+			<li class="mui-table-view-cell mui-media mui-col-xs-6 sw-publish-text1">
+				<span id="imgNum">
+					<img src="../../../image/coterie/icon_dt_pic.png" class="sw-publish-img"/><span id='thatImgNum'>1</span>/9张
+				</span>
+			</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-6 sw-publish-text2"><apan id="text-count">0</apan>/200字</li>
+		</ul>
+		
+		<ul class="mui-table-view mui-grid-view sw-img-view" id="banner-list" style="display: none;">
+			
+			<li class="mui-table-view-cell mui-media mui-col-xs-4" style="position: relative;"  id="uploadCon">
+				<label style="height: 0;">
+					<img class="mui-media-object sw-img" id="imgSrc" src="../../../image/person/purchase/tianjiazp.png">
+					<input type="file" id="file" name="file" accept="image/gif,image/jpeg,image/jpg,image/png,capture=camera"  onchange="ajaxFileUpload()" style="width: 0;height: 0;border: none;display: block"/>
+				</label>
+			</li>
+			
+		</ul>
+		
+		<div class="mui-table-view sw-company-show" id="firmBox" style="display: none;">
+			<div class="mui-table-view-cell mui-media sw-no-active" style="background: #FFFFFF;">
+				<div style="width: 110px;height: 110px;display: inline-block;float: left;">
+					<img class="mui-media-object mui-pull-left sw-dp-img1" id="share_1_face" src="../../../image/log.png">  
+				</div>	
+				<div style="height: 110px;position: relative;padding-left: 114px;">
+					<div class="sw-box-3">
+						
+					 	<div class="sw-box-4 sw-renv">  
+							<p class="sw-word-one sw-box-5 sw-ctheme" id="share_1_company"></p>			
+						</div>
+						
+					</div>
+								
+				</div>							
+			</div>
+		</div>  
+		
+		<script id="banner-list-tpl" type="text/html">
+			<li class="mui-table-view-cell mui-media mui-col-xs-4" style="position: relative;">
+				<p class="sw-icon-dt" onclick="delImg(this)"></p>		
+				<img src="{{ imgUrl+d.imgUrl }}" class="sw-img" height="{{ imgH }}px"  width="100%"/>
+				<input value="{{ d.imgUrl }}" name="banner" hidden="hidden" />
+			</li>
+		</script>
+		
+		<script id="card-list-tpl" type="text/html">
+			<li class="mui-table-view-cell mui-media mui-col-xs-4" style="position: relative;">				
+				<img src="{{ imgUrl+d.imgUrl }}" class="sw-img" height="{{ imgH }}px"  width="100%"/>
+				<input value="{{ d.imgUrl }}" name="banner" hidden="hidden" />
+			</li>
+		</script>
+		
+	</div>
+	 
+</body>
+<script type="text/javascript" src="../../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../../js/global.js"></script>
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/laytpl/laytpl.js"></script>
+<script type="text/javascript" src="../../../js/ajaxFileUpload.js" ></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZBcSIHdvwjfx105K8jvQCj5W"></script>
+<script type="text/javascript">
+	/*字数限制*/
+    $("#textarea").on("input propertychange", function() {
+        var $this = $(this),
+            _val = $this.val(),
+            count = "";
+        if (_val.length > 200) {
+            $this.val(_val.substring(0, 200));
+        }
+        //count = 200 - ;
+        $("#text-count").text($this.val().length);
+    });
+
+
+	var imgH = parseInt((document.body.clientWidth-51)/3);
+		console.log(imgH)
+ 	var procinstid = 0; 
+	var nowArea = ''; 
+	
+    //初始化页面执行操作  
+    $(function(){
+
+		var self = sw.getQueryVariable();
+
+		var publishType  = self.publishType;
+		var EnterpriseID = self.EnterpriseID;
+		var cardUrl = self.cardUrl;
+		var cardId = self.cardId;
+
+		$("#publishType").val(publishType);
+
+		if(publishType==2){//分享邀请码
+			shareInvite();
+
+			$("#imgNum").hide();
+			$("#firmBox").show();
+
+		}
+
+		if(publishType==3){//分享店铺
+			shareStore(EnterpriseID);
+			$("#imgNum").hide();
+			$("#firmBox").show();
+		}
+
+		if(publishType==4){//分享名片
+
+			var data = {'imgUrl':cardUrl,'height':imgH};
+			var pTpl   = $('#card-list-tpl').html();
+
+			laytpl(pTpl).render(data,function(render){
+				$('#banner-list').append(render);
+			});
+
+			$("#cardId").val(cardId);
+
+			$("#imgNum").show();
+			$("#banner-list").show();
+		}
+
+
+		//延时加载地图
+		setTimeout(function(){
+			var geolocation = new BMap.Geolocation();
+			geolocation.getCurrentPosition(function(r){
+				if(this.getStatus() == BMAP_STATUS_SUCCESS){
+					nowArea = r.address.city;
+				}
+				else {
+					sw.toast('failed'+this.getStatus());
+				}
+			},{enableHighAccuracy: true});
+
+		},300)
+	});
+
+
+
+/**
+ * 获取分享邀请码
+ */
+function shareInvite(){
+	
+	//监控页面是否登录
+	if(UserInfo.has_login()){		
+		var token   = JsonStorage.getItem('token');
+		var postData = {};
+			postData.token = token;
+		//如果已经登陆 获取登录后的数据
+		http.load('api.sev.user','getUserInfo',postData,function(rData){//请求成功
+ 						
+ 			if(rData.status==200){ 	
+ 				dy(rData);
+ 				var data = rData.data;	
+ 				//输入框
+ 				var inviteStr = "欢迎各位厂商使用我的邀请码：" + data.invite_code;
+     				$("#textarea").val(inviteStr).attr('readonly','readonly');
+     			//face
+     			$("#share_1_face").attr('src',imgUrl+data.face_pic);
+     			//名称
+     			$("#share_1_company").text(data.companyname);
+     			//
+     			$("#EnterpriseID").val(data.EnterpriseID)
+ 			}else{ 
+ 				sw.toast(rData.msg); 	 
+ 			}
+	
+ 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+			//无网络提示
+			sw.toast('请求失败，服务器或网络异常'); 
+ 		})
+
+	}else{//未登录显示未登录界面
+		//顶部 
+	  sw.toast('您还未登录，请登录后重试'); 
+	}	
+	
+}
+
+/**
+ * 获取店铺信息
+ */
+function shareStore(EnterpriseID){
+	
+	//监控页面是否登录
+	if(UserInfo.has_login()){	
+		var token   = JsonStorage.getItem('token');
+		var userType = JsonStorage.getItem('userType');	//2为业务员 	
+		var postData = {};
+			postData.EnterpriseID = EnterpriseID;
+			postData.userType = userType;
+			postData.token    = token;
+			postData.token    = token;
+		//如果已经登陆 获取登录后的数据
+		http.load('api.sev.index','getFirmDetail',postData,function(rData){//请求成功
+ 						
+ 			if(rData.status==200){ 	
+ 				dy(rData);
+ 				var data = rData.data;				
+     			//face
+     			$("#share_1_face").attr('src',imgUrl+data.face_pic);
+     			//名称
+     			$("#share_1_company").text(data.companyname);
+     			//
+     			$("#EnterpriseID").val(data.EnterpriseID)
+ 			}else{ 
+ 				sw.toast(rData.msg); 	 
+ 			}
+	
+ 		},function(xhr,type,errorThrown){//请求失败 将之前的数据填入
+			//无网络提示
+			sw.toast('请求失败，服务器或网络异常'); 
+ 		})
+
+	}else{//未登录显示未登录界面
+		//顶部 
+	  sw.toast('您还未登录，请登录后重试'); 
+	}	
+	
+}
+
+
+var files={};
+
+	//图片上传
+	function ajaxFileUpload() {
+		$.ajaxFileUpload
+		(
+				{
+					url:imgUploadImg, //用于文件上传的服务器端请求地址
+					secureuri: false, //一般设置为false
+					fileElementId: 'file', //文件上传空间的id属性  <input type="file" id="file" name="file" />
+					dataType: 'json', //返回值类型 一般设置为json
+					success: function (data, status)  //服务器成功响应处理函数
+					{
+						//console.log(data)
+						//上传成功返回值，必须为json格式
+						if(data.status==200){
+							setOtherP(data.url);
+						}
+
+					},
+					error: function (data, status, e)//服务器响应失败处理函数
+					{
+
+					}
+				}
+		);
+		return false;
+	}
+
+	//图片上传成功操作页面
+	function setOtherP(banner_pic){
+		//获取已经上传的图片数量
+		var otherpList = $("input[name='banner']");
+		var len = otherpList.length;
+		if(len<9){
+			var data = {};
+			data.imgUrl = banner_pic;
+			data.height = imgH;
+			sw.jcon(data)
+			var pTpl   = $('#banner-list-tpl').html();
+			laytpl(pTpl).render(data,function(render){
+				$('#banner-list').append(render);
+			});
+		}
+
+		if(len>7){
+			$("#uploadCon").css('display','none');
+		}else{
+			$("#uploadCon").css('display','');
+		}
+
+		$('#thatImgNum').html(parseInt($('#thatImgNum').html())+1);
+
+	}
+
+	/**
+	 * 删除图片
+	 * @param {Object} j
+	 */
+	function delImg(j){
+		$(j).parent().remove();//移除自身
+		$("#uploadCon").css('display','');//显示上传
+		$('#thatImgNum').html(parseInt($('#thatImgNum').html())-1);
+	}
+
+function topushCircle(){
+	loading('发布中...');  
+
+	var postData = {};
+		postData.content      = $('#textarea').val();
+		postData.circleType   = $("#publishType").val();
+		postData.EnterpriseID = $("#EnterpriseID").val();
+		postData.cardId = $("#cardId").val();
+		postData.area    = nowArea;
+		postData.token    = JsonStorage.getItem('token');
+		postData.userType = JsonStorage.getItem('userType');	//2为业务员
+
+		var imgs = '';
+		$("input[name='banner']").each(function (i,v) {
+			imgs += $(v).val()+',';
+		});
+		postData.imgs=imgs;
+		//dy(postData);
+
+		http.load('api.sev.circle','release',postData,function(rData){//请求成功
+		//关闭加载框
+			closeLoading();
+			sw.toast(rData.msg);
+			if(rData.status==200){
+				mui.back()
+			}
+		},function(xhr,type,errorThrown){//请求失败
+			//无网络提示
+			sw.toast('请求失败，服务器或网络异常');
+		})
+
+}
+</script> 
+</html> 

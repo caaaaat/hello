@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>关于我们</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" charset="utf-8">   
+    </script>
+</head>
+<style>
+	.sw-payList:after{ 
+		left: 0;
+	}
+	.sw-title{
+		font-size: 14px;color: #666;
+	}
+	.sw-text{
+		font-size: 14px;color: #666;margin-right: 18px;line-height: 21px;float: right;margin-top: 4px;
+	}
+</style>
+<body style="background: #F5F5F5;">
+	   
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">关于我们</h1>
+	</header>
+	
+	<div class="mui-content" style="background: #F5F5F5;" id="content">
+		   
+		<div class="" style="text-align: center;padding-top: 60px;">
+			<img src="../../../image/log.png" style="width: 120px;border-radius: 12px;"/>
+			<p style="color: #666">汽配群</p>
+		</div>
+	    
+	    
+	    <div class="" style="width:100%;position: absolute;bottom: 60px;display: inline-block;text-align: center;"> 
+			<p style="color: #666;margin-bottom: 0;"><a id="agreement">《服务协议》</a></p>
+			<p style="color: #666;margin-bottom: 0;font-size: 12px;">Copyright © 2016.</p>
+			<p style="color: #666;font-size: 12px;">All Rights Reserved.</p>	 
+		</div>
+	    
+	     
+	</div> 
+	
+</body>
+ <script src="../../../js/mui.min.js"></script>
+ <script src="../../../js/global.js"></script>
+<script src="../../../js/jquery.min.js"></script>
+<script>
+	//服务协议
+	mui("#agreement")[0].addEventListener('tap',function(){
+		openView('../../../view/person/set/agreement.html','agreement','pop-in');
+	})
+ </script>
+</html>
+
+
+

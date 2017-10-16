@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <?php if($id == 3){?>
+    <link rel="stylesheet" href="/js/jstree/dist/themes/default/style.min.css" />
+    <!--<link href="/js/hplus/css/plugins/treeview/bootstrap-treeview.css" rel="stylesheet">-->
+    <?php }?>
+    <style>
+        input{text-align: center;}
+        #tip{font-size: 15px;}
+    </style>
+</head>
+<body>
+<div class="col-xs-12">
+    <div class="ibox-content" style="border-width:0">
+
+        <?php $id = isset($id) ? $id : '' ;?>
+        <?php if($id) {?>
+        <input type="hidden" value="<?php echo $id ;?>" id="id"/>
+
+        <!--经销商VIP配置-->
+        <?php if($id == 1) {?>
+        <div class="form-horizontal" style="margin-bottom: 10px;height: 36px;">
+            <div class="col-xs-2 " style="width: 50px;height: 36px; text-align: center;line-height: 36px; padding-top: 2px;">
+                <span style="display: inline-block;width: 20px;height: 20px; line-height:20px;border-radius: 10px;background-color: red; color: white;font-size: 20px;">!</span>
+            </div>
+            <div class="col-xs-5" style="padding-left: 0;height: 36px; line-height: 36px;">
+                <b>
+                    充值选项列表
+                </b>
+
+            </div>
+            <div class="text-right" style="padding-top: 10px;">
+                <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" id="btn_1">添加</button></span>
+            </div>
+
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th style="text-align: center;">排序</th>
+                            <th style="text-align: center;">开通/续费月份</th>
+                            <th style="text-align: center;">金额(元)</th>
+                            <th style="text-align: center;">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody style="text-align: center" id="t_body_1">
+                        <?php $ini = isset($ini) ? $ini : '' ;?>
+                        <?php if($ini) {?>
+                        <?php foreach ($ini as $ik=>$iv){?>
+
+                        <tr>
+                            <td style=" width: 40px;"><input type="number" name="sort" value="<?php echo $iv['sort'] ;?>"/></td>
+                            <td style=" width: 40px;"><input type="number" name="number" value="<?php echo $iv['number'] ;?>"/></td>
+                            <td style=" width: 40px;"><input type="number" name="money" value="<?php echo $iv['money'] ;?>"/></td>
+                            <td style=" width: 40px;"><button type="submit" class="btn btn-xs btn-danger">删除</button></td>
+                        </tr>
+                        <?php }?>
+                        <?php }else{?>
+                        <tr>
+                            <th style="text-align: center;"><input type="number" name="sort" value=""/></th>
+                            <th style="text-align: center;"><input type="number" name="number" value=""/></th>
+                            <th style="text-align: center;"><input type="number" name="money" value=""/></th>
+                            <th style="text-align: center;"><button type="submit" class="btn btn-xs btn-danger">删除</button></th>
+                        </tr>
+
+                        <?php }?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group" style="height: 25px;">
+                <div class="col-xs-4"></div>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <span id="tip" style="color: red;height: 25px;"></span>
+                </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+                <div class="col-xs-12" style="text-align: center;">
+                    <button class="btn btn-default" type="submit" onclick="parent.layer.closeAll()">取消</button>
+                    <button class="btn btn-primary" type="submit" id="btn_submit_1">确认</button>
+                </div>
+            </div>
+        </div>
+
+        <!--刷新点配置-->
+        <?php }else if($id == 2){?>
+        <div class="form-horizontal" style="margin-bottom: 10px;height: 36px;">
+
+            <div class="col-xs-2 " style="width: 50px;height: 36px; text-align: center;line-height: 36px; padding-top: 2px;">
+                <span style="display: inline-block;width: 20px;height: 20px; line-height:20px;border-radius: 10px;background-color: red; color: white;font-size: 20px;">!</span>
+            </div>
+            <div class="col-xs-10" style="padding-left: 0;height: 36px; line-height: 36px;">
+                <p>
+                    <b>兑换比例：</b><input value="<?php echo $ini['proportion']['ref']?>" type="number" id="inp_ref" style="width: 80px;height: 25px;"/> 刷新点 =
+                    <input value="<?php echo $ini['proportion']['money']?>" type="number" id="inp_mon" style="width: 80px;height: 25px;"/> 元
+                </p>
+            </div>
+            <div class="col-xs-1" style="width: 100px;"></div>
+            <div class="col-xs-5">
+                <p>注: 兑换比例设置只能是整数</p>
+            </div>
+        </div>
+        <div style="clear: both"></div>
+        <div class="form-horizontal" style="margin-bottom: 10px;height: 36px;">
+
+            <div class="col-xs-2 " style="width: 50px;height: 36px; text-align: center;line-height: 36px; padding-top: 2px;">
+                <span style="display: inline-block;width: 20px;height: 20px; line-height:20px;border-radius: 10px;background-color: red; color: white;font-size: 20px;">!</span>
+            </div>
+            <div class="col-xs-5" style="padding-left: 0;height: 36px; line-height: 36px;">
+                <b>
+                    充值选项列表
+                </b>
+
+            </div>
+            <div class="text-right" style="padding-top: 10px;">
+                <span><button type="submit" class="btn btn-xs btn-primary" style="margin-left: 2px;" id="btn_2">添加</button></span>
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th style="text-align: center;">排序</th>
+                            <th style="text-align: center;">刷新点数</th>
+                            <th style="text-align: center;">金额(元)</th>
+                            <th style="text-align: center;">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody style="text-align: center" id="t_body_2">
+                        <?php $ini = isset($ini['select']) ? $ini['select'] : '' ;?>
+                        <?php if($ini) {?>
+                        <?php foreach ($ini as $ik=>$iv){?>
+
+                        <tr>
+                            <td style=" width: 40px;"><input type="number" name="sort"   value="<?php echo $iv['sort'] ;?>"/></td>
+                            <td style=" width: 40px;"><input type="number" name="number" value="<?php echo $iv['number'] ;?>"/></td>
+                            <td style=" width: 40px;"><input type="number" name="money"  value="<?php echo $iv['money'] ;?>"/></td>
+                            <td style=" width: 40px;"><button type="submit" class="btn btn-xs btn-danger">删除</button></td>
+                        </tr>
+                        <?php }?>
+                        <?php }else{?>
+                        <tr>
+                            <th style="text-align: center;"><input type="number" name="sort"   value=""/></th>
+                            <th style="text-align: center;"><input type="number" name="number" value=""/></th>
+                            <th style="text-align: center;"><input type="number" name="money"  value=""/></th>
+                            <th style="text-align: center;"></th>
+                        </tr>
+
+                        <?php }?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group" style="height: 25px;">
+                <div class="col-xs-4"></div>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <span id="tip" style="color: red;height: 25px;"></span>
+                </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+                <div class="col-xs-12" style="text-align: center;">
+                    <button class="btn btn-default" type="submit" onclick="parent.layer.closeAll()">取消</button>
+                    <button class="btn btn-primary" type="submit" id="btn_submit_2">确认</button>
+                </div>
+            </div>
+        </div>
+
+        <!--服务城市配置-->
+        <?php }else if($id == 3){?>
+        <div class="form-horizontal" style="margin-bottom: 10px;height: 36px;">
+            <div class="col-xs-2 " style="width: 50px;height: 36px; text-align: center;line-height: 36px; padding-top: 2px;">
+                <span style="display: inline-block;width: 20px;height: 20px; line-height:20px;border-radius: 10px;background-color: red; color: white;font-size: 20px;">!</span>
+            </div>
+            <div class="col-xs-10" style="padding-left: 0;height: 36px; line-height: 36px;">
+                <b>
+                    服务城市列表
+                </b>
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group col-xs-12" id="jstree"></div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+                <div class="col-xs-12" style="text-align: center;">
+                    <button class="btn btn-default" type="submit" onclick="parent.layer.closeAll()">取消</button>
+                    <button class="btn btn-primary" type="submit" id="btn_submit_3">确认</button>
+                </div>
+            </div>
+        </div>
+
+        <!--客服电话QQ配置-->
+        <?php }else if($id == 4){?>
+        <!--<div class="form-group" style="height: 30%;"></div>-->
+        <div class="form-horizontal" style="margin-bottom: 10px;height: 36px;">
+
+            <div class="col-xs-12 col-xs-offset-4" style="padding-left: 0;height: 36px; line-height: 36px;">
+                <span style="display: inline-block;width: 20px;height: 20px; line-height:20px;border-radius: 10px;background-color: red; color: white;font-size: 20px; text-align: center;">!</span>
+                    &nbsp;
+                <b>
+                    客服电话QQ配置
+                </b>
+
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-4" style="text-align: right;">
+                    <label><span style="color: red;">＊</span>客服 QQ:</label>
+                </div>
+                <div class="col-xs-7">
+                    <input type="tel" value="<?php echo $ini['qq'] ;?>" id="qq"  style="text-align: left; padding-left: 10px;width: 280px;"/>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="col-xs-4" style="text-align: right;">
+                    <label><span style="color: red;">＊</span>客服电话:</label>
+                </div>
+                <div class="col-xs-7">
+                    <input type="tel" value="<?php echo $ini['tel'] ;?>" id="tel" style="text-align: left; padding-left: 10px;width: 280px;"/>
+                </div>
+
+            </div>
+
+            <div class="form-group" style="height: 25px;">
+                <div class="col-xs-4"></div>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <span id="tip" style="color: red;height: 25px; padding-left: 15px;"></span>
+                </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+                <div class="col-xs-12" style="text-align: center;">
+                    <button class="btn btn-default" type="submit" onclick="parent.layer.closeAll()">取消</button>
+                    <button class="btn btn-primary" type="submit" id="btn_submit_4">确认</button>
+                </div>
+            </div>
+        </div>
+
+        <!--服务协议配置-->
+        <?php }else if($id == 5){?>
+        <div class="form-horizontal" style="margin-bottom: 10px;height: 36px;">
+            <div class="col-xs-2 " style="width: 50px;height: 36px; text-align: center;line-height: 36px; padding-top: 2px;">
+                <span style="display: inline-block;width: 20px;height: 20px; line-height:20px;border-radius: 10px;background-color: red; color: white;font-size: 20px;">!</span>
+            </div>
+            <div class="col-xs-10" style="padding-left: 0;height: 36px; line-height: 36px;">
+                <b>
+                    服务协议配置
+                </b>
+
+            </div>
+        </div>
+        <div class="form-group">
+
+            <div class="col-xs-12">
+                <textarea style="resize: none;" id="protocol"><?php echo $ini['value'] ;?></textarea>
+            </div>
+
+        </div>
+        <div style="clear: both;"></div>
+        <div class="form-group" style="height: 25px; margin-top: 15px;margin-bottom: 0;">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-7" style="padding-left: 0;">
+                <span id="tip" style="color: red;height: 25px;"></span>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <div class="col-xs-12" style="text-align: center;">
+                <button class="btn btn-default" type="submit" onclick="parent.layer.closeAll()">取消</button>
+                <button class="btn btn-primary" type="submit" id="btn_submit_5">确认</button>
+            </div>
+        </div>
+
+        <!--分享送刷新点配置-->
+        <?php }else if($id == 6){?>
+        <!--<div class="form-group" style="height: 120px;"></div>-->
+        <div class="form-horizontal" style="margin-bottom: 10px;height: 36px;">
+
+            <div class="col-xs-12 col-xs-offset-4" style="padding-left: 9px;height: 36px; line-height: 36px;">
+                <span style="display: inline-block;width: 20px;height: 20px; line-height:20px;border-radius: 10px;background-color: red; color: white;font-size: 20px; text-align: center;">!</span>
+                &nbsp;
+                <b>
+                    分享送刷新点配置
+                </b>
+
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-4" style="text-align: right;">
+                    <label><span style="color: red;">＊</span>邀请人获得刷新点:</label>
+                </div>
+                <div class="col-xs-7">
+                    <input type="number" value="<?php echo $ini['invitation'] ;?>" id="invitation" style="text-align: left; padding-left: 10px;width: 280px;"/>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="col-xs-4" style="text-align: right;">
+                    <label><span style="color: red;">＊</span>被邀请人获得刷新点:</label>
+                </div>
+                <div class="col-xs-7">
+                    <input type="number" value="<?php echo $ini['invited'] ;?>" id="invited" style="text-align: left; padding-left: 10px;width: 280px;"/>
+                </div>
+
+            </div>
+
+            <div class="form-group" style="height: 25px;">
+                <div class="col-xs-4"></div>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <span id="tip" style="color: red;height: 25px; padding-left: 15px;"></span>
+                </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+                <div class="col-xs-12" style="text-align: center;">
+                    <button class="btn btn-default" type="submit" onclick="parent.layer.closeAll()">取消</button>
+                    <button class="btn btn-primary" type="submit" id="btn_submit_6">确认</button>
+                </div>
+            </div>
+        </div>
+
+        <!--汽修厂拨打数量分级配置-->
+        <?php }else if($id == 7){?>
+        <div class="form-horizontal" style="margin-bottom: 10px;height: 36px;">
+            <div class="col-xs-2 " style="width: 50px;height: 36px; text-align: center;line-height: 36px; padding-top: 2px;">
+                <span style="display: inline-block;width: 20px;height: 20px; line-height:20px;border-radius: 10px;background-color: red; color: white;font-size: 20px;">!</span>
+            </div>
+            <div class="col-xs-10" style="padding-left: 0;height: 36px; line-height: 36px;">
+                <p style="color: #0099FF ;">
+                    拨打分级是指汽修厂前30天内拨打电话的数量分级
+                </p>
+
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th style="text-align: center;">等级</th>
+                            <th style="text-align: center;">数量范围</th>
+                        </tr>
+                        </thead>
+                        <tbody style="text-align: center" id="t_body_7">
+                        <?php $ini = isset($ini) ? $ini : '' ;?>
+                        <tr id="lv1">
+                            <td style=" width: 40px;" >1</td>
+                            <td style=" width: 40px;">
+                                <input type="number" name="min" value="<?php echo isset($ini['lv1']['min']) ? $ini['lv1']['min'] : 0  ;?>"/> 至
+                                <input type="number" name="max" value="<?php echo isset($ini['lv1']['max']) ? $ini['lv1']['max'] : '' ;?>"/>
+                            </td>
+                        </tr>
+                        <tr id="lv2">
+                            <td style=" width: 40px;" >2</td>
+                            <td style=" width: 40px;">
+                                <input type="number" name="min" value="<?php echo isset($ini['lv2']['min']) ? $ini['lv2']['min'] : '' ;?>"/> 至
+                                <input type="number" name="max" value="<?php echo isset($ini['lv2']['max']) ? $ini['lv2']['max'] : '' ;?>"/>
+                            </td>
+                        </tr>
+                        <tr id="lv3">
+                            <td style=" width: 40px;" >3</td>
+                            <td style=" width: 40px;">
+                                <input type="number" name="min" value="<?php echo isset($ini['lv3']['min']) ? $ini['lv3']['min'] : '' ;?>"/> 至
+                                <input type="number" name="max" value="<?php echo isset($ini['lv3']['max']) ? $ini['lv3']['max'] : '' ;?>"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group" style="height: 25px;">
+                <div class="col-xs-4"></div>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <span id="tip" style="color: red;height: 25px; padding-left: 15px;"></span>
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+                <div class="col-xs-12" style="text-align: center;">
+                    <button class="btn btn-default" type="submit" onclick="parent.layer.closeAll()">取消</button>
+                    <button class="btn btn-primary" type="submit" id="btn_submit_7">确认</button>
+                </div>
+            </div>
+        </div>
+
+        <!--业务员提成配置-->
+        <?php }else if($id == 8){?>
+        <div class="form-horizontal" style="margin-bottom: 10px;height: 36px;">
+            <div class="col-xs-2 " style="width: 50px;height: 36px; text-align: center;line-height: 36px; padding-top: 2px;">
+                <span style="display: inline-block;width: 20px;height: 20px; line-height:20px;border-radius: 10px;background-color: red; color: white;font-size: 20px;">!</span>
+            </div>
+            <div class="col-xs-10" style="padding-left: 0;height: auto; line-height: 20px;">
+                <p style="color: #0099FF ; word-break: break-all;">
+                    修理厂使用频率提成：针对汽修厂中“修理厂”使用频率的提成，是统计对应等级关联修理厂的数量提成
+                </p>
+
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+        <div class="form-horizontal" style="margin-bottom: 10px;height: 36px;">
+
+
+            <div class="col-xs-12" style="padding-left: 0;height: 36px; line-height: 36px;">
+                <p>
+                    <b style="width: 150px;display: inline-block;">新增关联汽修厂提成：</b>
+                    <input value="<?php echo $ini['commission']['new_relation']?>" type="number" id="new_relation" style="width: 150px;height: 25px;"/>  元/个
+                </p>
+            </div>
+          <div class="col-xs-12" style="padding-left: 0;height: 36px; line-height: 36px;">
+                <p>
+                    <b style="width: 150px;display: inline-block;">汽修厂关联提成：</b>
+                    <input value="<?php echo $ini['commission']['relation']?>" type="number" id="relation" style="width: 150px;height: 25px;"/>  元/个
+                </p>
+            </div>
+          <div class="col-xs-12" style="padding-left: 0;height: 36px; line-height: 36px;">
+                <p>
+                    <b style="width: 150px;display: inline-block;">关联厂商充值提成：</b>
+                    <input value="<?php echo $ini['commission']['recharge']?>" type="number" id="recharge" style="width: 150px;height: 25px;"/>  元/每充值1元
+                </p>
+            </div>
+
+        </div>
+        <div class="form-horizontal">
+            <div class="col-xs-12" style="padding-left: 0;height: 36px; line-height: 36px;">
+                <p>
+                    <b style="width: 150px;display: inline-block;">汽修厂使用频率提成：</b>
+                </p>
+            </div>
+            <div class="form-group col-xs-12" style="margin-bottom: 3px;">
+                <div class="table-responsive">
+
+                    <table class="table table-hover table-bordered" style="border: 0;">
+                        <thead>
+                        <tr>
+                            <th style="text-align: center;">等级</th>
+                            <th style="text-align: center;">提成单价（元）</th>
+                        </tr>
+                        </thead>
+                        <tbody id="t_body_8">
+                        <?php $ini = isset($ini['frequency']) ? $ini['frequency'] : '' ;?>
+                        <?php if($ini) {?>
+                        <?php foreach ($ini as $ik=>$iv){?>
+                        <tr>
+                            <td style=" text-align: center;"><?php echo $iv['lv'] ;?></td>
+                            <td style=" text-align: center;"><input type="number" name="money" value="<?php echo $iv['money'] ;?>"/></td>
+                        </tr>
+                        <?php }?>
+
+                        </tbody>
+                        <?php }?>
+                    </table>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+            <div class="form-group" style="height: 25px; margin-bottom: 5px;">
+                <div class="col-xs-4"></div>
+                <div class="col-xs-7" style="padding-left: 0;">
+                    <span id="tip" style="color: red;height: 25px; padding-left: 15px;"></span>
+                </div>
+            </div>
+            <div class="hr-line-dashed" style="margin-top: 3px;margin-bottom: 10px;"></div>
+            <div class="form-group">
+                <div class="col-xs-12" style="text-align: center;">
+                    <button class="btn btn-default" type="submit" onclick="parent.layer.closeAll()">取消</button>
+                    <button class="btn btn-primary" type="submit" id="btn_submit_8">确认</button>
+                </div>
+            </div>
+        </div>
+
+        <!--非法-->
+        <?php }else {?>
+        <div class="col-xs-12" style="margin-bottom: 10px;height: 36px;">
+            <div class="col-xs-12" style="width: 100%;height: 110px; text-align: center;line-height: 110px;margin: 0 auto; margin-top: 100px;">
+                <span style="display: inline-block;width: 80px;height: 80px; line-height:80px;border-radius: 40px;background-color: red; color: white;font-size: 100px;font-weight: 600;">!</span>
+            </div>
+            <div class="col-xs-12" style="height: auto;text-align: center; line-height: 80px;margin-top: 10px;">
+                <p style="color: red ;font-size: 30px;">
+                   不存在的配置项
+                </p>
+
+            </div>
+        </div>
+
+        <?php }?>
+        <?php }?>
+    </div>
+</div>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+<?php if($id == 3){?>
+<script src="/js/jstree/dist/jstree.min.js"></script>
+<!--<script src="/js/hplus/js/plugins/treeview/bootstrap-treeview.js"></script>-->
+<!--<script src="/js/plat/sys/ini/area.js"></script>-->
+<?php }?>
+
+<?php if($id == 5){?>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="/js/ueditor/ueditor.all.min.js"></script>
+<?php }?>
+<!--弹窗js-->
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+<script>
+
+    <?php if($id == 1){?>
+        $(function () {
+           $(".btn-danger").click(function () {
+               removeTr(this);
+           });
+            $("#btn_1").click(function () {
+                addTr();
+           });
+            $("#btn_submit_1").click(function () {
+                postData1();
+            });
+        });
+        /**
+         * 移除一行
+         * @param i
+         */
+        function removeTr(i) {
+            $(i).parent().parent().remove() ;
+            var tr = $("#t_body_1").find('tr');
+            if(tr.length == 0){
+                addTr() ;
+            }
+        }
+        /**
+         * 增加一行
+         */
+        function addTr() {
+            var tr  = '<tr>' ;
+            tr     += '<th style="text-align: center;"><input type="number" name="sort" value=""/></th>' ;
+            tr     += '<th style="text-align: center;"><input type="number" name="number" value=""/></th>' ;
+            tr     += '<th style="text-align: center;"><input type="number" name="money" value=""/></th>' ;
+            tr     += '<td style=" width: 40px;"><button type="submit" class="btn btn-xs btn-danger">删除</button></td>' ;
+            tr     += '</tr>';
+            $("#t_body_1").append(tr);
+            $(".btn-danger").click(function () {
+                removeTr(this);
+            });
+        }
+        /**
+         *保存配置
+         * */
+        function postData1() {
+            var id = $("#id").val();
+            var data = [];
+            var submit = true ;
+            $("#t_body_1").find('tr').each(function () {
+                var item    = {} ;
+                if(!(/^\d{1,3}$/.test($(this).find('input[name=number]').val()))){
+                    $("#tip").text('请输入正确的月份数量');
+                    $(this).find('input[name=number]').focus();
+                    submit = false ;
+                    return false ;
+                }else if(!(/(^\d{1,}$)|^(\d{1,}\.\d{1,2}$)/.test($(this).find('input[name=money]').val()))){
+                    $("#tip").text('请输入正确的金额');
+                    $(this).find('input[name=money]').focus().val($(this).find('input[name=money]').val());
+                    submit = false ;
+                    return false ;
+                }
+
+                item.sort   = $(this).find('input[name=sort]'  ).val();
+                item.number = $(this).find('input[name=number]').val();
+                item.money  = $(this).find('input[name=money]' ).val();
+
+                data.push(item);
+            });
+            if(submit){
+                $("#tip").text('');
+                var url = '/plat.ini/saveIni';
+                $.post(url,{id:id,name:'配置经销商VIP等级',data:data},function (rv) {
+                    if(rv.massageCode == 'success'){
+                        layer.msg(rv.massage);
+                        setTimeout(function () {
+                            parent.layer.closeAll() ;
+                        },1500);
+
+                    }else {
+                        layer.msg(rv.massage);
+                    }
+                },'json')
+
+            }
+
+
+        }
+        
+       //-----------------------------------------------
+        
+    <?php }else if($id == 2){?>
+        $(function () {
+            $(".btn-danger").click(function () {
+                removeTr(this);
+            });
+            $("#btn_2").click(function () {
+                addTr();
+            });
+            $("#btn_submit_2").click(function () {
+                postData2();
+            });
+        });
+        /**
+         * 移除一行
+         * @param i
+         */
+        function removeTr(i) {
+            $(i).parent().parent().remove() ;
+            var tr = $("#t_body_2").find('tr');
+            if(tr.length == 0){
+                addTr() ;
+            }
+        }
+        /**
+         * 增加一行
+         */
+        function addTr() {
+            var tr  = '<tr>' ;
+            tr     += '<th style="text-align: center;"><input type="number" name="sort"   value=""/></th>' ;
+            tr     += '<th style="text-align: center;"><input type="number" name="number" value=""/></th>' ;
+            tr     += '<th style="text-align: center;"><input type="number" name="money"  value=""/></th>' ;
+            tr     += '<td style=" width: 40px;"><button type="submit" class="btn btn-xs btn-danger">删除</button></td>' ;
+            tr     += '</tr>';
+            $("#t_body_2").append(tr);
+            $(".btn-danger").click(function () {
+                removeTr(this);
+            });
+        }
+        /**
+         *保存配置
+         * */
+        function postData2() {
+            var id = $("#id").val();
+            var select = [];
+            var data   = {};
+            var submit = true ;
+            if((!/^\d{1,}$/.test($("#inp_ref").val())) || $("#inp_ref").val() <= 0){
+                $("#tip").text('请输入刷新点兑换比例');
+                $("#inp_ref").focus();
+                submit = false ;
+                return false ;
+            }else if((!/(^\d{1,}$)|^(\d{1,}\.\d{1,2}$)/.test($("#inp_mon").val())) || $("#inp_mon").val() <= 0){
+                $("#tip").text('请输入正确的金额');
+                $("#inp_mon").focus();
+                submit = false ;
+                return false ;
+            }else {
+                var proportion = {
+                    'ref'  :$("#inp_ref").val(),
+                    'money':$("#inp_mon").val()
+                }
+            }
+            $("#t_body_2").find('tr').each(function () {
+                var item    = {} ;
+                if(!(/^\d{1,3}$/.test($(this).find('input[name=number]').val()))){
+                    $("#tip").text('请输入正确的月份数量');
+                    $(this).find('input[name=number]').focus();
+                    submit = false ;
+                    return false ;
+                }else if((!(/(^\d{1,}$)|^(\d{1,}\.\d{1,2}$)/.test($(this).find('input[name=money]').val()))) || $(this).find('input[name=money]').val() <= 0){
+                    $("#tip").text('请输入正确的金额');
+                    $(this).find('input[name=money]').focus().val($(this).find('input[name=money]').val());
+                    submit = false ;
+                    return false ;
+                }
+
+                item.sort   = $(this).find('input[name=sort]'  ).val();
+                item.number = $(this).find('input[name=number]').val();
+                item.money  = $(this).find('input[name=money]' ).val();
+                select.push(item);
+
+            });
+
+            if(submit){
+                $("#tip").text('');
+                data['proportion'] = proportion ;
+                data['select']     = select ;
+                console.log(data);
+                var url = '/plat.ini/saveIni';
+                $.post(url,{id:id,name:'配置刷新点',data:data},function (rv) {
+                    if(rv.massageCode == 'success'){
+                        layer.msg(rv.massage);
+                        setTimeout(function () {
+                            parent.layer.closeAll() ;
+                        },1500);
+
+                    }else {
+                        layer.msg(rv.massage);
+                    }
+                },'json')
+
+            }
+        }
+
+        //-----------------------------------------------
+
+    <?php }else if($id == 3){?>
+        $(function() {
+            $('#jstree').jstree({
+                'core' : {
+                    'data' : {
+                        "url" : "/plat.ini/getArea/",
+                        "dataType" : "json"
+                    }
+                },
+                "checkbox" : {
+                    "keep_selected_style" : false
+                },
+                "types" : {
+                    "default" : {
+                        "icon" : false
+                    }
+                },
+                "plugins" : [ "checkbox","types","wholerow" ]
+            });
+            $("#btn_submit_3").click(function () {
+                check();
+            });
+        });
+
+        function check() {
+            var tree = $('#jstree').jstree().get_checked(true);
+            var id = $("#id").val();
+            var data = {} ;
+            var city = [];
+            for (var i=0;i<tree.length;i++){
+                if(tree[i]['children'].length == 0){
+                    city.push($.trim(tree[i]['text']));
+                }
+            }
+            data.city = city ;
+            var url = '/plat.ini/saveIni';
+            $.post(url,{id:id,name:'配置服务城市',data:city},function (rv) {
+                if(rv.massageCode == 'success'){
+                    layer.msg(rv.massage);
+                    setTimeout(function () {
+                        parent.layer.closeAll() ;
+                    },1500);
+
+                }else {
+                    layer.msg(rv.massage);
+                }
+            },'json')
+        }
+
+        //-----------------------------------------------
+
+    <?php }else if($id == 4){?>
+        $(function () {
+            $("#btn_submit_4").click(function () {
+                postData4();
+            });
+        });
+        /**
+         *保存配置
+         * */
+        function postData4() {
+            var telRule = /^(\d{7,10}$)|(\d{2,4}-\d{7,10}$)|(\d{2,4}-\d{3,4}-\d{3,4}$)|(1(3[0-9]|4[579]|5[0-35-9]|7[135-8]|8[0-9])\d{8}$)/;
+            var id = $("#id").val();
+            var data = {};
+            var submit = true ;
+            if((!/^[1-9]\d{4,12}$/.test($("#qq").val()))){
+                $("#tip").text('请输入正确的QQ号');
+                $("#qq").focus();
+                submit = false ;
+                return false ;
+            }else if(!(telRule.test($("#tel").val()))){
+                $("#tip").text('请输入正确的电话号码');
+                $("#tel").focus();
+                submit = false ;
+                return false ;
+            }else {
+                data = {
+                    'qq' :$("#qq").val(),
+                    'tel':$("#tel").val()
+                }
+            }
+            if(submit){
+                $("#tip").text('');
+                var url = '/plat.ini/saveIni';
+                $.post(url,{id:id,name:'配置客服电话/QQ',data:data},function (rv) {
+                    if(rv.massageCode == 'success'){
+                        layer.msg(rv.massage);
+                        setTimeout(function () {
+                            parent.layer.closeAll() ;
+                        },1500);
+
+                    }else {
+                        layer.msg(rv.massage);
+                    }
+                },'json')
+
+            }
+
+
+        }
+
+        //-----------------------------------------------
+
+    <?php }else if($id == 5){?>
+        $(function () {
+            $("#btn_submit_5").click(function () {
+                postData5();
+            });
+        });
+        var myUeEditor;//设置在外部 用于全页面接收编辑器内容
+        $(function(){
+            //富文本编辑器
+            myUeEditor = UE.getEditor('protocol',{
+                toolbars: [
+                    ['fullscreen', 'undo', 'redo', 'fontfamily', 'fontsize', 'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'blockquote', 'pasteplain','forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc'],
+                    ['indent', 'justifyleft', 'justifyright', 'justifycenter', 'justifyjustify', '|', 'inserttable', 'mergeright', 'mergedown', 'deleterow', 'deletecol', 'splittorows', 'splittocols', 'splittocells', 'deletecaption', 'inserttitle', 'mergecells', 'deletetable', 'cleardoc', 'insertparagraphbeforetable', '|', 'superscript','subscript', 'removeformat', 'formatmatch', 'autotypeset']
+                ],
+                fontsize: [10, 11, 12, 14, 16, 18],
+                enableAutoSave:false,
+                autotypeset:{removeEmptyNode: false},
+                webAppKey:'ZBcSIHdvwjfx105K8jvQCj5W'
+            });
+
+        });
+        /**
+         *保存配置
+         * */
+        function postData5() {
+            var id = $("#id").val();
+
+            var data = UE.getEditor('protocol').getContent();
+            if(!data){
+                $("#tip").text('请输入服务协议');
+                $("#protocol").focus();
+                return false ;
+            }else {
+                $("#tip").text('');
+                var url = '/plat.ini/saveIni';
+                $.post(url,{id:id,name:'配置服务协议',data:data},function (rv) {
+                    if(rv.massageCode == 'success'){
+                        layer.msg(rv.massage);
+                        setTimeout(function () {
+                            parent.layer.closeAll() ;
+                        },1500);
+
+                    }else {
+                        layer.msg(rv.massage);
+                    }
+                },'json')
+            }
+        }
+
+        //-----------------------------------------------
+
+    <?php }else if($id == 6){?>
+        $(function () {
+            $("#btn_submit_6").click(function () {
+                postData6();
+            });
+        });
+        /**
+         *保存配置
+         * */
+        function postData6() {
+            var id = $("#id").val();
+            var data = {};
+            data.invitation = $("#invitation").val() ;
+            data.invited = $("#invited").val() ;
+            if(!data.invitation|| isNaN(data.invitation) || data.invitation <=0 ){
+                $("#tip").text('请输入正确刷新点奖励');
+                $("#invitation").focus();
+                return false ;
+            }else if(!data.invited|| isNaN(data.invited) || data.invited <=0 ){
+                $("#tip").text('请输入正确刷新点奖励');
+                $("#invited").focus();
+                return false ;
+            }else {
+                $("#tip").text('');
+                var url = '/plat.ini/saveIni';
+                $.post(url,{id:id,name:'配置分享送刷新点',data:data},function (rv) {
+                    if(rv.massageCode == 'success'){
+                        layer.msg(rv.massage);
+                        setTimeout(function () {
+                            parent.layer.closeAll() ;
+                        },1500);
+
+                    }else {
+                        layer.msg(rv.massage);
+                    }
+                },'json')
+            }
+        }
+
+        //-----------------------------------------------
+
+    <?php }else if($id == 7){?>
+        $(function () {
+            $("#btn_submit_7").click(function () {
+                postData7();
+            });
+        });
+
+        /**
+         *保存配置
+         * */
+        function postData7() {
+            var id = $("#id").val();
+            var data   = {} ;
+            var lv1    = {} ;
+            var lv2    = {} ;
+            var lv3    = {} ;
+            lv1.min    = $('#lv1').find('input[name=min]').val() ? parseInt($('#lv1').find('input[name=min]').val()) : $('#lv1').find('input[name=min]').val();
+            lv1.max    = $('#lv1').find('input[name=max]').val() ? parseInt($('#lv1').find('input[name=max]').val()) : $('#lv1').find('input[name=max]').val();
+            lv2.min    = $('#lv2').find('input[name=min]').val() ? parseInt($('#lv2').find('input[name=min]').val()) : $('#lv2').find('input[name=min]').val();
+            lv2.max    = $('#lv2').find('input[name=max]').val() ? parseInt($('#lv2').find('input[name=max]').val()) : $('#lv2').find('input[name=max]').val();
+            lv3.min    = $('#lv3').find('input[name=min]').val() ? parseInt($('#lv3').find('input[name=min]').val()) : $('#lv3').find('input[name=min]').val();
+            lv3.max    = $('#lv3').find('input[name=max]').val() ? parseInt($('#lv3').find('input[name=max]').val()) : $('#lv3').find('input[name=max]').val();
+            if(lv1.min < 0){
+                $('#lv1').find('input[name=min]').focus().val(0);
+                $("#tip").text('请输入正确的拨打次数');
+            }else if(lv1.min < 0){
+                $('#lv1').find('input[name=max]').focus().val(0);
+                $("#tip").text('请输入正确的拨打次数');
+            }else if(lv2.max < 0){
+                $('#lv2').find('input[name=min]').focus().val(0);
+                $("#tip").text('请输入正确的拨打次数');
+            }else if(lv2.min < 0){
+                $('#lv2').find('input[name=max]').focus().val(0);
+                $("#tip").text('请输入正确的拨打次数');
+            }else if(lv3.min < 0){
+                $('#lv3').find('input[name=min]').focus().val(0);
+                $("#tip").text('请输入正确的拨打次数');
+            }else if(lv3.max < 0){
+                $('#lv3').find('input[name=max]').focus().val(0);
+                $("#tip").text('请输入正确的拨打次数');
+            }else{
+
+                if(lv1.min >= lv1.max){
+                    $('#lv1').find('input[name=max]').focus().val(lv1.min);
+                    $("#tip").text('请输入正确的次数范围');
+                }else if(lv2.min >= lv2.max){
+                    $('#lv2').find('input[name=max]').focus().val(lv2.min);
+                    $("#tip").text('请输入正确的次数范围');
+                }else if(lv2.min <= lv1.max){
+                    $('#lv2').find('input[name=min]').focus().val(lv2.min);
+                    $("#tip").text('请输入正确的次数范围');
+                }else if(lv3.min <= lv2.max){
+                    $('#lv3').find('input[name=min]').focus().val(lv3.min);
+                }else {
+                    $("#tip").text('');
+                    data.lv1   = lv1 ;
+                    data.lv2   = lv2 ;
+                    data.lv3   = lv3 ;
+                    var url = '/plat.ini/saveIni';
+                    $.post(url,{id:id,name:'配置汽修厂拨打数量等级',data:data},function (rv) {
+                         if(rv.massageCode == 'success'){
+                             layer.msg(rv.massage);
+                             setTimeout(function () {
+                                parent.layer.closeAll() ;
+                             },1500);
+                         }else {
+                            layer.msg(rv.massage);
+                         }
+                     },'json')
+                }
+            }
+        }
+
+        //-----------------------------------------------
+
+    <?php }else if($id == 8){?>
+        $(function () {
+            $("#btn_submit_8").click(function () {
+                postData8();
+            });
+        });
+        /**
+         *保存配置
+         * */
+        function postData8() {
+            var id         = $("#id").val();
+            var frequency  = [];
+            var commission = {};
+            commission.new_relation = $("#new_relation").val() ? parseFloat($("#new_relation").val()) : 0  ;
+            commission.relation     = $("#relation").val()     ? parseFloat($("#relation").val() )    : 0  ;
+            commission.recharge     = $("#recharge").val()     ? parseFloat($("#recharge").val() )    : 0  ;
+            var data   = {};
+            var submit = true ;
+
+            if(commission.new_relation < 0){
+                $("#tip").text('请输入正确的提成金额');
+                $("#new_relation").focus().val(commission.new_relation);
+                submit = false ;
+                return false ;
+            }else if(commission.relation < 0){
+                $("#tip").text('请输入正确的提成金额');
+                $("#relation").focus().val(commission.relation);
+                submit = false ;
+                return false ;
+            }else if(commission.recharge < 0){
+                $("#tip").text('请输入正确的提成金额');
+                $("#recharge").focus().val(commission.recharge);
+                submit = false ;
+                return false ;
+            }
+            var i = 0 ;
+            $("#t_body_8").find('tr').each(function () {
+                var item    = {} ;
+                var val     = $(this).find('input[name=money]').val() ;
+                if(isNaN(val) || val < 0){
+                    $("#tip").text('请输入正确的提成金额');
+                    $(this).find('input[name=money]').focus().val(val);
+                    submit = false ;
+                    return false ;
+                }
+
+                item.lv     = ++i ;
+                item.money  = val;
+                frequency.push(item);
+
+            });
+            if(submit){
+                $("#tip").text('');
+                data['commission'] = commission ;
+                data['frequency']  = frequency ;
+                //console.log(data);//return ;
+
+                var url = '/plat.ini/saveIni';
+                $.post(url,{id:id,name:'配置业务员提成',data:data},function (rv) {
+                    if(rv.massageCode == 'success'){
+                        layer.msg(rv.massage);
+                        setTimeout(function () {
+                            parent.layer.closeAll() ;
+                        },1500);
+
+                    }else {
+                        layer.msg(rv.massage);
+                    }
+                },'json')
+
+            }
+
+
+        }
+
+        //-----------------------------------------------
+
+    <?php }?>
+
+</script>
+</body>
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>圈子</title>
+</head>
+<link rel="stylesheet" href="./css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="./css/bootstrap/style.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="./css/pc/style.css" crossorigin="anonymous">
+<link rel="stylesheet" href="./css/pc/index/circle.css" crossorigin="anonymous">
+<script src="./js/jquery1.12.4.min.js"></script>
+<style>
+    *{font-family: '微软雅黑 Regular', '微软雅黑';}
+    a{color: inherit}
+</style>
+<body>
+<!--顶部导航条开始-->
+<div class="row" id="hederTop">
+    <div style="width: 1200px;margin: 0 auto;font-family: '微软雅黑 Regular', '微软雅黑';position: relative">
+        <div class="col-md-1 dest" style="float: left;width: 8%">成都<img style="margin-left: 20px" src="/images/qpxm/pc/index/u8.png" alt="">
+            <div class="destList">
+                <div style="padding: 15px">
+                    <div><a href="javascript:;">成都</a></div>
+                    <div><a href="javascript:;">广州</a></div>
+                    <div><a href="javascript:;">上海</a></div>
+                </div>
+            </div>
+        </div>
+        <div style="float: right;">
+            <div class="row headerTiao">
+                <div class="caiDanL" id="login" style="padding-right: 13px;position: relative">
+                    <!--登陆信息-->
+                    <div class="login">
+                        <!--已经登陆-->
+                        <?php if(isset($isLoging) && $isLoging){?>
+                        <div class="isLoginDiv">
+                            <a href="javascript:;">
+                                <img src="/images/qpxm/pc/index/noLogin.png" class="isLoginImg" alt="">
+                                <div class="isLoginInfo">
+                                    <div class="height20">昵称</div>
+                                    <div class="height20">经销商</div>
+                                    <div class="height20">公司名称</div>
+                                </div>
+                            </a>
+                            <div style="clear: both"></div>
+                            <div class="VIPTime">
+                                <span>VIP ：2017-03-14</span>
+                                <span style="float: right"><a href="javascript:;">退出</a></span>
+                            </div>
+                        </div>
+                        <div class="borBottom"></div>
+                        <div class="bottomDiv">
+                            <div class="aList"><a href="javascript:;">店铺管理</a></div>
+                            <div class="aList"><a href="javascript:;">汽修厂轨迹</a></div>
+                            <div class="aList"><a href="javascript:;">我的轨迹</a></div>
+                            <div class="aList"><a href="javascript:;">VIP会员</a></div>
+                            <div class="aList"><a href="javascript:;">我的刷新点</a></div>
+                            <div class="aList"><a href="javascript:;">认证</a></div>
+                            <div class="aList"><a href="javascript:;">我的圈子</a></div>
+                            <div class="aList"><a href="javascript:;">我的求购</a></div>
+                            <div class="aList"><a href="javascript:;">收藏记录</a></div>
+                            <div class="aList"><a href="javascript:;">绑定业务员</a></div>
+                            <div class="aList"><a href="javascript:;">分享邀请</a></div>
+                        </div>
+                        <?php }else{?>
+                        <!--未登录-->
+                        <a href="/login">
+                            <div class="noLogin">
+                                <img src="/images/qpxm/pc/index/noLogin.png" class="noLoginImg" alt="">
+                                &nbsp;&nbsp;[请登录]
+                            </div>
+                            <div class="noLoginBottom"></div>
+                            <div class="bottomDiv">
+                                <div class="aList">店铺管理</div>
+                                <div class="aList">汽修厂轨迹</div>
+                                <div class="aList">我的轨迹</div>
+                                <div class="aList">VIP会员</div>
+                                <div class="aList">我的刷新点</div>
+                                <div class="aList">认证</div>
+                                <div class="aList">我的圈子</div>
+                                <div class="aList">我的求购</div>
+                                <div class="aList">收藏记录</div>
+                                <div class="aList">绑定业务员</div>
+                                <div class="aList">分享邀请</div>
+                            </div>
+                        </a>
+                        <?php }?>
+                    </div>
+                    <a href="" style="color: #FF0103;">请登录</a><img style="" src="/images/qpxm/pc/index/u7.png" alt="">
+
+                </div>
+                <div class="caiDanL" style="padding-right: 12px">|</div>
+                <div class="caiDanL"><a href="" class="caiDA">注册</a></div>
+                <div class="caiDanL"><a href="" class="caiDA">我的收藏</a></div>
+                <div class="caiDanL"><a href="" class="caiDA">我的圈子</a></div>
+                <div class="caiDanL"><a href="" class="caiDA">我的刷新点(0)</a></div>
+                <div class="caiDanL"><a href="" class="caiDA">消息(0)</a></div>
+                <div class="caiDanL moreShowS">
+                    <a href="" class="caiDA">更多<img style="" src="/images/qpxm/pc/index/u8.png" alt=""></a>
+                    <div class="moreShow">
+                        <div class="moreShowList">
+                            <div><a href="javascript:;">新闻咨询</a></div>
+                            <div><a href="javascript:;">促销活动</a></div>
+                            <div><a href="javascript:;">新手上路</a></div>
+                            <div><a href="javascript:;">公司简介</a></div>
+                            <div><a href="javascript:;">服务协议</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--右侧固定定位QQ、电话-->
+<div class="fixedDinWei">
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="showF(this)">
+            <div class="fixedYuan"><img src="/images/qpxm/pc/index/phone.png" alt=""></div>
+        </a>
+        <div class="fixedQQ">123456</div>
+    </div>
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="showF(this)">
+            <div style="float: right;"><img src="/images/qpxm/pc/index/rQQ.png" alt=""></div>
+        </a>
+        <div class="fixedQQ">123456</div>
+    </div>
+    <div class="fixedDiv">
+        <a href="javascript:;" onclick="goTop()">
+            <div style="float: right;"><img src="/images/qpxm/pc/index/rUp.png" alt=""></div>
+        </a>
+    </div>
+</div>
+<!--搜索及logo-->
+<div class="row mideLogo">
+    <!--logo-->
+    <div class="col-md-3 mideLogoDiv">
+        <div class="logoImg">
+            <img src="/images/qpxm/pc/index/logo.png" alt="">
+        </div>
+    </div>
+    <!--搜索-->
+    <div class="col-md-6 souSuoDiv">
+        <div style="padding-top: 55px">
+            <div class="souSuoList">
+                <a href="javascript:;"><span class="shangJ">轿车商家</span></a>
+                <a href="javascript:;"><span class="shangJia">货车商家</span></a>
+                <a href="javascript:;"><span class="shangJia">新品促销</span></a>
+                <a href="javascript:;"><span class="shangJia">库存清仓</span></a>
+            </div>
+            <div>
+                <div class="sousuoIm"><img src="/images/qpxm/pc/index/souSuo.png" alt=""></div>
+                <div style="float: left;width: 450px">
+                    <input placeholder="输入公司名称、主营产品查询" class="form-control souSuoInput" type="text">
+                </div>
+                <div style="float: left">
+                    <button type="button" class="btn btn-primary souSuo">搜索</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--二维码-->
+    <div class="col-md-1"></div>
+    <div class="col-md-2 erWeiMDiv">
+        <div style="">
+            <div class="row" style="">
+                <div style="float: left">
+                    <div class="erWeiM" style="margin: 0 auto">
+                        <img src="/images/qpxm/pc/index/erWeiM.png" width="70px" alt="">
+                    </div>
+                    <div class="downEr">手机下载版</div>
+                </div>
+                <div class="" style="float: right">
+                    <div class="erWeiM" style="margin: 0 auto">
+                        <img src="/images/qpxm/pc/index/erWeiM.png" width="70px" alt="">
+                    </div>
+                    <div class="downEr">微信版</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--菜单导航栏-->
+<div id="navigationLan">
+    <div class="row navigationLan">
+        <a href="/pc.index/index"><div class="navigation">首页</div></a>
+        <a href="/pc.index/limousine"><div class="navigation">轿车商家</div></a>
+        <a href="/pc.index/truck"><div class="navigation">货车商家</div></a>
+        <a href="/pc.index/newMarket"><div class="navigation">新品促销</div></a>
+        <a href="/pc.index/clearance"><div class="navigation">库存清仓</div></a>
+        <a href="/pc.index/mountings"><div class="navigation">配件求购</div></a>
+        <a href="/pc.index/vinQuery"><div class="navigation">vin查询</div></a>
+        <a href="javascript:;"><div class="navigation navigationActive">圈子</div></a>
+    </div>
+</div>
+<!--圈子-->
+<div id="quanZi">
+    <!--左侧导航-->
+    <div id="leftDiv">
+        <div>
+            <img src="/images/qpxm/pc/circle/bg.jpg" class="bgImg" alt="">
+        </div>
+        <div class="touXiang">
+            <img src="/images/qpxm/pc/circle/touXiang.png" class="touXiangImg" alt="">
+        </div>
+        <a href="javascript:"><div class="niChen">昵称</div></a>
+        <a href="javascript:"><div class="shouYe">首页</div></a>
+        <a href="javascript:"><div class="xuanXiang">收藏</div></a>
+        <a href="javascript:"><div class="xuanXiang">我的</div></a>
+    </div>
+    <!--右侧-->
+    <div id="RightDiv">
+        <!--发表动态-->
+        <div id="pushSay">
+            <div>
+                <span class="pushSay">发表动态</span>
+                <span class="ziShu">0/200字</span>
+            </div>
+            <textarea placeholder="写点什么?" class="textareaClass"></textarea>
+            <a href="javascript:;" onclick="showView()"><img src="/images/qpxm/pc/circle/upImg.png" class="upImg" alt=""></a>
+            <div class="floatR">
+                <button class="btn btn-default faBu" type="submit">发布</button>
+            </div>
+            <!--图片上传视图-->
+            <div id="send">
+                <div class="relativeP">
+                    <img src="/images/qpxm/pc/circle/uoImgKuang.png" class="upKuangImg" alt="">
+                    <div class="sendDiv">
+                        <div class="fontSize15">
+                            <span>全部上传图片 ：1/9张</span>
+                            <span class="floatR">
+                                <a href="javascript:;" onclick="hideView()"><img src="/images/qpxm/pc/circle/x.png" alt=""></a>
+                            </span>
+                        </div>
+                        <div class="marTop">
+                            <div class="sendBtn">
+                                <a href="javascript:;">
+                                    <img src="/images/qpxm/pc/circle/jia.png" class="sengImg" alt="">
+                                </a>
+                            </div>
+                            <?php for($i=0;$i<19;++$i){?>
+                            <div class="leftMarR">
+                                <img src="/images/qpxm/pc/circle/touXiang.png" class="imgSize" alt="">
+                            </div>
+                            <?php }?>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--动态内容-->
+        <div id="dongTaiContent">
+            <div class="souSay">
+                <span>全部</span>
+                <div class="souSayDiv">
+                    <input type="text" placeholder="输入关键字搜索" class="inputSou">
+                    <button class="btn btn-default inputBtn" type="submit">搜索</button>
+                </div>
+                <div class="bottomX"></div>
+            </div>
+            <?php for($j=0;$j<2;++$j){?>
+            <div class="dongTaiInfo">
+                <div class="sayDiv">
+                    <div id="content">
+                        <div class="contentName">
+                            昵称
+                            <div class="del"><a href="javascript:;">删除</a></div>
+                        </div>
+                        <div class="contentInfo">
+                            <a href="javascript:;" style="color: #CCC"><img src="/images/qpxm/pc/circle/dingWei.png" alt="">&nbsp;&nbsp;城市</a>
+                            <div class="contentText">
+                                <p>文字内容。。。文字内容。。。文字内容。。。文字内容。。。文字内容。。。文字内容。。。文字内容。。。文字内容。。。文字内容。。。文字内容。。。文字内容。。。文字内容。。。</p>
+                                <div class="contentImgDiv">
+                                    <?php for($i=0; $i<9; ++$i){?>
+                                    <div class="contentImgDivs">
+                                        <img class="contentImgs" src="/images/qpxm/pc/circle/touXiang.png" alt="">
+                                    </div>
+                                    <?php }?>
+                                    <div style="clear: both"></div>
+                                </div>
+                                <div>
+                                    <span class="contentTime">02-28 12:00</span>
+                                    <div class="zanDiv">
+                                <span class="zanSpan">
+                                    <a href="javascript:;"><img src="/images/qpxm/pc/circle/zan.png" alt=""></a>
+                                    <span class="zanNum">2</span>
+                                </span>
+                                <span>
+                                    <a href="javascript:;"><img src="/images/qpxm/pc/circle/say.png" alt=""></a>
+                                    <span class="zanNum">2</span>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--发表者的头像-->
+                        <div class="faBuTouXiang">
+                            <img src="/images/qpxm/pc/circle/touXiang.png" class="faBuTouXiangImg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <!--留言-->
+                <div style="background: #CCC;">
+                    <div class="liuYan">
+                        <div class="touXiangListImgD">
+                            <img src="/images/qpxm/pc/circle/touXiang.png" class="touXiangListImg" alt="">
+                        </div>
+                        <div class="faBuDiv">
+                            <textarea name="" class="faBuTextar"></textarea>
+                            <div style="margin-top: 10px;">
+                                <span>0/200字</span>
+                                <span style="float: right"><button class="btn btn-default faBu" type="submit">发布</button></span>
+                            </div>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div style="width: 800px;border-bottom: 3px solid #F5F5F5;margin: 0 auto;padding-top: 20px"></div>
+                    <!--留言列表-->
+                    <?php for($i=0; $i<3; ++$i){?>
+                    <div class="liuYanList">
+                        <div class="liuYanImgDs">
+                            <img src="/images/qpxm/pc/circle/touXiang.png" class="liuYanImgs" alt="">
+                        </div>
+                        <div class="niChens">
+                            <div style="font-size: 16px">昵称</div>
+                            <div style="font-size: 10px">
+                                <span>02-28 12:00</span>
+                                <div style="float: right">
+                                    <span style="margin-right: 30px"><a href="javascript:;">删除</a></span>
+                                    <span><a href="javascript:;">回复</a></span>
+                                </div>
+                            </div>
+                            <div class="huiFuDiv">
+                                <div>
+                                    回复 <span style="color: #5CA9D3">昵称</span>: <span>回复的文字内容...回复的文字内容...回复的文字内容...</span>
+                                </div>
+                                <div class="huiFuText">
+                                    <span>昵称</span> ：评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。评论的文字内容。。。
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <?php }?>
+                    <div style="clear: both"></div>
+                </div>
+            </div>
+            <?php }?>
+        </div>
+        <!--更多-->
+        <a href="javascript:;" onclick="moreContent()"><div class="showMores">查看更多</div></a>
+    </div>
+    <div style="clear: both"></div>
+</div>
+<!--底部链接-->
+<div style="margin-top: 55px" id="bottomBiv">
+    <div class="bottomBiv">
+        <div class="bottomList">
+            <div class="bottomListDiv"><a href="javascript:;" class="bottomText">首页</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">轿车商家</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">货车商家</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">新品促销</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">库存清仓</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">VIN查询</a></div>
+            <div style="float: left;width: 14%;text-align: left"><a href="javascript:;" class="bottomText">配件求购</a></div>
+        </div>
+        <div class="bottomList">
+            <div class="bottomDivT">&nbsp;</div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">活动促销</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">新闻中心</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">公司简介</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">新手上路</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">服务协议</a></div>
+        </div>
+        <div class="bottomYou">
+            友情链接：
+            <a href="javascript:;" class="bottomA">汽车配件</a>
+            <a href="javascript:;" class="bottomA">专用车</a>
+            <a href="javascript:;" class="bottomA">二手车</a>
+            <a href="javascript:;" class="bottomA">Auto333</a>
+            <a href="javascript:;" class="bottomA">汽配110网</a>
+            <a href="javascript:;" class="bottomA">中国汽车网</a>
+            <a href="javascript:;" class="bottomA">车型大全</a>
+            <a href="javascript:;" class="bottomA">第一车市</a>
+            <a href="javascript:;" class="bottomA">12缸汽车网</a>
+            <a href="javascript:;" class="bottomA">全纳二手车网</a>
+            <a href="javascript:;" class="bottomA">进口车市</a>
+            <a href="javascript:;" class="bottomA">外贸论坛</a>
+            <a href="javascript:;" class="bottomA">仪器交易网</a>
+            <a href="javascript:;" class="bottomA">违章查询</a>
+            <a href="javascript:;" class="bottomA">360汽车网</a>
+            <a href="javascript:;" class="bottomA">汽车人才网</a>
+            <a href="javascript:;" class="bottomA">汽车改装</a>
+            <a href="javascript:;" class="bottomA">中华电动汽车网</a>
+            <a href="javascript:;" class="bottomA">中国汽车商贸网</a>
+            <a href="javascript:;" class="bottomA">用车知识</a>
+            <a href="javascript:;" class="bottomA">卡车新闻</a>
+            <a href="javascript:;" class="bottomA">万得网</a>
+        </div>
+        <div class="bottomBor"></div>
+        <div class="bottomLian">
+        <span class="bottomSpan">
+          <img src="/images/qpxm/pc/index/qq.png" alt=""> 客服QQ ：13412415
+        </span>
+        <span>
+          <img src="/images/qpxm/pc/index/tel.png" alt=""> 客服电话 ：13812345678
+        </span>
+        </div>
+        <div class="bottomDi">
+            <div class="bottomBei">&#169;2015-2016 XXX 版权所有,并保留所有权。ICP备案证书号：蜀ICP备111111111号</div>
+            <div><img src="/images/qpxm/pc/index/jingHui.png" height="15px" alt="">蜀公网安备 42030202000345号</div>
+        </div>
+    </div>
+</div>
+<script src="/css/bootstrap/bootstrap.min.js"></script>
+<script>
+    function showView(){
+        $('#send').show();
+    }
+    function hideView(){
+        $('#send').hide();
+    }
+    /*点击更多*/
+    function moreContent(){
+        for(var i=0; i<2; ++i){
+            var str = data();
+            $('.dongTaiInfo:last').after(str);
+        }
+    }
+
+    function data(){
+        var str = '';
+            str += '<div class="dongTaiInfo"><div class="sayDiv">';
+            str += '<div id="content"><div class="contentName">昵称';
+            str += '<div class="del"><a href="javascript:;">删除</a></div></div>';
+            str += '<div class="contentInfo">';
+            str += '<a href="javascript:;" style="color: #CCC">';
+            str += '<img src="/images/qpxm/pc/circle/dingWei.png" alt="">&nbsp;&nbsp;城市</a>';
+            str += '<div class="contentText"><p>文字内</p>';
+            str += '<div class="contentImgDiv">';
+            for(var i=0; i<2; ++i){
+                str += '<div class="contentImgDivs">';
+                str += '<img class="contentImgs" src="/images/qpxm/pc/circle/touXiang.png" alt=""></div>';
+            }
+            str += '<div style="clear: both"></div></div><div>';
+            str += '<span class="contentTime">02-28 12:00</span>';
+            str += '<div class="zanDiv">';
+            str += '<span class="zanSpan">';
+            str += '<a href="javascript:;"><img src="/images/qpxm/pc/circle/zan.png" alt=""></a>';
+            str += '<span class="zanNum">2</span></span><span>';
+            str += '<a href="javascript:;"><img src="/images/qpxm/pc/circle/say.png" alt=""></a>';
+            str += '<span class="zanNum">2</span></span></div></div></div></div>';
+            str += '<div class="faBuTouXiang">';
+            str += '<img src="/images/qpxm/pc/circle/touXiang.png" class="faBuTouXiangImg" alt=""></div></div></div>';               str += '<div style="background: #CCC;"><div class="liuYan">';
+            str += '<div class="touXiangListImgD">';
+            str += '<img src="/images/qpxm/pc/circle/touXiang.png" class="touXiangListImg" alt=""></div>';
+            str += '<div class="faBuDiv"><textarea name="" class="faBuTextar"></textarea>';
+            str += '<div style="margin-top: 10px;"><span>0/200字</span>';
+            str += '<span style="float: right"><button class="btn btn-default faBu" type="submit">发布</button></span>';
+            str += '</div></div><div style="clear: both"></div></div>';
+            str += '<div style="width: 800px;border-bottom: 3px solid #F5F5F5;margin: 0 auto;padding-top: 20px"></div>';
+            for(var k=0; k<2; ++k){
+                str += '<div class="liuYanList">';
+                str += '<div class="liuYanImgDs">';
+                str += '<img src="/images/qpxm/pc/circle/touXiang.png" class="liuYanImgs" alt=""></div>';
+                str += '<div class="niChens"><div style="font-size: 16px">昵称</div>';
+                str += '<div style="font-size: 10px"><span>02-28 12:00</span>';
+                str += '<div style="float: right">';
+                str += '<span style="margin-right: 30px"><a href="javascript:;">删除</a></span>';
+                str += '<span><a href="javascript:;">回复</a></span>';
+                str += '</div></div<div class="huiFuDiv"><div>';
+                str += '回复 <span style="color: #5CA9D3">昵称</span>: <span>回复的文字内容...回复的文字内容...</span>';
+                str += '</div><div class="huiFuText">';
+                str += '<span>昵称</span> ：评论的文字内容。。。评</div>';
+                str += '</div></div><div style="clear: both"></div></div>';
+            }
+            str += '<div style="clear: both"></div></div></div>';
+            return str;
+    }
+</script>
+</body>
+</html>

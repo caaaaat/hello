@@ -1,0 +1,75 @@
+<h1 style="text-align: center;padding: 50px"> 绑定业务员</h1>
+<style>
+    .jinEInput {
+        line-height: 50px;
+        text-align: center;
+        width: 520px;
+        height: 50px;
+        border: 1px solid #DDD;
+        padding-left: 10px;
+        border-radius: 5px;
+    }
+    .vipKaiTong {
+        font-size: 18px;
+        color: #FFF;
+        background: #FF524B;
+        width: 440px;
+        height: 50px;
+        border: none;
+        border-radius: 7px;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none !important;
+        margin: 0;
+    }
+</style>
+<div class="col-sm-12" style="height: 400px">
+    
+    <?php if($data){ ?>
+    
+    <div class="col-sm-12" style="text-align: center;margin-top: 20px;padding-top: 50px">
+        <div class="col-sm-12">
+            <img src="<?php echo $data['facepic'];?>" style="width: 120px;height: 120px" class="img-circle" alt="">
+        </div>
+        <div class="col-sm-12">
+            <p style="text-align: center;margin-top: 10px">已绑定业务员</p>
+        </div>
+        <h2 style="text-align: center">业务员ID：<?php echo $data['uId']?></h2>
+    </div>
+    
+    <?php }else{ ?>
+    
+    <p style="text-align: center">输入业务员ID完成绑定验证，请向业务员索取ID </p>
+    <div class="col-sm-12" style="text-align: center">
+        <input type="number" name="userID" class="jinEInput" placeholder="业务员ID">
+    </div>
+    <div class="col-sm-12" style="text-align: center;margin-top: 20px">
+        <button class="btn btn-line vipKaiTong" onclick="toBindStore()">确定</button>
+    </div>
+    <script src="/js/global.js" type="text/javascript"></script>
+    <script src="/js/pc/layer/layer.js" type="text/javascript"></script>
+    <script>
+        function toBindStore() {
+            var uId = $('input[name="userID"]').val();
+            if(uId){
+                api.load('pc.firm','bindSaleMan',{uId:uId},function (data) {
+                    layer.alert(data['msg'],{icon: data['status'],skin: 'layui-layer-rim'},function(){
+                        if(data['status']===1){
+                            window.location.reload();
+                        }else if(data['status']===3){
+                            window.location.href="/login";
+                        }
+                        layer.closeAll();
+                    });
+                })
+            }else{
+                layer.alert('请输入业务员ID',{icon: 2});
+            }
+
+        }
+    </script>
+
+    <?php } ?>
+    
+</div>

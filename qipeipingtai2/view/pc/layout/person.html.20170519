@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/bootstrap/style.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/pc/style.css" crossorigin="anonymous">
+<link rel="stylesheet" href="/css/pc/person/style.css">
+<script src="/js/jquery1.12.4.min.js"></script>
+<style>
+    *{font-family: '微软雅黑 Regular', '微软雅黑';}
+    a{color: inherit}
+</style>
+<body>
+<!--顶部导航条开始-->
+<div class="row" id="hederTop">
+    <div style="width: 1200px;margin: 0 auto;font-family: '微软雅黑 Regular', '微软雅黑';position: relative">
+        <div class="col-md-1 dest" style="float: left;width: 8%">成都<img style="margin-left: 20px" src="/images/qpxm/pc/index/u8.png" alt="">
+            <div class="destList">
+                <div style="padding: 15px">
+                    <div><a href="javascript:;">成都</a></div>
+                    <div><a href="javascript:;">广州</a></div>
+                    <div><a href="javascript:;">上海</a></div>
+                </div>
+            </div>
+        </div>
+        <div style="float: right;">
+            <div class="row headerTiao">
+                <div class="caiDanL" id="login" style="padding-right: 13px;position: relative">
+                    <!--登陆信息-->
+                    <div class="login">
+                        <!--已经登陆-->
+                        <?php if(isset($isLoging) && $isLoging){?>
+                        <div class="isLoginDiv">
+                            <a href="javascript:;">
+                                <img src="/images/qpxm/pc/index/noLogin.png" class="isLoginImg" alt="">
+                                <div class="isLoginInfo">
+                                    <div class="height20">昵称</div>
+                                    <div class="height20">经销商</div>
+                                    <div class="height20">公司名称</div>
+                                </div>
+                            </a>
+                            <div style="clear: both"></div>
+                            <div class="VIPTime">
+                                <span>VIP ：2017-03-14</span>
+                                <span style="float: right"><a href="javascript:;">退出</a></span>
+                            </div>
+                        </div>
+                        <div class="borBottom"></div>
+                        <div class="bottomDiv">
+                            <div class="aList"><a href="javascript:;">店铺管理</a></div>
+                            <div class="aList"><a href="javascript:;">汽修厂轨迹</a></div>
+                            <div class="aList"><a href="javascript:;">我的轨迹</a></div>
+                            <div class="aList"><a href="javascript:;">VIP会员</a></div>
+                            <div class="aList"><a href="javascript:;">我的刷新点</a></div>
+                            <div class="aList"><a href="javascript:;">认证</a></div>
+                            <div class="aList"><a href="javascript:;">我的圈子</a></div>
+                            <div class="aList"><a href="javascript:;">我的求购</a></div>
+                            <div class="aList"><a href="javascript:;">收藏记录</a></div>
+                            <div class="aList"><a href="javascript:;">绑定业务员</a></div>
+                            <div class="aList"><a href="javascript:;">分享邀请</a></div>
+                        </div>
+                        <?php }else{?>
+                        <!--未登录-->
+                        <a href="/pcweb.login/login">
+                            <div class="noLogin">
+                                <img src="/images/qpxm/pc/index/noLogin.png" class="noLoginImg" alt="">
+                                &nbsp;&nbsp;[请登录]
+                            </div>
+                            <div class="noLoginBottom"></div>
+                            <div class="bottomDiv">
+                                <div class="aList">店铺管理</div>
+                                <div class="aList">汽修厂轨迹</div>
+                                <div class="aList">我的轨迹</div>
+                                <div class="aList">VIP会员</div>
+                                <div class="aList">我的刷新点</div>
+                                <div class="aList">认证</div>
+                                <div class="aList">我的圈子</div>
+                                <div class="aList">我的求购</div>
+                                <div class="aList">收藏记录</div>
+                                <div class="aList">绑定业务员</div>
+                                <div class="aList">分享邀请</div>
+                            </div>
+                        </a>
+                        <?php }?>
+                    </div>
+                    <a href="/pcweb.login/login" style="color: #FF0103;">请登录</a><img style="" src="/images/qpxm/pc/index/u7.png" alt="">
+
+                </div>
+                <div class="caiDanL" style="padding-right: 12px">|</div>
+                <div class="caiDanL"><a href="/pcweb.login/register" class="caiDA">注册</a></div>
+                <div class="caiDanL"><a href="" class="caiDA">我的收藏</a></div>
+                <div class="caiDanL"><a href="" class="caiDA">我的圈子</a></div>
+                <div class="caiDanL"><a href="" class="caiDA">我的刷新点(0)</a></div>
+                <div class="caiDanL"><a href="" class="caiDA">消息(0)</a></div>
+                <div class="caiDanL moreShowS">
+                    <a href="" class="caiDA">更多<img style="" src="/images/qpxm/pc/index/u8.png" alt=""></a>
+                    <div class="moreShow">
+                        <div class="moreShowList">
+                            <div><a href="javascript:;">新闻咨询</a></div>
+                            <div><a href="javascript:;">促销活动</a></div>
+                            <div><a href="javascript:;">新手上路</a></div>
+                            <div><a href="javascript:;">公司简介</a></div>
+                            <div><a href="javascript:;">服务协议</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--logo-->
+<div style="height: 130px;line-height: 130px;margin: 0 auto;width: 1200px;">
+    <a href="/def/index"><img src="/images/qpxm/pc/index/logo.png" alt=""></a>
+</div>
+
+<div style="width: 1200px;margin: 0 auto;">
+    <!--左侧菜单-->
+    <div class="leftMenu">
+        <!--基本资料-->
+        <div>
+            <div style="text-align: center;font-size: 25px;margin-bottom: 25px;">
+                个人中心
+            </div>
+            <div style="padding-left: 15px;padding-right: 15px;margin-bottom: 25px;">
+                <div style="border-bottom: 1px solid #DDD;"></div>
+            </div>
+            <a href="javascript:;" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/me.png" data_img="/images/qpxm/pc/person/me.png" data_img_on="/images/qpxm/pc/person/me_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">个人资料</span></a>
+            <div class="smallTitleDiv <?php if(in_array($fun,array('index','changePWD','bindPhone','bindPhoneTwo'))){ echo 'smallTitleDivActiveDiv'; } ?>">
+                <div class="<?php if(in_array($fun,array('index'))){ echo 'activeDIv'; }?> smallTitle"><a class="lists" href="/person/index" onclick="showChildMenu(this)">基本资料</a></div>
+                <div class="<?php if(in_array($fun,array('changePWD'))){ echo 'activeDIv'; }?> smallTitle"><a href="/person/changePWD" class="lists" onclick="showChildMenu(this)">密码修改</a></div>
+                <div class="<?php if(in_array($fun,array('bindPhone','bindPhoneTwo'))){ echo 'activeDIv'; }?> smallTitle"><a href="/person/bindPhone" class="lists" onclick="showChildMenu(this)">绑定手机</a></div>
+            </div>
+        </div>
+        <!--店铺管理-->
+        <div class="martop20">
+            <a href="javascript:;" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/shop.png" data_img="/images/qpxm/pc/person/shop.png" data_img_on="/images/qpxm/pc/person/shop_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">店铺管理</span></a>
+            <div class="smallTitleDiv <?php if(in_array($fun,array('shopInfo','shopEidt','shopControl','productEdit','shopCareful','approveInfo','scope','card','cardSave'))){ echo 'smallTitleDivActiveDiv'; } ?>">
+                <div class="smallTitle <?php if(in_array($fun,array('shopInfo','shopEidt','shopCareful'))){ echo 'activeDIv'; }?>"><a class="lists" href="/person/shopInfo" onclick="showChildMenu(this)">店铺信息</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('shopControl','productEdit'))){ echo 'activeDIv'; }?>"><a href="/person/shopControl" class="lists" onclick="showChildMenu(this)">产品管理</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('approveInfo'))){ echo 'activeDIv'; }?>"><a href="/person/approveInfo" class="lists" onclick="showChildMenu(this)">认证信息</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('scope'))){ echo 'activeDIv'; }?>"><a href="/person/scope" class="lists" onclick="showChildMenu(this)">经营范围</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('card','cardSave'))){ echo 'activeDIv'; }?>"><a href="/person/card" class="lists" onclick="showChildMenu(this)">企业名片</a></div>
+            </div>
+        </div>
+        <!--汽修厂轨迹-->
+        <div class="martop20">
+            <a class="" href="/person/track" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/tool.png" data_img_on="/images/qpxm/pc/person/tool_on.png" data_img="/images/qpxm/pc/person/tool.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">汽修厂轨迹</span></a>
+            <div class="<?php if(in_array($fun,array('track','trackSeek'))){ echo 'smallTitleDivActiveDiv'; } ?>"></div>
+        </div>
+        <!--我的轨迹-->
+        <div class="martop20">
+            <a href="javascript:;" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/time.png" data_img="/images/qpxm/pc/person/time.png" data_img_on="/images/qpxm/pc/person/time_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">我的轨迹</span></a>
+            <div class="smallTitleDiv <?php if(in_array($fun,array('visit','call'))){ echo 'smallTitleDivActiveDiv'; } ?>">
+                <div class="smallTitle <?php if(in_array($fun,array('visit'))){ echo 'activeDIv'; }?>"><a class="lists" href="/person/visit" onclick="showChildMenu(this)">访问记录</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('call'))){ echo 'activeDIv'; }?>"><a href="/person/call" class="lists" onclick="showChildMenu(this)">拨打记录</a></div>
+            </div>
+        </div>
+        <!--vip会员-->
+        <div class="martop20">
+            <a href="javascript:;" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/vip.png" data_img="/images/qpxm/pc/person/vip.png" data_img_on="/images/qpxm/pc/person/vip_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">VIP会员</span></a>
+            <div class="smallTitleDiv <?php if(in_array($fun,array('vip','vipRecharge','payResult','payRecord'))){ echo 'smallTitleDivActiveDiv'; } ?>">
+                <div class="smallTitle <?php if(in_array($fun,array('vip','vipRecharge','payResult'))){ echo 'activeDIv'; }?>"><a class="lists" href="/person/vip" onclick="showChildMenu(this)">VIP会员</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('payRecord'))){ echo 'activeDIv'; }?>"><a href="/person/payRecord" class="lists" onclick="showChildMenu(this)">充值记录</a></div>
+            </div>
+        </div>
+        <!--我的刷新点-->
+        <div class="martop20">
+            <a href="javascript:;" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/shuaXin.png" data_img="/images/qpxm/pc/person/shuaXin.png" data_img_on="/images/qpxm/pc/person/shuaXin_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">我的刷新点</span></a>
+            <div class="smallTitleDiv <?php if(in_array($fun,array('myRefresh','refreshPay','refreshRecord'))){ echo 'smallTitleDivActiveDiv'; } ?>">
+                <div class="smallTitle <?php if(in_array($fun,array('myRefresh','refreshPay'))){ echo 'activeDIv'; }?>"><a class="lists" href="/person/myRefresh" onclick="showChildMenu(this)">我的刷新点</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('refreshRecord'))){ echo 'activeDIv'; }?>"><a href="/person/refreshRecord" class="lists" onclick="showChildMenu(this)">刷新点记录</a></div>
+            </div>
+        </div>
+        <!--认证-->
+        <div class="martop20">
+            <a href="/person/approve" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/renZheng.png" data_img="/images/qpxm/pc/person/renZheng.png" data_img_on="/images/qpxm/pc/person/renZheng_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">认证</span></a>
+            <div class="<?php if(in_array($fun,array('approve'))){ echo 'smallTitleDivActiveDiv'; } ?>"></div>
+        </div>
+        <!--我的圈子-->
+        <div class="martop20">
+            <a href="/def/circle"><span><img src="/images/qpxm/pc/person/quanZi.png" data_img="/images/qpxm/pc/person/quanZi.png" data_img_on="/images/qpxm/pc/person/quanZi_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">我的圈子</span></a>
+        </div>
+        <!--我的求购-->
+        <div class="martop20">
+            <a href="javascript:;" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/qiuGou.png" data_img="/images/qpxm/pc/person/qiuGou.png" data_img_on="/images/qpxm/pc/person/qiuGou_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">我的求购</span></a>
+            <div class="smallTitleDiv <?php if(in_array($fun,array('shoping','shopingHistory','shopingEidt','sendShop'))){ echo 'smallTitleDivActiveDiv'; } ?>">
+                <div class="smallTitle <?php if(in_array($fun,array('shoping'))){ echo 'activeDIv'; }?>"><a class="lists" href="/person/shoping" onclick="showChildMenu(this)">求购中</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('shopingEidt','shopingHistory'))){ echo 'activeDIv'; }?>"><a href="/person/shopingHistory" class="lists" onclick="showChildMenu(this)">求购历史</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('sendShop'))){ echo 'activeDIv'; }?>"><a href="/person/sendShop" class="lists" onclick="showChildMenu(this)">发布求购</a></div>
+            </div>
+        </div>
+        <!--收藏记录-->
+        <div class="martop20">
+            <a href="javascript:;" onclick="showMenu(this)"><span><img src="/images/qpxm/pc/person/shouCang.png" data_img="/images/qpxm/pc/person/shouCang.png" data_img_on="/images/qpxm/pc/person/shouCang_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">收藏记录</span></a>
+            <div class="smallTitleDiv <?php if(in_array($fun,array('collectShop','collectProduct'))){ echo 'smallTitleDivActiveDiv'; } ?>">
+                <div class="smallTitle <?php if(in_array($fun,array('collectShop'))){ echo 'activeDIv'; }?>"><a class="lists" href="/person/collectShop" onclick="showChildMenu(this)">收藏店铺</a></div>
+                <div class="smallTitle <?php if(in_array($fun,array('collectProduct'))){ echo 'activeDIv'; }?>"><a href="/person/collectProduct" class="lists" onclick="showChildMenu(this)">收藏产品</a></div>
+            </div>
+        </div>
+        <!--分享邀请-->
+        <div class="martop20">
+            <a href="/person/invite"><span><img src="/images/qpxm/pc/person/fengXiang.png" data_img="/images/qpxm/pc/person/fengXiang.png" data_img_on="/images/qpxm/pc/person/fengXiang_on.png" class="tuBiaoImg" alt=""></span><span class="bigTitle">分享邀请</span></a>
+            <div class="<?php if(in_array($fun,array('invite'))){ echo 'smallTitleDivActiveDiv'; } ?>"></div>
+        </div>
+    </div>
+    <!--右侧菜单-->
+    <div style="float: right;border: 1px solid #DDD;width:970px;background: #FFF;">
+        <?php controller($view['con'],$view['fun']);?>
+    </div>
+    <div style="clear: both"></div>
+</div>
+
+<!--底部开始-->
+<div id="bottomBiv">
+    <div class="bottomBiv">
+        <div class="bottomList">
+            <div class="bottomListDiv"><a href="javascript:;" class="bottomText">首页</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">轿车商家</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">货车商家</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">新品促销</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">库存清仓</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">VIN查询</a></div>
+            <div style="float: left;width: 14%;text-align: left"><a href="javascript:;" class="bottomText">配件求购</a></div>
+        </div>
+        <div class="bottomList">
+            <div class="bottomDivT">&nbsp;</div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">活动促销</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">新闻中心</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">公司简介</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">新手上路</a></div>
+            <div class="bottomDivT"><a href="javascript:;" class="bottomText">服务协议</a></div>
+        </div>
+        <div class="bottomYou">
+            友情链接：
+            <a href="javascript:;" class="bottomA">汽车配件</a>
+            <a href="javascript:;" class="bottomA">专用车</a>
+            <a href="javascript:;" class="bottomA">二手车</a>
+            <a href="javascript:;" class="bottomA">Auto333</a>
+            <a href="javascript:;" class="bottomA">汽配110网</a>
+            <a href="javascript:;" class="bottomA">中国汽车网</a>
+            <a href="javascript:;" class="bottomA">车型大全</a>
+            <a href="javascript:;" class="bottomA">第一车市</a>
+            <a href="javascript:;" class="bottomA">12缸汽车网</a>
+            <a href="javascript:;" class="bottomA">全纳二手车网</a>
+            <a href="javascript:;" class="bottomA">进口车市</a>
+            <a href="javascript:;" class="bottomA">外贸论坛</a>
+            <a href="javascript:;" class="bottomA">仪器交易网</a>
+            <a href="javascript:;" class="bottomA">违章查询</a>
+            <a href="javascript:;" class="bottomA">360汽车网</a>
+            <a href="javascript:;" class="bottomA">汽车人才网</a>
+            <a href="javascript:;" class="bottomA">汽车改装</a>
+            <a href="javascript:;" class="bottomA">中华电动汽车网</a>
+            <a href="javascript:;" class="bottomA">中国汽车商贸网</a>
+            <a href="javascript:;" class="bottomA">用车知识</a>
+            <a href="javascript:;" class="bottomA">卡车新闻</a>
+            <a href="javascript:;" class="bottomA">万得网</a>
+        </div>
+        <div class="bottomBor"></div>
+        <div class="bottomLian">
+        <span class="bottomSpan">
+          <img src="/images/qpxm/pc/index/qq.png" alt=""> 客服QQ ：13412415
+        </span>
+            <span>
+          <img src="/images/qpxm/pc/index/tel.png" alt=""> 客服电话 ：13812345678
+        </span>
+        </div>
+        <div class="bottomDi">
+            <div class="bottomBei">&#169;2015-2016 XXX 版权所有,并保留所有权。ICP备案证书号：蜀ICP备111111111号</div>
+            <div><img src="/images/qpxm/pc/index/jingHui.png" height="15px" alt="">蜀公网安备 42030202000345号</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        oneCaiDan();        //选中状态
+    });
+    /*展开一级菜单，默认选中第一个二级菜单*/
+    function showMenu(obj){
+//        清除先去选中属性
+        var src = $('.smallTitleDivActiveDiv').prev().find('.tuBiaoImg').attr('data_img');
+        $('.smallTitleDivActiveDiv').prev().find('.tuBiaoImg').attr('src',src);
+        $('.smallTitleDivActiveDiv').prev().find('.bigTitle').css('color','#676A6C');
+//        重新赋予选中状态
+        $('.smallTitleDiv').removeClass('smallTitleDivActiveDiv');
+        $(obj).parent().find('.smallTitleDiv').addClass('smallTitleDivActiveDiv');
+        oneCaiDan()
+    }
+    /*选中二级菜单*/
+    function showChildMenu(obj){
+        $('.smallTitle').removeClass('activeDIv');
+        $(obj).parent().addClass('activeDIv');
+    }
+//    选中状态
+    function oneCaiDan(){
+        var src = $('.smallTitleDivActiveDiv').prev().find('.tuBiaoImg').attr('data_img_on');
+        $('.smallTitleDivActiveDiv').prev().find('.tuBiaoImg').attr('src',src);
+        $('.smallTitleDivActiveDiv').prev().find('.bigTitle').css('color','#FF625D')
+    }
+</script>
+</body>
+</html>

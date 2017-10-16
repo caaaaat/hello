@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/js/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/js/hplus/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/js/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <link href="/css/plat/upload_btn.54x34.css" rel="stylesheet">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=<?php echo G('config')['bmap']['ak'];?>"></script>
+    <style>
+        .checkInput{width: 54px;}
+        .close-span{
+            display:inline-block;width: 16px;height: 16px;
+            border-radius: 8px;background-color: red;
+            text-align: center;color: white;cursor: pointer;
+            position: relative;left: -20px;top: -15px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="tabs-container">
+                <div class="tab-content">
+                    <input type="hidden" id="firmId" value="<?php echo isset($firm['id']) ? $firm['id'] : '' ;?>"/>
+                </div>
+                <div id="tab-1" class="tab-pane active">
+                    <div class="panel-body">
+                        <!--<h3 style="margin-right: 10px; margin-bottom: 0;">企业信息</h3>-->
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered">
+                                <?php $firm =  isset($firm) ? $firm : '';?>
+                                <?php if($firm) {?>
+                                <tbody>
+                                <tr>
+                                    <th style="text-align: center;width:120px">企业名称</th>
+                                    <td style="">
+                                        <div class="col-xs-12 col-sm-12 input-group">
+                                            <input type="text" id="comName" value="<?php echo $firm['companyname']?>" class="form-control" placeholder="企业名称">
+                                            <span class="input-group-btn tipSpan" style="width: 30px;"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center;width:120px">企业类型</th>
+                                    <td style="">
+                                        <div class="col-xs-12 col-sm-12 input-group">
+                                            <input type="hidden" id="type" value="<?php echo $firm['type']?>"/>
+                                            <span class="form-control" style="border: 0;"><?php echo $firm['type'] == 1 ? '经销商' : '汽修厂'?></span>
+                                            <!--<select style="height: 34px;" onchange="changType(this)" class="form-control" id="type">
+                                                <option value="1" <?php echo ($firm['type'] == 1 ? 'selected' : '' ); ?>>经销商</option>
+                                                <option value="2" <?php echo ($firm['type'] == 2 ? 'selected' : '' ); ?>>汽修厂</option>
+                                            </select>-->
+
+
+                                            <span class="input-group-btn tipSpan" style="width: 30px;"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center;width:120px">企业分类</th>
+                                    <?php $classArr = array(1=>array(1=>'轿车商家',2=>'货车商家',3=>'用品商家'),2=>array(4=>'修理厂',5=>'快修保养',6=>'美容店')) ;?>
+                                    <td style="">
+                                        <div class="col-xs-12 col-sm-12 input-group">
+                                            <select style="height: 34px;" class="form-control" id="cfn" onchange="changeClass()">
+                                                <?php foreach ($classArr[$firm['type']] as $k=>$v ){?>
+                                                <option value="<?php echo $k ;?>" <?php echo ($firm['classification'] == $k ? 'selected' : '' ); ?>><?php echo $v ;?></option>
+                                                <?php }?>
+                                            </select>
+                                            <span class="input-group-btn tipSpan" style="width: 30px;"></span>
+                                        </div>
+                                    </td>
+                                    <?php unset($classArr) ;?>
+                                </tr>
+                                <tr id="_business" class="<?php echo ($firm['type'] == 2 ? 'hidden' : '' );?>">
+                                    <th style="text-align: center;width:120px">经营范围</th>
+                                    <td style="">
+                                        <input type="hidden" value="<?php echo $firm['business'];?>" id="business"/>
+                                        <div class="col-xs-12 col-sm-12 input-group">
+                                            <div type="text" class="form-control input-xs" id="bns" style="height: auto;min-height: 34px;"><?php echo $firm['management']?></div>
+                                            <span class="input-group-btn"><button type="submit" class="btn btn-primary" id="findBusiness"> 选择 </button></span>
+                                            <span class="input-group-btn tipSpan" style="width: 30px;"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="_scale" class="<?php echo ($firm['type'] == 1 ? 'hidden' : '' );?>">
+                                    <th style="text-align: center;width:120px">汽修厂规模</th>
+                                    <td style="">
+                                        <div class="col-xs-12 col-sm-12 input-group">
+                                            <select style="height: 34px;" class="form-control" id="scale">
+                                                <option value="1" <?php echo ($firm['scale'] == '小' ? 'selected' : '' ); ?>>小</option>
+                                                <option value="2" <?php echo ($firm['scale'] == '中' ? 'selected' : '' ); ?>>中</option>
+                                                <option value="2" <?php echo ($firm['scale'] == '大' ? 'selected' : '' ); ?>>大</option>
+                                            </select>
+                                            <span class="input-group-btn tipSpan" style="width: 30px;"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="_factry" class="<?php echo ($firm['type'] == 2 ? 'hidden' : '' );?>">
+                                    <th style="text-align: center;width:120px">汽修厂轨迹权限</th>
+                                    <td style="">
+                                        <div class="col-xs-12 col-sm-12 input-group">
+                                            <select style="height: 34px;" class="form-control" id="factry">
+                                                <option value="1" <?php echo $firm['is_showfactry'] == 1 ? 'selected' : ''?>> 有 </option>
+                                                <option value="2" <?php echo $firm['is_showfactry'] == 2 ? 'selected' : ''?>> 无 </option>
+                                            </select>
+                                            <span class="input-group-btn tipSpan" style="width: 30px;"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center;width:120px;height: 60px;">封面</th>
+                                    <td style="">
+                                        <input type="hidden" value="<?php echo $firm['face_pic'];?>" id="face_pic"/>
+                                        <div class="col-xs-12 col-sm-12 input-group">
+                                            <div class="input-xs" id="com_face">
+                                                <span>
+                                                    <?php if($firm['face_pic']){?>
+                                                    <img src="<?php echo $firm['face_pic'];?>" alt="企业封面" style="height: 50px;width: 80px;">
+                                                    <span class="close-span">X</span>
+                                                    <?php }?>
+                                                </span>
+
+
+                                            </div>
+                                            <span class="input-group-btn"><button type="submit" class="btn btn-primary" id="_face" style="padding: 0;"> 上传 </button></span>
+                                            <span class="input-group-btn tipSpan" style="width: 30px;"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center;width:120px;height: 60px;">banner</th>
+                                    <td style="">
+                                        <div class="col-xs-12 col-sm-12 input-group">
+                                            <div class="input-xs" id="com_banner">
+                                                <?php if($firm['banner']){ ?>
+                                                <?php $banner =  explode(',',$firm['banner']) ; ?>
+                                                <?php foreach ($banner as $v){?>
+                                                <span>
+                                                    <img src="<?php echo $v ;?>" alt="企业banner" style="height: 50px;">
+                                                    <span class="close-span">X</span>
+                                                </span>
+
+                                                <?php }?>
+                                                <?php }?>
+
+                                            </div>
+                                            <span class="input-group-btn"><button type="submit" class="btn btn-primary" id="_banner" style="padding: 0;"> 上传 </button></span>
+                                            <span class="input-group-btn tipSpan" style="width: 30px;"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center;width:120px">主营</th>
+                                    <td style="" id="area">
+                                        <div class="col-xs-12 col-sm-12 input-group">
+                                            <textarea class="col-xs-12" style="resize: none;" id="major" rows="3"><?php echo $firm['major']?></textarea>
+                                            <span class="input-group-btn tipSpan" style="width: 30px;"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center;width:120px">联系人</th>
+                                    <td style="">
+                                        <div class="col-xs-12 col-sm-12 input-group">
+                                            <input type="text" id="linkMan" value="<?php echo $firm['linkMan'] ;?>" class="form-control" />
+                                            <span class="input-group-btn" style="width: 30px;"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center;width:120px">手机</th>
+                                    <td style="">
+                                        <div class="col-xs-12 col-sm-12 input-group" style="margin-bottom: 5px;" id="_phone">
+                                            <?php $linkPhone =  explode(',',$firm['linkPhone']) ; ?>
+                                            <?php foreach ($linkPhone as $k=>$v){?>
+                                            <div class="input-group" style="margin-top: 2px;margin-bottom: 2px;" >
+                                                <input class="form-control" type="text" value="<?php echo $v ;?>"/>
+                                                <span class="input-group-btn"><button type="submit" class="btn <?php echo  $k==0 ? 'btn-primary' : 'btn-danger'?> checkInput" data-type="phone"> <?php echo  $k==0 ? '添加' : '删除'?> </button></span>
+                                                <span class="input-group-btn" style="width: 30px;"></span>
+                                            </div>
+                                            <?php }?>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center;width:120px">座机</th>
+                                    <td style="">
+                                        <div class="col-xs-12 col-sm-12 input-group" style="margin-bottom: 5px;" id="_tel">
+                                            <?php $linkTel =  explode(',',$firm['linkTel']) ; ?>
+                                            <?php foreach ($linkTel as $k=>$v){?>
+                                            <div class="input-group" style="margin-top: 2px;margin-bottom: 2px;">
+                                                <input class="form-control" type="text" value="<?php echo $v ;?>"/>
+                                                <span class="input-group-btn"><button type="submit" class="btn <?php echo  $k==0 ? 'btn-primary' : 'btn-danger'?> checkInput" data-type="tel"> <?php echo  $k==0 ? '添加' : '删除'?> </button></span>
+                                                <span class="input-group-btn" style="width: 30px;"></span>
+                                            </div>
+                                            <?php }?>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center;width:120px">QQ</th>
+                                    <td style="">
+                                        <div class="col-xs-12 col-sm-12 input-group" style="margin-bottom: 5px;" id="_qq">
+                                            <?php $qq =  explode(',',$firm['qq']) ; ?>
+                                            <?php foreach ($qq as $k=>$v){?>
+                                            <div class="input-group" style="margin-top: 2px;margin-bottom: 2px;">
+                                                <input class="form-control" type="text" value="<?php echo $v ;?>"/>
+                                                <span class="input-group-btn"><button type="submit" class="btn <?php echo  $k==0 ? 'btn-primary' : 'btn-danger'?> checkInput" data-type="qq"> <?php echo  $k==0 ? '添加' : '删除'?> </button></span>
+                                                <span class="input-group-btn" style="width: 30px;"></span>
+                                            </div>
+                                            <?php }?>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center;width:120px;height: 60px;">微信</th>
+                                    <td style="">
+                                        <input type="hidden" value="<?php echo $firm['face_pic'];?>" id="wx_pic"/>
+                                        <div class="col-xs-12 col-sm-12 input-group">
+                                            <div class="input-xs" id="com_wx">
+                                                <?php if($firm['wechat_pic']){?>
+                                                <img src="<?php echo $firm['wechat_pic'] ;?>" alt="企业微信" style="height: 50px;">
+                                                <?php }?>
+                                            </div>
+                                            <span class="input-group-btn"><button type="submit" class="btn btn-primary" id="_wx" style="padding: 0;"> 上传 </button></span>
+                                            <span class="input-group-btn tipSpan" style="width: 30px;"></span>
+                                        </div>
+
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center;width:120px;height: 60px;">企业坐标</th>
+                                    <td style="">
+                                        <div class="col-xs-12 col-sm-12 input-group" style="margin-bottom: 5px;">
+                                            <div class="col-xs-12 col-sm-12 input-group">
+                                                <input type="hidden" id="city" value="<?php echo isset($firm['city']) ? $firm['city'] : '' ;?>"/>
+                                                <input type="hidden" id="lng" value="<?php echo isset($firm['longitude']) ? $firm['longitude'] : '' ;?>"/>
+                                                <input type="hidden" id="lat" value="<?php echo isset($firm['latitude']) ? $firm['latitude'] : '' ;?>"/>
+                                                <input type="text" class="form-control input-xs" value="<?php echo $firm['coordinate']?>" id="position"/>
+                                                <span class="input-group-btn"><button type="submit" class="btn btn-primary" onclick="get_Position()"> 获取 </button></span>
+                                                <span class="input-group-btn tipSpan" style="width: 30px;"></span>
+                                            </div>
+                                        </div>
+                                        <div id="map" style=" padding-left: 0; margin-top: 5px;width: 320px;height: 200px;">企业坐标</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center;width:120px">详细地址</th>
+                                    <td style="">
+                                        <div class="col-xs-12 col-sm-12 input-group">
+                                            <textarea class="col-xs-12" style="resize: none;" id="address" rows="3"><?php echo $firm['address']?></textarea>
+                                            <span class="input-group-btn tipSpan" style="width: 30px;"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center;width:120px">企业介绍</th>
+                                    <td style="">
+                                        <div class="col-xs-12 col-sm-12 input-group">
+                                            <textarea class="col-xs-12" style="resize: none;" id="info" rows="3" ><?php echo $firm['info']?></textarea>
+
+                                            <span class="input-group-btn tipSpan" style="width: 30px;"></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <!--<div class="hr-line-dashed"></div>-->
+                                        <div class="col-xs-12 col-sm-12 input-group" style="text-align: center;">
+                                            <button class="btn btn-primary" type="submit" onclick="postData()">保存厂商</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <?php }else{?>
+                                <tr>
+                                    <td>获取业务员基本信息失败</td>
+                                </tr>
+                                <?php }?>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="/js/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="/js/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/js/webuploader/webuploader.js"></script>
+<!--弹窗js-->
+<script src="/js/hplus/js/plugins/layer/layer.min.js"></script>
+
+
+<!--自定义JS-->
+<script src="/js/plat/bmap/bmap.js"></script>
+<script src="/js/global.js"></script>
+<script>
+    var map = '';
+    $(function(){
+        showMap();
+        upImg('_face');
+        upImg('_banner');
+        upImg('_wx');
+        $('.checkInput').click(function () {
+            checkInput(this);
+        });
+        $('#findBusiness').click(function () {
+            ChoiceBusiness();
+        });
+        $('.close-span').click(function () {
+            delImg(this);
+        });
+    });
+    /**
+     * 解析地图
+     */
+    function showMap() {
+        var lng = $('#lng').val() ;
+        var lat = $('#lat').val() ;
+        var city    = $('#city').val();
+        if(lng && lat){
+            $("#map").attr('style','width: 360px;height: 180px;');
+            map = new BMap.Map("map");     // 创建Map实例
+            var point = new BMap.Point(lng, lat);
+            map.centerAndZoom(point, 16);       // 初始化地图,设置中心点坐标和地图级别
+            map.setCurrentCity(city);           // 设置地图显示的城市 此项是必须设置的
+            map.enableScrollWheelZoom(true);    //开启鼠标滚轮缩放
+            var marker = new BMap.Marker(point);// 创建标注
+            map.addOverlay(marker);             // 将标注添加到地图中
+            marker.disableDragging();           // 不可拖拽
+        }
+    }
+    /**
+     * 初始化图片上传
+     */
+    function upImg(btn) {
+        var BASE_URL = '';
+        var uploader = WebUploader.create({
+            auto: true,
+            duplicate:true,
+            // swf文件路径
+            swf: BASE_URL + '/js/webuploader/Uploader.swf',
+
+            // 文件接收服务端。
+            server: '/tools/baiduUpload',
+
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#'+btn,
+
+            // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+            resize: false,
+            // 只允许选择图片文件。
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                //mimeTypes: 'image/*'
+                mimeTypes: 'gif,jpg,jpeg,bmp,png'
+            }
+        });
+
+        //文件上传成功后的处理，在界面上的呈现，显示
+        uploader.on( 'uploadSuccess', function( file,response) {
+            if(btn == '_face'){
+                $('#face_pic').val(response.httpUrl);
+                $('#com_face').html('<span><img src="'+response.httpUrl+'" style="height: 50px;width: 80px;"/><span class="close-span" onclick="delImg(this)">X</span></span>');
+            }else if(btn == '_wx'){
+                $('#wx_pic').val(response.httpUrl);
+                $('#com_wx').html('<span><img src="'+response.httpUrl+'" style="height: 50px;width: 80px;"/><span onclick="delImg(this)" class="close-span">X</span></span>');
+            }else if(btn == '_banner'){
+                $('#com_banner').append('<span><img class="_banner" src="'+response.httpUrl+'" style="height: 50px;width: 80px; margin-right: 5px; margin-bottom: 5px;"/><span onclick="delImg(this)" class="close-span">X</span></span>');
+            }
+        });
+
+        /*uploader.addButton({
+            id: '#'+btn,
+            innerHTML: '上传'
+        });*/
+    }
+    /**
+     * 增加 减少输入框
+     * @param obj
+     */
+    function checkInput(obj) {
+        var j = $.trim($(obj).text());
+
+        if(j == "添加"){
+            var type = $(obj).attr('data-type');
+            console.log(type);
+            var div = '<div class="input-group" style="margin-top: 2px;margin-bottom: 2px;" >';
+            div += '<input type="text" class="form-control input-xs '+type+'"/>';
+            div += '<span class="input-group-btn"><button type="submit" class="btn btn-danger checkInput" data-type="'+type+'" onclick=checkInput(this)> 删除 </button></span>';
+            div += '<span class="input-group-btn" style="width: 30px;"></span>';
+            div += '</div>';
+            if(type == 'phone'){
+                $("#_phone").append(div);
+            }else if(type == 'tel'){
+                $("#_tel").append(div);
+
+            }else if(type == 'qq') {
+                $("#_qq").append(div);
+            }
+        }else if(j == "删除"){
+            $(obj).parent().parent().remove() ;
+        }
+    }
+
+    function changType(obj) {
+        var option = '';
+        if($(obj).val() == 1){
+            option    += '<option value="1">轿车商家</option>';
+            option    += '<option value="2">货车商家</option>';
+            option    += '<option value="3">用品商家</option>';
+            $('#_business').removeClass('hidden');
+            $('#_scale').addClass('hidden');
+            $('#_factry').addClass('hidden');
+        }else {
+            option    += '<option value="4">修理厂</option>';
+            option    += '<option value="5">快修保养</option>';
+            option    += '<option value="6">美容店</option>';
+            $('#_business').addClass('hidden');
+            $('#_scale').removeClass('hidden');
+            $('#_factry').removeClass('hidden');
+        }
+        changeClass();
+        $("#cfn").html(option);
+    }
+    function changeClass() {
+        $('#bns').text('');
+        $('#business').val('');
+    }
+    function ChoiceBusiness() {
+        var carType =  $("#cfn").val() ;
+        layer.open({
+            type: 2,
+            title: "选择经营范围",
+            shadeClose: true,
+            shift:2,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['530px', '95%'],
+            content: '/plat.firms/ChoiceBusiness?type='+carType
+        });
+    }
+    /**
+     * 提交数据
+     * @returns {boolean}
+     */
+    function postData() {
+        var errorImg    = '<img src="/images/plat/main/u62.png" style="width: 25px; border-radius: 15px; margin-left: 5px;">' ;
+        var successImg  = '<img src="/images/plat/main/u64.png" style="width: 25px; border-radius: 15px; margin-left: 5px;">' ;
+        var submit      = true ;
+        var data = {};
+        data.id         = $("#firmId").val() ;
+        data.comName    = $("#comName").val() ;
+        data.type       = $("#type").val() ;
+        data.cfn        = $("#cfn").val() ;
+        data.business   = $("#business").val() ;
+        data.scale      = $("#scale").val() ;
+        data.factry     = $("#factry").val() ;
+
+        data.face_pic   = $("#face_pic").val() ;
+        data.com_banner = getBanner() ;
+        data.major      = $("#major").val() ;
+        data.linkMan    = $("#linkMan").val() ;
+        data.linkPhone  = getVal('_phone') ;
+        data.linkTel    = getVal('_tel') ;
+        data.qq         = getVal('_qq') ;
+        data.wx_pic     = $("#wx_pic").val() ;
+        data.position   = $("#position").val() ;
+        data.lng        = $("#lng").val() ;
+        data.lat        = $("#lat").val() ;
+        data.address    = $("#address").val() ;
+        data.info       = $("#info").text() ;
+
+        if(!data.comName){
+            $("#comName").focus().next().html(errorImg);
+            submit = false ;
+            return false ;
+        }else{
+            $("#comName").next().html(successImg);
+        }
+
+        if(data.type == 1 && !data.business){
+            $("#bns").next().next().html(errorImg);
+            submit = false ;
+            window.location.href = '#business';
+            return false ;
+        }else{
+            $("#bns").next().next().html(successImg);
+        }
+
+        if(!data.lng || !data.lat){
+            $("#position").focus().next().next().html(errorImg);
+            submit = false ;
+            return false ;
+        }else{
+            $("#position").next().next().html(successImg);
+        }
+
+        if(!data.address){
+            $("#address").focus().next().html(errorImg);
+            submit = false ;
+            return false ;
+        }else {
+            $("#address").next().html(successImg);
+        }
+
+        if(submit){
+            var url = '/plat.firms/saveFirm' ;
+            var index = layer.load(2);
+            $.post(url,{data:data},function (rv) {
+                layer.close(index);
+                if(rv.massageCode == 'success'){
+                    layer.msg(rv.massage);
+                    setTimeout(function () {
+                        parent.parent.$('a.active').html('厂商详情-'+ data.comName + ' <i class="fa fa-times-circle"></i>');
+                        parent.layer.closeAll();
+                    },1500);
+
+                }else {
+                    layer.msg(rv.massage);
+                }
+            },'json')
+        }
+    }
+
+    function getVal(id) {
+        var val = '';
+        var ext = '';
+        $("#"+id).find('input[type=text]').each(function () {
+            val += ext + $(this).val();
+            ext  = ',';
+        });
+        return val ;
+    }
+
+    function delImg(obj) {
+        $(obj).parent().remove() ;
+    }
+    function getBanner() {
+        var banner = [];
+        $('#com_banner').find('img').each(function () {
+            banner.push($(this).attr('src'))
+        });
+        return banner ;
+    }
+</script>
+</body>
+</html>

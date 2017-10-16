@@ -1,0 +1,233 @@
+<link rel="stylesheet" href="/css/pc/index/buyView.css">
+<style>
+    a:hover{color: inherit}
+</style>
+<?php if($data && $data['status'] == 1){?>
+<div id="buyView">
+    <div class="buyView">
+        <div class="storeImgDiv">
+            <img src="<?php echo $firm['face_pic'];?>" class="storeImg" style="height: 120px;" alt="">
+        </div>
+        <div class="floLeftMarLeft8">
+            <div class="storeInfoDiv">
+                <div class="storeName" style="max-width: 155px;"><?php echo $firm['uname'];?></div>
+                <?php if($firm['vip_time'] && $firm['vip_time']>date("Y-m-d H:i:s")){?>
+                <img src="/images/qpxm/pc/person/shopInfo/v.png" class="floRight" alt="">
+                <?php }?>
+                <?php if($firm['is_check']==1){?>
+                <img src="/images/qpxm/pc/person/shopInfo/renZ.png" alt="">
+                <?php }?>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="storeTag">
+                货车商家
+            </div>
+            <div class="storeAdress">地址 ：<?php echo $firm['city'].'/'.$firm['district'];?></div>
+        </div>
+        <div style="clear: both;"></div>
+        <div class="marTop20">
+            <div class="btnGoDiv">
+                <a href="http://wpa.qq.com/msgrd?v=3&uin=&site=<?php echo $qqTel['QQ'];?>&menu=yes" target="_blank" style="">
+                    <img src="/images/qpxm/pc/person/shopInfo/qqRed.png" class="verAliSub" alt=""><span class="marLeft5" style="margin-left: 5px;">投诉</span>
+                </a>
+            </div>
+            <div class="btnGoDiv" style="cursor: pointer;" onclick="location.href='/def/store?ID=<?php echo $firm['EnterpriseID'];?>'">
+                <img src="/images/qpxm/pc/store/store.png" class="verAliSub" alt=""><span class="marLeft5">进入店铺</span>
+            </div>
+            <div class="floLeftMarleft40">
+                <?php if(isset($myCollectFirms) && in_array($firm['id'],$myCollectFirms)){ ?>
+                <a href="javascript:;" onclick="collectstore(2,this)"><img src="/images/qpxm/pc/store/xin.png" style="vertical-align: -webkit-baseline-middle" alt=""></a>
+                <?php }else{ ?>
+                <a href="javascript:;" onclick="collectstore(1,this)"><img src="/images/qpxm/pc/product/souCang.png" style="vertical-align: -webkit-baseline-middle" alt=""></a>
+                <?php } ?>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <div class="xian"></div>
+        <div>
+            <div class="h40LH40">
+                <span class="lianXiTitle">联系人：</span>
+                <div class="lianXiText"><?php echo $firm['linkMan'];?></div>
+            </div>
+            <div class="h40LH40">
+                <span class="lianXiTitle">手机：</span>
+                <div class="lianXiText"><?php echo $firm['linkPhone'];?></div>
+            </div>
+            <div class="h40LH40">
+                <span class="lianXiTitle">QQ：</span>
+                <div class="lianXiText">
+                    <?php if($firm['qq'] && count($firm['qq'])>0){?>
+                    <?php foreach($firm['qq'] as $v){?>
+                    <span style="margin-right: 15px;">
+                        <img src="/images/qpxm/pc/person/shopInfo/qq.png" class="verAliSub" alt="">
+                        <span><?php echo $v;?></span>
+                    </span>
+                    <?php }}?>
+                </div>
+            </div>
+            <div class="h40LH40">
+                <span class="lianXiTitle">微信：</span>
+                <div class="lianXiText" id="weiXin">
+                    <?php if($firm['wechat_pic']){?>
+                    <img src="<?php echo $firm['wechat_pic'];?>" style="width: 30px;" alt="">
+                    <?php }?>
+                </div>
+            </div>
+            <div class="xiaXian"></div>
+        </div>
+        <div>
+            <div class="renZhengText">认证信息</div>
+            <div class="renZhengList">
+                <?php if($firm['aubitStatus'] && $firm['aubitStatus']==1 && $firm['licence_pic']){?>
+                <img src="/images/qpxm/pc/product/renZYes.png" class="verAliSub" alt="">
+                <span style="color: #4DCD3A">营业执照</span>
+                <?php }else{?>
+                <img src="/images/qpxm/pc/product/renZNo.png" class="verAliSub" alt="">
+                <span style="color: #999">营业执照</span>
+                <?php }?>
+            </div>
+            <div class="renZhengList">
+                <?php if($firm['aubitStatus'] && $firm['aubitStatus']==1 && $firm['taxes_pic']){?>
+                <img src="/images/qpxm/pc/product/renZYes.png" class="verAliSub" alt="">
+                <span style="color: #4DCD3A">纳税认证</span>
+                <?php }else{?>
+                <img src="/images/qpxm/pc/product/renZNo.png" class="verAliSub" alt="">
+                <span style="color: #999">纳税认证</span>
+                <?php }?>
+            </div>
+            <div class="renZhengList" style="margin-right: 0;">
+                <?php if($firm['aubitStatus'] && $firm['aubitStatus']==1 && $firm['field_pic']){?>
+                <img src="/images/qpxm/pc/product/renZYes.png" class="verAliSub" alt="">
+                <span style="color: #999;">实地认证</span>
+                <?php }else{?>
+                <img src="/images/qpxm/pc/product/renZNo.png" class="verAliSub" alt="">
+                <span style="color: #999">纳税认证</span>
+                <?php }?>
+            </div>
+            <div class="renZhengList">
+                <?php if($firm['aubitStatus'] && $firm['aubitStatus']==1 && $firm['brand_pic']){?>
+                <img src="/images/qpxm/pc/product/renZYes.png" class="verAliSub" alt="">
+                <span style="color: #999;">商标认证</span>
+                <?php }else{?>
+                <img src="/images/qpxm/pc/product/renZNo.png" class="verAliSub" alt="">
+                <span style="color: #999">商标认证</span>
+                <?php }?>
+            </div>
+            <div class="renZhengList">
+                <?php if($firm['aubitStatus'] && $firm['aubitStatus']==1 && $firm['agents_pic']){?>
+                <img src="/images/qpxm/pc/product/renZYes.png" class="verAliSub" alt="">
+                <span style="color: #999;">产品代理认证</span>
+                <?php }else{?>
+                <img src="/images/qpxm/pc/product/renZNo.png" class="verAliSub" alt="">
+                <span style="color: #999">产品代理认证</span>
+                <?php }?>
+            </div>
+        </div>
+    </div>
+
+    <div class="right">
+        <!--经销商-->
+        <div class="shopXiangQing">
+            <?php $type=array('','轿车商家','货车商家','用品商家')?>
+            <div class="h25LH25"><span class="shopStoreName">经销商 :</span><span class="shopStoreText"><?php echo $type[$firm['type']]?></span></div>
+            <div class="h25LH25"><span class="shopStoreName">车&nbsp;&ensp;系 :</span><span class="shopStoreText"><?php echo $data['cheXi']['oneName'].'/'.$data['cheXi']['twoName'].'/'.$data['cheXi']['threeName'].'/'.$data['cheXi']['fourName']?></span></div>
+            <div class="h25LH25"><span class="shopStoreName">车架号 :</span><span class="shopStoreText"><?php echo $data['frame_number'];?></span></div>
+            <div class="shopTimeDiv"><span><?php echo $data['create_time'];?></span><span class="youXiaoQi">有效期:<?php echo $data['limitation'].'天';?></span></div>
+        </div>
+        <!--基本信息-->
+        <div class="jiBenXinXiDiv">
+            <div class="jiBenText">基本信息</div>
+            <div style="margin-bottom: 20px;">
+                <?php if(isset($data['pic']) && $data['pic']){?>
+                <?php foreach($data['pic'] as $v){?>
+                <div class="floLeftMarRight">
+                    <div class="jiBenImgDiv">
+                        <img src="<?php echo $v['pic_url'];?>" class="w88maxH88" alt="">
+                    </div>
+                </div>
+                <?php }}?>
+                <div style="clear: both;"></div>
+            </div>
+            <div>
+                <div style="width: 60px;float: left">备注 ：</div>
+                <div style="float: left;width: 700px;">
+                    <?php echo str_replace(array("\r\n", "\r", "\n"), "<br>", $data['memo']);?>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+        <!--采购清单-->
+        <div id="caiGouQingDan">
+            <div class="caiGouQingDanHader">
+                <span class="caiGouText">采购清单</span>
+                <button class="caiGouBtn" onclick="downExcel()">导出excel</button>
+            </div>
+            <div class="tableDiv">
+                <table class="width100">
+                    <tr>
+                        <td class="width100px">序号</td>
+                        <td class="width228">配件类型</td>
+                        <td class="width100px">数量</td>
+                        <td>备注</td>
+                    </tr>
+                    <?php if(isset($data['list']) && $data['list']){?>
+                    <?php foreach($data['list'] as $k=>$v){?>
+                    <tr>
+                        <td><?php echo $k+1;?></td>
+                        <td><?php echo $v['pro_cate1Name'].'/'.$v['pro_cate2Name'];?></td>
+                        <td><?php echo $v['amount'];?></td>
+                        <td class="beiZhuInfo">
+                            <?php echo $v['list_memo'];?>
+                        </td>
+                    </tr>
+                    <?php }}?>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+<?php }else{?>
+<div style="text-align: center;font-size: 24px;font-weight: bold;">该求购信息已经下架</div>
+<?php }?>
+<input type="hidden" value="<?php echo $firm['id']?>" id="id">
+<input type="hidden" value="<?php if(isset($data)){echo $data['id'];}?>" id="buyId">
+<input type="hidden" name="storeId" value="<?php echo $firm['id'];?>">
+<script src="/js/pc/layer/layer.js"></script>
+<script src="/js/global.js" type="text/javascript"></script>
+<script>
+    layer.photos({
+        photos: '#weiXin'
+        ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+    });
+    layer.photos({
+        photos: '.jiBenImgDiv'
+        ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+    });
+
+    function downExcel(){
+        var id = $('#buyId').val();
+        if(!id){
+            alert('参数不足,操作失败');
+            return;
+        }
+        location.href='/pc.product/downExcel?id='+id;
+    }
+
+    function collectstore(n,i) {
+        var storeId = $('input[name="storeId"]').val();
+        api.load('pc.firm','collectStore',{storeId:storeId,type:n},function (data) {
+            if(data['status']!==1){
+                layer.alert(data['msg'],{icon: data['status'],skin: 'layui-layer-rim'});
+            }else {
+                if(n===1){
+                    $(i).attr('onclick','collectstore(2,this)');
+                    $(i).find('img').attr('src','/images/qpxm/pc/store/xin.png')
+                }else {
+                    $(i).attr('onclick','collectstore(1,this)');
+                    $(i).find('img').attr('src','/images/qpxm/pc/product/souCang.png')
+                }
+            }
+        });
+    }
+</script>

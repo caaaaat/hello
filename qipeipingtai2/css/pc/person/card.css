@@ -1,0 +1,63 @@
+.cardImgDiv{width: 520px;height: 320px;margin: auto;margin-top: 20px;}
+.cardImg{width: 520px;height: 320px;}
+.caoZuoDiv{width: 520px;height: 222px;margin: auto;margin-top: 75px;}
+.xiaZai{color: #fff;background: #FF524B;width: 95px;height: 50px;border: none;border-radius: 5px;font-size: 18px;}
+.bianJi{float: right;color: #fff;background: #FF524B;width: 95px;height: 50px;border: none;border-radius: 5px;font-size: 18px;}
+.titles{height: 90px;line-height: 90px;margin-top: 15px;text-align: center;font-size: 20px;font-weight: bold;color: #5D5D5D}
+
+/*±à¼­ÃûÆ¬*/
+.goBackDiv{position: absolute;top: -20px;left: 30px;font-weight: normal}
+.padLeft15right20{padding-left: 15px;padding-right: 20px;}
+.marTop30{margin-top: 30px;}
+.marBottom18{margin-bottom: 18px;}
+.floLeftW450{width: 450px;float: left;}
+.cardName{height: 35px;line-height: 35px;float: left;width: 100px;font-size: 18px;font-weight: bold;color: #999;text-align: right;}
+.cardInput{border: 1px solid #DDD;float: left;width: 330px;height: 35px;margin-left: 20px;line-height: 35px;}
+.floRightW450{width: 450px;float: right;}
+.cardInfoImg{float: left;margin-left: 20px;width: 70px;height: 70px;}
+.floLeftPadTop20{float: left;padding-top: 20px;}
+.shangChuan{color: #FFF;width: 70px;height: 30px;background: #FE534B;margin-left: 20px;border: none;border-radius: 5px;}
+.cardImgXDiv{position: relative;width: 70px;height: 70px;float: left;margin-left: 20px;}
+.cardImgX{width: 70px;height: 70px;}
+.xImg{position: absolute;top: 2px;right: 2px;}
+input{padding-left: 10px;padding-right: 10px;}
+
+/*Ñ¡ÔñÄ£°å*/
+.fanWei{
+    padding-left: 15px;padding-right: 15px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    word-break: break-all;
+    overflow: hidden;
+    margin-top: 7px;
+}
+.liangHangHideen{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    word-break: break-all;
+    overflow: hidden;
+    width: 320px;
+}
+.padding30{padding: 30px;}
+.floLeft{float: left;}
+.cardInfoDivBody{width: 420px;height: 260px;background: url('/images/qpxm/pc/person/card.png');background-size: cover;color: white;position: relative;}
+.padding15size18{padding: 15px;font-size: 18px;}
+.paddLeft15PaddRight15{padding-left: 15px;padding-right: 15px;}
+.paddLeft15PaddRight15Martop7{padding-left: 15px;padding-right: 15px;margin-top: 7px;}
+.cardShengCheng{padding-left: 15px;padding-right: 15px;text-align: center}
+.erWeiMaRight{position: absolute;right: 15px;bottom: 40px;}
+.erWeiMaLeft{position: absolute;bottom: 40px;left: 15px;}
+.useCardSelect{margin: 0 auto;background: #FF5349;width: 100px;height: 40px;text-align: center;line-height: 40px;font-size: 16px;border-radius: 7px;margin-top: 15px;}
+.useCardSelect:hover{background: #FF0F02;cursor: pointer;}
+.useCardSelect:active{background: #FF5B53;}
+.icoImgs{width: 50px;height: 50px;border-radius: 50%;overflow: hidden;float: left;margin-left: 5px;}
+.icoImgs:first-child{margin-left: 0;}
+
+
+
+
+
+
+

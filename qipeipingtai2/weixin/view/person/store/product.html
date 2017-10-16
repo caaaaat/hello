@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>产品管理</title>
+    <link href="../../../css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../../css/common.css" type="text/css" charset="utf-8"/>
+    <link href="../../../css/swiper.css" rel="stylesheet"/>
+</head>
+<style>
+	.sw-payList:after{
+		height: 0;
+	}
+	.sw-after-l:after{
+		left: 0;
+	}
+	.sw-no-active,.sw-no-active:active{
+		background: #FFFFFF!important;
+	}
+	.sw-title-1{
+		width: 33.3%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+	}
+	.sw-title-2{
+		width: 50%;float: left;text-align: center;line-height: 42px;font-size: 14px;color: #666666;
+	}
+	.sw-title-box{
+		width: 100%;height: 42px;border-bottom: 1px solid #DDDDDD;background: #FFFFFF;
+	}
+	.sw-list-box{
+		width: 100%;height: 42px;background: #FFFFFF;
+	}
+	.sw-no-img:after,.sw-no-img:before{
+		height: 0;
+	}
+	.sw-rafter:after{
+		content: '';
+		height: 24px;
+		background: #EFEFEF;
+		margin-top: 9px;
+		width: 1px;
+		float: right;
+	}
+	.sw-header {
+		width: 100%;
+		height: 48px;
+		overflow: hidden;
+		font-size: 12px;
+		line-height: 48px;
+		background: #FFFFFF;
+		border-bottom: 1px solid #ccc;
+	}
+	
+	.sw-box-1{
+		width: 100%;font-size: 12px;color: #999999;padding: 4px 8px;border-bottom: #DDDDDD 1px solid;
+	}
+	.sw-box-2{
+		padding:8px 8px 4px;border-bottom: #DDDDDD 1px solid;position: relative;
+	}
+	.sw-box-3{
+		padding-left:108px;display: inline-block;position: absolute;margin-top:-2px;width: 100%;left: 0;
+	}
+	.sw-text1-1{
+		font-size: 14px;line-height: 28px;margin-bottom: 0;height: 28px;overflow: hidden;text-overflow: ellipsis;display: block;white-space: nowrap;padding-right: 6px;
+	}
+	.sw-text1-2{
+		font-size: 12px;line-height: 24px;margin-bottom: 0;overflow: hidden;text-overflow: ellipsis;display: block;height: 24px;white-space: nowrap;padding-right: 6px;
+	}
+	.sw-search-p{
+			    background: url(../../../image/index/icon_wz_sousuo@3x.png)no-repeat;
+			    width: 45px;
+			    height: 36px;
+			    margin: 0!important;
+			    background-size: 17px;
+			    position: absolute;
+			    top: 13px;
+			    background-position: center;
+			    margin-top: -50px;
+			    right: 66px; 
+		}
+	.sw-input-box{
+		width: 100%;background: #F5F5F5;padding-top: 10px;padding-bottom: 10px;text-align: center;border-bottom: 1px solid #DDDDDD;
+	}
+	.sw-input-search{
+		text-align: left;
+		height: 42px!important;		
+		padding-left: 20px!important;
+		width:90%!important;
+		margin-bottom: 0px!important;
+		border-radius: 24px!important;
+		font-size: 14px;
+		color: #666666;
+		padding-right: 40px; 
+		
+	}
+	
+	.mui-popup-button:after {
+    width: 0px;
+}
+.mui-popup-inner:after {
+    height: 0px;
+}
+.mui-popup-button:first-child:last-child {
+    border-radius: 4px;
+}
+.sw-popu-btn{
+	width:70%;height:36px;line-height:14px;border-radius: 1px;margin: auto;font-size: 16px;
+}	
+</style>
+<body style="background: #F5F5F5;">
+	
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    <h1 class="mui-title">产品管理</h1>
+	    <button class="mui-btn mui-btn-link mui-pull-right">刷新点：<span id="allRefresh"></span></button> 
+	</header>
+	
+	<div class="mui-content" style="background: #F5F5F5;">
+		<div style="position: fixed;top: 44px;z-index: 99;width: 100%;">
+			<div class="sw-title-box">
+		   		<div class="sw-title-1 sw-ctheme protype" onclick="reGetType('',this)">全部商品</div>
+		   		<div class="sw-title-1 protype" onclick="reGetType('新品促销',this)">新品促销</div>
+		   		<div class="sw-title-1 protype" onclick="reGetType('库存清仓',this)">库存清仓</div>
+		   		<input type="text" name="proType" id="proType" value="" hidden="hidden"/>
+		   </div>
+		   
+		   <div class="sw-title-box">
+		   		<div class="sw-title-2 sw-ctheme sw-rafter proStatus" onclick="reGetStatus('1',this)">上架中</div>
+		   		<div class="sw-title-2  proStatus" onclick="reGetStatus('2',this)">已下架</div>
+		   		<input type="text" name="proStatus" id="proStatus" value="1" hidden="hidden"/>
+		   </div>
+		   
+		   <div class="mui-input-row" style="width: 100%;background: #FAFAFA;text-align: center;">
+		   		<div class="mui-input-row sw-input-box" style="padding-right: 48px;"> 
+		        	<input type="text" placeholder="输入产品名称、品牌、适用车系查询" class="sw-input-search" id="keyword">
+		    		<p class="sw-search-p" onclick="searchKey()"></p>
+		    		<span onclick="goProductCate()" style="float: right;position: relative;margin-right: -40px;margin-top: 10px;font-size: 14px;color: #333333;">
+		    			<img src="../../../image/person/store/icon_shaixuan.png" height="14px"  style="vertical-align: middle;"/> 筛选
+		    		</span>
+				 </div>
+		   </div>
+		</div>
+
+
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper"  style="margin-top:190px;padding-bottom: 50px;">
+
+			<div class="mui-scroll">
+
+				<!--数据列表-->
+				<ul id="conList" class="mui-table-view mui-table-view-chevron" style="    padding-top: 20px;padding-bottom: 20px;">
+
+				</ul>
+
+				<input value="1" hidden="hidden" id="page"/>
+
+
+			</div>
+
+		</div>
+
+
+	</div>	
+<!--在售商品-->
+<script id="sale-list-tpl"  type="text/html">
+	{{# var len = d.length; }}
+	{{# for(var i=0;i<len;i++){ }}
+	<div style="width: 100%;padding: 0 15px;margin-bottom: 10px;" id="child{{ d[i].proId }}">
+   		<div style="background: #FFFFFF;border: #DDDDDD 1px solid;">
+   			<div class="sw-box-1"><span>{{ d[i].pro_type }}</span><span style="float: right;">今日刷新：<span class="sw-ctheme" id="refresh{{ d[i].proId }}" data-refresh = "{{ d[i].proId }}">{{ d[i].pro_refresh }}</span></span></div>
+   			<div class="sw-box-2">
+   				<img src="{{ imgUrl+d[i].pro_pic }}" style="width: 92px;height: 92px;"/>  				
+   				<div class="sw-box-3">
+   					<p class="sw-text1-1 sw-ctheme">
+   						{{ d[i].proName }}
+   					</p>
+   					
+   					<p style="font-size: 12px;line-height: 24px;margin-bottom: 0;">
+   						<span style="color: #333;">类别：</span><span style="color: #666;">{{ d[i].cate_2_name }}</span>
+   					</p>
+   					
+   					<p class="sw-text1-2">
+   						<span style="color: #333;">车系：</span><span style="color: #666;">{{ d[i].car_group }}</span>
+   					</p>
+   					
+   					<p style="font-size: 12px;line-height: 22px;margin-bottom: 0;">
+   						<span style="color: #333;">价格：</span>
+   						{{# if(d[i].pro_price&&d[i].pro_price!=null){ }}
+   						<span style="color: #FF534C;font-size: 14px;">￥{{ d[i].pro_price }}</span>
+   						{{# }else{ }}
+   						<span style="color: #FF534C;font-size: 14px;">欢迎来电询价</span>
+   						{{# } }}
+   					</p>  					
+   				</div>  				
+   			</div>
+			<div class="sw-list-box">
+				<div class="sw-title-1 " onclick="offSale({{ d[i].proId }})">下架</div>
+				<div class="sw-title-1 sw-ctheme" onclick="delProduct({{ d[i].proId }})">删除</div>
+				<input type="number" name="delStatus{{ d[i].proId }}" id="delStatus{{ d[i].proId }}" value="1" hidden="hidden" />			
+				<div class="sw-title-1 sw-cbtheme" onclick="refreshProduct({{ d[i].proId }})">刷新</div>
+			</div>  			
+   		</div>
+   </div>
+   {{# } }}
+</script>
+
+<!--下架商品-->
+<script id="offSale-list-tpl"  type="text/html">
+	{{# var len = d.length; }}
+	{{# for(var i=0;i<len;i++){ }}
+	<div style="width: 100%;padding: 0 15px;margin-bottom: 10px;" id="child{{ d[i].proId }}">
+   		<div style="background: #FFFFFF;border: #DDDDDD 1px solid;">
+   			<div class="sw-box-1"><span>{{ d[i].pro_type }}</span><span style="float: right;">今日刷新：<span class="sw-ctheme">{{ d[i].pro_refresh }}</span></span></div>
+   			<div class="sw-box-2">
+   				<img src="{{ imgUrl+d[i].pro_pic }}" style="width: 92px;height: 92px;"/>  				
+   				<div class="sw-box-3">
+   					<p class="sw-text1-1 sw-ctheme">
+   						{{ d[i].proName }}
+   					</p>
+   					
+   					<p style="font-size: 12px;line-height: 24px;margin-bottom: 0;">
+   						<span style="color: #333;">类别：</span><span style="color: #666;">{{ d[i].cate_2_name }}</span>
+   					</p>
+   					
+   					<p class="sw-text1-2">
+   						<span style="color: #333;">车系：</span><span style="color: #666;">{{ d[i].car_group }}</span>
+   					</p>
+   					
+   					<p style="font-size: 12px;line-height: 22px;margin-bottom: 0;">
+   						<span style="color: #333;">价格：</span>
+   						{{# if(d[i].pro_price&&d[i].pro_price!=null){ }}
+   						<span style="color: #FF534C;font-size: 14px;">￥{{ d[i].pro_price }}</span>
+   						{{# }else{ }}
+   						<span style="color: #FF534C;font-size: 14px;">欢迎来电询价</span>
+   						{{# } }}
+   					</p>  					
+   				</div>  				
+   			</div>
+			<div class="sw-list-box">
+				<div class="sw-title-2 sw-cgtheme" onclick="productSale({{ d[i].proId }})">上架</div>
+				<div class="sw-title-2 sw-ctheme" onclick="delProduct({{ d[i].proId }})">删除</div>
+				<input type="number" name="delStatus{{ d[i].proId }}" id="delStatus{{ d[i].proId }}" value="1" hidden="hidden" />		 	
+			</div>				
+   		</div>
+   </div>
+   {{# } }}
+</script>
+</body>
+<script type="text/javascript" src="../../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../../js/global.js"></script>
+<script type="text/javascript" src="../../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../../js/laytpl/laytpl.js"></script>
+ <script type="text/javascript" charset="utf-8">
+	 mui.init({
+		 pullRefresh: {
+			 container: '#pullrefresh',
+			 up: {
+				 auto:true,
+				 contentrefresh: '正在加载...',
+				 contentnomore:'<div class="sw-footer"><span>我是有底线的</span></div>',
+				 callback: getStartList
+			 }
+		 }
+	 });
+
+
+	var noRefreshStatus = 1;
+	var refreshStatus = 1;
+	//mui plusReady
+	$(function() {
+		var pro_cate_2 = [];
+		JsonStorage.setItem('pro_cate_2',JSON.stringify(pro_cate_2));
+//		设置刷新dian
+		getRefresh();
+	})
+	 //从新开始加载数据   
+	 function getStartList(){ 	 	 
+	 	var page     = mui("#page")[0].value;//获取页数	 
+	 	var pro_type = mui("#proType")[0].value;
+	 	var proStatus = mui("#proStatus")[0].value;
+	 	var pro_cate_2 = JSON.parse(JsonStorage.getItem('pro_cate_2'));
+	 	
+	 	var keyword = mui("#keyword")[0].value; 
+	 	
+  		var token   = JsonStorage.getItem('token');
+							
+      	var data = {};  
+      	var postData = {};
+      		
+      		//请求的数据
+      		postData.page     = page;//请求的页码
+      		postData.pro_type = pro_type;//请求产品类型
+      		postData.pro_status = proStatus;//请求产品上下架 
+      		postData.keyword = keyword;
+      		postData.pro_cate_2 = pro_cate_2;
+      		     		
+      		sw.jcon(postData)
+      		postData.pageSize = 10;//每页显示数量 
+     		postData.token    = token;
+   		
+      		data.postData = postData;       		
+      		//页面相关数据
+      		data.mod      = 'api.sev.user';//模型
+      		data.fun      = 'getProducts';//方法
+      		data.tpl      = proStatus==1?'sale-list-tpl':'offSale-list-tpl';//列表模板     		      		
+      		data.listId   = 'productsCon';//列表容器  
+
+			//请求并处理数据
+  			loadInfo(data,true);	 	
+	 }	
+	
+	/**  
+	 * 重新获取数据 产品分类
+	 * @param {Object} type
+	 * @param {Object} j
+	 */
+ 	function reGetType(type,j){
+ 		if($(j).hasClass('sw-ctheme')==false){
+	 		$(".protype").removeClass('sw-ctheme');	
+	 		$(j).addClass('sw-ctheme');	
+			$("#proType").val(type); 			
+	 		//清空数据
+			$('#conList').html('');
+			mui("#page")[0].value=1;
+			mui('#pullrefresh').pullRefresh().refresh(true);
+			mui('#pullrefresh').pullRefresh().pullupLoading();
+ 		}		
+ 	}	
+ 	
+ 	/**  
+	 * 重新获取数据 上下架状态
+	 * @param {Object} status
+	 * @param {Object} j
+	 */
+ 	function reGetStatus(status,j){
+ 		if($(j).hasClass('sw-ctheme')==false){
+	 		$(".proStatus").removeClass('sw-ctheme');	
+	 		$(j).addClass('sw-ctheme');	
+			$("#proStatus").val(status); 			
+	 		//清空数据
+			$('#conList').html('');
+			mui("#page")[0].value=1;
+			mui('#pullrefresh').pullRefresh().refresh(true);
+			mui('#pullrefresh').pullRefresh().pullupLoading();
+ 		}		
+ 	}	
+ 	
+ 	//搜索关键字条件
+ 	function searchKey(){
+		$('#conList').html('');
+		mui("#page")[0].value=1;
+		mui('#pullrefresh').pullRefresh().refresh(true);
+		mui('#pullrefresh').pullRefresh().pullupLoading();
+ 	}
+ 	
+ 	//筛选产品分类
+ 	function goProductCate(){
+ 		openView('../../../view/person/store/productCate.html','person_store_productCate','pop-in');  		
+ 	}
+ 	
+ 	//产品下架
+ 	function offSale(productId){				
+		//加载弹窗
+		loading('下架中...'); 
+		var token      = JsonStorage.getItem('token');
+		
+		var postData    = {};
+        postData.token     = token;
+        postData.productId = productId;
+        
+		//如果已经登陆 获取登录后的数据
+		http.load('api.sev.user','productOffSale',postData,function(rData){//请求成功						
+			//关闭加载框
+			closeLoading();
+			setTimeout(function(){
+				sw.toast(rData.msg);  
+	 			if(rData.status==200){//保存成功
+	 				//下架成功从列表移除
+					var conId = '#child'+productId;
+					$(conId).remove();							
+	 			}
+			},300)		 			 
+ 		},function(xhr,type,errorThrown){//请求失败
+			//无网络提示
+			sw.toast('请求失败，服务器或网络异常'); 
+ 		})			
+ 	}
+ 	
+ 	
+ 	//产品上架
+ 	function productSale(productId){				
+		//加载弹窗
+		loading('上架中...'); 
+		var token      = JsonStorage.getItem('token');
+		
+		var postData    = {};
+        postData.token     = token;
+        postData.productId = productId;
+        
+		//如果已经登陆 获取登录后的数据
+		http.load('api.sev.user','productSale',postData,function(rData){//请求成功						
+			//关闭加载框
+			closeLoading();
+			setTimeout(function(){
+				sw.toast(rData.msg);  
+	 			if(rData.status==200){//保存成功 
+	 				//下架成功从列表移除
+					var conId = '#child'+productId;
+					$(conId).remove();							
+	 			} 
+			},300)		 			 
+ 		},function(xhr,type,errorThrown){//请求失败
+			//无网络提示
+			sw.toast('请求失败，服务器或网络异常'); 
+ 		})			
+ 	}
+ 	
+ 	
+ 	//删除产品
+ 	function delProduct(productId){		
+		mui.confirm('确认删除？删除后不可恢复', '&nbsp;', ['<span class="mui-popup-button mui-btn sw-popu-btn" style="color:#333">确认</span>','<span class="mui-popup-button mui-btn mui-btn-blue sw-popu-btn">取消</span>' ], function(e) {			
+			if (e.index == 1) {//确认
+				var delId = "#delStatus"+productId;
+			    if($(delId).val()==1){
+					$(delId).val(0)
+					//加载弹窗
+					var token      = JsonStorage.getItem('token');
+	   				
+					var postData    = {};
+			        postData.token      = token;
+			        postData.productId = productId;
+			        
+					//如果已经登陆 获取登录后的数据
+					http.load('api.sev.user','delProduct',postData,function(rData){//请求成功						
+						//关闭加载框
+						closeLoading();
+						setTimeout(function(){
+							sw.toast(rData.msg);  
+				 			if(rData.status==200){//保存成功
+				 				//下架成功从列表移除
+								var conId = '#child'+productId;
+								$(conId).remove();							
+				 			}else{
+				 				$(delId).val(1)
+				 			}
+						},300)		 			
+			 		},function(xhr,type,errorThrown){//请求失败
+			 			$(delId).val(1)
+						//无网络提示
+						sw.toast('请求失败，服务器或网络异常'); 
+			 		})	
+				}
+			}
+		},'div')
+		$('.mui-popup-button').css('font-size','16px');
+ 	}
+ 	
+ 	/**
+ 	 * 获取刷新点
+ 	 */
+ 	function getRefresh(){
+ 		//获取刷新点数量
+		var token      = JsonStorage.getItem('token');
+		var postData    = {};
+        postData.token      = token;        
+		//如果已经登陆 获取登录后的数据
+		http.load('api.sev.user','getRefresh',postData,function(rData){//请求成功									
+ 			if(rData.status==200){//保存成功
+ 				//根据刷新点提示
+ 				sw.jcon(rData);  
+				// 
+				if(rData.refresh_point>0){//刷新点充足
+					 $("#allRefresh").text(rData.refresh_point);
+				}else{//刷新点不住
+					$("#allRefresh").text(0);
+				}
+				
+ 			}else{
+ 				sw.toast(rData.msg);  
+ 			}	 			
+ 		},function(xhr,type,errorThrown){//请求失败
+ 			$(delId).val(1)
+			//无网络提示
+			sw.toast('请求失败，服务器或网络异常'); 
+ 		})
+ 	}
+ 	
+ 	/**
+ 	 * 刷新产品
+ 	 */
+ 	function refreshProduct(productId){
+ 		//获取刷新点数量
+		var token      = JsonStorage.getItem('token');
+		var postData    = {};
+        postData.token      = token;        
+		//如果已经登陆 获取登录后的数据
+		http.load('api.sev.user','getRefresh',postData,function(rData){//请求成功									
+ 			if(rData.status==200){//保存成功
+ 				//根据刷新点提示
+ 				sw.jcon(rData); 
+				// 
+				if(rData.refresh_point>0){//刷新点充足
+					 refresh(productId); 
+				}else{//刷新点不住
+					noRefresh();
+				}
+				
+ 			}else{
+ 				sw.toast(rData.msg);  
+ 			}	 			
+ 		},function(xhr,type,errorThrown){//请求失败
+ 			$(delId).val(1)
+			//无网络提示
+			sw.toast('请求失败，服务器或网络异常'); 
+ 		})			
+ 	}
+ 	
+ 	
+ 	/**
+ 	 * 刷新点不足
+ 	 */
+ 	function noRefresh(){
+ 		mui.confirm('刷新点不足，请充值', '&nbsp;', ['<span class="mui-popup-button mui-btn sw-popu-btn" style="color:#333">关闭</span>','<span class="mui-popup-button mui-btn mui-btn-blue sw-popu-btn">去充值</span>' ], function(e) {			
+			if (e.index == 3&&noRefreshStatus==1) {//确认
+				noRefreshStatus = 0;	
+				openView('../../../view/person/refresh/pay.html','person_refresh_pay','pop-in');
+				setTimeout(function(){
+					noRefreshStatus = 1;
+				},300)
+				
+			}
+		},'div')
+		$('.mui-popup-button').css('font-size','16px');
+ 	}
+ 	
+ 	/**
+ 	 * 刷新点足
+ 	 */
+ 	function refresh(productId){
+ 		mui.confirm('确认刷新？刷新1次将扣除1个刷新点', '&nbsp;', ['<span class="mui-popup-button mui-btn sw-popu-btn" style="color:#333">确认</span>','<span class="mui-popup-button mui-btn mui-btn-blue sw-popu-btn">取消</span>' ], function(e) {			
+			if (e.index == 1&&refreshStatus==1) {//确认
+				refreshStatus = 0;	
+				//加载弹窗
+				loading('刷新中...'); 
+				var token      = JsonStorage.getItem('token');
+				var postData    = {};
+		        postData.token     = token;
+		        postData.productId = productId;
+		        
+				//如果已经登陆 获取登录后的数据
+				http.load('api.sev.user','refreshProduct',postData,function(rData){//请求成功						
+					//关闭加载框
+					closeLoading();
+					sw.toast(rData.msg);  
+		 			if(rData.status==200){//刷新成功 
+		 				var newR = parseInt($("#refresh"+productId).text())+1;
+							$("#refresh"+productId).text(newR);
+							
+						var newAr = parseInt($("#allRefresh").text())-1;
+							newAr = newAr>0?newAr:0;
+							$("#allRefresh").text(newAr);						
+		 			} 
+	 			    refreshStatus = 1;	
+		 		},function(xhr,type,errorThrown){//请求失败
+		 			 refreshStatus = 1;	
+					//无网络提示
+					sw.toast('请求失败，服务器或网络异常'); 
+		 		})	
+			}
+		},'div')
+		$('.mui-popup-button').css('font-size','16px');
+ 	}
+ 	
+</script>
+</html> 

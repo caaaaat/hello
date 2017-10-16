@@ -1,0 +1,575 @@
+<link rel="stylesheet" href="/css/pc/person/shoping.css">
+
+<style>
+    /*.swiper-slide-active{color: #0099FF;}*/
+    /*#siIe1 input[name="file"]{background: red!important;width: 40px!important;height: 20px!important;}*/
+    #siIe1 div:last-child input{display: none;}
+    #siIe2 div:last-child input{display: none;}
+    #siIe3 div:last-child input{display: none;}
+    #siIe4 div:last-child input{display: none;}
+    #siIe5 div:last-child input{display: none;}
+    #siIe6 div:last-child input{display: none;}
+</style>
+
+<!--模态框 (选择车系)-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div id="alertDiv">
+                <div class="titleName">
+                    <span>选择车系</span>
+                </div>
+            </div>
+            <!--第一步-->
+            <div class="oneBu">
+                <div class="typeDiv">
+                    <div class="hei50line50">
+                        <div class="typeName typeNameActive">1、商家类型</div>
+                        <div class="typeName">2、分类</div>
+                        <div class="typeName">3、车系</div>
+                    </div>
+                    <div class="tableDiv">
+                        <table class="tableBor">
+                            <tr class="tableTr">
+                                <td class="tableTrTd">
+                                    <label class="tableLabel" onclick="checkThisOne(this)" style="position: relative;">
+                                        <div style="position: absolute;right: 0;top: 10px;">
+                                            <img class="checkOneImg" src="/images/qpxm/pc/product/yesCheck.png" width="16px" alt="">
+                                        </div>
+                                        <div class="floLeft">轿车商家</div>
+                                        <div class="floRight">
+                                            <input name="oneType" checked class="shangJiaType" data-id="1" type="radio">
+                                        </div>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr class="tableTr">
+                                <td class="tableTrTd">
+                                    <label class="tableLabel" onclick="checkThisOne(this)" style="position: relative;">
+                                        <div style="position: absolute;right: 0;top: 10px;">
+                                            <img class="checkOneImg" src="/images/qpxm/pc/product/noCheck.png" width="16px" alt="">
+                                        </div>
+                                        <div class="floLeft">货车商家</div>
+                                        <div class="floRight">
+                                            <input name="oneType" class="shangJiaType" data-id="2" type="radio">
+                                        </div>
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="alertBottom">
+                    <button type="button" class="btn btn-danger quXiao" onclick="$('#myModal').modal('hide')">取消</button>
+                    <button type="button" class="btn btn-danger nextBu" onclick="nextBu()">下一步</button>
+                </div>
+            </div>
+            <!--第二步开始-->
+            <div class="twoBu" style="display: none">
+                <div class="typeDiv">
+                    <div class="hei50line50">
+                        <div class="typeName typeNameActive">1、商家类型</div>
+                        <div class="typeName typeNameActive">2、分类</div>
+                        <div class="typeName">3、车系</div>
+                    </div>
+                    <!--分类选择-->
+                    <div class="fenLei">
+                        <a href="javascript:;"><img src="/images/qpxm/pc/register/right.png" class="xiangYou" onclick="xiangYou()" alt=""></a>
+                        <a href="javascript:;"><img src="/images/qpxm/pc/register/left.png" class="xiangZuo" onclick="xiangZuo()" alt=""></a>
+                        <div id="aaa" style="overflow: hidden">
+                            <div class="swiper-wrapper">
+                                <!--轿车商家一级分类-->
+                                <?php if($car_cate['cate_1']){?>
+                                <?php foreach($car_cate['cate_1'] as $v){?>
+                                <a href="javascript:;" data_id="<?php echo $v['id'];?>" style="display: none;" type="<?php echo $v['type'];?>" onclick="activeDiv(this)" class="swiper-slide carShopTypes carTypesShop<?php echo $v['type'];?>"><div class="seekTypes"><?php echo $v['name']?></div></a>
+                                <?php }}?>
+                                <!--货车商家一级分类-->
+                                <?php if($van_cate['cate_1']){?>
+                                <?php foreach($van_cate['cate_1'] as $v){?>
+                                <a href="javascript:;" data_id="<?php echo $v['id'];?>" style="display: none;" type="<?php echo $v['type'];?>" onclick="activeDiv(this)" class="swiper-slide carShopTypes carTypesShop<?php echo $v['type'];?>"><div class="seekTypes"><?php echo $v['name']?></div></a>
+                                <?php }}?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pading10">
+                        <!--轿车商家二级分类-->
+                        <?php if($car_cate['cate_2']){?>
+                        <div style="display: none;" pid="<?php echo $v['pid'];?>" data_id="<?php echo $v['id'];?>" class="carThreeType carThreeTypeDiv<?php echo $car_cate['cate_2'][0]['type'];?>">
+                        <?php foreach($car_cate['cate_2'] as $v){?>
+                            <div data_pid="<?php echo $v['pid'];?>" data_id="<?php echo $v['id'];?>" class="upImgsListDiv carThreeTypeList<?php echo $v['pid'];?>" style="display: none;">
+                                <label onclick="checkThis(this)" style="position: relative;">
+                                    <div style="position: absolute;top: 0;left: 0;">
+                                        <img class="checkImg" src="/images/qpxm/pc/product/noCheck.png" width="16px" alt="">
+                                    </div>
+                                    <img src="<?php echo $v['img'];?>" class="upImgs" alt="">
+                                    <div class="textCenter"><?php echo $v['name']?></div>
+                                    <div class="xuanZhong">
+                                        <input type="radio" name="types" class="inputs" value="<?php echo $v['id'];?>">
+                                    </div>
+                                </label>
+
+                            </div>
+                            <?php }?>
+                        </div>
+                        <?php }?>
+                        <!--货车商家二级分类-->
+                        <?php if($van_cate['cate_2']){?>
+                        <div style="display: none;" pid="<?php echo $v['pid'];?>" data_id="<?php echo $v['id'];?>" class="carThreeType carThreeTypeDiv<?php echo $van_cate['cate_2'][0]['type'];?>">
+                        <?php foreach($van_cate['cate_2'] as $v){?>
+                            <div data_pid="<?php echo $v['pid'];?>" data_id="<?php echo $v['id'];?>" class="upImgsListDiv carThreeTypeList<?php echo $v['pid'];?>" style="display: none;">
+                                <label onclick="checkThis(this)" style="position: relative;">
+                                    <div style="position: absolute;top: 0;left: 0;">
+                                        <img class="checkImg" src="/images/qpxm/pc/product/noCheck.png" width="16px" alt="">
+                                    </div>
+                                    <img src="<?php echo $v['img'];?>" class="upImgs" alt="">
+                                    <div class="textCenter"><?php echo $v['name'];?></div>
+                                    <div class="xuanZhong">
+                                        <input type="radio" name="types" class="inputs" value="<?php echo $v['id'];?>">
+                                    </div>
+                                </label>
+                            </div>
+                            <?php }?>
+                        </div>
+                        <?php }?>
+                        <div style="clear: both"></div>
+                    </div>
+                </div>
+                <div class="alertBottom">
+                    <button type="button" class="btn btn-danger quXiao" onclick="prevBu()">上一步</button>
+                    <button type="button" class="btn btn-danger nextBu" onclick="nextNextBu()">下一步</button>
+                </div>
+            </div>
+            <!--第三步    -->
+            <div class="threeBu" style="display: none">
+                <div class="typeDiv" style="padding-bottom: 0;">
+                    <div class="hei50line50">
+                        <div class="typeName typeNameActive">1、商家类型</div>
+                        <div class="typeName typeNameActive">2、分类</div>
+                        <div class="typeName typeNameActive">3、车系</div>
+                    </div>
+                    <div style="padding: 0 20px 50px 20px;" id="threeFourType">
+
+                    </div>
+                    <div class="alertBottom">
+                        <button type="button" class="btn btn-danger quXiao" onclick="prevprevBu()">上一步</button>
+                        <button type="button" class="btn btn-danger nextBu" onclick="queDing()">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="titles" style="position: relative;">
+    <div class="goBackDiv"><a href="javascript:history.back(-1)"><img src="/images/qpxm/pc/person/shopInfo/left.png" style="vertical-align: baseline" alt=""> 返回</a></div>
+    <span style="font-size: 24px;font-weight: 500;">编辑求购</span>
+</div>
+
+<div id="xuanZeDiv">
+    <div class="hei25LineH25">
+        <?php $type=array('','轿车商家','货车商家','用品商家')?>
+        <div class="jiaCuRed">*商家：</div>
+        <div style="float: right;width: 705px;" id="shangjia">
+            <?php echo $type[$data['cheXi']['type']]?>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <div class="hei25LineH25" style="height: auto;">
+        <div class="jiaCuRed">*车系：</div>
+        <div style="float: right;width: 705px;" id="cheXi">
+            <?php echo $data['cheXi']['oneName'].'/'.$data['cheXi']['twoName'].'/'.$data['cheXi']['threeName'].'/'.$data['cheXi']['fourName']?>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <div class="hei25LineH25">
+        <div class="jiaCu" style="float: left;">车架号：</div>
+        <div style="float: right;width: 705px;" id="cheJiaHao">
+            <?php echo $data['frame_number'];?>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <div style="width: 250px;margin: 0 auto;margin-top: 10px;">
+        <div style="float: left;">
+            <button class="xuanZeBtn" onclick="layerKuang1()">选择车系</button>
+        </div>
+        <div style="float: right;">
+            <button class="xuanZeBtn" onclick="location.href='/def/vinQuery'">车架录入</button>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+</div>
+
+<!--选择时效-->
+<div id="shiXiao">
+    <div class="shiXiao">*时效 ：</div>
+    <div class="shiXiaoList" data_day="1">
+        <a href="javascript:;" token="1" onclick="companyType(this)">
+            <img src="<?php if($data['limitation']==1){echo '/images/qpxm/pc/person/vip/yesXuan.png';}else{echo '/images/qpxm/pc/person/vip/noXuan.png';};?>" class="shiXiaoImg" alt=""> 1天
+        </a>
+    </div>
+    <div class="shiXiaoList" data_day="2">
+        <a href="javascript:;" token="" onclick="companyType(this)">
+            <img src="<?php if($data['limitation']==2){echo '/images/qpxm/pc/person/vip/yesXuan.png';}else{echo '/images/qpxm/pc/person/vip/noXuan.png';};?>" class="shiXiaoImg" alt=""> 2天
+        </a>
+    </div>
+    <div class="shiXiaoList" data_day="3">
+        <a href="javascript:;" token="" onclick="companyType(this)">
+            <img src="<?php if($data['limitation']==3){echo '/images/qpxm/pc/person/vip/yesXuan.png';}else{echo '/images/qpxm/pc/person/vip/noXuan.png';};?>" class="shiXiaoImg" alt=""> 3天
+        </a>
+    </div>
+</div>
+<!--基本信息-->
+<div id="jinBenDiv">
+    <div>基本信息</div>
+    <!--VIN照片-->
+    <div class="hei90LineH15 vin_pic">
+        <div class="vinImg">VIN照片 ：</div>
+        <?php if($data['vin_pic']){?>
+        <div class="vinImgDiv upImgDivToken upImgDivToken1">
+            <img src="<?php echo $data['vin_pic'];?>" alt="">
+        </div>
+        <?php }else{?>
+        <div class="vinImgDiv upImgDivToken upImgDivToken1" style='background: url("/images/qpxm/pc/person/approveInfo/bgImg.png");'>
+
+        </div>
+        <?php }?>
+        <div style="float: left;margin-left: 10px;">
+            <div id="siIe1" class="jiBenShangChuan" style="text-align: center;line-height: 20px;">上传</div>
+            <div><button class="jiBenShanChu" onclick="delPicture(this)">删除</button></div>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    <!--相关照片-->
+    <div class="hei90LineH15 pic_url">
+        <div class="vinImg">相关照片 ：</div>
+        <div style="float: right;width: 690px;">
+            <?php if(isset($data['pic']) && $data['pic']){?>
+            <!--VIN相关照片原本有5个，就回显5个-->
+            <?php if(count($data['pic'])==5){?>
+            <?php for($i=0;$i<count($data['pic']); ++$i){?>
+            <div class="vinImgDiv" style="height: auto">
+                <div class="upImgDivToken upImgDivToken<?php echo $i+2;?>" style="height: 88px;max-width: 88px;">
+                    <img src="<?php echo $data['pic'][$i]['pic_url'];?>" alt="">
+                </div>
+                <div>
+                    <div>
+                        <div class="jiBenShangChuan marTop10" id="siIe<?php echo $i+2;?>" style="float: left;text-align: center;line-height: 20px;">上传</div>
+                        <button class="jiBenShanChu marTop10floRight" onclick="delPicture(this)">删除</button>
+                    </div>
+                </div>
+            </div>
+            <?php }?>
+            <?php }else{?>
+            <!--VIN相关照片小于5个，补齐5个人输入框-->
+            <?php for($i=0;$i<count($data['pic']); ++$i){?>
+            <div class="vinImgDiv" style="height: auto">
+                <div class="upImgDivToken upImgDivToken<?php echo $i+2;?>" style="height: 88px;max-width: 88px;">
+                    <img src="<?php echo $data['pic'][$i]['pic_url'];?>" alt="">
+                </div>
+                <div>
+                    <div>
+                        <div class="jiBenShangChuan marTop10" id="siIe<?php echo $i+2;?>" style="float: left;text-align: center;line-height: 20px;">上传</div>
+                        <button class="jiBenShanChu marTop10floRight" onclick="delPicture(this)">删除</button>
+                    </div>
+                </div>
+            </div>
+            <?php }?>
+            <?php for($i=count($data['pic']);$i<5; ++$i){?>
+            <div class="vinImgDiv" style="height: auto">
+                <div class="upImgDivToken upImgDivToken<?php echo $i+2;?>" style="height: 88px;max-width: 88px;background: url('/images/qpxm/pc/person/approveInfo/bgImg.png')">
+
+                </div>
+                <div>
+                    <div>
+                        <div class="jiBenShangChuan marTop10" id="siIe<?php echo $i+2;?>" style="float: left;text-align: center;line-height: 20px;">上传</div>
+                        <button class="jiBenShanChu marTop10floRight" onclick="delPicture(this)">删除</button>
+                    </div>
+                </div>
+            </div>
+            <?php }?>
+            <?php }?>
+
+            <?php }else{?>
+            <?php for($i=0;$i<5; ++$i){?>
+            <div class="vinImgDiv" style="height: auto">
+                <div class="upImgDivToken upImgDivToken<?php echo $i+2;?>" style="height: 88px;max-width: 88px;background: url('/images/qpxm/pc/person/approveInfo/bgImg.png')">
+
+                </div>
+                <div>
+                    <div>
+                        <div class="jiBenShangChuan marTop10" id="siIe<?php echo $i+2;?>" style="float: left;text-align: center;line-height: 20px;">上传</div>
+                        <button class="jiBenShanChu marTop10floRight" onclick="delPicture(this)">删除</button>
+                    </div>
+                </div>
+            </div>
+            <?php }?>
+            <?php }?>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <div style="clear: both;"></div>
+    <!--备注-->
+    <div class="hei90LineH15">
+        <div class="vinImg">备注 ：</div>
+        <textarea name="" class="beiZhuArea" placeholder="尽可能的提供求购产品的车型信息：年款、排量等，方便经销商等精准的和您联系"><?php echo str_replace(array("\r\n", "\r", "\n"), "<br>", $data['memo']);?></textarea>
+    </div>
+</div>
+<!--采购清单-->
+<div id="qingDan">
+    <table>
+        <tr>
+            <td colspan="4">
+                <div class="qingDanText">采购清单</div>
+                <div class="tianJiaBtn"><button class="jiBenShangChuan" onclick="addQingDan()">添加</button></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="w210">配件类别</td>
+            <td class="w75">数量</td>
+            <td class="w400">备注</td>
+            <td class="w115">操作</td>
+        </tr>
+        <?php for($i=0; $i<count($data['list']); ++$i){?>
+        <tr class="want_buy_list">
+            <td>
+                <select name="" class="w95 oneTypeMoBan" onchange="oneTypeChang(this)">
+                    <?php if(isset($oneType) && $oneType){?>
+                    <?php foreach($oneType as $v){?>
+                    <option value="<?php echo $v['name'];?>" <?php if($v['name']==$data['list'][$i]['pro_cate1Name']){echo 'selected';}?> data_id="<?php echo $v['id'];?>"><?php echo $v['name'];?></option>
+                    <?php }}?>
+                </select>
+                <select name="" class="w95 TwoTypeMoBan">
+                    <?php foreach($data['list'][$i]['data2'] as $v){?>
+                    <option value="<?php echo $v['name'];?>" <?php if($v['name']==$data['list'][$i]['pro_cate2Name']){echo 'selected';}?> data_id="<?php echo $v['id'];?>"><?php echo $v['name'];?></option>
+                    <?php }?>
+                </select>
+            </td>
+            <td class="padLeft5PadRight5"><input type="number" value="<?php echo $data['list'][$i]['amount'];?>" class="w75TextCenter"></td>
+            <td class="padLeft5PadRight5"><input type="text" class="w100TextCenter" value="<?php echo $data['list'][$i]['list_memo'];?>"></td>
+            <td><button class="jiBenShanChu" style="margin-top: 0;" onclick="delQingDan(this)">删除</button></td>
+        </tr>
+        <?php }?>
+    </table>
+</div>
+
+<div style="margin: 0 auto;text-align: center;margin-bottom: 40px;">
+    <button class="tiJiao" onclick="tiJiaoSave()">提交</button>
+</div>
+<!--<div id="upImg" style="display: none;">上传</div>-->
+<!--配件一级分类数据-->
+<div id="oneTypeMoBan" style="display: none;">
+    <?php if(isset($oneType) && $oneType){?>
+    <?php foreach($oneType as $v){?>
+    <option value="<?php echo $v['name'];?>" data_id="<?php echo $v['id'];?>"><?php echo $v['name'];?></option>
+    <?php }}?>
+</div>
+<!--配件二级分类数据-->
+<div id="twoTypeMoBan" style="display: none;">
+    <?php if(isset($oneType) && $oneType && isset($twoFirstType) && $twoFirstType){?>
+    <?php foreach($twoFirstType as $v){?>
+    <option value="<?php echo $v['name'];?>" data_id="<?php echo $v['id'];?>"><?php echo $v['name'];?></option>
+    <?php }}?>
+</div>
+<input type="hidden" id="fourTypeId" value="<?php echo $data['cheXi']['fourId'];?>">
+<input type="hidden" id="companyType" value="<?php if(isset($type) && $type==1){echo $type;}elseif(isset($type) && $type==2){echo $type;}?>">
+<input type="hidden" id="imgTokens" value="">
+<input type="hidden" id="productId" value="<?php echo $data['id'];?>">
+<style>
+    /*.layui-layer-content{height: auto!important;}*/
+</style>
+<script src="/js/pc/layer/layer.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/pc/sendShop.js?v=1"></script>
+<script type="text/javascript" src="/js/webuploader-0.1.5/webuploader.js"></script>
+<script>
+    var isVin  = "<?php if(isset($vin)){echo 1;}?>";
+    var vinMsg = "<?php if(isset($vin)){echo $vin['msg'];}?>";
+    $(function(){
+        /*如果从VIN页面获取过来的数据，提示获取是否成功*/
+        if(isVin==1){
+            if(vinMsg){
+                layer.msg(vinMsg);
+            }
+        }
+        for(var i=1; i<7; i++){
+            picture(i);
+        }
+    });
+
+    function picture(i){
+        var siIe = '#siIe'+i;
+        var wordUploader = WebUploader.create({
+            // 选完文件后，是否自动上传。
+            auto: true,
+            // swf文件路径
+            swf: '/js/webuploader-0.1.5/Uploader.swf',
+            // 文件接收服务端。
+            server: '/tools/baiduUploadForHome',
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: siIe,
+            sendAsBinary: true,
+            // 只允许选择文件类型。
+            accept: {
+                title: 'Applications',
+                extensions: 'jpg,png,jpeg,png',
+                mimeTypes: '.jpg,.png,.jpeg,.png'
+            }
+        });
+
+        //文件上传成功后的处理，在界面上的呈现，显示
+        wordUploader.on('uploadSuccess', function (file, response) {
+            layer.closeAll('loading'); //关闭加载层
+            var imgToken = '.upImgDivToken'+i;
+            $(imgToken).html('');
+            var str = '<img src="'+ response.httpUrl +'" alt="">';
+            $(imgToken).css('background','');
+            $(imgToken).append(str);
+            layer.msg('上传成功');
+        });
+        //文件上传失败
+        wordUploader.on('uploadError', function (file, response) {
+            layer.closeAll('loading'); //关闭加载层
+            //失败提示
+            layer.msg('上传失败');
+        });
+        //文件上中
+        wordUploader.on('uploadProgress', function (file, percentage) {
+            layer.load(0, {shade: false});
+        });
+    }
+
+    /*添加分类列*/
+    function addQingDan(){
+        var oneOption = $('#oneTypeMoBan').html();
+        var twoOption = $('#twoTypeMoBan').html();
+        var str = '';
+        str += '<tr class="want_buy_list"><td><select name="" onchange="oneTypeChang(this)" class="w95 oneTypeMoBan">';
+        str += oneOption;
+        str += '<option value="">一级分类</option>';
+        str += '</select>';
+        str += '<select name="" class="w95 TwoTypeMoBan">';
+        str += twoOption;
+        str += '</select></td>';
+        str += '<td class="padLeft5PadRight5"><input type="number" value="1" class="w75TextCenter"></td>';
+        str += '<td class="padLeft5PadRight5"><input type="text" class="w100TextCenter"></td>';
+        str += '<td><button class="jiBenShanChu" onclick="delQingDan(this)" style="margin-top: 0;">删除</button></td></tr>';
+        $('#qingDan').find('table tr:last').after(str);
+    }
+
+    /*改变一级分类，更换二级分类数据*/
+    function oneTypeChang(obj){
+        var t = $(obj);
+        var data_id = t.find('option:selected').attr('data_id');
+        $.ajax({
+            url: "/pc.product/getTwoType",    //请求的url地址
+            dataType: "json",   //返回格式为json
+            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+            data: {"id": data_id},    //参数值
+            type: "POST",   //请求方式
+            success: function (req) {
+                if(req.status==1){
+                    t.parent().find('.TwoTypeMoBan').html('');
+                    if(req.list.length>0){
+                        var s = '';
+                        for(var i=0; i<req.list.length; ++i){
+                            s += '<option value="'+ req.list[i].name +'" data_id="'+ req.list[i].id +'">'+ req.list[i].name +'</option>';
+                        }
+                        t.parent().find('.TwoTypeMoBan').html(s);
+                    }else{
+                        var str = '<option value="" data_id="">没有数据</option>';
+                        t.parent().find('.TwoTypeMoBan').html(str);
+                    }
+                }else{
+                    var str = '<option value="" data_id="">没有数据</option>';
+                    t.parent().find('.TwoTypeMoBan').html(str);
+                }
+            }
+        });
+    }
+
+    /*提交求购数据*/
+    function tiJiaoSave(){
+        var data = {};
+        data.id = $('#productId').val();
+        if(!data.id){
+            layer.msg('关键信息获取失败');
+            return false;
+        }
+        var len = $('.shiXiaoList').length;
+        for(var i=0; i<len; ++i){
+            if($('.shiXiaoList').eq(i).find('a').attr('token')==1){
+                data.limitation = $('.shiXiaoList').eq(i).attr('data_day'); //时效
+                break;
+            }
+        }
+        data.car_group_id = $('#fourTypeId').val();                          //车系四级id
+        data.frame_number = $('#cheJiaHao').text();                          //车架号
+        data.vin_pic = '';
+        if($('.vin_pic').find('img').length>0){
+            data.vin_pic = $('.vin_pic').find('img').attr('src');               //VIN封面图片
+        }
+        var l = $('.pic_url').find('.vinImgDiv').length;
+        var pic_url = [];
+        for(var i=0; i<l; ++i){
+            var pic = $('.pic_url').find('.vinImgDiv').eq(i).find('img').attr('src');
+            if(pic){
+                pic_url.push(pic);
+            }
+        }
+        data.want_buy_pic = pic_url.join(",");                              //相关图片,'，'分割
+        data.memo = $('.beiZhuArea').val();                                 //备注说明
+        var length = $('.want_buy_list').length;
+        var wantList  = [];
+        var k =0;
+        for(var i=0; i<length; ++i){
+            var oneTypeId = $('.want_buy_list').eq(i).find('.oneTypeMoBan option:selected').attr('data_id');
+            var twoTypeId = $('.want_buy_list').eq(i).find('.TwoTypeMoBan option:selected').attr('data_id');
+            var num       = $('.want_buy_list').eq(i).find('input[type="number"]').val();
+            var list_memo = $('.want_buy_list').eq(i).find('input[type="text"]').val();
+            if(!twoTypeId){
+                layer.msg('第'+(Number(i)+1)+'条数据的配件类别数据不完整');
+                return false;
+            }
+            if(num>0){
+                //一级类型id '|want_list|' 二级类型id '|want_list|' 购买数量 '|want_list|' 备注说明
+                wantList[k] = oneTypeId+'|want_list|'+twoTypeId+'|want_list|'+num+'|want_list|'+list_memo;
+                k += 1;
+            }else{
+                layer.msg('请正确填写购买数量');
+                return false;
+            }
+        }
+        data.want_buy_list = wantList.join("#want_list#");              //"#want_list#" 连接数组
+        data.companyType   = $('#companyType').val();                   //选择的车系属于的商家类型
+        if(!data.car_group_id){
+            layer.msg('请选择车系');
+            return false;
+        }
+        if(!data.want_buy_list){
+            layer.msg('请至少添加一个采购清单');
+            return false;
+        }
+        console.log(data);
+        $.ajax({
+            url:"/pc.product/insertShopEidt",    //请求的url地址
+            dataType:"json",   //返回格式为json
+            async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+            data:{"data":data},    //参数值
+            type:"POST",   //请求方式
+            success:function(req){
+                if(req.status == 1){
+                    layer.msg('提交发布成功');
+                    setTimeout(function(){
+                        location.href='/person/shoping';
+                    },1000);
+                }else{
+                    layer.msg('提交失败');
+                    return false;
+                }
+            },
+            error:function(){
+                layer.msg('出错了');
+            }
+        });
+    }
+</script>
